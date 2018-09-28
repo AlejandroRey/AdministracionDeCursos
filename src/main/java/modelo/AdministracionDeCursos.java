@@ -8,12 +8,12 @@ import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.InstructorDAO;
 import persistencia.dao.interfaz.ClienteDAO;
 
-public class GestionCursos {
+public class AdministracionDeCursos {
 
 	private InstructorDAO instructor;
 	private ClienteDAO cliente;
 
-	public GestionCursos(DAOAbstractFactory metodo_persistencia) {
+	public AdministracionDeCursos(DAOAbstractFactory metodo_persistencia) {
 		this.instructor = metodo_persistencia.createInstructorDAO();
 		this.cliente = metodo_persistencia.createClienteDAO();
 	}
