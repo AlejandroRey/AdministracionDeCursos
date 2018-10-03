@@ -3,17 +3,16 @@ package dto;
 public class InstructorDTO {
 
 	private long idInstructor;
-	private long idUsuario;
 	private long idCursoTipo;
 	private String nombre;
 	private String apellido;
 	private String telefono;
 	private String email;
 	
-	public InstructorDTO(long idInstructor, long idUsuario, long idCursoTipo, String nombre, String apellido,
-			String telefono, String email) {
+	public InstructorDTO(long idInstructor, long idCursoTipo, String nombre, String apellido, String telefono,
+			String email) {
+		super();
 		this.idInstructor = idInstructor;
-		this.idUsuario = idUsuario;
 		this.idCursoTipo = idCursoTipo;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -33,20 +32,6 @@ public class InstructorDTO {
 	 */
 	public void setIdInstructor(long idInstructor) {
 		this.idInstructor = idInstructor;
-	}
-
-	/**
-	 * @return the idUsuario
-	 */
-	public long getIdUsuario() {
-		return idUsuario;
-	}
-
-	/**
-	 * @param idUsuario the idUsuario to set
-	 */
-	public void setIdUsuario(long idUsuario) {
-		this.idUsuario = idUsuario;
 	}
 
 	/**
@@ -124,9 +109,8 @@ public class InstructorDTO {
 	 */
 	@Override
 	public String toString() {
-		return "InstructorDTO [idInstructor= " + idInstructor + ", idUsuario= " + idUsuario + ", idCursoTipo= "
-				+ idCursoTipo + ", nombre= " + nombre + ", apellido= " + apellido + ", telefono= " + telefono + ", email= "
-				+ email + "]";
-	}
+		return "InstructorDTO [idInstructor= " + idInstructor + ", idCursoTipo= " + idCursoTipo + ", nombre= " + nombre
+				+ ", apellido= " + apellido + ", telefono= " + telefono + ", email= " + email + "]";
+	}	
 	
 }
