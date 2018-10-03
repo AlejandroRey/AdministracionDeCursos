@@ -11,6 +11,12 @@ public class InstructorCrudControlador {
 	public InstructorCrudControlador(InstructorCrudVista vista, AdministracionDeCursos modelo) {
 		this.vista = vista;
 		this.modelo = modelo;
+		
+		inicializar();
+	}
+
+	private void inicializar() {
+		this.vista.show();
 	}
 	
 

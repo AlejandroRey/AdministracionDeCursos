@@ -1,21 +1,24 @@
 package presentacion.vista;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import dto.CursoTipoDTO;
-import javax.swing.JTable;
+import persistencia.conexion.Conexion;
 
-@SuppressWarnings("serial")
-public class InstructorCrudVista extends JFrame {
+public class InstructorCrudVista {
 
-	private JPanel contentPane;
+	private JFrame frame;
 	
 	private JComboBox<CursoTipoDTO> cbxCursoTipoFiltro;
 	private JTable tblInstructores;
@@ -38,17 +41,15 @@ public class InstructorCrudVista extends JFrame {
 	 * Create the frame.
 	 */
 	public InstructorCrudVista() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 600);
-		
+		super();
 		inicializar();
 	}
 
 	private void inicializar() {
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		frame = new JFrame();
+		frame.setBounds(100, 100, 600, 600);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
 		
 		inicializarTabla();
 		inicializarEditor();		
@@ -57,22 +58,22 @@ public class InstructorCrudVista extends JFrame {
 	private void inicializarTabla() {
 		JLabel lblFiltro = new JLabel("Filtro:");
 		lblFiltro.setBounds(4, 14, 46, 14);
-		contentPane.add(lblFiltro);
+		frame.add(lblFiltro);
 		
 		cbxCursoTipoFiltro = new JComboBox<>();
 		cbxCursoTipoFiltro.setBounds(48, 11, 141, 20);
-		contentPane.add(cbxCursoTipoFiltro);
+		frame.add(cbxCursoTipoFiltro);
 
 		tblInstructores = new JTable();
 		tblInstructores.setBounds(4, 53, 574, 250);
-		contentPane.add(tblInstructores);
+		frame.add(tblInstructores);
 	}
 
 	private void inicializarEditor() {		
 		panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Instructor - Editor:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBounds(41, 326, 500, 224);
-		contentPane.add(panel);
+		frame.add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("id Instructor:");
@@ -144,6 +145,22 @@ public class InstructorCrudVista extends JFrame {
 		btnCerrar = new JButton("Cerrar");
 		btnCerrar.setBounds(370, 179, 89, 23);
 		panel.add(btnCerrar);
+	}
+	
+	public void show() {
+		this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que quieres salir de la Agenda!?",
+						"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+				if (confirm == 0) {
+					Conexion.getConexion().cerrarConexion();
+					System.exit(0);
+				}
+			}
+		});
+		this.frame.setVisible(true);
 	}
 
 	/**
