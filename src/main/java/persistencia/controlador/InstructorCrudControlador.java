@@ -1,5 +1,6 @@
 package persistencia.controlador;
 
+import dto.InstructorDTO;
 import modelo.AdministracionDeCursos;
 import presentacion.vista.InstructorCrudVista;
 
@@ -11,13 +12,19 @@ public class InstructorCrudControlador {
 	public InstructorCrudControlador(InstructorCrudVista vista, AdministracionDeCursos modelo) {
 		this.vista = vista;
 		this.modelo = modelo;
-		
-		inicializar();
 	}
 
-	private void inicializar() {
+	public void inicializar() {
 		this.vista.show();
 	}
 	
+	private void agregarInstructor() {
+		InstructorDTO instructor = null;
+		this.modelo.agregarInstructor(instructor);
+	}
+	
+	private void actualizarInstructor() {
+		
+	}
 
 }
