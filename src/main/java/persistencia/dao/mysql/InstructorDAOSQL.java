@@ -12,8 +12,8 @@ import persistencia.dao.interfaz.InstructorDAO;
 
 public class InstructorDAOSQL implements InstructorDAO {
 
-	private static final String insert = "INSERT INTO instructor (idCursoTipo, nombre, apellido, telefono, email) VALUES (?, ?, ?, ?, ?, ?)";
-	private static final String delete = "DELETE * FROM instructor WHERE idInstructor = ?";
+	private static final String insert = "INSERT INTO instructor (idCursoTipo, nombre, apellido, telefono, email) VALUES (?, ?, ?, ?, ?)";
+	private static final String delete = "DELETE FROM instructor WHERE idInstructor = ?";
 	private static final String update = "UPDATE instructor SET idCursoTipo = ?, nombre = ?, apellido = ?, telefono = ?, email = ? WHERE idInstructor = ?";
 	private static final String readall = "SELECT * FROM instructor";
 

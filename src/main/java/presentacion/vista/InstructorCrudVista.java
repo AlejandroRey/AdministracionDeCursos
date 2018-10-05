@@ -1,5 +1,6 @@
 package presentacion.vista;
 
+import java.awt.Component;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -9,19 +10,27 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 import dto.CursoTipoDTO;
 import persistencia.conexion.Conexion;
+import javax.swing.SwingConstants;
 
 public class InstructorCrudVista {
 
 	private JFrame frame;
 	
 	private JComboBox<CursoTipoDTO> cbxCursoTipoFiltro;
+	private JScrollPane spInstructores;
+	private DefaultTableModel modelInstructores;
 	private JTable tblInstructores;
+	private String[] nombreColumnas = {"id Inst", "id CursT", "Curso Tipo", "Nombre", "Apellido", "Telefono", "Email"};
 	
 	private JPanel panel;
 	
@@ -55,25 +64,41 @@ public class InstructorCrudVista {
 		inicializarEditor();		
 	}
 
+	@SuppressWarnings("serial")
 	private void inicializarTabla() {
 		JLabel lblFiltro = new JLabel("Filtro:");
 		lblFiltro.setBounds(4, 14, 46, 14);
-		frame.add(lblFiltro);
+		frame.getContentPane().add(lblFiltro);
 		
 		cbxCursoTipoFiltro = new JComboBox<>();
 		cbxCursoTipoFiltro.setBounds(48, 11, 141, 20);
-		frame.add(cbxCursoTipoFiltro);
-
-		tblInstructores = new JTable();
-		tblInstructores.setBounds(4, 53, 574, 250);
-		frame.add(tblInstructores);
+		frame.getContentPane().add(cbxCursoTipoFiltro);
+		
+		spInstructores = new JScrollPane();
+		spInstructores.setBounds(4, 53, 578, 250);
+		frame.getContentPane().add(spInstructores);
+		
+		modelInstructores = new DefaultTableModel(null, nombreColumnas);
+		tblInstructores = new JTable(modelInstructores){
+		    @Override
+		       public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+		           Component component = super.prepareRenderer(renderer, row, column);
+		           int rendererWidth = component.getPreferredSize().width;
+		           TableColumn tableColumn = getColumnModel().getColumn(column);
+		           tableColumn.setPreferredWidth(Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
+		           return component;
+		        }
+		    };
+		tblInstructores.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+		//tblInstructores.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);		
+		spInstructores.setViewportView(tblInstructores);		
 	}
 
 	private void inicializarEditor() {		
 		panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Instructor - Editor:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBounds(41, 326, 500, 224);
-		frame.add(panel);
+		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("id Instructor:");
@@ -99,6 +124,7 @@ public class InstructorCrudVista {
 		panel.add(lblNombre);
 		
 		textNombre = new JTextField();
+		textNombre.setHorizontalAlignment(SwingConstants.LEFT);
 		textNombre.setColumns(10);
 		textNombre.setBounds(97, 92, 141, 20);
 		panel.add(textNombre);
@@ -108,6 +134,7 @@ public class InstructorCrudVista {
 		panel.add(lblApellido);
 		
 		textApellido = new JTextField();
+		textApellido.setHorizontalAlignment(SwingConstants.LEFT);
 		textApellido.setColumns(10);
 		textApellido.setBounds(334, 92, 141, 20);
 		panel.add(textApellido);
@@ -117,6 +144,7 @@ public class InstructorCrudVista {
 		panel.add(lblTelefono);
 		
 		textTelefono = new JTextField();
+		textTelefono.setHorizontalAlignment(SwingConstants.LEFT);
 		textTelefono.setColumns(10);
 		textTelefono.setBounds(97, 123, 141, 20);
 		panel.add(textTelefono);
@@ -126,6 +154,7 @@ public class InstructorCrudVista {
 		panel.add(lblEmail);
 		
 		textEmail = new JTextField();
+		textEmail.setHorizontalAlignment(SwingConstants.LEFT);
 		textEmail.setColumns(10);
 		textEmail.setBounds(334, 120, 141, 20);
 		panel.add(textEmail);		
@@ -329,5 +358,33 @@ public class InstructorCrudVista {
 	 */
 	public void setBtnCerrar(JButton btnCerrar) {
 		this.btnCerrar = btnCerrar;
+	}
+
+	/**
+	 * @return the modelInstructores
+	 */
+	public DefaultTableModel getModelInstructores() {
+		return modelInstructores;
+	}
+
+	/**
+	 * @param modelInstructores the modelInstructores to set
+	 */
+	public void setModelInstructores(DefaultTableModel modelInstructores) {
+		this.modelInstructores = modelInstructores;
+	}
+
+	/**
+	 * @return the nombreColumnas
+	 */
+	public String[] getNombreColumnas() {
+		return nombreColumnas;
+	}
+
+	/**
+	 * @param nombreColumnas the nombreColumnas to set
+	 */
+	public void setNombreColumnas(String[] nombreColumnas) {
+		this.nombreColumnas = nombreColumnas;
 	}
 }

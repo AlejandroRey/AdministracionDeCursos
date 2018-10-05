@@ -43,7 +43,12 @@ public class CursoTipoDTO {
 	 */
 	@Override
 	public String toString() {
-		return "CursoTipoDTO [idCursoTipo= " + idCursoTipo + ", Nombre= " + nombre + "]";
+		return nombre;
+	}
+	
+	@Override
+	public boolean equals(Object cursoTipo) {
+	    return this.idCursoTipo == ((CursoTipoDTO) cursoTipo).idCursoTipo;
 	}
 
 }
