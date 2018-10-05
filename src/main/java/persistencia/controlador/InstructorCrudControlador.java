@@ -2,10 +2,12 @@ package persistencia.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListSelectionModel;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
@@ -131,38 +133,57 @@ public class InstructorCrudControlador implements ActionListener {
 	
 	private void actualizarInstructor() {
 		CursoTipoDTO cursoTipo = (CursoTipoDTO) this.vista.getCbxCursoTipo().getSelectedItem();
-		InstructorDTO instructor = new InstructorDTO(Long.parseLong(this.vista.getTextIdInstructor().getText()),
-									   cursoTipo.getIdCursoTipo(),
-									   this.vista.getTextNombre().getText(),
-									   this.vista.getTextApellido().getText(),
-									   this.vista.getTextTelefono().getText(),
-									   this.vista.getTextEmail().getText());
-		this.modelo.actualizarInstructor(instructor);
-		llenarTabla();	
+		if (cursoTipo.getIdCursoTipo() > 0) {
+			InstructorDTO instructor = new InstructorDTO(Long.parseLong(this.vista.getTextIdInstructor().getText()),
+					   cursoTipo.getIdCursoTipo(),
+					   this.vista.getTextNombre().getText(),
+					   this.vista.getTextApellido().getText(),
+					   this.vista.getTextTelefono().getText(),
+					   this.vista.getTextEmail().getText());
+			this.modelo.actualizarInstructor(instructor);
+			llenarTabla();
+		} else {
+        	JOptionPane.showMessageDialog(null, "Seleccione Curso Tipo correctamente!", "Informacion: " + "Curso Tipo", JOptionPane.INFORMATION_MESSAGE);
+        }
 	}
 
-	private void eliminarInstructor() {
-		CursoTipoDTO cursoTipo = (CursoTipoDTO) this.vista.getCbxCursoTipo().getSelectedItem();
-		InstructorDTO instructor = new InstructorDTO(Long.parseLong(this.vista.getTextIdInstructor().getText()),
-									   cursoTipo.getIdCursoTipo(),
-									   this.vista.getTextNombre().getText(),
-									   this.vista.getTextApellido().getText(),
-									   this.vista.getTextTelefono().getText(),
-									   this.vista.getTextEmail().getText());
-		this.modelo.borrarInstructor(instructor);
-		llenarTabla();
+	private void eliminarInstructor() {        
+        CursoTipoDTO cursoTipo = (CursoTipoDTO) this.vista.getCbxCursoTipo().getSelectedItem();
+        if (cursoTipo.getIdCursoTipo() > 0) {
+        	int dialogResult = JOptionPane.showConfirmDialog(null, "Se va a Eliminar el Instructor seleccionado!", "Confirma Eliminar Registro?", JOptionPane.YES_NO_OPTION);
+	        if (dialogResult == JOptionPane.YES_OPTION) {
+	            try {
+	        		InstructorDTO instructor = new InstructorDTO(Long.parseLong(this.vista.getTextIdInstructor().getText()),
+							   cursoTipo.getIdCursoTipo(),
+							   this.vista.getTextNombre().getText(),
+							   this.vista.getTextApellido().getText(),
+							   this.vista.getTextTelefono().getText(),
+							   this.vista.getTextEmail().getText());
+					this.modelo.borrarInstructor(instructor);
+					llenarTabla();
+	            } catch (Exception ex) {
+	                System.out.println(ex.getMessage());
+	            }
+	        }
+        } else {
+        	JOptionPane.showMessageDialog(null, "Seleccione Curso Tipo correctamente!", "Informacion: " + "Curso Tipo", JOptionPane.INFORMATION_MESSAGE);
+        }
 	}
 
 	private void agregarInstructor() {
 		CursoTipoDTO cursoTipo = (CursoTipoDTO) this.vista.getCbxCursoTipo().getSelectedItem();
-		InstructorDTO instructor = new InstructorDTO(0,
-									   cursoTipo.getIdCursoTipo(),
-									   this.vista.getTextNombre().getText(),
-									   this.vista.getTextApellido().getText(),
-									   this.vista.getTextTelefono().getText(),
-									   this.vista.getTextEmail().getText());		
-		this.modelo.agregarInstructor(instructor);
-		llenarTabla();
+		if (cursoTipo.getIdCursoTipo() > 0) {
+			InstructorDTO instructor = new InstructorDTO(0,
+										   cursoTipo.getIdCursoTipo(),
+										   this.vista.getTextNombre().getText(),
+										   this.vista.getTextApellido().getText(),
+										   this.vista.getTextTelefono().getText(),
+										   this.vista.getTextEmail().getText());		
+			this.modelo.agregarInstructor(instructor);
+			llenarTabla();
+		} else {
+			JOptionPane.showMessageDialog(null, "Seleccione Curso Tipo correctamente!", "Informacion: " + "Curso Tipo", JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 	
 	private void clearTextInputsBox() {

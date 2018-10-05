@@ -21,6 +21,9 @@ import javax.swing.table.TableColumn;
 import dto.CursoTipoDTO;
 import persistencia.conexion.Conexion;
 import javax.swing.SwingConstants;
+import javax.swing.JSeparator;
+import java.awt.Color;
+import javax.swing.UIManager;
 
 public class InstructorCrudVista {
 
@@ -75,7 +78,7 @@ public class InstructorCrudVista {
 		frame.getContentPane().add(cbxCursoTipoFiltro);
 		
 		spInstructores = new JScrollPane();
-		spInstructores.setBounds(4, 53, 578, 250);
+		spInstructores.setBounds(4, 53, 578, 308);
 		frame.getContentPane().add(spInstructores);
 		
 		modelInstructores = new DefaultTableModel(null, nombreColumnas);
@@ -96,84 +99,92 @@ public class InstructorCrudVista {
 
 	private void inicializarEditor() {		
 		panel = new JPanel();
-		panel.setBorder(new TitledBorder(null, "Instructor - Editor:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(41, 326, 500, 224);
+		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Instructor - Editor:", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
+		panel.setBounds(43, 380, 500, 170);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("id Instructor:");
-		lblNewLabel.setBounds(21, 30, 70, 14);
-		panel.add(lblNewLabel);
+		JLabel lblIdInstructor = new JLabel("id Instructor:");
+		lblIdInstructor.setVisible(false);
+		lblIdInstructor.setBounds(256, 22, 70, 14);
+		panel.add(lblIdInstructor);
 		
 		textIdInstructor = new JTextField();
-		textIdInstructor.setBounds(97, 30, 70, 20);
+		textIdInstructor.setBounds(332, 22, 70, 20);
+		textIdInstructor.setVisible(false);
 		textIdInstructor.setEnabled(false);
 		panel.add(textIdInstructor);
 		textIdInstructor.setColumns(10);
 		
 		JLabel lblCursoTipo = new JLabel("Curso Tipo:");
-		lblCursoTipo.setBounds(21, 61, 70, 14);
+		lblCursoTipo.setBounds(20, 22, 70, 14);
 		panel.add(lblCursoTipo);
 		
 		cbxCursoTipo = new JComboBox<>();
-		cbxCursoTipo.setBounds(97, 61, 141, 20);
+		cbxCursoTipo.setBounds(96, 22, 141, 20);
 		panel.add(cbxCursoTipo);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(21, 95, 70, 14);
+		lblNombre.setBounds(20, 56, 70, 14);
 		panel.add(lblNombre);
 		
 		textNombre = new JTextField();
 		textNombre.setHorizontalAlignment(SwingConstants.LEFT);
 		textNombre.setColumns(10);
-		textNombre.setBounds(97, 92, 141, 20);
+		textNombre.setBounds(96, 53, 141, 20);
 		panel.add(textNombre);
 		
 		JLabel lblApellido = new JLabel("Apellido");
-		lblApellido.setBounds(258, 95, 70, 14);
+		lblApellido.setBounds(257, 56, 70, 14);
 		panel.add(lblApellido);
 		
 		textApellido = new JTextField();
 		textApellido.setHorizontalAlignment(SwingConstants.LEFT);
 		textApellido.setColumns(10);
-		textApellido.setBounds(334, 92, 141, 20);
+		textApellido.setBounds(333, 53, 141, 20);
 		panel.add(textApellido);
 		
 		JLabel lblTelefono = new JLabel("Telefono");
-		lblTelefono.setBounds(21, 126, 70, 14);
+		lblTelefono.setBounds(20, 87, 70, 14);
 		panel.add(lblTelefono);
 		
 		textTelefono = new JTextField();
 		textTelefono.setHorizontalAlignment(SwingConstants.LEFT);
 		textTelefono.setColumns(10);
-		textTelefono.setBounds(97, 123, 141, 20);
+		textTelefono.setBounds(96, 84, 141, 20);
 		panel.add(textTelefono);
 		
 		JLabel lblEmail = new JLabel("Email:");
-		lblEmail.setBounds(258, 123, 70, 14);
+		lblEmail.setBounds(257, 84, 70, 14);
 		panel.add(lblEmail);
 		
 		textEmail = new JTextField();
 		textEmail.setHorizontalAlignment(SwingConstants.LEFT);
 		textEmail.setColumns(10);
-		textEmail.setBounds(334, 120, 141, 20);
+		textEmail.setBounds(333, 81, 141, 20);
 		panel.add(textEmail);		
 		
 		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(34, 179, 89, 23);
+		btnAgregar.setBounds(20, 136, 89, 23);
 		panel.add(btnAgregar);
 		
 		btnActualizar = new JButton("Actualizar");
-		btnActualizar.setBounds(146, 179, 89, 23);
+		btnActualizar.setBounds(145, 136, 89, 23);
 		panel.add(btnActualizar);
 		
 		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(258, 179, 89, 23);
+		btnEliminar.setBounds(262, 136, 89, 23);
 		panel.add(btnEliminar);
 		
 		btnCerrar = new JButton("Cerrar");
-		btnCerrar.setBounds(370, 179, 89, 23);
+		btnCerrar.setBounds(385, 136, 89, 23);
 		panel.add(btnCerrar);
+		
+		JSeparator separator = new JSeparator();
+		separator.setForeground(Color.BLUE);
+		separator.setBackground(Color.BLUE);
+		separator.setBounds(13, 372, 560, 1);
+		frame.getContentPane().add(separator);
 	}
 	
 	public void show() {
