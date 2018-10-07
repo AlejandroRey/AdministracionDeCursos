@@ -7,8 +7,6 @@ public interface DAOAbstractFactory {
 	public UsuarioDAO createUsuarioDAO();
 
 	public CategoriaDAO createCategoriaDAO();
-	
-	public InstructorDAO createInstructorDAO();
 
 	public CursoTipoDAO createCursoTipoDAO();
 	

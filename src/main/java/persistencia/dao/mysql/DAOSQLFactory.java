@@ -4,7 +4,6 @@ import persistencia.dao.interfaz.AlumnoDAO;
 import persistencia.dao.interfaz.CategoriaDAO;
 import persistencia.dao.interfaz.CursoTipoDAO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
-import persistencia.dao.interfaz.InstructorDAO;
 import persistencia.dao.interfaz.UsuarioDAO;
 
 public class DAOSQLFactory implements DAOAbstractFactory {
@@ -13,11 +12,6 @@ public class DAOSQLFactory implements DAOAbstractFactory {
 	 * 
 	 * @see persistencia.dao.interfaz.DAOAbstractFactory#createPersonaDAO()
 	 */
-	@Override
-	public InstructorDAO createInstructorDAO() {
-		return new InstructorDAOSQL();
-	}
-
 	@Override
 	public CursoTipoDAO createCursoTipoDAO() {
 		return new CursoTipoDAOSQL();

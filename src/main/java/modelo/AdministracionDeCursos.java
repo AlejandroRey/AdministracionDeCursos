@@ -5,21 +5,18 @@ import java.util.List;
 import dto.AlumnoDTO;
 import dto.CategoriaDTO;
 import dto.CursoTipoDTO;
-import dto.InstructorDTO;
 import dto.UsuarioDTO;
-import persistencia.dao.interfaz.DAOAbstractFactory;
-import persistencia.dao.interfaz.InstructorDAO;
 import persistencia.dao.interfaz.AlumnoDAO;
-import persistencia.dao.interfaz.UsuarioDAO;
 import persistencia.dao.interfaz.CategoriaDAO;
 import persistencia.dao.interfaz.CursoTipoDAO;
+import persistencia.dao.interfaz.DAOAbstractFactory;
+import persistencia.dao.interfaz.UsuarioDAO;
 
 public class AdministracionDeCursos {
 
 	private AlumnoDAO alumno;
 	private UsuarioDAO usuario;
 	private CategoriaDAO categoria;
-	private InstructorDAO instructor;
 	private CursoTipoDAO cursoTipo;
 
 	public AdministracionDeCursos(DAOAbstractFactory metodo_persistencia) {
@@ -27,7 +24,6 @@ public class AdministracionDeCursos {
 		this.alumno = metodo_persistencia.createAlumnoDAO();
 		this.usuario = metodo_persistencia.createUsuarioDAO();		
 		this.categoria = metodo_persistencia.createCategoriaDAO();
-		this.instructor = metodo_persistencia.createInstructorDAO();
 		this.cursoTipo = metodo_persistencia.createCursoTipoDAO();
 	}
 	
@@ -69,26 +65,6 @@ public class AdministracionDeCursos {
 	
 	public List<UsuarioDTO> obtenerUsuarios() {
 		return this.usuario.readAll();
-	}
-	
-	/* ****************************************************************
-	 *                         Instructor
-	 * ****************************************************************
-	 */
-	public void agregarInstructor(InstructorDTO nuevoInstructor) {
-		this.instructor.insert(nuevoInstructor);
-	}
-
-	public void borrarInstructor(InstructorDTO instructor_a_eliminar) {
-		this.instructor.delete(instructor_a_eliminar);
-	}
-	
-	public void actualizarInstructor(InstructorDTO instructor_a_actualizar) {
-		this.instructor.update(instructor_a_actualizar);
-	}
-	
-	public List<InstructorDTO> obtenerInstructores() {
-		return this.instructor.readAll();
 	}
 	
 	/* ****************************************************************
