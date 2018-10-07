@@ -8,8 +8,10 @@ import dto.AlumnoDTO;
 import dto.CategoriaDTO;
 import dto.UsuarioDTO;
 import modelo.AdministracionDeCursos;
+import persistencia.controlador.AlumnoCrudControlador;
 import persistencia.controlador.UsuarioCrudControlador;
 import persistencia.dao.mysql.DAOSQLFactory;
+import presentacion.vista.AlumnoCrudVista;
 import presentacion.vista.UsuarioCrudVista;
 
 public class Main {
@@ -42,8 +44,9 @@ public class Main {
 		}
 
 		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
-		UsuarioCrudVista vista = new UsuarioCrudVista();
-		UsuarioCrudControlador ctrl = new UsuarioCrudControlador(vista, modelo);		
+		AlumnoCrudVista vista = new AlumnoCrudVista();
+//		UsuarioCrudVista vista = new UsuarioCrudVista();
+		AlumnoCrudControlador ctrl = new AlumnoCrudControlador(vista, modelo);		
 		ctrl.inicializar();
 		
 		for (AlumnoDTO alumno : modelo.obtenerAlumnos()) {
