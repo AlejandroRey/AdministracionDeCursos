@@ -19,6 +19,9 @@
 -- Table structure for table `alumno`
 --
 
+CREATE SCHEMA IF NOT EXISTS `gestiondecursos` DEFAULT CHARACTER SET utf8 ;
+USE `gestiondecursos` ;
+
 DROP TABLE IF EXISTS `alumno`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
