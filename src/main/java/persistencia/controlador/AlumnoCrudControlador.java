@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 import dto.AlumnoDTO;
 import modelo.AdministracionDeCursos;
+import persistencia.conexion.Conexion;
 import presentacion.vista.AlumnoCrudVista;
 
 public class AlumnoCrudControlador implements ActionListener {
@@ -92,9 +93,20 @@ public class AlumnoCrudControlador implements ActionListener {
 		} else if (e.getSource() == this.vista.getBtnEliminar()) {
 			eliminarAlumno();
 		} else if (e.getSource() == this.vista.getBtnCerrar()) {
+			cerrarVistaAlumno();
 		}
 	}
 	
+	private void cerrarVistaAlumno() {
+		int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que quieres salir de curso!?", "Confirmacion",
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+		if (confirm == 0) {
+			Conexion.getConexion().cerrarConexion();
+			this.vista.getFrame().dispose();
+		}
+		
+	}
+
 	private void actualizarAlumno() {
 		AlumnoDTO alumno = new AlumnoDTO(Long.parseLong(this.vista.getTextIdAlumno().getText()),
 				   this.vista.getTextNombre().getText(),

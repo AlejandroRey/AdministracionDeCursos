@@ -62,12 +62,12 @@ public class CursoCrudControlador implements ActionListener {
 		}
 
 //		// Oculto los id del Objeto
-//		this.vista.getTblCursos().getColumnModel().getColumn(0).setWidth(0);
-//		this.vista.getTblCursos().getColumnModel().getColumn(0).setMinWidth(0);
-//		this.vista.getTblCursos().getColumnModel().getColumn(0).setMaxWidth(0);
-//		this.vista.getTblCursos().getColumnModel().getColumn(0).setWidth(1);
-//		this.vista.getTblCursos().getColumnModel().getColumn(0).setMinWidth(1);
-//		this.vista.getTblCursos().getColumnModel().getColumn(0).setMaxWidth(1);
+		this.vista.getTblCursos().getColumnModel().getColumn(0).setWidth(0);
+		this.vista.getTblCursos().getColumnModel().getColumn(0).setMinWidth(0);
+		this.vista.getTblCursos().getColumnModel().getColumn(0).setMaxWidth(0);
+		this.vista.getTblCursos().getColumnModel().getColumn(0).setWidth(1);
+		this.vista.getTblCursos().getColumnModel().getColumn(0).setMinWidth(1);
+		this.vista.getTblCursos().getColumnModel().getColumn(0).setMaxWidth(1);
 
 		// Agrego listener para obtener los valores de la fila seleccionada
 		this.vista.getTblCursos().setSelectionModel(new ListSelectionModelCstm());

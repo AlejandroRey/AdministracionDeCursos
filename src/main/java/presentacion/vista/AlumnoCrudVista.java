@@ -177,7 +177,7 @@ public class AlumnoCrudVista {
 						"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 				if (confirm == 0) {
 					Conexion.getConexion().cerrarConexion();
-					System.exit(0);
+					frame.dispose();
 				}
 			}
 		});
@@ -343,6 +343,14 @@ public class AlumnoCrudVista {
 	 */
 	public JButton getBtnEliminar() {
 		return btnEliminar;
+	}
+
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
 	}
 
 	/**

@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import dto.CategoriaDTO;
 import dto.UsuarioDTO;
 import modelo.AdministracionDeCursos;
+import persistencia.conexion.Conexion;
 import presentacion.vista.UsuarioCrudVista;
 
 public class UsuarioCrudControlador implements ActionListener {
@@ -132,9 +133,19 @@ public class UsuarioCrudControlador implements ActionListener {
 		} else if (e.getSource() == this.vista.getBtnEliminar()) {
 			eliminarInstructor();
 		} else if (e.getSource() == this.vista.getBtnCerrar()) {
+			cerrarUsuarioVista();
 		}
 	}
 	
+	private void cerrarUsuarioVista() {
+		int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que quieres salir de curso!?", "Confirmacion",
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+		if (confirm == 0) {
+			Conexion.getConexion().cerrarConexion();
+			this.vista.getFrame().dispose();
+		}
+	}
+
 	private void actualizarInstructor() {
 		CategoriaDTO categoria = (CategoriaDTO) this.vista.getCbxCategoria().getSelectedItem();
 		if (categoria.getIdCategoria() > 0) {

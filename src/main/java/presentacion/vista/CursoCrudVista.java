@@ -176,7 +176,7 @@ public class CursoCrudVista {
 						"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 				if (confirm == 0) {
 					Conexion.getConexion().cerrarConexion();
-					System.exit(0);
+					frame.dispose();
 				}
 			}
 		});
