@@ -12,9 +12,9 @@ import persistencia.dao.interfaz.InstructorDAO;
 
 public class InstructorDAOSQL implements InstructorDAO {
 
-	private static final String insert = "INSERT INTO instructor (idUsuario, idCursoTipo, nombre, apellido, telefono, email) VALUES (?, ?, ?, ?, ?, ?, ?)";
-	private static final String delete = "DELETE * FROM instructor WHERE idInstructor = ?";
-	private static final String update = "UPDATE instructor SET idUsuario = ?, idCursoTipo = ?, nombre = ?, apellido = ?, telefono = ?, email = ? WHERE idInstructor = ?";
+	private static final String insert = "INSERT INTO instructor (idCursoTipo, nombre, apellido, telefono, email) VALUES (?, ?, ?, ?, ?)";
+	private static final String delete = "DELETE FROM instructor WHERE idInstructor = ?";
+	private static final String update = "UPDATE instructor SET idCursoTipo = ?, nombre = ?, apellido = ?, telefono = ?, email = ? WHERE idInstructor = ?";
 	private static final String readall = "SELECT * FROM instructor";
 
 	public boolean insert(InstructorDTO instructor) {
@@ -22,12 +22,11 @@ public class InstructorDAOSQL implements InstructorDAO {
 		Conexion conexion = Conexion.getConexion();
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(insert);
-			statement.setLong(1, instructor.getIdUsuario());
-			statement.setLong(2, instructor.getIdCursoTipo());
-			statement.setString(3, instructor.getNombre());
-			statement.setString(4, instructor.getApellido());
-			statement.setString(5, instructor.getTelefono());
-			statement.setString(6, instructor.getEmail());
+			statement.setLong(1, instructor.getIdCursoTipo());
+			statement.setString(2, instructor.getNombre());
+			statement.setString(3, instructor.getApellido());
+			statement.setString(4, instructor.getTelefono());
+			statement.setString(5, instructor.getEmail());
 			if (statement.executeUpdate() > 0) // True is successfully return
 				return true;
 		} catch (SQLException e) {
@@ -57,13 +56,12 @@ public class InstructorDAOSQL implements InstructorDAO {
 		Conexion conexion = Conexion.getConexion();
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(update);
-			statement.setLong(1, instructor.getIdUsuario());
-			statement.setLong(2, instructor.getIdCursoTipo());
-			statement.setString(3, instructor.getNombre());
-			statement.setString(4, instructor.getApellido());
-			statement.setString(5, instructor.getTelefono());
-			statement.setString(6, instructor.getEmail());
-			statement.setLong(7, instructor.getIdInstructor());
+			statement.setLong(1, instructor.getIdCursoTipo());
+			statement.setString(2, instructor.getNombre());
+			statement.setString(3, instructor.getApellido());
+			statement.setString(4, instructor.getTelefono());
+			statement.setString(5, instructor.getEmail());
+			statement.setLong(6, instructor.getIdInstructor());
 			if (statement.executeUpdate() > 0) // True is successfully return
 				return true;
 		} catch (SQLException e) {
@@ -83,7 +81,6 @@ public class InstructorDAOSQL implements InstructorDAO {
 			while (resultSet.next()) {
 				instructores.add(new InstructorDTO(
 								resultSet.getLong("idInstructor"), 
-								resultSet.getLong("idUsuario"),
 								resultSet.getLong("idCursoTipo"), 
 								resultSet.getString("nombre"),
 								resultSet.getString("apellido"), 

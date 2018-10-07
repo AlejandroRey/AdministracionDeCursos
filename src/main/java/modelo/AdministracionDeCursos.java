@@ -2,20 +2,73 @@ package modelo;
 
 import java.util.List;
 
-import dto.ClienteDTO;
+import dto.AlumnoDTO;
+import dto.CategoriaDTO;
+import dto.CursoTipoDTO;
 import dto.InstructorDTO;
+import dto.UsuarioDTO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.InstructorDAO;
-import persistencia.dao.interfaz.ClienteDAO;
+import persistencia.dao.interfaz.AlumnoDAO;
+import persistencia.dao.interfaz.UsuarioDAO;
+import persistencia.dao.interfaz.CategoriaDAO;
+import persistencia.dao.interfaz.CursoTipoDAO;
 
 public class AdministracionDeCursos {
 
+	private AlumnoDAO alumno;
+	private UsuarioDAO usuario;
+	private CategoriaDAO categoria;
 	private InstructorDAO instructor;
-	private ClienteDAO cliente;
+	private CursoTipoDAO cursoTipo;
 
 	public AdministracionDeCursos(DAOAbstractFactory metodo_persistencia) {
+		
+		this.alumno = metodo_persistencia.createAlumnoDAO();
+		this.usuario = metodo_persistencia.createUsuarioDAO();		
+		this.categoria = metodo_persistencia.createCategoriaDAO();
 		this.instructor = metodo_persistencia.createInstructorDAO();
-		this.cliente = metodo_persistencia.createClienteDAO();
+		this.cursoTipo = metodo_persistencia.createCursoTipoDAO();
+	}
+	
+	/* ****************************************************************
+	 *                         Usuario
+	 * ****************************************************************
+	 */
+	public void agregarAlumno(AlumnoDTO nuevoAlumno) {
+		this.alumno.insert(nuevoAlumno);
+	}
+
+	public void borrarAlumno(AlumnoDTO alumno_a_eliminar) {
+		this.alumno.delete(alumno_a_eliminar);
+	}
+	
+	public void actualizarAlumno(AlumnoDTO alumno_a_actualizar) {
+		this.alumno.update(alumno_a_actualizar);
+	}
+	
+	public List<AlumnoDTO> obtenerAlumnos() {
+		return this.alumno.readAll();
+	}
+	
+	/* ****************************************************************
+	 *                         Usuario
+	 * ****************************************************************
+	 */
+	public void agregarUsuario(UsuarioDTO nuevoUsuario) {
+		this.usuario.insert(nuevoUsuario);
+	}
+
+	public void borrarUsuario(UsuarioDTO usuario_a_eliminar) {
+		this.usuario.delete(usuario_a_eliminar);
+	}
+	
+	public void actualizarUsuario(UsuarioDTO usuario_a_actualizar) {
+		this.usuario.update(usuario_a_actualizar);
+	}
+	
+	public List<UsuarioDTO> obtenerUsuarios() {
+		return this.usuario.readAll();
 	}
 	
 	/* ****************************************************************
@@ -39,23 +92,19 @@ public class AdministracionDeCursos {
 	}
 	
 	/* ****************************************************************
-	 *                         Cliente
+	 *                         Categoria
 	 * ****************************************************************
 	 */
-	public void agregarInstructor(ClienteDTO nuevoCliente) {
-		this.cliente.insert(nuevoCliente);
-	}
-
-	public void borrarInstructor(ClienteDTO cliente_a_eliminar) {
-		this.cliente.delete(cliente_a_eliminar);
+	public List<CategoriaDTO> obtenerCategorias() {
+		return this.categoria.readAll();
 	}
 	
-	public void actualizarInstructor(ClienteDTO cliente_a_actualizar) {
-		this.cliente.update(cliente_a_actualizar);
+	/* ****************************************************************
+	 *                         CursoTipo
+	 * ****************************************************************
+	 */
+	public List<CursoTipoDTO> obtenerCursoTipos() {
+		return this.cursoTipo.readAll();
 	}
 	
-	public List<ClienteDTO> obtenerClientes() {
-		return this.cliente.readAll();
-	}
-
 }

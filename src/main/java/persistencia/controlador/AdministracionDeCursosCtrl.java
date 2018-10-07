@@ -36,8 +36,7 @@ public class AdministracionDeCursosCtrl implements ActionListener {
 
 		this.instructores_en_tabla = modelo.obtenerInstructores();
 		for (int i = 0; i < this.instructores_en_tabla.size(); i++) {
-			Object[] fila = { this.instructores_en_tabla.get(i).getIdInstructor(), 
-					          this.instructores_en_tabla.get(i).getIdUsuario(),
+			Object[] fila = { this.instructores_en_tabla.get(i).getIdInstructor(),
 							  this.instructores_en_tabla.get(i).getIdCursoTipo(),
 							  this.instructores_en_tabla.get(i).getNombre(),
 							  this.instructores_en_tabla.get(i).getApellido(),
