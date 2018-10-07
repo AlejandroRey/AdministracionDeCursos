@@ -4,10 +4,12 @@ import java.util.List;
 
 import dto.AlumnoDTO;
 import dto.CategoriaDTO;
+import dto.CursoDTO;
 import dto.CursoTipoDTO;
 import dto.UsuarioDTO;
 import persistencia.dao.interfaz.AlumnoDAO;
 import persistencia.dao.interfaz.CategoriaDAO;
+import persistencia.dao.interfaz.CursoDAO;
 import persistencia.dao.interfaz.CursoTipoDAO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.UsuarioDAO;
@@ -18,6 +20,7 @@ public class AdministracionDeCursos {
 	private UsuarioDAO usuario;
 	private CategoriaDAO categoria;
 	private CursoTipoDAO cursoTipo;
+	private CursoDAO curso;
 
 	public AdministracionDeCursos(DAOAbstractFactory metodo_persistencia) {
 		
@@ -25,10 +28,11 @@ public class AdministracionDeCursos {
 		this.usuario = metodo_persistencia.createUsuarioDAO();		
 		this.categoria = metodo_persistencia.createCategoriaDAO();
 		this.cursoTipo = metodo_persistencia.createCursoTipoDAO();
+		this.curso = metodo_persistencia.createCursoDAO();
 	}
 	
 	/* ****************************************************************
-	 *                         Usuario
+	 *                         Alumno
 	 * ****************************************************************
 	 */
 	public void agregarAlumno(AlumnoDTO nuevoAlumno) {
@@ -81,6 +85,26 @@ public class AdministracionDeCursos {
 	 */
 	public List<CursoTipoDTO> obtenerCursoTipos() {
 		return this.cursoTipo.readAll();
+	}
+	
+	/* ****************************************************************
+	 *                         Curso
+	 * ****************************************************************
+	 */
+	public void agregarCurso(CursoDTO nuevoCurso) {
+		this.curso.insert(nuevoCurso);
+	}
+
+	public void borrarCurso(CursoDTO curso_a_eliminar) {
+		this.curso.delete(curso_a_eliminar);
+	}
+	
+	public void actualizarCurso(CursoDTO curso_a_actualizar) {
+		this.curso.update(curso_a_actualizar);
+	}
+	
+	public List<CursoDTO> obtenerCursos() {
+		return this.curso.readAll();
 	}
 	
 }

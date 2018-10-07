@@ -4,13 +4,11 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import dto.AlumnoDTO;
-import dto.CategoriaDTO;
-import dto.UsuarioDTO;
 import modelo.AdministracionDeCursos;
-import persistencia.controlador.UsuarioCrudControlador;
+
+import persistencia.controlador.CursoCrudControlador;
 import persistencia.dao.mysql.DAOSQLFactory;
-import presentacion.vista.UsuarioCrudVista;
+import presentacion.vista.CursoCrudVista;
 
 public class Main {
 
@@ -42,21 +40,21 @@ public class Main {
 		}
 
 		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
-		UsuarioCrudVista vista = new UsuarioCrudVista();
-		UsuarioCrudControlador ctrl = new UsuarioCrudControlador(vista, modelo);		
+		CursoCrudVista vista = new CursoCrudVista();
+		CursoCrudControlador ctrl = new CursoCrudControlador(vista, modelo);		
 		ctrl.inicializar();
-		
-		for (AlumnoDTO alumno : modelo.obtenerAlumnos()) {
-			System.out.println(alumno.toString());
-		}
-		
-		for (UsuarioDTO usuario : modelo.obtenerUsuarios()) {
-			System.out.println(usuario.toString());
-		}
-		
-		for (CategoriaDTO categoria : modelo.obtenerCategorias()) {
-			System.out.println(categoria.toString());
-		}
+//		
+//		for (AlumnoDTO alumno : modelo.obtenerAlumnos()) {
+//			System.out.println(alumno.toString());
+//		}
+//		
+//		for (UsuarioDTO usuario : modelo.obtenerUsuarios()) {
+//			System.out.println(usuario.toString());
+//		}
+//		
+//		for (CategoriaDTO categoria : modelo.obtenerCategorias()) {
+//			System.out.println(categoria.toString());
+//		}
 		
 //		InstructorCrudVista vista = new InstructorCrudVista();
 //
@@ -66,5 +64,7 @@ public class Main {
 //		for (InstructorDTO i : modelo.obtenerInstructores()) {
 //			System.out.println(i.toString());
 //		}
+		
+
 	}
 }
