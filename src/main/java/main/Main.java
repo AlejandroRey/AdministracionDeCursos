@@ -9,6 +9,7 @@ import modelo.AdministracionDeCursos;
 import persistencia.controlador.CursoCrudControlador;
 import persistencia.dao.mysql.DAOSQLFactory;
 import presentacion.vista.CursoCrudVista;
+import presentacion.vista.MainVista;
 import presentacion.vista.TestTimePicker;
 
 public class Main {
@@ -42,12 +43,12 @@ public class Main {
         
         
 
-		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
-		CursoCrudVista vista = new CursoCrudVista();
-		CursoCrudControlador ctrl = new CursoCrudControlador(vista, modelo);		
-		for (ClaseDTO	clase : modelo.obtenerClases()) {
-			System.out.println(clase.toString());
-		}
+//		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
+//		CursoCrudVista vista = new CursoCrudVista();
+//		CursoCrudControlador ctrl = new CursoCrudControlador(vista, modelo);		
+//		for (ClaseDTO	clase : modelo.obtenerClases()) {
+//			System.out.println(clase.toString());
+//		}
 //		
 //		AlumnoCrudVista vista = new AlumnoCrudVista();
 //		AlumnoCrudControlador ctrl = new AlumnoCrudControlador(vista, modelo);	
@@ -55,9 +56,9 @@ public class Main {
 //		UsuarioCrudVista vista = new UsuarioCrudVista();
 //		UsuarioCrudControlador ctrl =  new UsuarioCrudControlador(vista, modelo);
 		
-		TestTimePicker t = new TestTimePicker();
-
-		ctrl.inicializar();
+//		TestTimePicker t = new TestTimePicker();
+//
+//		ctrl.inicializar();
 //		
 //		for (AlumnoDTO alumno : modelo.obtenerAlumnos()) {
 //			System.out.println(alumno.toString());
@@ -80,6 +81,9 @@ public class Main {
 //			System.out.println(i.toString());
 //		}
 		
+        MainVista mainVista = new MainVista();
+        mainVista.show();
+        
 
 	}
 }
