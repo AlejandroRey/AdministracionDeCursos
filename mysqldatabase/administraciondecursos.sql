@@ -276,7 +276,7 @@ CREATE TABLE IF NOT EXISTS `gestiondecursos`.`alumnoevento` (
   `idAlumnoEvento` INT NOT NULL AUTO_INCREMENT,
   `idAlumno` INT NOT NULL,
   `idUsuario` INT NOT NULL,
-  `cursosDeInteres` VARCHAR(255) NOT NULL,
+  `idCurso` INT NOT NULL,
   `descripcion` VARCHAR(255) NOT NULL,
   `fechaContactar` DATETIME NOT NULL,
   `fechaCreacion` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -284,6 +284,7 @@ CREATE TABLE IF NOT EXISTS `gestiondecursos`.`alumnoevento` (
   PRIMARY KEY (`idAlumnoEvento`),
   INDEX `fk_alumnoevento_alumno1_idx` (`idAlumno` ASC),
   INDEX `fk_alumnoevento_usuario1_idx` (`idUsuario` ASC),
+  INDEX `fk_alumnoevento_curso1_idx` (`idCurso` ASC),
   CONSTRAINT `fk_alumnoevento_alumno1`
     FOREIGN KEY (`idAlumno`)
     REFERENCES `gestiondecursos`.`alumno` (`idAlumno`)
@@ -292,6 +293,11 @@ CREATE TABLE IF NOT EXISTS `gestiondecursos`.`alumnoevento` (
   CONSTRAINT `fk_alumnoevento_usuario1`
     FOREIGN KEY (`idUsuario`)
     REFERENCES `gestiondecursos`.`usuario` (`idUsuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_alumnoevento_curso1`
+    FOREIGN KEY (`idCurso`)
+    REFERENCES `gestiondecursos`.`curso` (`idCurso`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

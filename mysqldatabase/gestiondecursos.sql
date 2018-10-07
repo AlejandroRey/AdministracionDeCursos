@@ -53,7 +53,7 @@ CREATE TABLE `alumnoevento` (
   `idAlumnoEvento` int(11) NOT NULL AUTO_INCREMENT,
   `idAlumno` int(11) NOT NULL,
   `idUsuario` int(11) NOT NULL,
-  `cursosDeInteres` varchar(255) NOT NULL,
+  `idCurso` int(11) NOT NULL,
   `descripcion` varchar(255) NOT NULL,
   `fechaContactar` datetime NOT NULL,
   `fechaCreacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -61,7 +61,9 @@ CREATE TABLE `alumnoevento` (
   PRIMARY KEY (`idAlumnoEvento`),
   KEY `fk_alumnoevento_alumno1_idx` (`idAlumno`),
   KEY `fk_alumnoevento_usuario1_idx` (`idUsuario`),
+  KEY `fk_alumnoevento_curso1_idx` (`idCurso`),
   CONSTRAINT `fk_alumnoevento_alumno1` FOREIGN KEY (`idAlumno`) REFERENCES `alumno` (`idAlumno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_alumnoevento_curso1` FOREIGN KEY (`idCurso`) REFERENCES `curso` (`idCurso`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_alumnoevento_usuario1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -600,4 +602,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-06 23:52:37
+-- Dump completed on 2018-10-07  0:28:16
