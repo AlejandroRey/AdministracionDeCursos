@@ -1,5 +1,6 @@
 package presentacion.vista;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -11,8 +12,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
@@ -20,10 +24,6 @@ import javax.swing.table.TableColumn;
 
 import dto.CursoTipoDTO;
 import persistencia.conexion.Conexion;
-import javax.swing.SwingConstants;
-import javax.swing.JSeparator;
-import java.awt.Color;
-import javax.swing.UIManager;
 
 public class InstructorCrudVista {
 
@@ -74,7 +74,7 @@ public class InstructorCrudVista {
 		frame.getContentPane().add(lblFiltro);
 		
 		cbxCursoTipoFiltro = new JComboBox<>();
-		cbxCursoTipoFiltro.setBounds(48, 11, 141, 20);
+		cbxCursoTipoFiltro.setBounds(48, 11, 105, 20);
 		frame.getContentPane().add(cbxCursoTipoFiltro);
 		
 		spInstructores = new JScrollPane();
