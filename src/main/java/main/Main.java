@@ -4,11 +4,26 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
+<<<<<<< HEAD
 import modelo.AdministracionDeCursos;
 
 import persistencia.controlador.CursoCrudControlador;
 import persistencia.dao.mysql.DAOSQLFactory;
 import presentacion.vista.CursoCrudVista;
+=======
+import dto.AlumnoDTO;
+import dto.CategoriaDTO;
+import dto.ClaseDTO;
+import dto.UsuarioDTO;
+import modelo.AdministracionDeCursos;
+import persistencia.controlador.AlumnoCrudControlador;
+import persistencia.controlador.UsuarioCrudControlador;
+import persistencia.dao.mysql.DAOSQLFactory;
+import presentacion.vista.AlumnoCrudVista;
+import presentacion.vista.InstructorCrudVista;
+import presentacion.vista.TestTimePicker;
+import presentacion.vista.UsuarioCrudVista;
+>>>>>>> alejandro
 
 public class Main {
 
@@ -38,10 +53,27 @@ public class Main {
 				| IllegalAccessException ex) {
 			System.out.println(ex.getMessage());
 		}
+        
+        
 
 		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
+<<<<<<< HEAD
 		CursoCrudVista vista = new CursoCrudVista();
 		CursoCrudControlador ctrl = new CursoCrudControlador(vista, modelo);		
+=======
+		for (ClaseDTO	clase : modelo.obtenerClases()) {
+			System.out.println(clase.toString());
+		}
+		
+//		AlumnoCrudVista vista = new AlumnoCrudVista();
+//		AlumnoCrudControlador ctrl = new AlumnoCrudControlador(vista, modelo);	
+		
+		UsuarioCrudVista vista = new UsuarioCrudVista();
+		UsuarioCrudControlador ctrl =  new UsuarioCrudControlador(vista, modelo);
+		
+		TestTimePicker t = new TestTimePicker();
+			
+>>>>>>> alejandro
 		ctrl.inicializar();
 //		
 //		for (AlumnoDTO alumno : modelo.obtenerAlumnos()) {

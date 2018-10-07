@@ -9,6 +9,8 @@ public interface DAOAbstractFactory {
 	public CategoriaDAO createCategoriaDAO();
 
 	public CursoTipoDAO createCursoTipoDAO();
+
+	public ClaseDAO createClaseDAO();
 	
 	public CursoDAO createCursoDAO();
 	

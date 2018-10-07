@@ -4,12 +4,20 @@ import java.util.List;
 
 import dto.AlumnoDTO;
 import dto.CategoriaDTO;
+<<<<<<< HEAD
 import dto.CursoDTO;
+=======
+import dto.ClaseDTO;
+>>>>>>> alejandro
 import dto.CursoTipoDTO;
 import dto.UsuarioDTO;
 import persistencia.dao.interfaz.AlumnoDAO;
 import persistencia.dao.interfaz.CategoriaDAO;
+<<<<<<< HEAD
 import persistencia.dao.interfaz.CursoDAO;
+=======
+import persistencia.dao.interfaz.ClaseDAO;
+>>>>>>> alejandro
 import persistencia.dao.interfaz.CursoTipoDAO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.UsuarioDAO;
@@ -20,7 +28,11 @@ public class AdministracionDeCursos {
 	private UsuarioDAO usuario;
 	private CategoriaDAO categoria;
 	private CursoTipoDAO cursoTipo;
+<<<<<<< HEAD
 	private CursoDAO curso;
+=======
+	private ClaseDAO clase;
+>>>>>>> alejandro
 
 	public AdministracionDeCursos(DAOAbstractFactory metodo_persistencia) {
 		
@@ -28,7 +40,11 @@ public class AdministracionDeCursos {
 		this.usuario = metodo_persistencia.createUsuarioDAO();		
 		this.categoria = metodo_persistencia.createCategoriaDAO();
 		this.cursoTipo = metodo_persistencia.createCursoTipoDAO();
+<<<<<<< HEAD
 		this.curso = metodo_persistencia.createCursoDAO();
+=======
+		this.clase = metodo_persistencia.createClaseDAO();
+>>>>>>> alejandro
 	}
 	
 	/* ****************************************************************
@@ -88,6 +104,7 @@ public class AdministracionDeCursos {
 	}
 	
 	/* ****************************************************************
+<<<<<<< HEAD
 	 *                         Curso
 	 * ****************************************************************
 	 */
@@ -105,6 +122,13 @@ public class AdministracionDeCursos {
 	
 	public List<CursoDTO> obtenerCursos() {
 		return this.curso.readAll();
+=======
+	 *                         Clase
+	 * ****************************************************************
+	 */
+	public List<ClaseDTO> obtenerClases() {
+		return this.clase.readAll();
+>>>>>>> alejandro
 	}
 	
 }
