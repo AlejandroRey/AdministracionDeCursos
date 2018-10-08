@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import modelo.AdministracionDeCursos;
 import presentacion.vista.CursadaCrudVista;
 import dto.CursadaDTO;
@@ -181,7 +183,31 @@ public class CursadaCrudControlador implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent event) {
 		
+		if(this.cursadaVista != null && event.getSource() == this.cursadaVista.BtnAceptar())
+		{
+			nuevaCursada();
+		}
+	}
+
+	private void nuevaCursada() {
+		EmpresaDTO empresa = (EmpresaDTO) cursadaVista.getCmBoxEmpresa().getSelectedItem();	
+		CursoDTO curso = (CursoDTO) cursadaVista.getCmBoxCurso().getSelectedItem();
+		UsuarioDTO instructor = (UsuarioDTO) cursadaVista.getCmBoxInstructor().getSelectedItem();
+		SalaDTO sala = (SalaDTO) cursadaVista.getCmBoxSala().getSelectedItem();
+		EstadoDeCursoDTO estadoCurso = (EstadoDeCursoDTO) cursadaVista.getCmBoxEstadoDeCurso().getSelectedItem();
+		
+		long idEmpresa = empresa.getIdEmpresa();
+		long idCurso = curso.getIdCurso();
+		long idInstructor = instructor.getIdUsuario();
+		long idSala = sala.getIdSala();
+		long idEstadoCurso = estadoCurso.getIdEstadoDeCurso(); 
+		int vacantes = Integer.parseInt(cursadaVista.getTxtVacantes().getText());
+		
+		CursadaDTO cursada = new CursadaDTO(0,idEmpresa,idCurso,idInstructor,idSala,idEstadoCurso,vacantes);
+		modelo.agregarCursada(cursada);
+		JOptionPane.showMessageDialog(null, "Se Agrego nueva cursada", "Nueva Cursada", JOptionPane.INFORMATION_MESSAGE);
+		llenarTablaCursadas();
 	}
 }
