@@ -2,7 +2,6 @@ package presentacion.vista;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -10,16 +9,19 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import java.awt.Component;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.table.TableCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
-import persistencia.conexion.Conexion;
 import javax.swing.border.TitledBorder;
+
+import dto.CursoDTO;
+import dto.EmpresaDTO;
+import dto.EstadoDeCursoDTO;
+import dto.SalaDTO;
+import dto.UsuarioDTO;
 
 public class CursadaCrudVista {
 	
@@ -34,11 +36,11 @@ public class CursadaCrudVista {
 	private Component lblInstructor;
 	private JLabel lblSala;
 	private JLabel lblCurso;
-	private JComboBox cmBoxCurso; //Falta DTO
-	private JComboBox cmBoxSala; //Falta DTO
-	private JComboBox cmBoxInstructor; //Falta DTO
-	private JComboBox cmBoxEstadoDeCurso; //Falta DTO
-	private JComboBox cmBoxEmpresa; //Falta DTO
+	private JComboBox<CursoDTO> cmBoxCurso; 
+	private JComboBox<SalaDTO> cmBoxSala; 
+	private JComboBox<UsuarioDTO> cmBoxInstructor; 
+	private JComboBox<EstadoDeCursoDTO> cmBoxEstadoDeCurso; 
+	private JComboBox<EmpresaDTO> cmBoxEmpresa; 
 	private JButton btnAceptar;
 	private JButton btnCancelar;
 	private JLabel lblCantidadDeVacantes;
@@ -88,23 +90,23 @@ public class CursadaCrudVista {
 	}
 
 	private void inicializeCmBox() {
-		cmBoxCurso = new JComboBox();
+		cmBoxCurso = new JComboBox<>();
 		cmBoxCurso.setBounds(109, 73, 139, 26);
 		cursadaPanel.add(cmBoxCurso);
 		
-		cmBoxSala = new JComboBox();
+		cmBoxSala = new JComboBox<>();
 		cmBoxSala.setBounds(109, 126, 139, 26);
 		cursadaPanel.add(cmBoxSala);
 		
-		cmBoxInstructor = new JComboBox();
+		cmBoxInstructor = new JComboBox<>();
 		cmBoxInstructor.setBounds(110, 176, 138, 26);
 		cursadaPanel.add(cmBoxInstructor);
 		
-		cmBoxEstadoDeCurso = new JComboBox();
+		cmBoxEstadoDeCurso = new JComboBox<>();
 		cmBoxEstadoDeCurso.setBounds(109, 234, 139, 26);
 		cursadaPanel.add(cmBoxEstadoDeCurso);
 		
-		cmBoxEmpresa = new JComboBox();
+		cmBoxEmpresa = new JComboBox<>();
 		cmBoxEmpresa.setBounds(109, 296, 139, 26);
 		cursadaPanel.add(cmBoxEmpresa);
 	}
@@ -142,6 +144,7 @@ public class CursadaCrudVista {
 		txtCantidadDeVacantes.setColumns(10);
 	}
 
+	@SuppressWarnings("serial")
 	private void inicializeTables()	{
 		
 		scrollCursadas_GeneradasPane = new JScrollPane();
@@ -162,25 +165,24 @@ public class CursadaCrudVista {
 		
 	}
 	
-	public JComboBox getCmBoxCurso() {
+	public JComboBox<CursoDTO> getCmBoxCurso() {
 		return this.cmBoxCurso;
 	}
 	
-	public JComboBox getCmBoxInstructor() {
+	public JComboBox<UsuarioDTO> getCmBoxInstructor() {
 		return this.cmBoxInstructor;
 	}
 	
 	
-	public JComboBox getCmBoxSala() {
+	public JComboBox<SalaDTO> getCmBoxSala() {
 		return this.cmBoxSala;
 	}
 	
-	public JComboBox getCmBoxEmpresa() {
+	public JComboBox<EmpresaDTO> getCmBoxEmpresa() {
 		return this.cmBoxEmpresa;
 	}
 	
-	
-	public JComboBox getCmBoxEstadoDeCurso() {
+	public JComboBox<EstadoDeCursoDTO> getCmBoxEstadoDeCurso() {
 		return this.cmBoxEstadoDeCurso;
 	}
 	
