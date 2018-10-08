@@ -1,4 +1,4 @@
-package presentacion.vista;
+package persistencia.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,11 +26,11 @@ public class CursadaCrudControlador implements ActionListener {
 		this.cursadaVista = vista;
 		this.modelo = modelo;
 		this.cursosLista = null;
-		this.cursadasLista = null;
+//		this.salasLista = null;
 //		this.empresasLista = null;
 //		this.estadosDeCursosLista = null;
 		this.instructoresLista = null;
-//		this.salasLista = null;
+		this.cursadasLista = null;
 		this.cursadaVista.BtnAceptar().addActionListener(this);
 		this.cursadaVista.BtnCancelar().addActionListener(this); 
 		

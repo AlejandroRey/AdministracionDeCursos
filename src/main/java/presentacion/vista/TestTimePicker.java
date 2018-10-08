@@ -24,7 +24,5 @@ public class TestTimePicker {
 		TimePicker.setLocation(0, 0);
 		TimePicker.setSize(574, 353);
 		frame.getContentPane().add(TimePicker);
-
 	}
-
 }
