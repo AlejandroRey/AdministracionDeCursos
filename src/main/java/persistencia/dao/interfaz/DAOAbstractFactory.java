@@ -14,4 +14,12 @@ public interface DAOAbstractFactory {
 	
 	public CursoDAO createCursoDAO();
 	
+	public EstadoDeCursoDAO createEstadoDeCursoDAO();
+	
+	public EmpresaDAO createEmpresaDAO();
+	
+	public SalaDAO createSalaDAO();
+	
+	public CursadaDAO createCursadaDAO();
+	
 }

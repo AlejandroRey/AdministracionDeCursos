@@ -12,7 +12,7 @@ import persistencia.dao.interfaz.EstadoDeCursoDAO;
 
 public class EstadoDeCursoDAOSQL implements EstadoDeCursoDAO{
 	
-	private static final String readall = "SELECT * FROM EstadoDeCurso";
+	private static final String readall = "SELECT * FROM estadoCurso";
 
 	@Override
 	public boolean insert(EstadoDeCursoDTO nuevoEstadoDeCurso) {
@@ -42,7 +42,7 @@ public class EstadoDeCursoDAOSQL implements EstadoDeCursoDAO{
 			statement = conexion.getSQLConexion().prepareStatement(readall);
 			resultSet = statement.executeQuery();
 			while (resultSet.next()) {
-				cursadas.add(new EstadoDeCursoDTO(resultSet.getLong("idEstadoDeCurso"), 
+				cursadas.add(new EstadoDeCursoDTO(resultSet.getLong("idEstadoCurso"), 
 											      resultSet.getString("nombre")));
 			}
 		} catch (SQLException e) {

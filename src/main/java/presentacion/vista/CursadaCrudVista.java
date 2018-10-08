@@ -9,14 +9,16 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import java.awt.Component;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.table.TableCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
-
 import javax.swing.border.TitledBorder;
 
+import persistencia.conexion.Conexion;
 import dto.CursoDTO;
 import dto.EmpresaDTO;
 import dto.EstadoDeCursoDTO;
@@ -62,6 +64,22 @@ public class CursadaCrudVista {
 		inicializeBtn();
 		inicializeTxt();
 		inicializeTables();
+	}
+	
+	public void show() {
+		this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+//				int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que quieres salir de la Aplicacion!?",
+//						"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+//				if (confirm == 0) {
+					Conexion.getConexion().cerrarConexion();
+					frame.dispose();
+//				}
+			}
+		});
+		this.frame.setVisible(true);
 	}
 
 	private void inicializeFrame() {
@@ -150,6 +168,8 @@ public class CursadaCrudVista {
 		scrollCursadas_GeneradasPane = new JScrollPane();
 		scrollCursadas_GeneradasPane.setBounds(287, 11, 839, 182);
 		frame.getContentPane().add(scrollCursadas_GeneradasPane);
+		
+		modelCursadasGeneradas = new DefaultTableModel(null, columnasCursadasGeneradas);
 		cursadasTable = new JTable(modelCursadasGeneradas) {
 			
 			public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {

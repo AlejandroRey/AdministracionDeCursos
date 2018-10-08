@@ -7,6 +7,10 @@ import persistencia.dao.interfaz.ClaseDAO;
 import persistencia.dao.interfaz.CursoTipoDAO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.UsuarioDAO;
+import persistencia.dao.interfaz.EstadoDeCursoDAO;
+import persistencia.dao.interfaz.EmpresaDAO;
+import persistencia.dao.interfaz.SalaDAO;
+import persistencia.dao.interfaz.CursadaDAO;
 
 public class DAOSQLFactory implements DAOAbstractFactory {
 	/*
@@ -47,5 +51,25 @@ public class DAOSQLFactory implements DAOAbstractFactory {
 	public ClaseDAO createClaseDAO() {
 		// TODO Auto-generated method stub
 		return new ClaseDAOSQL();
+	}
+
+	@Override
+	public EstadoDeCursoDAO createEstadoDeCursoDAO() {
+		return new EstadoDeCursoDAOSQL();
+	}
+
+	@Override
+	public EmpresaDAO createEmpresaDAO() {
+		return new EmpresaDAOSQL();
+	}
+
+	@Override
+	public SalaDAO createSalaDAO() {
+		return new SalaDAOSQL();
+	}
+
+	@Override
+	public CursadaDAO createCursadaDAO() {
+		return new CursadaDAOSQL();
 	}
 }

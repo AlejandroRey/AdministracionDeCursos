@@ -8,6 +8,9 @@ import modelo.AdministracionDeCursos;
 import presentacion.vista.CursadaCrudVista;
 import dto.CursadaDTO;
 import dto.CursoDTO;
+import dto.EmpresaDTO;
+import dto.EstadoDeCursoDTO;
+import dto.SalaDTO;
 import dto.UsuarioDTO;
 
 public class CursadaCrudControlador implements ActionListener {
@@ -16,19 +19,19 @@ public class CursadaCrudControlador implements ActionListener {
 	private AdministracionDeCursos modelo;
 	private List<CursadaDTO> cursadasLista;
 	private List<CursoDTO> cursosLista;
-//	private List<EmpresaDTO> EmpresasLista;
-//	private List<EstadosDeCursoDTO> estadosDeCursosLista;
+	private List<EmpresaDTO> empresasLista;
+	private List<EstadoDeCursoDTO> estadosDeCursoLista;
 	private List<UsuarioDTO> instructoresLista;
-//	private List<SalaDTO> salas;
+	private List<SalaDTO> salasLista;
 	
 	
 	public CursadaCrudControlador(CursadaCrudVista vista, AdministracionDeCursos modelo) {
 		this.cursadaVista = vista;
 		this.modelo = modelo;
 		this.cursosLista = null;
-//		this.salasLista = null;
-//		this.empresasLista = null;
-//		this.estadosDeCursosLista = null;
+		this.salasLista = null;
+		this.empresasLista = null;
+		this.estadosDeCursoLista = null;
 		this.instructoresLista = null;
 		this.cursadasLista = null;
 		this.cursadaVista.BtnAceptar().addActionListener(this);
@@ -37,8 +40,9 @@ public class CursadaCrudControlador implements ActionListener {
 	}
 
 	public void inicializar() {
-		cargarCmBox();
 		llenarTablaCursadas();
+		cargarCmBox();
+		this.cursadaVista.show();
 	}
 	
 	public void llenarTablaCursadas() {
@@ -52,11 +56,11 @@ public class CursadaCrudControlador implements ActionListener {
 		{
 			Object[] fila = { 
 							 this.cursadasLista.get(i).getIdCursada(),
-							 this.cursadasLista.get(i).getIdSala(), //getSalaString(this.cursadasLista.get(i).getIdSala())
-							 this.cursadasLista.get(i).getIdEmpresa(),//getEmpresaString(this.cursadasLista.get(i).getIdEmpresa())
+							 getSalaString(this.cursadasLista.get(i).getIdSala()),
+							 getEmpresaString(this.cursadasLista.get(i).getIdEmpresa()),
 							 getCursoString(this.cursadasLista.get(i).getIdCurso()),
 							 getInstructorString(this.cursadasLista.get(i).getIdUsuario()),
-							 this.cursadasLista.get(i).getIdEstadoCurso(),//getEstadoDeCursoString(this.cursadasLista.get(i).getIdEstadoCurso())
+							 getEstadoDeCursoString(this.cursadasLista.get(i).getIdEstadoCurso()),
 							 this.cursadasLista.get(i).getVacantes()};
 			this.cursadaVista.getModelCursadas().addRow(fila);
 		}	
@@ -67,9 +71,9 @@ public class CursadaCrudControlador implements ActionListener {
 		this.cursadasLista = this.modelo.obtenerCursadas();
 		this.instructoresLista = this.modelo.obtenerUsuarios(); // crear consulta solo instructores
 		this.cursosLista = this.modelo.obtenerCursos();
-//		this.empresasLista = this.modelo.obtenerEmpresas();
-//		this.salasLista = this.modelo.obtenerSalas();
-//		this.estadosDeCursoLista = this.modelo.obtenerEstadosDeCurso();
+		this.empresasLista = this.modelo.obtenerEmpresas();
+		this.salasLista = this.modelo.obtenerSalas();
+		this.estadosDeCursoLista = this.modelo.obtenerEstadosDeCurso();
 	}
 	
 	
@@ -98,27 +102,27 @@ public class CursadaCrudControlador implements ActionListener {
 	}
 
 	private void cmBoxSala() {
-//		this.cursadaVista.getCmBoxSala().removeAllItems();
-//		for(SalaDTO sala : salaLista)
-//		{	
-//			this.cursadaVista.getCmBoxSala().addItem(sala);
-//		}
+		this.cursadaVista.getCmBoxSala().removeAllItems();
+		for(SalaDTO sala : salasLista)
+		{	
+			this.cursadaVista.getCmBoxSala().addItem(sala);
+		}
 	}
 	
 	private void cmBoxEstadoDeCurso() {
-//		this.cursadaVista.getCmBoxEstadoDeCurso().removeAllItems();
-//		for(EstadoDeCursoDTO estadoDeCurso : estadosDeCursoLista)
-//		{	
-//			this.cursadaVista.getCmBoxEstadoDeCurso().addItem(estadoDeCurso);
-//		}
+		this.cursadaVista.getCmBoxEstadoDeCurso().removeAllItems();
+		for(EstadoDeCursoDTO estadoDeCurso : estadosDeCursoLista)
+		{	
+			this.cursadaVista.getCmBoxEstadoDeCurso().addItem(estadoDeCurso);
+		}
 	}
 	
 	private void cmBoxEmpresa() {
-//		this.cursadaVista.getCmBoxEmpresa().removeAllItems();
-//		for(EmpresaDTO empresa : empresasLista)
-//		{	
-//			this.cursadaVista.getCmBoxEmpresa().addItem(empresa);
-//		}
+		this.cursadaVista.getCmBoxEmpresa().removeAllItems();
+		for(EmpresaDTO empresa : empresasLista)
+		{	
+			this.cursadaVista.getCmBoxEmpresa().addItem(empresa);
+		}
 	}
 	
 	/**OBTENER NOMBRE DE CURSO**/
@@ -133,37 +137,37 @@ public class CursadaCrudControlador implements ActionListener {
 	}
 	
 	/**OBTENER NOMBRE DE EMPRESA**/
-//	private String getEmpresaString(long idEmpresa) {
-//		String empresaNombre = "";
-//		for (EmpresaDTO categoriaDTO : empresaLista) {
-//			if (empresaDTO.getIdEmpresa() == idEmpresa) {
-//				empresaNombre = empresaDTO.getNombre();
-//			}
-//		}
-//		return empresaNombre;
-//	}
+	private String getEmpresaString(long idEmpresa) {
+		String empresaNombre = "";
+		for (EmpresaDTO empresaDTO : empresasLista) {
+			if (empresaDTO.getIdEmpresa() == idEmpresa) {
+				empresaNombre = empresaDTO.getNombre();
+			}
+		}
+		return empresaNombre;
+	}
 	
 	/**OBTENER NOMBRE DE SALA**/
-//	private String getSalaString(long idSala) {
-//		String salaNombre = "";
-//		for (SalaDTO salaDTO : salaLista) {
-//			if (salaDTO.getIdSala() == idSala) {
-//				salaNombre = salaDTO.getNombre();
-//			}
-//		}
-//		return salaNombre;
-//	}
+	private String getSalaString(long idSala) {
+		String salaNombre = "";
+		for (SalaDTO salaDTO : salasLista) {
+			if (salaDTO.getIdSala() == idSala) {
+				salaNombre = salaDTO.getNombre();
+			}
+		}
+		return salaNombre;
+	}
 	
 	/**OBTENER ESTADOS DE CURSOS**/
-//	private String getEstadoDeCursoString(long idEstadoDeCurso) {
-//		String estadoDeCurso = "";
-//		for (CategoriaDTO estadoDeCursoDTO : estadosDeCursoLista) {
-//			if (estadoDeCursoDTO.getIdCategoria() == idEstadoDeCurso) {
-//				estadoDeCurso = estadoDeCursoDTO.getNombre();
-//			}
-//		}
-//		return estadoDeCurso;
-//	}
+	private String getEstadoDeCursoString(long idEstadoDeCurso) {
+		String estadoDeCurso = "";
+		for (EstadoDeCursoDTO estadoDeCursoDTO : estadosDeCursoLista) {
+			if (estadoDeCursoDTO.getIdEstadoDeCurso() == idEstadoDeCurso) {
+				estadoDeCurso = estadoDeCursoDTO.getNombre();
+			}
+		}
+		return estadoDeCurso;
+	}
 	
 	/**OBTENER NOMBRE DE INSTRUCTOR**/
 	private String getInstructorString(long idInstructor) {

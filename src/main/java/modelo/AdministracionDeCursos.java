@@ -45,6 +45,10 @@ public class AdministracionDeCursos {
 		this.cursoTipo = metodo_persistencia.createCursoTipoDAO();
 		this.curso = metodo_persistencia.createCursoDAO();
 		this.clase = metodo_persistencia.createClaseDAO();
+		this.empresa = metodo_persistencia.createEmpresaDAO();
+		this.estadoDeCurso = metodo_persistencia.createEstadoDeCursoDAO();
+		this.sala = metodo_persistencia.createSalaDAO();
+		this.cursada = metodo_persistencia.createCursadaDAO();
 	}
 	
 	/* ****************************************************************
