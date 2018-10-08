@@ -4,6 +4,7 @@ import java.util.List;
 
 import dto.AlumnoDTO;
 import dto.CategoriaDTO;
+import dto.CursadaDTO;
 import dto.CursoDTO;
 import dto.ClaseDTO;
 import dto.CursoTipoDTO;
@@ -15,6 +16,7 @@ import persistencia.dao.interfaz.ClaseDAO;
 import persistencia.dao.interfaz.CursoTipoDAO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.UsuarioDAO;
+import persistencia.dao.interfaz.CursadaDAO;
 
 public class AdministracionDeCursos {
 
@@ -24,6 +26,7 @@ public class AdministracionDeCursos {
 	private CursoTipoDAO cursoTipo;
 	private CursoDAO curso;
 	private ClaseDAO clase;
+	private CursadaDAO cursada;
 
 	public AdministracionDeCursos(DAOAbstractFactory metodo_persistencia) {
 		
@@ -116,6 +119,26 @@ public class AdministracionDeCursos {
 	 */
 	public List<ClaseDTO> obtenerClases() {
 		return this.clase.readAll();
+	}
+	
+	/* ****************************************************************
+	 *                         Cursada
+	 * ****************************************************************
+	 */
+	public void agregarCursada(CursadaDTO nuevaCursada) {
+		this.cursada.insert(nuevaCursada);
+	}
+
+	public void borrarCursada(CursadaDTO cursada_a_eliminar) {
+		this.cursada.delete(cursada_a_eliminar);
+	}
+	
+	public void actualizarCursada(CursadaDTO cursada_a_actualizar) {
+		this.cursada.update(cursada_a_actualizar);
+	}
+	
+	public List<CursadaDTO> obtenerCursadas() {
+		return this.cursada.readAll();
 	}
 	
 }
