@@ -11,7 +11,7 @@ import persistencia.conexion.Conexion;
 public class AdministracionDeCursosView {
 
 	private JFrame frame;
-	private CursaNuevaVista panelCursada;
+	private CursadaNuevaVista panelCursada;
 	
 	public AdministracionDeCursosView() {
 		super();
@@ -24,7 +24,7 @@ public class AdministracionDeCursosView {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
-		panelCursada = new CursaNuevaVista();
+		panelCursada = new CursadaNuevaVista();
 		panelCursada.setSize(600, 622);
 		panelCursada.setLocation(10, 11);
 		//panelCursada.setBounds(0, 0, 1064, 262);
@@ -51,14 +51,14 @@ public class AdministracionDeCursosView {
 	/**
 	 * @return the panelCursada
 	 */
-	public CursaNuevaVista getPanelCursada() {
+	public CursadaNuevaVista getPanelCursada() {
 		return panelCursada;
 	}
 
 	/**
 	 * @param panelCursada the panelCursada to set
 	 */
-	public void setPanelCursada(CursaNuevaVista panelCursada) {
+	public void setPanelCursada(CursadaNuevaVista panelCursada) {
 		this.panelCursada = panelCursada;
 	}
 

@@ -24,7 +24,7 @@ import dto.EstadoDeCursoDTO;
 import dto.SalaDTO;
 
 @SuppressWarnings("serial")
-public class CursaNuevaVista extends JPanel {
+public class CursadaNuevaVista extends JPanel {
 	
 	private JScrollPane spCursadas;
 	private DefaultTableModel modelCursadas;
@@ -51,7 +51,7 @@ public class CursaNuevaVista extends JPanel {
 	/**
 	 * Create the frame.
 	 */
-	public CursaNuevaVista() {
+	public CursadaNuevaVista() {
 		super();
 		inicializar();
 	}

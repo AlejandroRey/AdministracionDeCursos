@@ -10,7 +10,8 @@ import modelo.AdministracionDeCursos;
 import persistencia.controlador.CursadaNuevaControlador;
 import persistencia.dao.mysql.DAOSQLFactory;
 import presentacion.vista.AdministracionDeCursosView;
-import presentacion.vista.CursaNuevaVista;
+import presentacion.vista.CursadaNuevaVista;
+import presentacion.vista.MainVista;
 
 public class Main {
 

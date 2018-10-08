@@ -19,9 +19,6 @@
 -- Table structure for table `alumno`
 --
 
-CREATE SCHEMA IF NOT EXISTS `gestiondecursos` DEFAULT CHARACTER SET utf8 ;
-USE `gestiondecursos` ;
-
 DROP TABLE IF EXISTS `alumno`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -119,7 +116,7 @@ CREATE TABLE `categoria` (
   `idCategoria` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
   PRIMARY KEY (`idCategoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -128,7 +125,7 @@ CREATE TABLE `categoria` (
 
 LOCK TABLES `categoria` WRITE;
 /*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
-INSERT INTO `categoria` VALUES (1,'Supervisor'),(2,'Administrativo'),(3,'Instructor');
+INSERT INTO `categoria` VALUES (1,'Supervisor'),(2,'Supervisor'),(3,'Administrativo'),(4,'Instructor');
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -142,7 +139,8 @@ DROP TABLE IF EXISTS `clase`;
 CREATE TABLE `clase` (
   `idClase` int(11) NOT NULL AUTO_INCREMENT,
   `idCursada` int(11) NOT NULL,
-  `fecha` datetime NOT NULL,
+  `fechaInicio` datetime NOT NULL,
+  `fechaFin` datetime NOT NULL,
   `esFeriado` tinyint(1) NOT NULL,
   PRIMARY KEY (`idClase`),
   KEY `fk_clases_cursada1_idx` (`idCursada`),
@@ -170,22 +168,21 @@ CREATE TABLE `cursada` (
   `idCursada` int(11) NOT NULL AUTO_INCREMENT,
   `idEmpresa` int(11) NOT NULL DEFAULT '1',
   `idCurso` int(11) NOT NULL,
-  `idUsuario` int(11) NOT NULL,
   `idSala` int(11) NOT NULL,
   `idEstadoCurso` int(11) NOT NULL DEFAULT '1',
+  `fechaInicioInscripcion` datetime NOT NULL,
+  `fechaFinInscripcion` datetime NOT NULL,
   `vacantes` int(11) NOT NULL,
   PRIMARY KEY (`idCursada`),
   KEY `fk_cursada_curso1_idx` (`idCurso`),
   KEY `fk_cursada_sala1_idx` (`idSala`),
   KEY `fk_cursada_estadoCurso1_idx` (`idEstadoCurso`),
   KEY `fk_cursada_empresa1_idx` (`idEmpresa`),
-  KEY `fk_cursada_Instructor1_idx` (`idUsuario`),
-  CONSTRAINT `fk_cursada_Instructor1` FOREIGN KEY (`idUsuario`) REFERENCES `instructor` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_cursada_curso1` FOREIGN KEY (`idCurso`) REFERENCES `curso` (`idCurso`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_cursada_empresa1` FOREIGN KEY (`idEmpresa`) REFERENCES `empresa` (`idEmpresa`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_cursada_estadoCurso1` FOREIGN KEY (`idEstadoCurso`) REFERENCES `estadocurso` (`idEstadoCurso`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_cursada_sala1` FOREIGN KEY (`idSala`) REFERENCES `sala` (`idSala`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -194,6 +191,7 @@ CREATE TABLE `cursada` (
 
 LOCK TABLES `cursada` WRITE;
 /*!40000 ALTER TABLE `cursada` DISABLE KEYS */;
+INSERT INTO `cursada` VALUES (1,1,1,1,1,'2018-01-01 00:00:00','2018-01-31 00:00:00',40),(3,3,2,2,1,'2018-11-11 00:00:00','2018-12-09 00:00:00',35),(4,2,1,3,1,'2018-12-21 00:00:00','2018-12-31 00:00:00',23),(5,3,3,2,4,'2019-12-21 00:00:00','2019-12-31 00:00:00',29);
 /*!40000 ALTER TABLE `cursada` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -213,7 +211,7 @@ CREATE TABLE `curso` (
   PRIMARY KEY (`idCurso`),
   KEY `fk_curso_cursotipo1_idx` (`idCursoTipo`),
   CONSTRAINT `fk_curso_cursotipo1` FOREIGN KEY (`idCursoTipo`) REFERENCES `cursotipo` (`idCursoTipo`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -222,6 +220,7 @@ CREATE TABLE `curso` (
 
 LOCK TABLES `curso` WRITE;
 /*!40000 ALTER TABLE `curso` DISABLE KEYS */;
+INSERT INTO `curso` VALUES (1,1,'C#','Curso Programacion C#','AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'),(2,1,'Java','Curso Programacion Java','BBBBBBBBBBBBBBBBBBBBBBBBBBBBB'),(3,1,'C++','Curso Programacion C++','CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC');
 /*!40000 ALTER TABLE `curso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -236,7 +235,7 @@ CREATE TABLE `cursotipo` (
   `idCursoTipo` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
   PRIMARY KEY (`idCursoTipo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -245,6 +244,7 @@ CREATE TABLE `cursotipo` (
 
 LOCK TABLES `cursotipo` WRITE;
 /*!40000 ALTER TABLE `cursotipo` DISABLE KEYS */;
+INSERT INTO `cursotipo` VALUES (1,'Informatica');
 /*!40000 ALTER TABLE `cursotipo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -261,7 +261,7 @@ CREATE TABLE `empresa` (
   `telefono` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
   PRIMARY KEY (`idEmpresa`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -270,6 +270,7 @@ CREATE TABLE `empresa` (
 
 LOCK TABLES `empresa` WRITE;
 /*!40000 ALTER TABLE `empresa` DISABLE KEYS */;
+INSERT INTO `empresa` VALUES (1,'N/A','N/A','N/A'),(2,'Sancor','+549 11 2111 9876','sancor@gmail.com'),(3,'Unilever','+549 11 1211 0998','unilever@gmail.com');
 /*!40000 ALTER TABLE `empresa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -284,7 +285,7 @@ CREATE TABLE `estadocurso` (
   `idEstadoCurso` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
   PRIMARY KEY (`idEstadoCurso`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -293,6 +294,7 @@ CREATE TABLE `estadocurso` (
 
 LOCK TABLES `estadocurso` WRITE;
 /*!40000 ALTER TABLE `estadocurso` DISABLE KEYS */;
+INSERT INTO `estadocurso` VALUES (1,'Inscripcion Abierta'),(2,'Curso Iniciado'),(3,'Curso Cerrado'),(4,'Curso Cancelado');
 /*!40000 ALTER TABLE `estadocurso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -308,6 +310,7 @@ CREATE TABLE `evaluacion` (
   `idCursada` int(11) NOT NULL,
   `idEvaluacionTipo` int(11) NOT NULL,
   `nombre` varchar(45) NOT NULL,
+  `fecha` datetime NOT NULL,
   PRIMARY KEY (`idEvaluacion`),
   KEY `fk_evaluacion_cursada1_idx` (`idCursada`),
   KEY `fk_evaluacion_evaluaciontipo1_idx` (`idEvaluacionTipo`),
@@ -356,11 +359,9 @@ DROP TABLE IF EXISTS `horario`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `horario` (
-  `idHorario` int(11) NOT NULL AUTO_INCREMENT,
   `idCursada` int(11) NOT NULL,
   `fechaHoraInicio` datetime NOT NULL,
   `fechaHoraFin` datetime NOT NULL,
-  PRIMARY KEY (`idHorario`),
   KEY `fk_horario_cursada1_idx` (`idCursada`),
   CONSTRAINT `fk_horario_cursada1` FOREIGN KEY (`idCursada`) REFERENCES `cursada` (`idCursada`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -426,6 +427,32 @@ CREATE TABLE `instructor` (
 LOCK TABLES `instructor` WRITE;
 /*!40000 ALTER TABLE `instructor` DISABLE KEYS */;
 /*!40000 ALTER TABLE `instructor` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `instructores`
+--
+
+DROP TABLE IF EXISTS `instructores`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `instructores` (
+  `idCursada` int(11) NOT NULL,
+  `idUsuario` int(11) NOT NULL,
+  KEY `fk_instructores_cursada1_idx` (`idCursada`),
+  KEY `fk_instructores_Instructor1_idx` (`idUsuario`),
+  CONSTRAINT `fk_instructores_Instructor1` FOREIGN KEY (`idUsuario`) REFERENCES `instructor` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_instructores_cursada1` FOREIGN KEY (`idCursada`) REFERENCES `cursada` (`idCursada`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `instructores`
+--
+
+LOCK TABLES `instructores` WRITE;
+/*!40000 ALTER TABLE `instructores` DISABLE KEYS */;
+/*!40000 ALTER TABLE `instructores` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -524,7 +551,7 @@ CREATE TABLE `sala` (
   `cantidadPc` int(11) NOT NULL,
   `descripcion` varchar(510) NOT NULL,
   PRIMARY KEY (`idSala`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -533,6 +560,7 @@ CREATE TABLE `sala` (
 
 LOCK TABLES `sala` WRITE;
 /*!40000 ALTER TABLE `sala` DISABLE KEYS */;
+INSERT INTO `sala` VALUES (1,'Salita Rosa',40,20,'Sala proxima a remodelarse'),(2,'Salita Azul',40,35,'Sala ok'),(3,'Salita Verde',35,21,'Sala bad');
 /*!40000 ALTER TABLE `sala` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -605,4 +633,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-07  0:28:16
+-- Dump completed on 2018-10-08 19:07:46
