@@ -46,7 +46,9 @@ public class CursadaNuevaVista extends JPanel {
 	private JButton btnAgregar;
 	private JButton btnActualizar;
 	private JButton btnEliminar;
-	private JButton btnCerrar;
+	private JButton btnAddAlumnos;
+	private JButton btnAddPagos;
+	private JButton btnAddHorariosCursada;
 
 	/**
 	 * Create the frame.
@@ -58,7 +60,7 @@ public class CursadaNuevaVista extends JPanel {
 
 	private void inicializar() {
 		setLayout(null);
-		setBounds(100, 100, 600, 650);		
+		setBounds(100, 100, 700, 650);		
 		inicializarTabla();
 		inicializarEditor();
 		inicializarBotones();
@@ -67,7 +69,7 @@ public class CursadaNuevaVista extends JPanel {
 	private void inicializarTabla() {
 		
 		spCursadas = new JScrollPane();
-		spCursadas.setBounds(10, 11, 580, 373);
+		spCursadas.setBounds(10, 11, 681, 373);
 		this.add(spCursadas);
 		
 		modelCursadas = new DefaultTableModel(null, nombreColumnas);
@@ -88,7 +90,7 @@ public class CursadaNuevaVista extends JPanel {
 		JSeparator separator = new JSeparator();
 		separator.setForeground(Color.BLUE);
 		separator.setBackground(Color.BLUE);
-		separator.setBounds(13, 395, 560, 1);
+		separator.setBounds(10, 395, 682, 1);
 		this.add(separator);
 	}
 
@@ -96,7 +98,7 @@ public class CursadaNuevaVista extends JPanel {
 		
 		panel = new JPanel();
 		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Cursada:", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
-		panel.setBounds(43, 403, 500, 150);
+		panel.setBounds(10, 405, 500, 150);
 		panel.setLayout(null);
 		this.add(panel);
 		
@@ -181,27 +183,35 @@ public class CursadaNuevaVista extends JPanel {
 		
 		panelButtons = new JPanel();
 		panelButtons.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
-		panelButtons.setBounds(43, 566, 500, 45);
+		panelButtons.setBounds(520, 410, 170, 204);
 		panelButtons.setLayout(null);
 		this.add(panelButtons);
 		
-		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(20, 10, 89, 23);
+		btnAgregar = new JButton("Nueva Cursada");
+		btnAgregar.setBounds(10, 10, 150, 23);
 		panelButtons.add(btnAgregar);
 		
-		btnActualizar = new JButton("Actualizar");
-		btnActualizar.setBounds(142, 10, 89, 23);
+		btnActualizar = new JButton("Editar Cursada");
+		btnActualizar.setBounds(10, 39, 150, 23);
 		panelButtons.add(btnActualizar);
 		
-		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(265, 10, 89, 23);
+		this.add(panelButtons);
+		
+		btnAddAlumnos = new JButton("Agregar Alumnos");
+		btnAddAlumnos.setBounds(10, 105, 150, 23);
+		panelButtons.add(btnAddAlumnos);
+		
+		btnEliminar = new JButton("Eliminar Cursada");
+		btnEliminar.setBounds(10, 73, 150, 23);
 		panelButtons.add(btnEliminar);
 		
-		btnCerrar = new JButton("Cerrar");
-		btnCerrar.setBounds(385, 10, 89, 23);
-		panelButtons.add(btnCerrar);
+		btnAddPagos = new JButton("Generar Pagos");
+		btnAddPagos.setBounds(10, 136, 150, 23);
+		panelButtons.add(btnAddPagos);
 		
-		this.add(panelButtons);
+		btnAddHorariosCursada = new JButton("Agregar Horarios Cursada");
+		btnAddHorariosCursada.setBounds(10, 170, 150, 23);
+		panelButtons.add(btnAddHorariosCursada);
 	}
 
 	/**
@@ -446,13 +456,55 @@ public class CursadaNuevaVista extends JPanel {
 	 * @return the btnCerrar
 	 */
 	public JButton getBtnCerrar() {
-		return btnCerrar;
+		return btnAddAlumnos;
 	}
 
 	/**
 	 * @param btnCerrar the btnCerrar to set
 	 */
 	public void setBtnCerrar(JButton btnCerrar) {
-		this.btnCerrar = btnCerrar;
+		this.btnAddAlumnos = btnCerrar;
+	}
+
+	/**
+	 * @return the btnAddAlumnos
+	 */
+	public JButton getBtnAddAlumnos() {
+		return btnAddAlumnos;
+	}
+
+	/**
+	 * @param btnAddAlumnos the btnAddAlumnos to set
+	 */
+	public void setBtnAddAlumnos(JButton btnAddAlumnos) {
+		this.btnAddAlumnos = btnAddAlumnos;
+	}
+
+	/**
+	 * @return the btnAddPagos
+	 */
+	public JButton getBtnAddPagos() {
+		return btnAddPagos;
+	}
+
+	/**
+	 * @param btnAddPagos the btnAddPagos to set
+	 */
+	public void setBtnAddPagos(JButton btnAddPagos) {
+		this.btnAddPagos = btnAddPagos;
+	}
+
+	/**
+	 * @return the btnAddHorariosCursada
+	 */
+	public JButton getBtnAddHorariosCursada() {
+		return btnAddHorariosCursada;
+	}
+
+	/**
+	 * @param btnAddHorariosCursada the btnAddHorariosCursada to set
+	 */
+	public void setBtnAddHorariosCursada(JButton btnAddHorariosCursada) {
+		this.btnAddHorariosCursada = btnAddHorariosCursada;
 	}
 }

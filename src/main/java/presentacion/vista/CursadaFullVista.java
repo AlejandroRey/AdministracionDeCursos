@@ -8,12 +8,12 @@ import javax.swing.JOptionPane;
 
 import persistencia.conexion.Conexion;
 
-public class AdministracionDeCursosView {
+public class CursadaFullVista {
 
 	private JFrame frame;
 	private CursadaNuevaVista panelCursada;
 	
-	public AdministracionDeCursosView() {
+	public CursadaFullVista() {
 		super();
 		initialize();
 	}
@@ -25,7 +25,7 @@ public class AdministracionDeCursosView {
 		frame.getContentPane().setLayout(null);
 
 		panelCursada = new CursadaNuevaVista();
-		panelCursada.setSize(600, 622);
+		panelCursada.setSize(700, 622);
 		panelCursada.setLocation(10, 11);
 		//panelCursada.setBounds(0, 0, 1064, 262);
 		frame.getContentPane().add(panelCursada);

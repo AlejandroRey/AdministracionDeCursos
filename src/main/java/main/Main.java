@@ -7,9 +7,9 @@ import javax.swing.UnsupportedLookAndFeelException;
 import dto.CursadaCompletaDTO;
 import dto.EmpresaDTO;
 import modelo.AdministracionDeCursos;
-import persistencia.controlador.CursadaNuevaControlador;
+import persistencia.controlador.CursadaFullControlador;
 import persistencia.dao.mysql.DAOSQLFactory;
-import presentacion.vista.AdministracionDeCursosView;
+import presentacion.vista.CursadaFullVista;
 import presentacion.vista.CursadaNuevaVista;
 import presentacion.vista.MainVista;
 
@@ -38,8 +38,8 @@ public class Main {
         for (CursadaCompletaDTO cursada : modelo.obtenerCursadasCompletas()) {
 			System.out.println(cursada.toString());
 		}   
-        AdministracionDeCursosView vista = new AdministracionDeCursosView();
-        CursadaNuevaControlador c = new CursadaNuevaControlador(vista, modelo);
+        CursadaFullVista vista = new CursadaFullVista();
+        CursadaFullControlador c = new CursadaFullControlador(vista, modelo);
         c.inicializar();
 
 //		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());

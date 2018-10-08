@@ -16,11 +16,11 @@ import dto.EmpresaDTO;
 import dto.EstadoDeCursoDTO;
 import dto.SalaDTO;
 import modelo.AdministracionDeCursos;
-import presentacion.vista.AdministracionDeCursosView;
+import presentacion.vista.CursadaFullVista;
 
-public class CursadaNuevaControlador implements ActionListener {
+public class CursadaFullControlador implements ActionListener {
 	
-	private AdministracionDeCursosView vista;
+	private CursadaFullVista vista;
 	private AdministracionDeCursos modelo;
 	private List<CursadaCompletaDTO> cursadasLista;
 	
@@ -29,7 +29,7 @@ public class CursadaNuevaControlador implements ActionListener {
 	private List<SalaDTO> salasLista;
 	private List<EstadoDeCursoDTO> estadosCurso;
 	
-	public CursadaNuevaControlador(AdministracionDeCursosView vista, AdministracionDeCursos modelo) {
+	public CursadaFullControlador(CursadaFullVista vista, AdministracionDeCursos modelo) {
 		this.vista = vista;
 		this.modelo = modelo;
 		this.cursadasLista = null;
@@ -55,7 +55,7 @@ public class CursadaNuevaControlador implements ActionListener {
 		this.vista.getPanelCursada().getModelCursadas().setRowCount(0); // Para vaciar la tabla
 		this.vista.getPanelCursada().getModelCursadas().setColumnCount(0);
 		this.vista.getPanelCursada().getModelCursadas().setColumnIdentifiers(this.vista.getPanelCursada().getNombreColumnas());
-		//clearTextInputsBox();
+		clearTextInputsBox();
 
 		this.cursadasLista = modelo.obtenerCursadasCompletas();
 		for (CursadaCompletaDTO cursadaCompletaDTO : cursadasLista) {
@@ -127,6 +127,16 @@ public class CursadaNuevaControlador implements ActionListener {
 		this.vista.getPanelCursada().getTblCursadas().getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
 	}
 	
+	private void clearTextInputsBox() {
+		this.vista.getPanelCursada().getCbxEmpresa().setSelectedItem(new EmpresaDTO(0, "", "", ""));
+		this.vista.getPanelCursada().getCbxCurso().setSelectedItem(new CursoDTO(0, 0, "", "", ""));
+		this.vista.getPanelCursada().getCbxSala().setSelectedItem(new SalaDTO(0, "", 0, 0, ""));
+		this.vista.getPanelCursada().getCbxEstado().setSelectedItem(new EstadoDeCursoDTO(0, ""));
+		this.vista.getPanelCursada().getTextFechaInicioInsc().setText("");
+		this.vista.getPanelCursada().getTextFechaFinInsc().setText("");
+		this.vista.getPanelCursada().getTextVacantes().setText("");
+	}
+
 	private void initComboBox() {
 		if (this.vista.getPanelCursada().getCbxEmpresa().getItemCount() == 0) {
 			this.vista.getPanelCursada().getCbxEmpresa().addItem(new EmpresaDTO(0, "", "", ""));
