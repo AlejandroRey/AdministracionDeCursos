@@ -1,78 +1,92 @@
 package dto;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 public class AlumnoEventoDTO {
 	
 	private long idAlumnoEvento;
 	private long idAlumno;
-	private long idUsuaio;
+	private long idUsuario;
 	private long idCurso;
 	private String descripcion;
-	private Timestamp fechaContactar;
-	private Timestamp fechaCreacion;
+	private Date fechaContactar;
+	private Date fechaCreacion;
 	private boolean estado;
-	
-	public AlumnoEventoDTO(long idAlumnoEvento, long idAlumno, long idUsuaio, long idCurso, String descripcion,
-			Timestamp fechaContactar, Timestamp fechaCreacion, boolean estado) {
+
+	public AlumnoEventoDTO(long idAlumnoEvento, long idAlumno, long idUsuario, long idCurso, String descripcion, Date fechaContactar,
+			Date fechaCreacion, boolean estado) {
 		super();
 		this.idAlumnoEvento = idAlumnoEvento;
 		this.idAlumno = idAlumno;
-		this.idUsuaio = idUsuaio;
+		this.idUsuario = idUsuario;
 		this.idCurso = idCurso;
 		this.descripcion = descripcion;
 		this.fechaContactar = fechaContactar;
 		this.fechaCreacion = fechaCreacion;
 		this.estado = estado;
 	}
-	
+
 	public long getIdAlumnoEvento() {
 		return idAlumnoEvento;
 	}
+
 	public void setIdAlumnoEvento(long idAlumnoEvento) {
 		this.idAlumnoEvento = idAlumnoEvento;
 	}
+
 	public long getIdAlumno() {
 		return idAlumno;
 	}
+
 	public void setIdAlumno(long idAlumno) {
 		this.idAlumno = idAlumno;
 	}
-	public long getIdUsuaio() {
-		return idUsuaio;
+
+	public long getIdUsuario() {
+		return idUsuario;
 	}
-	public void setIdUsuaio(long idUsuaio) {
-		this.idUsuaio = idUsuaio;
+
+	public void setIdUsuario(long idUsuario) {
+		this.idUsuario = idUsuario;
 	}
+
 	public long getIdCurso() {
 		return idCurso;
 	}
+
 	public void setIdCurso(long idCurso) {
 		this.idCurso = idCurso;
 	}
+
 	public String getDescripcion() {
 		return descripcion;
 	}
+
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public Timestamp getFechaContactar() {
+
+	public Date getFechaContactar() {
 		return fechaContactar;
 	}
-	public void setFechaContactar(Timestamp fechaContactar) {
+
+	public void setFechaContactar(Date fechaContactar) {
 		this.fechaContactar = fechaContactar;
 	}
-	public Timestamp getFechaCreacion() {
-		return fechaCreacion;
-	}
-	public void setFechaCreacion(Timestamp fechaCreacion) {
-		this.fechaCreacion = fechaCreacion;
-	}
+
 	public boolean isEstado() {
 		return estado;
 	}
+
 	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
-	
+
+	public Date getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(Date fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}	
 }
