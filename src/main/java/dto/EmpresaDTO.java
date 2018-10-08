@@ -38,11 +38,11 @@ public class EmpresaDTO {
 		this.telefono = telefono;
 	}
 
-	public String getMail() {
+	public String getEmail() {
 		return email;
 	}
 
-	public void setMail(String email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 }

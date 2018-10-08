@@ -8,6 +8,9 @@ import dto.CursadaDTO;
 import dto.CursoDTO;
 import dto.ClaseDTO;
 import dto.CursoTipoDTO;
+import dto.EmpresaDTO;
+import dto.EstadoDeCursoDTO;
+import dto.SalaDTO;
 import dto.UsuarioDTO;
 import persistencia.dao.interfaz.AlumnoDAO;
 import persistencia.dao.interfaz.CategoriaDAO;
@@ -16,6 +19,9 @@ import persistencia.dao.interfaz.ClaseDAO;
 import persistencia.dao.interfaz.CursoTipoDAO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.UsuarioDAO;
+import persistencia.dao.interfaz.EmpresaDAO;
+import persistencia.dao.interfaz.SalaDAO;
+import persistencia.dao.interfaz.EstadoDeCursoDAO;
 import persistencia.dao.interfaz.CursadaDAO;
 
 public class AdministracionDeCursos {
@@ -26,6 +32,9 @@ public class AdministracionDeCursos {
 	private CursoTipoDAO cursoTipo;
 	private CursoDAO curso;
 	private ClaseDAO clase;
+	private EmpresaDAO empresa;
+	private SalaDAO sala;
+	private EstadoDeCursoDAO estadoDeCurso;
 	private CursadaDAO cursada;
 
 	public AdministracionDeCursos(DAOAbstractFactory metodo_persistencia) {
@@ -120,7 +129,55 @@ public class AdministracionDeCursos {
 	public List<ClaseDTO> obtenerClases() {
 		return this.clase.readAll();
 	}
+
+	/* ****************************************************************
+	 *                         Estado De Curso
+	 * ****************************************************************
+	 */
+	public List<EstadoDeCursoDTO> obtenerEstadosDeCurso() {
+		return this.estadoDeCurso.readAll();
+	}
+
+	/* ****************************************************************
+	 *                         Sala
+	 * ****************************************************************
+	 */
+	public void agregarSala(SalaDTO nuevaSala) {
+		this.sala.insert(nuevaSala);
+	}
+
+	public void borrarSala(SalaDTO sala_a_eliminar) {
+		this.sala.delete(sala_a_eliminar);
+	}
 	
+	public void actualizarSala(SalaDTO sala_a_actualizar) {
+		this.sala.update(sala_a_actualizar);
+	}
+	
+	public List<SalaDTO> obtenerSalas() {
+		return this.sala.readAll();
+	}
+
+	/* ****************************************************************
+	 *                         Empresa
+	 * ****************************************************************
+	 */
+	public void agregarEmpresa(EmpresaDTO nuevaEmpresa) {
+		this.empresa.insert(nuevaEmpresa);
+	}
+
+	public void borrarEmpresa(EmpresaDTO empresa_a_eliminar) {
+		this.empresa.delete(empresa_a_eliminar);
+	}
+	
+	public void actualizarEmpresa(EmpresaDTO empresa_a_actualizar) {
+		this.empresa.update(empresa_a_actualizar);
+	}
+	
+	public List<EmpresaDTO> obtenerEmpresas() {
+		return this.empresa.readAll();
+	}
+
 	/* ****************************************************************
 	 *                         Cursada
 	 * ****************************************************************

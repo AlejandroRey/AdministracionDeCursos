@@ -6,29 +6,27 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dto.SalaDTO;
 import persistencia.conexion.Conexion;
-import persistencia.dao.interfaz.CursadaDAO;
-import dto.CursadaDTO;
+import persistencia.dao.interfaz.SalaDAO;
 
-public class CursadaDAOSQL implements CursadaDAO{
+public class SalaDAOSQL implements SalaDAO{
 	
-	private static final String insert = "INSERT INTO cursada (idEmpresa, idCurso, idUsuario, idSala, idEstadoCurso, vacantes) VALUES (?, ?, ?, ?, ?, ?)";
-	private static final String delete = "DELETE FROM cursada WHERE idCursada = ?";
-	private static final String update = "UPDATE cursada SET idEmpresa = ?, idCurso = ?, idUsuario = ?, idSala = ?, idEstadoCurso = ?, vacantes = ? WHERE idCursada = ?";
-	private static final String readall = "SELECT * FROM cursada";
-
+	private static final String insert = "INSERT INTO sala (idSala, nombre, cantidadAlumnos, cantidadPC, descripcion) VALUES (?, ?, ?, ?, ?)";
+	private static final String delete = "DELETE FROM sala WHERE idSala = ?";
+	private static final String update = "UPDATE sala SET nombre = ?, cantidadAlumnos = ?, cantidadPC = ?, descripcion = ? WHERE idSala = ?";
+	private static final String readall = "SELECT * FROM sala";
+	
 	@Override
-	public boolean insert(CursadaDTO cursada) {
+	public boolean insert(SalaDTO sala) {
 		PreparedStatement statement;
 		Conexion conexion = Conexion.getConexion();
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(insert);
-			statement.setFloat(1, cursada.getIdEmpresa());
-			statement.setFloat(2, cursada.getIdCurso());
-			statement.setFloat(3, cursada.getIdUsuario());
-			statement.setFloat(4, cursada.getIdSala());
-			statement.setFloat(5, cursada.getIdEstadoCurso());
-			statement.setInt(6, cursada.getVacantes());
+			statement.setString(1, sala.getNombre());
+			statement.setInt(2, sala.getCantidadAlumnos());
+			statement.setInt(3, sala.getCantidadPc());
+			statement.setString(4, sala.getDescripcion());
 			if (statement.executeUpdate() > 0) // True is successfully return
 				return true;
 		} catch (SQLException e) {
@@ -38,15 +36,15 @@ public class CursadaDAOSQL implements CursadaDAO{
 		}
 		return false;
 	}
-
+	
 	@Override
-	public boolean delete(CursadaDTO cursada) {
+	public boolean delete(SalaDTO sala) {
 		PreparedStatement statement;
 		int chequeoUpdate = 0;
 		Conexion conexion = Conexion.getConexion();
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(delete);
-			statement.setString(1, Long.toString(cursada.getIdCursada()));
+			statement.setString(1, Long.toString(sala.getIdSala()));
 			chequeoUpdate = statement.executeUpdate();
 			if (chequeoUpdate > 0) // True is successfully return
 				return true;
@@ -57,19 +55,17 @@ public class CursadaDAOSQL implements CursadaDAO{
 		}
 		return false;
 	}
-
+	
 	@Override
-	public boolean update(CursadaDTO cursada) {
+	public boolean update(SalaDTO sala) {
 		PreparedStatement statement;
 		Conexion conexion = Conexion.getConexion();
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(update);			
-			statement.setFloat(1, cursada.getIdEmpresa());
-			statement.setFloat(2, cursada.getIdCurso());
-			statement.setFloat(3, cursada.getIdUsuario());
-			statement.setFloat(4, cursada.getIdSala());
-			statement.setFloat(5, cursada.getIdEstadoCurso());
-			statement.setInt(6, cursada.getVacantes());
+			statement.setString(1, sala.getNombre());
+			statement.setInt(2, sala.getCantidadAlumnos());
+			statement.setInt(3, sala.getCantidadPc());
+			statement.setString(4, sala.getDescripcion());
 			if (statement.executeUpdate() > 0) // True is successfully return
 				return true;
 		} catch (SQLException e) {
@@ -79,30 +75,29 @@ public class CursadaDAOSQL implements CursadaDAO{
 		}
 		return false;
 	}
-
+	
 	@Override
-	public List<CursadaDTO> readAll() {
+	public List<SalaDTO> readAll() {
 		PreparedStatement statement;
 		ResultSet resultSet; // Guarda el resultado de la query
-		ArrayList<CursadaDTO> cursadas = new ArrayList<CursadaDTO>();
+		ArrayList<SalaDTO> salas = new ArrayList<SalaDTO>();
 		Conexion conexion = Conexion.getConexion();
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(readall);
 			resultSet = statement.executeQuery();
 			while (resultSet.next()) {
-				cursadas.add(new CursadaDTO(resultSet.getLong("idCursada"), 
-											resultSet.getLong("idEmpresa"),
-											resultSet.getLong("idCurso"), 
-											resultSet.getLong("idUsuario"),
-											resultSet.getLong("idSala"),
-											resultSet.getLong("idEstadoCurso"),
-											resultSet.getInt("vacantes")));
+				salas.add(new SalaDTO(resultSet.getLong("idSala"), 
+											resultSet.getString("nombre"),
+											resultSet.getInt("cantidadAlumnos"), 
+											resultSet.getInt("cantidadPc"),
+											resultSet.getString("descripcion")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			conexion.cerrarConexion();
 		}
-		return cursadas;
+		return salas;
 	}
+
 }
