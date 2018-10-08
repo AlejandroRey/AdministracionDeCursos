@@ -7,6 +7,7 @@ import dto.CategoriaDTO;
 import dto.CursadaDTO;
 import dto.CursoDTO;
 import dto.ClaseDTO;
+import dto.CursadaCompletaDTO;
 import dto.CursoTipoDTO;
 import dto.EmpresaDTO;
 import dto.EstadoDeCursoDTO;
@@ -16,6 +17,7 @@ import persistencia.dao.interfaz.AlumnoDAO;
 import persistencia.dao.interfaz.CategoriaDAO;
 import persistencia.dao.interfaz.CursoDAO;
 import persistencia.dao.interfaz.ClaseDAO;
+import persistencia.dao.interfaz.CursadaCompletaDAO;
 import persistencia.dao.interfaz.CursoTipoDAO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.UsuarioDAO;
@@ -36,6 +38,7 @@ public class AdministracionDeCursos {
 	private SalaDAO sala;
 	private EstadoDeCursoDAO estadoDeCurso;
 	private CursadaDAO cursada;
+	private CursadaCompletaDAO cursadaCompleta;
 
 	public AdministracionDeCursos(DAOAbstractFactory metodo_persistencia) {
 		
@@ -49,6 +52,7 @@ public class AdministracionDeCursos {
 		this.estadoDeCurso = metodo_persistencia.createEstadoDeCursoDAO();
 		this.sala = metodo_persistencia.createSalaDAO();
 		this.cursada = metodo_persistencia.createCursadaDAO();
+		this.cursadaCompleta = metodo_persistencia.createCursadaCompletaDAO();
 	}
 	
 	/* ****************************************************************
@@ -200,6 +204,15 @@ public class AdministracionDeCursos {
 	
 	public List<CursadaDTO> obtenerCursadas() {
 		return this.cursada.readAll();
+	}
+	
+	/* ****************************************************************
+	 *                         CursadaCompleta
+	 * ****************************************************************
+	 */
+	
+	public List<CursadaCompletaDTO> obtenerCursadasCompletas() {
+		return this.cursadaCompleta.readAll();
 	}
 	
 }

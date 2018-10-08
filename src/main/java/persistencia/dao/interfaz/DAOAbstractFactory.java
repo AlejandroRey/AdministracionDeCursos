@@ -21,5 +21,7 @@ public interface DAOAbstractFactory {
 	public SalaDAO createSalaDAO();
 	
 	public CursadaDAO createCursadaDAO();
+
+	public CursadaCompletaDAO createCursadaCompletaDAO();
 	
 }

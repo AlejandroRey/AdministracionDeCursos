@@ -94,7 +94,7 @@ public class UsuarioCrudControlador implements ActionListener {
 					Object email = this.vista.getTblUsuarios().getValueAt(this.vista.getTblUsuarios().getSelectedRow(), 6);
 					Object usuario = this.vista.getTblUsuarios().getValueAt(this.vista.getTblUsuarios().getSelectedRow(), 7);
 					Object password = this.vista.getTblUsuarios().getValueAt(this.vista.getTblUsuarios().getSelectedRow(), 8);
-					System.out.println("LLLLLLegue");
+
 					this.vista.getTextIdUsuario().setText(idUsuario.toString());
 					this.vista.getCbxCategoria().setSelectedItem(new CategoriaDTO(Long.parseLong(idCategoria.toString()), categoria.toString()));
 					this.vista.getTextNombre().setText(nombre.toString());

@@ -4,6 +4,7 @@ import persistencia.dao.interfaz.AlumnoDAO;
 import persistencia.dao.interfaz.CategoriaDAO;
 import persistencia.dao.interfaz.CursoDAO;
 import persistencia.dao.interfaz.ClaseDAO;
+import persistencia.dao.interfaz.CursadaCompletaDAO;
 import persistencia.dao.interfaz.CursoTipoDAO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.UsuarioDAO;
@@ -71,5 +72,10 @@ public class DAOSQLFactory implements DAOAbstractFactory {
 	@Override
 	public CursadaDAO createCursadaDAO() {
 		return new CursadaDAOSQL();
+	}
+	
+	@Override
+	public CursadaCompletaDAO createCursadaCompletaDAO() {
+		return new CursadaCompletaDAOSQL();
 	}
 }

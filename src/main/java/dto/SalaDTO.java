@@ -55,4 +55,17 @@ public class SalaDTO {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return nombre;
+	}
+	
+	@Override
+	public boolean equals(Object sala) {
+	    return this.idSala == ((SalaDTO) sala).idSala;
+	}
 }

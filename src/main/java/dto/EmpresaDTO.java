@@ -45,4 +45,17 @@ public class EmpresaDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return nombre;
+	}
+	
+	@Override
+	public boolean equals(Object empresa) {
+	    return this.idEmpresa == ((EmpresaDTO) empresa).idEmpresa;
+	}
 }

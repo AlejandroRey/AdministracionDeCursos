@@ -22,4 +22,18 @@ public class EstadoDeCursoDTO {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return nombre;
+	}
+	
+	@Override
+	public boolean equals(Object estado) {
+	    return this.idEstadoDeCurso == ((EstadoDeCursoDTO) estado).idEstadoDeCurso;
+	}
+	
 }

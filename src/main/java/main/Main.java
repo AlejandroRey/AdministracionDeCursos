@@ -4,44 +4,42 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import dto.ClaseDTO;
+import dto.CursadaCompletaDTO;
+import dto.EmpresaDTO;
 import modelo.AdministracionDeCursos;
-import persistencia.controlador.CursoCrudControlador;
+import persistencia.controlador.CursadaNuevaControlador;
 import persistencia.dao.mysql.DAOSQLFactory;
-import presentacion.vista.CursoCrudVista;
-import presentacion.vista.MainVista;
-import presentacion.vista.TestTimePicker;
+import presentacion.vista.AdministracionDeCursosView;
+import presentacion.vista.CursaNuevaVista;
 
 public class Main {
 
 	public static void main(String[] args) {
 		
-        try {
-            // Selecciono el Look and Feel HiFiLookAndFeel        	
-        	//UIManager.setLookAndFeel("com.jtattoo.plaf.smart.LunaLookAndFeel");
-        	//UIManager.setLookAndFeel("com.jtattoo.plaf.smart.TextureLookAndFeel");
-        	//UIManager.setLookAndFeel("com.jtattoo.plaf.smart.AluminiumLookAndFeel");        	
-            UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
-            //UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel"); 
-        	//UIManager.setLookAndFeel("com.jtattoo.plaf.noire.NoireLookAndFeel");
-        	//UIManager.setLookAndFeel("com.jtattoo.plaf.bernstein.BernsteinLookAndFeel");	
-        	
+        try {     	
+            UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");      	
         	UIManager.LookAndFeelInfo[] lafInfo = UIManager.getInstalledLookAndFeels();
         	for (LookAndFeelInfo lookAndFeelInfo : lafInfo) {
 				System.out.println(lookAndFeelInfo.toString());
 			}
-        	//UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");        	
-        	//UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-        	//UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
-        	//UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-        	//UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel");
-        	//UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException
 				| IllegalAccessException ex) {
 			System.out.println(ex.getMessage());
 		}
         
+        AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
         
+        for (EmpresaDTO empresa : modelo.obtenerEmpresas()) {
+        	System.out.println("Empresa:");
+        	System.out.println(empresa.toString());
+		}
+        
+        for (CursadaCompletaDTO cursada : modelo.obtenerCursadasCompletas()) {
+			System.out.println(cursada.toString());
+		}   
+        AdministracionDeCursosView vista = new AdministracionDeCursosView();
+        CursadaNuevaControlador c = new CursadaNuevaControlador(vista, modelo);
+        c.inicializar();
 
 //		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
 //		CursoCrudVista vista = new CursoCrudVista();
@@ -55,7 +53,7 @@ public class Main {
 //		
 //		UsuarioCrudVista vista = new UsuarioCrudVista();
 //		UsuarioCrudControlador ctrl =  new UsuarioCrudControlador(vista, modelo);
-		
+//		
 //		TestTimePicker t = new TestTimePicker();
 //
 //		ctrl.inicializar();
@@ -71,19 +69,17 @@ public class Main {
 //		for (CategoriaDTO categoria : modelo.obtenerCategorias()) {
 //			System.out.println(categoria.toString());
 //		}
-		
+//		
 //		InstructorCrudVista vista = new InstructorCrudVista();
 //
 //		InstructorCrudControlador controlador = new InstructorCrudControlador(vista, modelo);
 //		controlador.inicializar();
-
+//
 //		for (InstructorDTO i : modelo.obtenerInstructores()) {
 //			System.out.println(i.toString());
 //		}
-		
-        MainVista mainVista = new MainVista();
-        mainVista.show();
-        
-
-	}
+//		
+//      MainVista mainVista = new MainVista();
+//      mainVista.show();
+        }
 }

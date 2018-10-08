@@ -47,5 +47,18 @@ public class CursoDTO {
 	public void setTemario(String temario) {
 		this.temario = temario;
 	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return nombre;
+	}
+	
+	@Override
+	public boolean equals(Object curso) {
+	    return this.idCurso == ((CursoDTO) curso).idCurso;
+	}
 		
 }
