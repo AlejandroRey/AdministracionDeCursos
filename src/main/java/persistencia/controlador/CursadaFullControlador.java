@@ -1,5 +1,6 @@
 package persistencia.controlador;
 
+import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import dto.AlumnoDTO;
 import dto.AlumnoInscriptoDTO;
 import dto.CursadaCompletaDTO;
 import dto.CursadaDTO;
@@ -39,6 +41,9 @@ public class CursadaFullControlador implements ActionListener {
 	private List<CursoDTO> cursosLista;
 	private List<SalaDTO> salasLista;
 	private List<EstadoDeCursoDTO> estadosCurso;
+	
+	private AlumnoParaInscribirModalPanel panel;
+	private AlumnoParaInscribirControlador addAlumno;
 	
 	public CursadaFullControlador(CursadaFullVista vista, AdministracionDeCursos modelo) {
 		this.vista = vista;
@@ -312,13 +317,33 @@ public class CursadaFullControlador implements ActionListener {
 			clearTextBoxPanelCursadas();
 		} else if (e.getSource() == this.vista.getPanelCursada().getBtnAddPagos()) {
 			clearTextBoxPanelCursadas();
-		} else if (e.getSource() == this.vista.getPanelCursada().getBtnAddHorariosCursada()) {
-			AlumnoParaInscribirModalPanel panel = new AlumnoParaInscribirModalPanel();
+		} else if (e.getSource() == this.vista.getPanelCursada().getBtnAddHorariosCursada()) {			
+			try {
+				panel = new AlumnoParaInscribirModalPanel();
+				addAlumno =new AlumnoParaInscribirControlador(panel, modelo);
+				addAlumno.getBtnAddAlumno().addActionListener(this);
+				addAlumno.inicializar();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}			
 		} else if (e.getSource() == this.vista.getPanelInscriptos().getBtnEliminar()) {
 			eliminarAlumnoInscripto();
+		} else if (e.getSource() == addAlumno.getBtnAddAlumno()) {
+			inscribirAlumnoCursada();
 		}
 	}
 	
+	private void inscribirAlumnoCursada() {
+		AlumnoDTO alumno = addAlumno.getAlumnoParaInscrir();
+		    //Long.parseLong(this.vista.getPanelCursada().getTextIdCursada().getText().toString()
+		System.out.println(this.vista.getPanelCursada().getTextIdCursada().getText().toString()+" IDDDDDDDDDDDD");
+		InscriptoDTO inscriptoDTO = new InscriptoDTO(alumno.getIdAlumno(), 
+													 Long.parseLong(this.vista.getPanelCursada().getTextIdCursada().getText().toString()), 
+													 LocalDateTime.now());
+		modelo.agregarInscripto(inscriptoDTO);
+		llenarTablaInscriptos();
+	}
+
 	private void eliminarAlumnoInscripto() {
 		LocalDateTime fechaInscripcion = StringToLocalDateTime(this.vista.getPanelInscriptos().getTextFecha().getText());
 		InscriptoDTO inscripto = new InscriptoDTO(Long.parseLong(this.vista.getPanelInscriptos().getTextIdAlumno().getText().toString()), 

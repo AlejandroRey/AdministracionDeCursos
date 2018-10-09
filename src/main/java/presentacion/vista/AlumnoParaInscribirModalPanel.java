@@ -18,6 +18,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
+import modelo.AdministracionDeCursos;
+import persistencia.controlador.CursadaFullControlador;
+import java.awt.SystemColor;
+
 @SuppressWarnings("serial")
 public class AlumnoParaInscribirModalPanel extends JDialog {
 
@@ -37,20 +41,25 @@ public class AlumnoParaInscribirModalPanel extends JDialog {
 	private JButton btnAgregar;
 	private JButton btnActualizar;
 	private JButton btnEliminar;
-	private JButton btnCerrar;
+	private JButton btnAddAlumno;
+	
+	private CursadaFullControlador mainView;
+	private AdministracionDeCursos modelo;
 
 	/**
 	 * Create the frame.
+	 * @param cursadaFullControlador 
 	 */
 	public AlumnoParaInscribirModalPanel() {
 		super();
+		setBounds(0, 0, 600, 600);
+		setVisible(true);
+		setModal(true);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		inicializar();
 	}
 
-	private void inicializar() {
-		setModal(true);
-		getContentPane().setLayout(null);
-		
+	private void inicializar() {		
 		inicializarTabla();
 		inicializarEditor();		
 	}
@@ -79,7 +88,7 @@ public class AlumnoParaInscribirModalPanel extends JDialog {
 
 	private void inicializarEditor() {		
 		panel = new JPanel();
-		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Alumno - Editor:", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
+		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Alumno Seleccionado:", TitledBorder.LEADING, TitledBorder.TOP, null, SystemColor.activeCaption));
 		panel.setBounds(41, 336, 500, 151);
 		getContentPane().add(panel);
 		panel.setLayout(null);
@@ -138,19 +147,22 @@ public class AlumnoParaInscribirModalPanel extends JDialog {
 		
 		btnAgregar = new JButton("Agregar");
 		btnAgregar.setBounds(19, 114, 89, 23);
+		btnAgregar.setVisible(false);
 		panel.add(btnAgregar);
 		
 		btnActualizar = new JButton("Actualizar");
 		btnActualizar.setBounds(144, 114, 89, 23);
+		btnActualizar.setVisible(false);
 		panel.add(btnActualizar);
 		
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.setBounds(261, 114, 89, 23);
+		btnEliminar.setVisible(false);
 		panel.add(btnEliminar);
 		
-		btnCerrar = new JButton("Cerrar");
-		btnCerrar.setBounds(384, 114, 89, 23);
-		panel.add(btnCerrar);
+		btnAddAlumno = new JButton("Agregar Alumno");
+		btnAddAlumno.setBounds(334, 114, 139, 23);
+		panel.add(btnAddAlumno);
 		
 		JSeparator separator = new JSeparator();
 		separator.setForeground(Color.BLUE);
@@ -331,13 +343,13 @@ public class AlumnoParaInscribirModalPanel extends JDialog {
 	 * @return the btnCerrar
 	 */
 	public JButton getBtnCerrar() {
-		return btnCerrar;
+		return btnAddAlumno;
 	}
 
 	/**
 	 * @param btnCerrar the btnCerrar to set
 	 */
 	public void setBtnCerrar(JButton btnCerrar) {
-		this.btnCerrar = btnCerrar;
+		this.btnAddAlumno = btnCerrar;
 	}
 }
