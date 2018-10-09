@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -36,6 +37,9 @@ public class AlumnoParaInscribirControlador implements ActionListener {
 
 	public void inicializar() {
 		llenarTabla();
+		this.vista.setModal(true);
+		this.vista.setVisible(true);
+		this.vista.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	}
 
 	private void llenarTabla() {

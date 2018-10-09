@@ -53,9 +53,6 @@ public class AlumnoParaInscribirModalPanel extends JDialog {
 	public AlumnoParaInscribirModalPanel() {
 		super();
 		setBounds(0, 0, 600, 600);
-		setVisible(true);
-		setModal(true);
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		inicializar();
 	}
 

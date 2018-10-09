@@ -1,6 +1,5 @@
 package persistencia.controlador;
 
-import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
@@ -8,8 +7,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.swing.DefaultListSelectionModel;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
@@ -26,7 +23,6 @@ import dto.InscriptoDTO;
 import dto.SalaDTO;
 import modelo.AdministracionDeCursos;
 import presentacion.vista.AlumnoParaInscribirModalPanel;
-import presentacion.vista.AlumnosInscriptosPanel;
 import presentacion.vista.CursadaFullVista;
 
 public class CursadaFullControlador implements ActionListener {
@@ -314,10 +310,6 @@ public class CursadaFullControlador implements ActionListener {
 		} else if (e.getSource() == this.vista.getPanelCursada().getBtnEliminar()) {
 			eliminarCursada();
 		} else if (e.getSource() == this.vista.getPanelCursada().getBtnAddAlumnos()) {
-			clearTextBoxPanelCursadas();
-		} else if (e.getSource() == this.vista.getPanelCursada().getBtnAddPagos()) {
-			clearTextBoxPanelCursadas();
-		} else if (e.getSource() == this.vista.getPanelCursada().getBtnAddHorariosCursada()) {			
 			try {
 				panel = new AlumnoParaInscribirModalPanel();
 				addAlumno =new AlumnoParaInscribirControlador(panel, modelo);
@@ -325,7 +317,11 @@ public class CursadaFullControlador implements ActionListener {
 				addAlumno.inicializar();
 			} catch (Exception ex) {
 				ex.printStackTrace();
-			}			
+			}
+		} else if (e.getSource() == this.vista.getPanelCursada().getBtnAddPagos()) {
+			clearTextBoxPanelCursadas();
+		} else if (e.getSource() == this.vista.getPanelCursada().getBtnAddHorariosCursada()) {			
+			
 		} else if (e.getSource() == this.vista.getPanelInscriptos().getBtnEliminar()) {
 			eliminarAlumnoInscripto();
 		} else if (e.getSource() == addAlumno.getBtnAddAlumno()) {
