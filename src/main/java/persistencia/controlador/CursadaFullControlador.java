@@ -2,6 +2,8 @@ package persistencia.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.swing.DefaultListSelectionModel;
@@ -11,6 +13,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import dto.CursadaCompletaDTO;
+import dto.CursadaDTO;
 import dto.CursoDTO;
 import dto.EmpresaDTO;
 import dto.EstadoDeCursoDTO;
@@ -36,7 +39,9 @@ public class CursadaFullControlador implements ActionListener {
 		this.vista.getPanelCursada().getBtnActualizar().addActionListener(this);
 		this.vista.getPanelCursada().getBtnAgregar().addActionListener(this);
 		this.vista.getPanelCursada().getBtnEliminar().addActionListener(this);
-		this.vista.getPanelCursada().getBtnCerrar().addActionListener(this);
+		this.vista.getPanelCursada().getBtnAddAlumnos().addActionListener(this);
+		this.vista.getPanelCursada().getBtnAddPagos().addActionListener(this);
+		this.vista.getPanelCursada().getBtnAddHorariosCursada().addActionListener(this);
 	}
 
 	public void inicializar() {
@@ -64,8 +69,8 @@ public class CursadaFullControlador implements ActionListener {
 					         cursadaCompletaDTO.getIdCurso(),
 					         cursadaCompletaDTO.getIdSala(),
 					         cursadaCompletaDTO.getIdEstadoCurso(),
-					         cursadaCompletaDTO.getFechaInicioInscripcion(),
-							 cursadaCompletaDTO.getFechaFinInscripcion(),
+					         stringDateFormatter(cursadaCompletaDTO.getFechaInicioInscripcion()),
+					         stringDateFormatter(cursadaCompletaDTO.getFechaFinInscripcion()),
 							 cursadaCompletaDTO.getVacantes(),
 							 cursadaCompletaDTO.getEmpresa(),
 							 cursadaCompletaDTO.getCurso(),
@@ -135,9 +140,17 @@ public class CursadaFullControlador implements ActionListener {
 		this.vista.getPanelCursada().getTextFechaInicioInsc().setText("");
 		this.vista.getPanelCursada().getTextFechaFinInsc().setText("");
 		this.vista.getPanelCursada().getTextVacantes().setText("");
+		this.vista.getPanelCursada().getTextIdCursada().setText("");
+	}
+	
+	private String stringDateFormatter(LocalDateTime fecha) {		
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String formatDateTime = fecha.format(formatter);
+        return formatDateTime;
 	}
 
 	private void initComboBox() {
+		
 		if (this.vista.getPanelCursada().getCbxEmpresa().getItemCount() == 0) {
 			this.vista.getPanelCursada().getCbxEmpresa().addItem(new EmpresaDTO(0, "", "", ""));
 			for (EmpresaDTO empresaDTO : empresasLista) {
@@ -208,58 +221,90 @@ public class CursadaFullControlador implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == this.vista.getPanelCursada().getBtnActualizar()) {
-			//actualizarAlumno();
-		} else if (e.getSource() == this.vista.getPanelCursada().getBtnAgregar()) {
-			//agregarAlumno();
+		if (e.getSource() == this.vista.getPanelCursada().getBtnAgregar()) {
+			agregarCursada();
+		} else if (e.getSource() == this.vista.getPanelCursada().getBtnActualizar()) {
+			editarCursada();
 		} else if (e.getSource() == this.vista.getPanelCursada().getBtnEliminar()) {
-			//eliminarAlumno();
-		} else if (e.getSource() == this.vista.getPanelCursada().getBtnCerrar()) {
-			//cerrarVistaAlumno();
+			eliminarCursada();
+		} else if (e.getSource() == this.vista.getPanelCursada().getBtnAddAlumnos()) {
+			clearTextInputsBox();
+		} else if (e.getSource() == this.vista.getPanelCursada().getBtnAddPagos()) {
+			clearTextInputsBox();
+		} else if (e.getSource() == this.vista.getPanelCursada().getBtnAddHorariosCursada()) {
+			clearTextInputsBox();
 		}
 	}
 
-//	private void actualizarAlumno() {
-//		CursadaDTO acursada = new CursadaDTO(idCursada,
-//				this.vista.getPanelCursada().getCbxEmpresa().getSelectedItem(), idCurso, idUsuario, idSala, idEstadoCurso, vacantes);
-//		this.modelo.actualizarCursada(cursada);
-//		llenarTabla();
-//	}
-//
-//	private void eliminarAlumno() {        
-//    	int dialogResult = JOptionPane.showConfirmDialog(null, "Se va a Eliminar el Alumno seleccionado!", "Confirma Eliminar Registro?", JOptionPane.YES_NO_OPTION);
-//        if (dialogResult == JOptionPane.YES_OPTION) {
-//            try {
-//        		AlumnoDTO alumno = new AlumnoDTO(Long.parseLong(this.vista.getPanelCursada().getTextIdAlumno().getText()),
-//						   this.vista.getPanelCursada().getTextNombre().getText(),
-//						   this.vista.getPanelCursada().getTextApellido().getText(),
-//						   this.vista.getPanelCursada().getTextTelefono().getText(),
-//						   this.vista.getPanelCursada().getTextEmail().getText());
-//				this.modelo.borrarAlumno(alumno);
-//				llenarTabla();
-//            } catch (Exception ex) {
-//                System.out.println(ex.getMessage());
-//            }
-//        }
-//	}
-//
-//	private void agregarAlumno() {
-//		AlumnoDTO alumno = new AlumnoDTO(0,
-//									   this.vista.getPanelCursada().getTextNombre().getText(),
-//									   this.vista.getPanelCursada().getTextApellido().getText(),
-//									   this.vista.getPanelCursada().getTextTelefono().getText(),
-//									   this.vista.getPanelCursada().getTextEmail().getText());		
-//		this.modelo.agregarAlumno(alumno);
-//		llenarTabla();
-//	}
-//	
-//	private void clearTextInputsBox() {
-//		this.vista.getPanelCursada().getTextIdAlumno().setText("");
-//		this.vista.getPanelCursada().getTextNombre().setText("");
-//		this.vista.getPanelCursada().getTextApellido().setText("");
-//		this.vista.getPanelCursada().getTextTelefono().setText("");
-//		this.vista.getPanelCursada().getTextEmail().setText("");
-//	}
+	private void agregarCursada() {
+
+		EmpresaDTO empresa = (EmpresaDTO) this.vista.getPanelCursada().getCbxEmpresa().getSelectedItem();
+		CursoDTO curso = (CursoDTO) this.vista.getPanelCursada().getCbxCurso().getSelectedItem();
+		SalaDTO sala = (SalaDTO) this.vista.getPanelCursada().getCbxSala().getSelectedItem();
+		EstadoDeCursoDTO estadoDeCurso = (EstadoDeCursoDTO) this.vista.getPanelCursada().getCbxEstado().getSelectedItem();
+
+		LocalDateTime fechaInicioInscripcion = StringToLocalDateTime(this.vista.getPanelCursada().getTextFechaInicioInsc().getText());
+		LocalDateTime fechaFinInscripcion = StringToLocalDateTime(this.vista.getPanelCursada().getTextFechaFinInsc().getText());
+		CursadaDTO cursadaDTO = new CursadaDTO(0, 
+											   empresa.getIdEmpresa(), 
+											   curso.getIdCurso(), 
+											   sala.getIdSala(), 
+											   estadoDeCurso.getIdEstadoDeCurso(), 
+											   fechaInicioInscripcion,
+											   fechaFinInscripcion,
+											   this.vista.getPanelCursada().getTextVacantes().getText());
+		this.modelo.agregarCursada(cursadaDTO);
+		llenarTabla();
+	}
+	
+	private void editarCursada() {
+		
+		EmpresaDTO empresa = (EmpresaDTO) this.vista.getPanelCursada().getCbxEmpresa().getSelectedItem();
+		CursoDTO curso = (CursoDTO) this.vista.getPanelCursada().getCbxCurso().getSelectedItem();
+		SalaDTO sala = (SalaDTO) this.vista.getPanelCursada().getCbxSala().getSelectedItem();
+		EstadoDeCursoDTO estadoDeCurso = (EstadoDeCursoDTO) this.vista.getPanelCursada().getCbxEstado().getSelectedItem();
+
+		LocalDateTime fechaInicioInscripcion = StringToLocalDateTime(this.vista.getPanelCursada().getTextFechaInicioInsc().getText());
+		LocalDateTime fechaFinInscripcion = StringToLocalDateTime(this.vista.getPanelCursada().getTextFechaFinInsc().getText());
+		CursadaDTO cursadaDTO = new CursadaDTO(Long.parseLong(this.vista.getPanelCursada().getTextIdCursada().getText().toString()), 
+											   empresa.getIdEmpresa(), 
+											   curso.getIdCurso(), 
+											   sala.getIdSala(), 
+											   estadoDeCurso.getIdEstadoDeCurso(), 
+											   fechaInicioInscripcion,
+											   fechaFinInscripcion,
+											   this.vista.getPanelCursada().getTextVacantes().getText());
+		this.modelo.actualizarCursada(cursadaDTO);
+		llenarTabla();
+	}
+	
+	private void eliminarCursada() {
+		
+		EmpresaDTO empresa = (EmpresaDTO) this.vista.getPanelCursada().getCbxEmpresa().getSelectedItem();
+		CursoDTO curso = (CursoDTO) this.vista.getPanelCursada().getCbxCurso().getSelectedItem();
+		SalaDTO sala = (SalaDTO) this.vista.getPanelCursada().getCbxSala().getSelectedItem();
+		EstadoDeCursoDTO estadoDeCurso = (EstadoDeCursoDTO) this.vista.getPanelCursada().getCbxEstado().getSelectedItem();
+
+		LocalDateTime fechaInicioInscripcion = StringToLocalDateTime(this.vista.getPanelCursada().getTextFechaInicioInsc().getText());
+		LocalDateTime fechaFinInscripcion = StringToLocalDateTime(this.vista.getPanelCursada().getTextFechaFinInsc().getText());
+		CursadaDTO cursadaDTO = new CursadaDTO(Long.parseLong(this.vista.getPanelCursada().getTextIdCursada().getText().toString()), 
+											   empresa.getIdEmpresa(), 
+											   curso.getIdCurso(), 
+											   sala.getIdSala(), 
+											   estadoDeCurso.getIdEstadoDeCurso(), 
+											   fechaInicioInscripcion,
+											   fechaFinInscripcion,
+											   this.vista.getPanelCursada().getTextVacantes().getText());
+		this.modelo.borrarCursada(cursadaDTO);
+		llenarTabla();
+	}
+
+	private LocalDateTime StringToLocalDateTime(String fecha) {
+		String date = fecha + " 00:00:00";
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+		LocalDateTime dateTime = LocalDateTime.parse(date, format);
+		return dateTime;
+	}
 	
 	@SuppressWarnings("serial")
 	public class ListSelectionModelCstm extends DefaultListSelectionModel {

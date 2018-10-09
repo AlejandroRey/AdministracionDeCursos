@@ -5,6 +5,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import dto.CursadaCompletaDTO;
+import dto.CursadaDTO;
 import dto.EmpresaDTO;
 import modelo.AdministracionDeCursos;
 import persistencia.controlador.CursadaFullControlador;
@@ -38,6 +39,10 @@ public class Main {
         for (CursadaCompletaDTO cursada : modelo.obtenerCursadasCompletas()) {
 			System.out.println(cursada.toString());
 		}   
+        
+        for (CursadaDTO	cursada : modelo.obtenerCursadas()) {
+			System.out.println(cursada.toString());
+		}
         CursadaFullVista vista = new CursadaFullVista();
         CursadaFullControlador c = new CursadaFullControlador(vista, modelo);
         c.inicializar();

@@ -131,7 +131,8 @@ public class AdministracionDeCursos {
 		return this.curso.readAll();
 	}
 	
-	/*                        Clase
+	/* ****************************************************************
+	 *                         Clase
 	 * ****************************************************************
 	 */
 	public List<ClaseDTO> obtenerClases() {
@@ -199,6 +200,7 @@ public class AdministracionDeCursos {
 	}
 	
 	public void actualizarCursada(CursadaDTO cursada_a_actualizar) {
+		System.out.println("MODELO");
 		this.cursada.update(cursada_a_actualizar);
 	}
 	

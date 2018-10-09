@@ -49,23 +49,23 @@ public class CursadaCrudControlador implements ActionListener {
 	
 	public void llenarTablaCursadas() {
 		
-		this.cursadaVista.getModelCursadas().setRowCount(0); //Para vaciar la tabla
-		this.cursadaVista.getModelCursadas().setColumnCount(0);
-		this.cursadaVista.getModelCursadas().setColumnIdentifiers(this.cursadaVista.getNombreColumnas());
-		this.consultarDatos();
-
-		for (int i = 0; i < this.cursadasLista.size(); i ++)
-		{
-			Object[] fila = { 
-							 this.cursadasLista.get(i).getIdCursada(),
-							 getSalaString(this.cursadasLista.get(i).getIdSala()),
-							 getEmpresaString(this.cursadasLista.get(i).getIdEmpresa()),
-							 getCursoString(this.cursadasLista.get(i).getIdCurso()),
-							 getInstructorString(this.cursadasLista.get(i).getIdUsuario()),
-							 getEstadoDeCursoString(this.cursadasLista.get(i).getIdEstadoCurso()),
-							 this.cursadasLista.get(i).getVacantes()};
-			this.cursadaVista.getModelCursadas().addRow(fila);
-		}	
+//		this.cursadaVista.getModelCursadas().setRowCount(0); //Para vaciar la tabla
+//		this.cursadaVista.getModelCursadas().setColumnCount(0);
+//		this.cursadaVista.getModelCursadas().setColumnIdentifiers(this.cursadaVista.getNombreColumnas());
+//		this.consultarDatos();
+//
+//		for (int i = 0; i < this.cursadasLista.size(); i ++)
+//		{
+//			Object[] fila = { 
+//							 this.cursadasLista.get(i).getIdCursada(),
+//							 getSalaString(this.cursadasLista.get(i).getIdSala()),
+//							 getEmpresaString(this.cursadasLista.get(i).getIdEmpresa()),
+//							 getCursoString(this.cursadasLista.get(i).getIdCurso()),
+//							 getInstructorString(this.cursadasLista.get(i).getIdUsuario()),
+//							 getEstadoDeCursoString(this.cursadasLista.get(i).getIdEstadoCurso()),
+//							 this.cursadasLista.get(i).getVacantes()};
+//			this.cursadaVista.getModelCursadas().addRow(fila);
+//		}	
 		
 	}
 	
@@ -192,22 +192,22 @@ public class CursadaCrudControlador implements ActionListener {
 	}
 
 	private void nuevaCursada() {
-		EmpresaDTO empresa = (EmpresaDTO) cursadaVista.getCmBoxEmpresa().getSelectedItem();	
-		CursoDTO curso = (CursoDTO) cursadaVista.getCmBoxCurso().getSelectedItem();
-		UsuarioDTO instructor = (UsuarioDTO) cursadaVista.getCmBoxInstructor().getSelectedItem();
-		SalaDTO sala = (SalaDTO) cursadaVista.getCmBoxSala().getSelectedItem();
-		EstadoDeCursoDTO estadoCurso = (EstadoDeCursoDTO) cursadaVista.getCmBoxEstadoDeCurso().getSelectedItem();
-		
-		long idEmpresa = empresa.getIdEmpresa();
-		long idCurso = curso.getIdCurso();
-		long idInstructor = instructor.getIdUsuario();
-		long idSala = sala.getIdSala();
-		long idEstadoCurso = estadoCurso.getIdEstadoDeCurso(); 
-		int vacantes = Integer.parseInt(cursadaVista.getTxtVacantes().getText());
-		
-		CursadaDTO cursada = new CursadaDTO(0,idEmpresa,idCurso,idInstructor,idSala,idEstadoCurso,vacantes);
-		modelo.agregarCursada(cursada);
-		JOptionPane.showMessageDialog(null, "Se Agrego nueva cursada", "Nueva Cursada", JOptionPane.INFORMATION_MESSAGE);
-		llenarTablaCursadas();
+//		EmpresaDTO empresa = (EmpresaDTO) cursadaVista.getCmBoxEmpresa().getSelectedItem();	
+//		CursoDTO curso = (CursoDTO) cursadaVista.getCmBoxCurso().getSelectedItem();
+//		UsuarioDTO instructor = (UsuarioDTO) cursadaVista.getCmBoxInstructor().getSelectedItem();
+//		SalaDTO sala = (SalaDTO) cursadaVista.getCmBoxSala().getSelectedItem();
+//		EstadoDeCursoDTO estadoCurso = (EstadoDeCursoDTO) cursadaVista.getCmBoxEstadoDeCurso().getSelectedItem();
+//		
+//		long idEmpresa = empresa.getIdEmpresa();
+//		long idCurso = curso.getIdCurso();
+//		long idInstructor = instructor.getIdUsuario();
+//		long idSala = sala.getIdSala();
+//		long idEstadoCurso = estadoCurso.getIdEstadoDeCurso(); 
+//		int vacantes = Integer.parseInt(cursadaVista.getTxtVacantes().getText());
+//		
+//		CursadaDTO cursada = new CursadaDTO(0,idEmpresa,idCurso,idInstructor,idSala,idEstadoCurso,vacantes);
+//		modelo.agregarCursada(cursada);
+//		JOptionPane.showMessageDialog(null, "Se Agrego nueva cursada", "Nueva Cursada", JOptionPane.INFORMATION_MESSAGE);
+//		llenarTablaCursadas();
 	}
 }

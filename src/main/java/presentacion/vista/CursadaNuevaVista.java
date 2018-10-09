@@ -172,7 +172,7 @@ public class CursadaNuevaVista extends JPanel {
 		panel.add(lblIdCursada);
 		
 		textIdCursada = new JTextField();
-		textIdCursada.setVisible(false);
+		textIdCursada.setVisible(true);
 		textIdCursada.setHorizontalAlignment(SwingConstants.LEFT);
 		textIdCursada.setColumns(10);
 		textIdCursada.setBounds(332, 115, 70, 20);
@@ -450,20 +450,6 @@ public class CursadaNuevaVista extends JPanel {
 	 */
 	public void setBtnEliminar(JButton btnEliminar) {
 		this.btnEliminar = btnEliminar;
-	}
-
-	/**
-	 * @return the btnCerrar
-	 */
-	public JButton getBtnCerrar() {
-		return btnAddAlumnos;
-	}
-
-	/**
-	 * @param btnCerrar the btnCerrar to set
-	 */
-	public void setBtnCerrar(JButton btnCerrar) {
-		this.btnAddAlumnos = btnCerrar;
 	}
 
 	/**

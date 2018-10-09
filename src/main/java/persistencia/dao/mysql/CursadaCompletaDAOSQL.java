@@ -20,7 +20,7 @@ public class CursadaCompletaDAOSQL implements CursadaCompletaDAO {
 										+ "INNER JOIN empresa AS T2 ON T1.idEmpresa = T2.idEmpresa) AS T1 "
 										+ "INNER JOIN curso AS T2 ON T1.idCurso = T2.idCurso) AS T1 "
 										+ "INNER JOIN estadocurso AS T2 ON T1.idEstadoCurso = T2.idEstadoCurso) AS T1 "
-										+ "INNER JOIN sala AS T2 ON T1.idSala = T2.idSala";
+										+ "INNER JOIN sala AS T2 ON T1.idSala = T2.idSala ORDER BY T1.fechaInicioInscripcion DESC";
 	@Override
 	public List<CursadaCompletaDTO> readAll() {
 		PreparedStatement statement;
