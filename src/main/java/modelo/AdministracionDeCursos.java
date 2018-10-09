@@ -4,6 +4,7 @@ import java.util.List;
 
 import dto.AlumnoDTO;
 import dto.AlumnoEventoDTO;
+import dto.AlumnoInscriptoDTO;
 import dto.CategoriaDTO;
 import dto.CursadaDTO;
 import dto.CursoDTO;
@@ -12,10 +13,12 @@ import dto.CursadaCompletaDTO;
 import dto.CursoTipoDTO;
 import dto.EmpresaDTO;
 import dto.EstadoDeCursoDTO;
+import dto.InscriptoDTO;
 import dto.SalaDTO;
 import dto.UsuarioDTO;
 import persistencia.dao.interfaz.AlumnoDAO;
 import persistencia.dao.interfaz.AlumnoEventoDAO;
+import persistencia.dao.interfaz.AlumnoInscriptoDAO;
 import persistencia.dao.interfaz.CategoriaDAO;
 import persistencia.dao.interfaz.CursoDAO;
 import persistencia.dao.interfaz.ClaseDAO;
@@ -27,6 +30,7 @@ import persistencia.dao.interfaz.EmpresaDAO;
 import persistencia.dao.interfaz.SalaDAO;
 import persistencia.dao.interfaz.EstadoDeCursoDAO;
 import persistencia.dao.interfaz.CursadaDAO;
+import persistencia.dao.interfaz.InscriptoDAO;
 
 public class AdministracionDeCursos {
 
@@ -42,6 +46,8 @@ public class AdministracionDeCursos {
 	private EstadoDeCursoDAO estadoDeCurso;
 	private CursadaDAO cursada;
 	private CursadaCompletaDAO cursadaCompleta;
+	private AlumnoInscriptoDAO alumnoInscripto;
+	private InscriptoDAO inscripto;
 
 	public AdministracionDeCursos(DAOAbstractFactory metodo_persistencia) {
 		
@@ -57,6 +63,8 @@ public class AdministracionDeCursos {
 		this.sala = metodo_persistencia.createSalaDAO();
 		this.cursada = metodo_persistencia.createCursadaDAO();
 		this.cursadaCompleta = metodo_persistencia.createCursadaCompletaDAO();
+		this.alumnoInscripto = metodo_persistencia.createAlumnoInscriptoDAO();
+		this.inscripto = metodo_persistencia.createInscriptoDAO();
 	}
 	
 	/* ****************************************************************
@@ -239,6 +247,35 @@ public class AdministracionDeCursos {
 	
 	public List<CursadaCompletaDTO> obtenerCursadasCompletas() {
 		return this.cursadaCompleta.readAll();
+	}
+	
+	/* ****************************************************************
+	 *                         AlumnoInscripto
+	 * ****************************************************************
+	 */
+	
+	public List<AlumnoInscriptoDTO> obtenerAlumnosInscriptos(CursadaDTO cursada) {
+		return this.alumnoInscripto.readAll(cursada);
+	}
+	
+	/* ****************************************************************
+	 *                         Inscripto
+	 * ****************************************************************
+	 */
+	public void agregarInscripto(InscriptoDTO nuevoInscripto) {
+		this.inscripto.insert(nuevoInscripto);
+	}
+
+	public void borrarInscripto(InscriptoDTO inscripto_a_eliminar) {
+		this.inscripto.delete(inscripto_a_eliminar);
+	}
+	
+	public void actualizarInscripto(InscriptoDTO inscripto_a_actualizar) {
+		this.inscripto.update(inscripto_a_actualizar);
+	}
+	
+	public List<InscriptoDTO> obtenerInscriptos() {
+		return this.inscripto.readAll();
 	}
 	
 }

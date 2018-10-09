@@ -67,8 +67,6 @@ public class CursadaDAOSQL implements CursadaDAO{
 	public boolean update(CursadaDTO cursada) {
 		PreparedStatement statement;
 		Conexion conexion = Conexion.getConexion();
-		System.out.println("AWWWWWWWWWWWWWWWWWWWWWWWWWW");
-		System.out.println(cursada.toString());
 		
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(update);			

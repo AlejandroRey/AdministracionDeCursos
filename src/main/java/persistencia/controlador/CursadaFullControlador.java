@@ -7,18 +7,24 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.swing.DefaultListSelectionModel;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import dto.AlumnoInscriptoDTO;
 import dto.CursadaCompletaDTO;
 import dto.CursadaDTO;
 import dto.CursoDTO;
 import dto.EmpresaDTO;
 import dto.EstadoDeCursoDTO;
+import dto.InscriptoDTO;
 import dto.SalaDTO;
 import modelo.AdministracionDeCursos;
+import presentacion.vista.AlumnoParaInscribirModalPanel;
+import presentacion.vista.AlumnosInscriptosPanel;
 import presentacion.vista.CursadaFullVista;
 
 public class CursadaFullControlador implements ActionListener {
@@ -26,6 +32,8 @@ public class CursadaFullControlador implements ActionListener {
 	private CursadaFullVista vista;
 	private AdministracionDeCursos modelo;
 	private List<CursadaCompletaDTO> cursadasLista;
+	private CursadaDTO cursadaActual;
+	private List<AlumnoInscriptoDTO> inscriptosLista;
 	
 	private List<EmpresaDTO> empresasLista;
 	private List<CursoDTO> cursosLista;
@@ -36,12 +44,15 @@ public class CursadaFullControlador implements ActionListener {
 		this.vista = vista;
 		this.modelo = modelo;
 		this.cursadasLista = null;
+		
 		this.vista.getPanelCursada().getBtnActualizar().addActionListener(this);
 		this.vista.getPanelCursada().getBtnAgregar().addActionListener(this);
 		this.vista.getPanelCursada().getBtnEliminar().addActionListener(this);
 		this.vista.getPanelCursada().getBtnAddAlumnos().addActionListener(this);
 		this.vista.getPanelCursada().getBtnAddPagos().addActionListener(this);
 		this.vista.getPanelCursada().getBtnAddHorariosCursada().addActionListener(this);
+		
+		this.vista.getPanelInscriptos().getBtnEliminar().addActionListener(this);
 	}
 
 	public void inicializar() {
@@ -52,15 +63,72 @@ public class CursadaFullControlador implements ActionListener {
 		
 		initComboBox();
 		
-		llenarTabla();
+		llenarTablaCursadas();
 		this.vista.show();
 	}
 
-	private void llenarTabla() {
+	private void llenarTablaInscriptos() {
+		this.vista.getPanelInscriptos().getModelAlumnos().setRowCount(0); // Para vaciar la tabla
+		this.vista.getPanelInscriptos().getModelAlumnos().setColumnCount(0);
+		this.vista.getPanelInscriptos().getModelAlumnos().setColumnIdentifiers(this.vista.getPanelInscriptos().getNombreColumnas());
+		clearTextBoxPanelInscriptos();
+
+		this.inscriptosLista = modelo.obtenerAlumnosInscriptos(cursadaActual);
+		for (AlumnoInscriptoDTO alumnoInscriptoDTO : inscriptosLista) {
+			Object[] fila = {alumnoInscriptoDTO.getIdAlumno(),
+							 alumnoInscriptoDTO.getIdCursada(),
+					         alumnoInscriptoDTO.getNombre(),
+					         alumnoInscriptoDTO.getApellido(),
+					         alumnoInscriptoDTO.getTelefono(),
+					         alumnoInscriptoDTO.getEmail(),
+					         stringDateFormatter(alumnoInscriptoDTO.getFecha())};
+			this.vista.getPanelInscriptos().getModelAlumnos().addRow(fila);
+		}
+		// Oculto los id del Objeto
+		this.vista.getPanelInscriptos().getTblAlumnos().getColumnModel().getColumn(0).setWidth(0);
+		this.vista.getPanelInscriptos().getTblAlumnos().getColumnModel().getColumn(0).setMinWidth(0);
+		this.vista.getPanelInscriptos().getTblAlumnos().getColumnModel().getColumn(0).setMaxWidth(0);			
+		this.vista.getPanelInscriptos().getTblAlumnos().getColumnModel().getColumn(1).setWidth(0);
+		this.vista.getPanelInscriptos().getTblAlumnos().getColumnModel().getColumn(1).setMinWidth(0);
+		this.vista.getPanelInscriptos().getTblAlumnos().getColumnModel().getColumn(1).setMaxWidth(0);			
+
+		
+		// Agrego listener para obtener los valores de la fila seleccionada
+		this.vista.getPanelInscriptos().getTblAlumnos().setSelectionModel(new ListSelectionModelCstm());
+		this.vista.getPanelInscriptos().getTblAlumnos().getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+			try {
+				if (this.vista.getPanelInscriptos().getTblAlumnos().getSelectedRow() >= 0) {					
+					Object idAlumno = this.vista.getPanelInscriptos().getTblAlumnos().getValueAt(this.vista.getPanelInscriptos().getTblAlumnos().getSelectedRow(), 0);
+					Object idCursada = this.vista.getPanelInscriptos().getTblAlumnos().getValueAt(this.vista.getPanelInscriptos().getTblAlumnos().getSelectedRow(), 1);
+					Object nombre = this.vista.getPanelInscriptos().getTblAlumnos().getValueAt(this.vista.getPanelInscriptos().getTblAlumnos().getSelectedRow(), 2);
+					Object apellido = this.vista.getPanelInscriptos().getTblAlumnos().getValueAt(this.vista.getPanelInscriptos().getTblAlumnos().getSelectedRow(), 3);
+					Object telefono = this.vista.getPanelInscriptos().getTblAlumnos().getValueAt(this.vista.getPanelInscriptos().getTblAlumnos().getSelectedRow(), 4);					
+					Object email = this.vista.getPanelInscriptos().getTblAlumnos().getValueAt(this.vista.getPanelInscriptos().getTblAlumnos().getSelectedRow(), 5);
+					Object fecha = this.vista.getPanelInscriptos().getTblAlumnos().getValueAt(this.vista.getPanelInscriptos().getTblAlumnos().getSelectedRow(), 6);
+					
+					this.vista.getPanelInscriptos().getTextIdAlumno().setText(idAlumno.toString());
+					this.vista.getPanelInscriptos().getTextIdCursada().setText(idCursada.toString());
+					this.vista.getPanelInscriptos().getTextNombre().setText(nombre.toString());
+					this.vista.getPanelInscriptos().getTextApellido().setText(apellido.toString());
+					this.vista.getPanelInscriptos().getTextTelefono().setText(telefono.toString());
+					this.vista.getPanelInscriptos().getTextEmail().setText(email.toString());
+					this.vista.getPanelInscriptos().getTextFecha().setText(fecha.toString());
+				}
+			} catch (Exception ex) {
+				System.out.println("Error: " + ex.getMessage());
+			}
+		});
+
+		DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
+		leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
+		this.vista.getPanelInscriptos().getTblAlumnos().getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
+	}
+
+	private void llenarTablaCursadas() {
 		this.vista.getPanelCursada().getModelCursadas().setRowCount(0); // Para vaciar la tabla
 		this.vista.getPanelCursada().getModelCursadas().setColumnCount(0);
 		this.vista.getPanelCursada().getModelCursadas().setColumnIdentifiers(this.vista.getPanelCursada().getNombreColumnas());
-		clearTextInputsBox();
+		clearTextBoxPanelCursadas();
 
 		this.cursadasLista = modelo.obtenerCursadasCompletas();
 		for (CursadaCompletaDTO cursadaCompletaDTO : cursadasLista) {
@@ -69,12 +137,12 @@ public class CursadaFullControlador implements ActionListener {
 					         cursadaCompletaDTO.getIdCurso(),
 					         cursadaCompletaDTO.getIdSala(),
 					         cursadaCompletaDTO.getIdEstadoCurso(),
+					         cursadaCompletaDTO.getCurso(),
+					         cursadaCompletaDTO.getEmpresa(),
 					         stringDateFormatter(cursadaCompletaDTO.getFechaInicioInscripcion()),
 					         stringDateFormatter(cursadaCompletaDTO.getFechaFinInscripcion()),
-							 cursadaCompletaDTO.getVacantes(),
-							 cursadaCompletaDTO.getEmpresa(),
-							 cursadaCompletaDTO.getCurso(),
-							 cursadaCompletaDTO.getEstadoCurso(),
+					         cursadaCompletaDTO.getEstadoCurso(),
+							 cursadaCompletaDTO.getVacantes(),							 
 							 cursadaCompletaDTO.getSala()};
 			this.vista.getPanelCursada().getModelCursadas().addRow(fila);
 		}
@@ -105,9 +173,9 @@ public class CursadaFullControlador implements ActionListener {
 					Object idCurso = this.vista.getPanelCursada().getTblCursadas().getValueAt(this.vista.getPanelCursada().getTblCursadas().getSelectedRow(), 2);
 					Object idSala = this.vista.getPanelCursada().getTblCursadas().getValueAt(this.vista.getPanelCursada().getTblCursadas().getSelectedRow(), 3);
 					Object idEstadoCurso = this.vista.getPanelCursada().getTblCursadas().getValueAt(this.vista.getPanelCursada().getTblCursadas().getSelectedRow(), 4);					
-					Object fechaInicioInscripcion = this.vista.getPanelCursada().getTblCursadas().getValueAt(this.vista.getPanelCursada().getTblCursadas().getSelectedRow(), 5);
-					Object fechaFinInscripcion = this.vista.getPanelCursada().getTblCursadas().getValueAt(this.vista.getPanelCursada().getTblCursadas().getSelectedRow(), 6);
-					Object vacantes = this.vista.getPanelCursada().getTblCursadas().getValueAt(this.vista.getPanelCursada().getTblCursadas().getSelectedRow(), 7);
+					Object fechaInicioInscripcion = this.vista.getPanelCursada().getTblCursadas().getValueAt(this.vista.getPanelCursada().getTblCursadas().getSelectedRow(), 7);
+					Object fechaFinInscripcion = this.vista.getPanelCursada().getTblCursadas().getValueAt(this.vista.getPanelCursada().getTblCursadas().getSelectedRow(), 8);
+					Object vacantes = this.vista.getPanelCursada().getTblCursadas().getValueAt(this.vista.getPanelCursada().getTblCursadas().getSelectedRow(), 10);
 //					Object empresa = this.vista.getPanelCursada().getTblCursadas().getValueAt(this.vista.getPanelCursada().getTblCursadas().getSelectedRow(), 8);
 //					Object curso = this.vista.getPanelCursada().getTblCursadas().getValueAt(this.vista.getPanelCursada().getTblCursadas().getSelectedRow(), 9);
 //					Object estadoCurso = this.vista.getPanelCursada().getTblCursadas().getValueAt(this.vista.getPanelCursada().getTblCursadas().getSelectedRow(), 10);
@@ -121,6 +189,8 @@ public class CursadaFullControlador implements ActionListener {
 					this.vista.getPanelCursada().getTextFechaInicioInsc().setText(fechaInicioInscripcion.toString());
 					this.vista.getPanelCursada().getTextFechaFinInsc().setText(fechaFinInscripcion.toString());
 					this.vista.getPanelCursada().getTextIdCursada().setText(idCursada.toString());
+					
+					actualizarTablaAlumnosInscriptos();
 				}
 			} catch (Exception ex) {
 				System.out.println("Error: " + ex.getMessage());
@@ -132,7 +202,7 @@ public class CursadaFullControlador implements ActionListener {
 		this.vista.getPanelCursada().getTblCursadas().getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
 	}
 	
-	private void clearTextInputsBox() {
+	private void clearTextBoxPanelCursadas() {
 		this.vista.getPanelCursada().getCbxEmpresa().setSelectedItem(new EmpresaDTO(0, "", "", ""));
 		this.vista.getPanelCursada().getCbxCurso().setSelectedItem(new CursoDTO(0, 0, "", "", ""));
 		this.vista.getPanelCursada().getCbxSala().setSelectedItem(new SalaDTO(0, "", 0, 0, ""));
@@ -141,6 +211,16 @@ public class CursadaFullControlador implements ActionListener {
 		this.vista.getPanelCursada().getTextFechaFinInsc().setText("");
 		this.vista.getPanelCursada().getTextVacantes().setText("");
 		this.vista.getPanelCursada().getTextIdCursada().setText("");
+	}
+	
+	private void clearTextBoxPanelInscriptos() {
+		this.vista.getPanelInscriptos().getTextIdAlumno().setText("");
+		this.vista.getPanelInscriptos().getTextIdCursada().setText("");
+		this.vista.getPanelInscriptos().getTextNombre().setText("");
+		this.vista.getPanelInscriptos().getTextApellido().setText("");
+		this.vista.getPanelInscriptos().getTextTelefono().setText("");
+		this.vista.getPanelInscriptos().getTextEmail().setText("");
+		this.vista.getPanelInscriptos().getTextFecha().setText("");
 	}
 	
 	private String stringDateFormatter(LocalDateTime fecha) {		
@@ -189,6 +269,7 @@ public class CursadaFullControlador implements ActionListener {
 		}
 		return empresa;
 	}
+	
 	private CursoDTO selectCurso(Object idCurso) {
 		CursoDTO cursoDTO = null;
 		for (CursoDTO curso : cursosLista) {
@@ -228,12 +309,44 @@ public class CursadaFullControlador implements ActionListener {
 		} else if (e.getSource() == this.vista.getPanelCursada().getBtnEliminar()) {
 			eliminarCursada();
 		} else if (e.getSource() == this.vista.getPanelCursada().getBtnAddAlumnos()) {
-			clearTextInputsBox();
+			clearTextBoxPanelCursadas();
 		} else if (e.getSource() == this.vista.getPanelCursada().getBtnAddPagos()) {
-			clearTextInputsBox();
+			clearTextBoxPanelCursadas();
 		} else if (e.getSource() == this.vista.getPanelCursada().getBtnAddHorariosCursada()) {
-			clearTextInputsBox();
+			AlumnoParaInscribirModalPanel panel = new AlumnoParaInscribirModalPanel();
+		} else if (e.getSource() == this.vista.getPanelInscriptos().getBtnEliminar()) {
+			eliminarAlumnoInscripto();
 		}
+	}
+	
+	private void eliminarAlumnoInscripto() {
+		LocalDateTime fechaInscripcion = StringToLocalDateTime(this.vista.getPanelInscriptos().getTextFecha().getText());
+		InscriptoDTO inscripto = new InscriptoDTO(Long.parseLong(this.vista.getPanelInscriptos().getTextIdAlumno().getText().toString()), 
+												  Long.parseLong(this.vista.getPanelInscriptos().getTextIdCursada().getText().toString()), 
+												  fechaInscripcion);
+		modelo.borrarInscripto(inscripto);
+		actualizarTablaAlumnosInscriptos();
+	}
+
+	private void actualizarTablaAlumnosInscriptos() {
+		EmpresaDTO empresa = (EmpresaDTO) this.vista.getPanelCursada().getCbxEmpresa().getSelectedItem();
+		CursoDTO curso = (CursoDTO) this.vista.getPanelCursada().getCbxCurso().getSelectedItem();
+		SalaDTO sala = (SalaDTO) this.vista.getPanelCursada().getCbxSala().getSelectedItem();
+		EstadoDeCursoDTO estadoDeCurso = (EstadoDeCursoDTO) this.vista.getPanelCursada().getCbxEstado().getSelectedItem();
+
+		
+		LocalDateTime fechaInicioInscripcion = StringToLocalDateTime(this.vista.getPanelCursada().getTextFechaInicioInsc().getText());
+		LocalDateTime fechaFinInscripcion = StringToLocalDateTime(this.vista.getPanelCursada().getTextFechaFinInsc().getText());
+		cursadaActual = new CursadaDTO(Long.parseLong(this.vista.getPanelCursada().getTextIdCursada().getText().toString()),
+								empresa.getIdEmpresa(), 
+								curso.getIdCurso(), 
+								sala.getIdSala(), 
+								estadoDeCurso.getIdEstadoDeCurso(),
+								fechaInicioInscripcion, 
+								fechaFinInscripcion, 
+								this.vista.getPanelCursada().getTextVacantes().getText());
+
+		llenarTablaInscriptos();
 	}
 
 	private void agregarCursada() {
@@ -254,7 +367,7 @@ public class CursadaFullControlador implements ActionListener {
 											   fechaFinInscripcion,
 											   this.vista.getPanelCursada().getTextVacantes().getText());
 		this.modelo.agregarCursada(cursadaDTO);
-		llenarTabla();
+		llenarTablaCursadas();
 	}
 	
 	private void editarCursada() {
@@ -275,7 +388,7 @@ public class CursadaFullControlador implements ActionListener {
 											   fechaFinInscripcion,
 											   this.vista.getPanelCursada().getTextVacantes().getText());
 		this.modelo.actualizarCursada(cursadaDTO);
-		llenarTabla();
+		llenarTablaCursadas();
 	}
 	
 	private void eliminarCursada() {
@@ -296,7 +409,7 @@ public class CursadaFullControlador implements ActionListener {
 											   fechaFinInscripcion,
 											   this.vista.getPanelCursada().getTextVacantes().getText());
 		this.modelo.borrarCursada(cursadaDTO);
-		llenarTabla();
+		llenarTablaCursadas();
 	}
 
 	private LocalDateTime StringToLocalDateTime(String fecha) {

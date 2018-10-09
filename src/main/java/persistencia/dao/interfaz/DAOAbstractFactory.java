@@ -25,5 +25,9 @@ public interface DAOAbstractFactory {
 	public CursadaCompletaDAO createCursadaCompletaDAO();
 	
 	public AlumnoEventoDAO createAlumnoEventoDAO();
+
+	public AlumnoInscriptoDAO createAlumnoInscriptoDAO();
+	
+	public InscriptoDAO createInscriptoDAO();
 	
 }

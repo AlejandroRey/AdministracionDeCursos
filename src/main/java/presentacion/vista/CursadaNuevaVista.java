@@ -29,7 +29,7 @@ public class CursadaNuevaVista extends JPanel {
 	private JScrollPane spCursadas;
 	private DefaultTableModel modelCursadas;
 	private JTable tblCursadas;
-	private String[] nombreColumnas = {"idCursada", "idEmpresa", "idCurso", "idSala", "idEstadoCurso", "fechaInicioInscripcion", "fechaFinInscripcion", "vacantes", "empresa", "curso", "estadoCurso", "sala"};
+	private String[] nombreColumnas = {"idCursada", "idEmpresa", "idCurso", "idSala", "idEstadoCurso", "Curso", "Empresa", "FechaInicioInscripcion", "FechaFinInscripcion", "EstadoCurso", "Vacantes", "Sala"};
 	
 
 	private JPanel panel;	
@@ -69,7 +69,7 @@ public class CursadaNuevaVista extends JPanel {
 	private void inicializarTabla() {
 		
 		spCursadas = new JScrollPane();
-		spCursadas.setBounds(10, 11, 681, 373);
+		spCursadas.setBounds(10, 10, 681, 373);
 		this.add(spCursadas);
 		
 		modelCursadas = new DefaultTableModel(null, nombreColumnas);
