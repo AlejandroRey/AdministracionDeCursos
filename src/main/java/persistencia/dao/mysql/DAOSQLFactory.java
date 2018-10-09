@@ -1,6 +1,7 @@
 package persistencia.dao.mysql;
 
 import persistencia.dao.interfaz.AlumnoDAO;
+import persistencia.dao.interfaz.AlumnoEventoDAO;
 import persistencia.dao.interfaz.CategoriaDAO;
 import persistencia.dao.interfaz.CursoDAO;
 import persistencia.dao.interfaz.ClaseDAO;
@@ -77,5 +78,10 @@ public class DAOSQLFactory implements DAOAbstractFactory {
 	@Override
 	public CursadaCompletaDAO createCursadaCompletaDAO() {
 		return new CursadaCompletaDAOSQL();
+	}
+	
+	public AlumnoEventoDAO createAlumnoEventoDAO() {
+		// TODO Auto-generated method stub
+		return new AlumnoEventoDAOSQL();
 	}
 }

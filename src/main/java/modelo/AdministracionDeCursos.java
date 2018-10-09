@@ -3,6 +3,7 @@ package modelo;
 import java.util.List;
 
 import dto.AlumnoDTO;
+import dto.AlumnoEventoDTO;
 import dto.CategoriaDTO;
 import dto.CursadaDTO;
 import dto.CursoDTO;
@@ -14,6 +15,7 @@ import dto.EstadoDeCursoDTO;
 import dto.SalaDTO;
 import dto.UsuarioDTO;
 import persistencia.dao.interfaz.AlumnoDAO;
+import persistencia.dao.interfaz.AlumnoEventoDAO;
 import persistencia.dao.interfaz.CategoriaDAO;
 import persistencia.dao.interfaz.CursoDAO;
 import persistencia.dao.interfaz.ClaseDAO;
@@ -29,6 +31,7 @@ import persistencia.dao.interfaz.CursadaDAO;
 public class AdministracionDeCursos {
 
 	private AlumnoDAO alumno;
+	private AlumnoEventoDAO alumnoEvento;
 	private UsuarioDAO usuario;
 	private CategoriaDAO categoria;
 	private CursoTipoDAO cursoTipo;
@@ -43,6 +46,7 @@ public class AdministracionDeCursos {
 	public AdministracionDeCursos(DAOAbstractFactory metodo_persistencia) {
 		
 		this.alumno = metodo_persistencia.createAlumnoDAO();
+		this.alumnoEvento = metodo_persistencia.createAlumnoEventoDAO();
 		this.usuario = metodo_persistencia.createUsuarioDAO();		
 		this.categoria = metodo_persistencia.createCategoriaDAO();
 		this.cursoTipo = metodo_persistencia.createCursoTipoDAO();
@@ -73,6 +77,26 @@ public class AdministracionDeCursos {
 	
 	public List<AlumnoDTO> obtenerAlumnos() {
 		return this.alumno.readAll();
+	}
+	
+	/* ****************************************************************
+	 *                         AlumnoEvento
+	 * ****************************************************************
+	 */
+	public void agregarAlumnoEvento(AlumnoEventoDTO nuevoAlumnoEvento) {
+		this.alumnoEvento.insert(nuevoAlumnoEvento);
+	}
+
+	public void borrarAlumno(AlumnoEventoDTO alumnoEvento_a_eliminar) {
+		this.alumnoEvento.delete(alumnoEvento_a_eliminar);
+	}
+	
+	public void actualizarAlumnoEvento(AlumnoEventoDTO alumnoEvento_a_actualizar) {
+		this.alumnoEvento.update(alumnoEvento_a_actualizar);
+	}
+	
+	public List<AlumnoEventoDTO> obtenerAlumnoEventos() {
+		return this.alumnoEvento.readAll();
 	}
 	
 	/* ****************************************************************

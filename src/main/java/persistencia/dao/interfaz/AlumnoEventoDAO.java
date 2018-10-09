@@ -8,6 +8,10 @@ public interface AlumnoEventoDAO {
 	
 	public boolean insert(AlumnoEventoDTO alumnoEventoParaAgregar);
 
-	public List<AlumnoEventoDTO> readAll();
+	public boolean delete(AlumnoEventoDTO alumnoEvento_a_eliminar);
 
+	public boolean update(AlumnoEventoDTO alumnoEvento_a_actualizar);
+	
+	public List<AlumnoEventoDTO> readAll();
+	
 }

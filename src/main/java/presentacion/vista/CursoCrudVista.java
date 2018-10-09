@@ -53,6 +53,7 @@ public class CursoCrudVista {
 	public CursoCrudVista() {
 		super();
 		inicializar();
+		show();
 	}
 
 	private void inicializar() {
@@ -131,7 +132,7 @@ public class CursoCrudVista {
 		textTema = new JTextField();
 		textTema.setHorizontalAlignment(SwingConstants.LEFT);
 		textTema.setColumns(10);
-		textTema.setBounds(97, 55, 140, 35);
+		textTema.setBounds(97, 55, 141, 23);
 		panel.add(textTema);
 		
 		JLabel lblTemario = new JLabel("Temario:");
@@ -141,7 +142,7 @@ public class CursoCrudVista {
 		textTemario = new JTextField();
 		textTemario.setHorizontalAlignment(SwingConstants.LEFT);
 		textTemario.setColumns(10);
-		textTemario.setBounds(334, 52, 141, 38);
+		textTemario.setBounds(334, 52, 141, 20);
 		panel.add(textTemario);		
 		
 		btnAgregar = new JButton("Agregar");
@@ -172,7 +173,7 @@ public class CursoCrudVista {
 		this.frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que quieres salir de la Aplicacion!?",
+				int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que quieres salir de la vista!?",
 						"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 				if (confirm == 0) {
 					Conexion.getConexion().cerrarConexion();

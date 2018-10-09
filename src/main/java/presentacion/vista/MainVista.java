@@ -26,6 +26,7 @@ import modelo.AdministracionDeCursos;
 import persistencia.conexion.Conexion;
 import persistencia.controlador.AlumnoCrudControlador;
 import persistencia.controlador.CursadaCrudControlador;
+import persistencia.controlador.AlumnoEventoCrudControlador;
 import persistencia.controlador.CursoCrudControlador;
 import persistencia.controlador.UsuarioCrudControlador;
 import persistencia.dao.mysql.DAOSQLFactory;
@@ -152,6 +153,17 @@ public class MainVista {
 			}
 		});
 		mnVistas.add(mntmCursada);
+
+		JMenuItem mntmContacto = new JMenuItem("Contacto");
+		mntmContacto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
+				AlumnoEventoCrudVista vista = new AlumnoEventoCrudVista();
+				AlumnoEventoCrudControlador ctrl = new AlumnoEventoCrudControlador(vista, modelo);
+				ctrl.inicializar();
+			}
+		});
+		mnVistas.add(mntmContacto);
 		
 		JMenu mnReportes = new JMenu("Reportes");
 		menuBar.add(mnReportes);

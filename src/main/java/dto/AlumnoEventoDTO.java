@@ -1,6 +1,7 @@
 package dto;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class AlumnoEventoDTO {
 	
@@ -10,11 +11,11 @@ public class AlumnoEventoDTO {
 	private long idCurso;
 	private String descripcion;
 	private Date fechaContactar;
-	private Date fechaCreacion;
+	private Timestamp fechaCreacion;
 	private boolean estado;
 
 	public AlumnoEventoDTO(long idAlumnoEvento, long idAlumno, long idUsuario, long idCurso, String descripcion, Date fechaContactar,
-			Date fechaCreacion, boolean estado) {
+			Timestamp fechaCreacion, boolean estado) {
 		super();
 		this.idAlumnoEvento = idAlumnoEvento;
 		this.idAlumno = idAlumno;
@@ -82,11 +83,11 @@ public class AlumnoEventoDTO {
 		this.estado = estado;
 	}
 
-	public Date getFechaCreacion() {
+	public Timestamp getFechaCreacion() {
 		return fechaCreacion;
 	}
 
-	public void setFechaCreacion(Date fechaCreacion) {
+	public void setFechaCreacion(Timestamp fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
 	}	
 }

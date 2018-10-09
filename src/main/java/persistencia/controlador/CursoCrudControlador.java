@@ -22,7 +22,7 @@ public class CursoCrudControlador implements ActionListener {
 	private CursoCrudVista vista;
 	private AdministracionDeCursos modelo;
 	private List<CursoDTO> cursosLista;
-	List<CursoTipoDTO> cursoTipoLista;
+	private List<CursoTipoDTO> cursoTipoLista;
 
 	public CursoCrudControlador(CursoCrudVista vista, AdministracionDeCursos modelo) {
 		this.vista = vista;
@@ -35,12 +35,12 @@ public class CursoCrudControlador implements ActionListener {
 	}
 
 	public void inicializar() {
-		setCategorias();
+		setCursos();
 		llenarTabla();
 		this.vista.show();
 	}
 
-	private void setCategorias() {
+	private void setCursos() {
 		cursoTipoLista = modelo.obtenerCursoTipos();
 		for (CursoTipoDTO cursoTipoDTO : cursoTipoLista) {
 			this.vista.getCbxCursoTipo().addItem(cursoTipoDTO);
@@ -61,7 +61,7 @@ public class CursoCrudControlador implements ActionListener {
 			this.vista.getModelCursos().addRow(fila);
 		}
 
-//		// Oculto los id del Objeto
+		// Oculto los id del Objeto
 		this.vista.getTblCursos().getColumnModel().getColumn(0).setWidth(0);
 		this.vista.getTblCursos().getColumnModel().getColumn(0).setMinWidth(0);
 		this.vista.getTblCursos().getColumnModel().getColumn(0).setMaxWidth(0);
