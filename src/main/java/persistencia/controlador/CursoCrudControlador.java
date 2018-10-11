@@ -165,14 +165,14 @@ public class CursoCrudControlador implements ActionListener {
 	}
 
 	private void agregarCurso() {
-		if (validarCamposCurso()) {
+//		if (validarCamposCurso()) {
 			CursoTipoDTO cursoTipo = (CursoTipoDTO) this.vista.getCbxCursoTipo().getSelectedItem();
 			if (cursoTipo.getIdCursoTipo() > 0) {
 				CursoDTO curso = new CursoDTO(0, cursoTipo.getIdCursoTipo(), this.vista.getTextNombre().getText(),
 						this.vista.getTextTema().getText(), this.vista.getTextTemario().getText());
 				this.modelo.agregarCurso(curso);
 				llenarTabla();
-			}
+//s			}
 		}
 	}
 
@@ -180,13 +180,13 @@ public class CursoCrudControlador implements ActionListener {
 		
 		try {
 			CursoTipoDTO cursoTipo = (CursoTipoDTO) this.vista.getCbxCursoTipo().getSelectedItem();
-			if (validarCamposCurso()) {
+//			if (validarCamposCurso()) {
 				CursoDTO curso = new CursoDTO(Long.parseLong(this.vista.getTextIdCurso().getText()),
 						cursoTipo.getIdCursoTipo(), this.vista.getTextNombre().getText(),
 						this.vista.getTextTema().getText(), this.vista.getTextTemario().getText());
 				this.modelo.actualizarCurso(curso);
 				llenarTabla();
-			}
+//			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Agregar curso antes de actualizarlo!",
 					"Informacion: " + "Curso", JOptionPane.INFORMATION_MESSAGE);

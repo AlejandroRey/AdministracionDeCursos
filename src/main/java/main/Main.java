@@ -1,64 +1,58 @@
 package main;
 
-import java.time.LocalDateTime;
+import java.awt.Color;
 
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import dto.AlumnoInscriptoDTO;
-import dto.CursadaCompletaDTO;
-import dto.CursadaDTO;
-import dto.EmpresaDTO;
-import dto.InscriptoDTO;
 import modelo.AdministracionDeCursos;
-import persistencia.controlador.CursadaFullControlador;
+import persistencia.controlador.AdministracionDeCursosControlador;
 import persistencia.dao.mysql.DAOSQLFactory;
-import presentacion.vista.CursadaFullVista;
+import presentacion.vista.AdministracionDeCursosVista;
 
 public class Main {
 
 	public static void main(String[] args) {
 		
         try {     	
-            UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");      	
-        	UIManager.LookAndFeelInfo[] lafInfo = UIManager.getInstalledLookAndFeels();
-        	for (LookAndFeelInfo lookAndFeelInfo : lafInfo) {
-				System.out.println(lookAndFeelInfo.toString());
-			}
+            UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");        	
 		} catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException
 				| IllegalAccessException ex) {
 			System.out.println(ex.getMessage());
 		}
         
         AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
+        AdministracionDeCursosVista vista = new AdministracionDeCursosVista();
+        AdministracionDeCursosControlador controlador = new AdministracionDeCursosControlador(vista, modelo);
+        //controlador.inicializar();
         
-        for (EmpresaDTO empresa : modelo.obtenerEmpresas()) {
-        	System.out.println("Empresa:");
-        	System.out.println(empresa.toString());
-		}
-        
-        for (CursadaCompletaDTO cursada : modelo.obtenerCursadasCompletas()) {
-			System.out.println(cursada.toString());
-		}   
-        
-        for (CursadaDTO	cursada : modelo.obtenerCursadas()) {
-			System.out.println(cursada.toString());
-		}
-        
-        for (AlumnoInscriptoDTO alumno : modelo.obtenerAlumnosInscriptos(new CursadaDTO(8, 1, 1, 1, 1, LocalDateTime.now(), LocalDateTime.now(), "44"))) {
-			System.out.println(alumno.toString());
-		}
-        
-        for (InscriptoDTO i : modelo.obtenerInscriptos()) {
-        	System.out.println(i.toString());
-		}
-        //modelo.actualizarInscripto(new InscriptoDTO(1, 1, LocalDateTime.now()));
-        
-      CursadaFullVista vista = new CursadaFullVista();
-      CursadaFullControlador c = new CursadaFullControlador(vista, modelo);
-      c.inicializar();
-
+//        for (EmpresaDTO empresa : modelo.obtenerEmpresas()) {
+//        	System.out.println("Empresa:");
+//        	System.out.println(empresa.toString());
+//		}
+//        
+//        for (CursadaCompletaDTO cursada : modelo.obtenerCursadasCompletas()) {
+//			System.out.println(cursada.toString());
+//		}   
+//        
+//        for (CursadaDTO	cursada : modelo.obtenerCursadas()) {
+//			System.out.println(cursada.toString());
+//		}
+//        
+//        for (AlumnoInscriptoDTO alumno : modelo.obtenerAlumnosInscriptos(new CursadaDTO(8, 1, 1, 1, 1, LocalDateTime.now(), LocalDateTime.now(), "44"))) {
+//			System.out.println(alumno.toString());
+//		}
+//        
+//        for (InscriptoDTO i : modelo.obtenerInscriptos()) {
+//        	System.out.println(i.toString());
+//		}
+//        //modelo.actualizarInscripto(new InscriptoDTO(1, 1, LocalDateTime.now()));
+//        
+//      CursadaFullVista vista = new CursadaFullVista();
+//      CursadaFullControlador c = new CursadaFullControlador(vista, modelo);
+//      c.inicializar();
+//
 //		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
 //		CursoCrudVista vista = new CursoCrudVista();
 //		CursoCrudControlador ctrl = new CursoCrudControlador(vista, modelo);		

@@ -2,13 +2,9 @@ package presentacion.vista;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -20,13 +16,12 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+import java.awt.SystemColor;
 
-import persistencia.conexion.Conexion;
+@SuppressWarnings("serial")
+public class AlumnoCrudVista extends JPanel {
 
-public class AlumnoCrudVista {
-
-	private JFrame frame;
-
+	//private JPanel mainPanel;
 	private JScrollPane spAlumnos;
 	private DefaultTableModel modelAlumnos;
 	private JTable tblAlumnos;
@@ -43,32 +38,30 @@ public class AlumnoCrudVista {
 	private JButton btnAgregar;
 	private JButton btnActualizar;
 	private JButton btnEliminar;
-	private JButton btnCerrar;
+	private JButton btnSeleccionar;
 
 	/**
 	 * Create the frame.
 	 */
 	public AlumnoCrudVista() {
 		super();
+		this.setBounds(0, 0, 590, 500);
+		this.setLayout(null);
 		inicializar();
 	}
 
 	private void inicializar() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 600, 527);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
 		
 		inicializarTabla();
-		inicializarEditor();		
+		inicializarEditor();	
+		//setBtnNotVisible();
 	}
 
-	@SuppressWarnings("serial")
 	private void inicializarTabla() {
 		
 		spAlumnos = new JScrollPane();
 		spAlumnos.setBounds(4, 4, 576, 310);
-		frame.getContentPane().add(spAlumnos);
+		this.add(spAlumnos);
 		
 		modelAlumnos = new DefaultTableModel(null, nombreColumnas);
 		tblAlumnos = new JTable(modelAlumnos){
@@ -83,14 +76,21 @@ public class AlumnoCrudVista {
 		    };
 		tblAlumnos.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 		//tblInstructores.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);		
-		spAlumnos.setViewportView(tblAlumnos);		
+		spAlumnos.setViewportView(tblAlumnos);	
+		
+		JSeparator separator = new JSeparator();
+		separator.setForeground(Color.BLUE);
+		separator.setBackground(Color.BLUE);
+		separator.setBounds(11, 320, 560, 1);
+		this.add(separator);
 	}
 
-	private void inicializarEditor() {		
+	private void inicializarEditor() {	
+		
 		panel = new JPanel();
-		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Alumno - Editor:", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
 		panel.setBounds(41, 336, 500, 151);
-		frame.getContentPane().add(panel);
+		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Alumno - Editor:", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
+		this.add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblIdInstructor = new JLabel("id Alumno:");
@@ -146,42 +146,21 @@ public class AlumnoCrudVista {
 		panel.add(textEmail);		
 		
 		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(19, 114, 89, 23);
+		btnAgregar.setBackground(UIManager.getColor("Button.background"));
+		btnAgregar.setBounds(176, 106, 150, 34);
 		panel.add(btnAgregar);
 		
 		btnActualizar = new JButton("Actualizar");
-		btnActualizar.setBounds(144, 114, 89, 23);
+		btnActualizar.setBounds(176, 106, 150, 34);
 		panel.add(btnActualizar);
 		
 		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(261, 114, 89, 23);
+		btnEliminar.setBounds(176, 106, 150, 34);
 		panel.add(btnEliminar);
 		
-		btnCerrar = new JButton("Cerrar");
-		btnCerrar.setBounds(384, 114, 89, 23);
-		panel.add(btnCerrar);
-		
-		JSeparator separator = new JSeparator();
-		separator.setForeground(Color.BLUE);
-		separator.setBackground(Color.BLUE);
-		separator.setBounds(11, 320, 560, 1);
-		frame.getContentPane().add(separator);
-	}
-	
-	public void show() {
-		this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		this.frame.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que quieres salir de la Aplicacion!?",
-						"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-				if (confirm == 0) {
-					Conexion.getConexion().cerrarConexion();
-					frame.dispose();
-				}
-			}
-		});
-		this.frame.setVisible(true);
+		btnSeleccionar = new JButton("Seleccionar");
+		btnSeleccionar.setBounds(176, 106, 150, 34);
+		panel.add(btnSeleccionar);
 	}
 
 	/**
@@ -345,14 +324,6 @@ public class AlumnoCrudVista {
 		return btnEliminar;
 	}
 
-	public JFrame getFrame() {
-		return frame;
-	}
-
-	public void setFrame(JFrame frame) {
-		this.frame = frame;
-	}
-
 	/**
 	 * @param btnEliminar the btnEliminar to set
 	 */
@@ -363,14 +334,24 @@ public class AlumnoCrudVista {
 	/**
 	 * @return the btnCerrar
 	 */
-	public JButton getBtnCerrar() {
-		return btnCerrar;
+	public JButton getBtnSeleccionar() {
+		return btnSeleccionar;
 	}
 
 	/**
 	 * @param btnCerrar the btnCerrar to set
 	 */
-	public void setBtnCerrar(JButton btnCerrar) {
-		this.btnCerrar = btnCerrar;
+	public void setBtnSeleccionar(JButton btnSeleccionar) {
+		this.btnSeleccionar = btnSeleccionar;
+	}
+	
+	/**
+	 * @param btn's set hide all buttons
+	 */
+	public void setBtnNotVisible() {
+		btnActualizar.setVisible(false);
+		btnAgregar.setVisible(false);
+		btnEliminar.setVisible(false);
+		btnSeleccionar.setVisible(false);
 	}
 }

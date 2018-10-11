@@ -29,12 +29,11 @@ public class AlumnoCrudControlador implements ActionListener {
 		this.vista.getBtnActualizar().addActionListener(this);
 		this.vista.getBtnAgregar().addActionListener(this);
 		this.vista.getBtnEliminar().addActionListener(this);
-		this.vista.getBtnCerrar().addActionListener(this);
+		this.vista.getBtnSeleccionar().addActionListener(this);
 	}
 
 	public void inicializar() {
 		llenarTabla();
-		this.vista.show();
 	}
 
 	private void llenarTabla() {
@@ -92,7 +91,7 @@ public class AlumnoCrudControlador implements ActionListener {
 			agregarAlumno();
 		} else if (e.getSource() == this.vista.getBtnEliminar()) {
 			eliminarAlumno();
-		} else if (e.getSource() == this.vista.getBtnCerrar()) {
+		} else if (e.getSource() == this.vista.getBtnSeleccionar()) {
 			cerrarVistaAlumno();
 		}
 	}
@@ -102,7 +101,7 @@ public class AlumnoCrudControlador implements ActionListener {
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 		if (confirm == 0) {
 			Conexion.getConexion().cerrarConexion();
-			this.vista.getFrame().dispose();
+			//this.vista.getFrame().dispose();
 		}
 		
 	}
@@ -150,6 +149,34 @@ public class AlumnoCrudControlador implements ActionListener {
 		this.vista.getTextApellido().setText("");
 		this.vista.getTextTelefono().setText("");
 		this.vista.getTextEmail().setText("");
+	}
+	
+	public void setVisibleBtnActualizar() {
+		this.vista.getTblAlumnos().setEnabled(true);
+		clearTextInputsBox();
+		this.vista.setBtnNotVisible();
+		this.vista.getBtnActualizar().setVisible(true);
+	}
+	
+	public void setVisibleBtnAgregar() {
+		this.vista.getTblAlumnos().setEnabled(false);
+		clearTextInputsBox();
+		this.vista.setBtnNotVisible();
+		this.vista.getBtnAgregar().setVisible(true);
+	}
+	
+	public void setVisibleBtnEliminar() {
+		this.vista.getTblAlumnos().setEnabled(true);
+		clearTextInputsBox();
+		this.vista.setBtnNotVisible();
+		this.vista.getBtnEliminar().setVisible(true);		
+	}
+	
+	public void setVisibleBtnSeleccionar() {
+		this.vista.getTblAlumnos().setEnabled(true);
+		clearTextInputsBox();
+		this.vista.setBtnNotVisible();
+		this.vista.getBtnSeleccionar().setVisible(true);		
 	}
 	
 	@SuppressWarnings("serial")

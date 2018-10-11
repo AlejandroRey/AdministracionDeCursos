@@ -20,12 +20,14 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
 
 import modelo.AdministracionDeCursos;
 import persistencia.conexion.Conexion;
 import persistencia.controlador.AlumnoCrudControlador;
 import persistencia.controlador.CursadaCrudControlador;
+import persistencia.controlador.CursadaFullControlador;
 import persistencia.controlador.AlumnoEventoCrudControlador;
 import persistencia.controlador.CursoCrudControlador;
 import persistencia.controlador.UsuarioCrudControlador;
@@ -42,6 +44,9 @@ public class MainVista {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");      	
+		        	UIManager.LookAndFeelInfo[] lafInfo = UIManager.getInstalledLookAndFeels();
+					
 					MainVista window = new MainVista();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
@@ -147,8 +152,8 @@ public class MainVista {
 		mntmCursada.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
-				CursadaCrudVista cursadaVista = new CursadaCrudVista();
-				CursadaCrudControlador ctrlCursada = new CursadaCrudControlador(cursadaVista, modelo);
+				CursadaFullVista cursadaVista = new CursadaFullVista();
+				CursadaFullControlador ctrlCursada = new CursadaFullControlador(cursadaVista, modelo);
 				ctrlCursada.inicializar();
 			}
 		});
