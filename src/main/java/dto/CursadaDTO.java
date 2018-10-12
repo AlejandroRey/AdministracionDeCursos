@@ -3,26 +3,30 @@ package dto;
 import java.time.LocalDateTime;
 
 public class CursadaDTO {
+	
 	private long idCursada;
 	private long idEmpresa;
 	private long idCurso;
-	private long idSala;
 	private long idEstadoCurso;
 	private LocalDateTime fechaInicioInscripcion;
 	private LocalDateTime fechaFinInscripcion;
 	private String vacantes;
+	private LocalDateTime fechaInicioCursada;
+	private int diasDeClase;
 	
-	public CursadaDTO(long idCursada, long idEmpresa, long idCurso, long idSala, long idEstadoCurso,
-			LocalDateTime fechaInicioInscripcion, LocalDateTime fechaFinInscripcion, String vacantes) {
+	public CursadaDTO(long idCursada, long idEmpresa, long idCurso, long idEstadoCurso,
+			LocalDateTime fechaInicioInscripcion, LocalDateTime fechaFinInscripcion, String vacantes,
+			LocalDateTime fechaInicioCursada, int diasDeClase) {
 		super();
 		this.idCursada = idCursada;
 		this.idEmpresa = idEmpresa;
 		this.idCurso = idCurso;
-		this.idSala = idSala;
 		this.idEstadoCurso = idEstadoCurso;
 		this.fechaInicioInscripcion = fechaInicioInscripcion;
 		this.fechaFinInscripcion = fechaFinInscripcion;
 		this.vacantes = vacantes;
+		this.fechaInicioCursada = fechaInicioCursada;
+		this.diasDeClase = diasDeClase;
 	}
 
 	/**
@@ -65,20 +69,6 @@ public class CursadaDTO {
 	 */
 	public void setIdCurso(long idCurso) {
 		this.idCurso = idCurso;
-	}
-
-	/**
-	 * @return the idSala
-	 */
-	public long getIdSala() {
-		return idSala;
-	}
-
-	/**
-	 * @param idSala the idSala to set
-	 */
-	public void setIdSala(long idSala) {
-		this.idSala = idSala;
 	}
 
 	/**
@@ -137,14 +127,43 @@ public class CursadaDTO {
 		this.vacantes = vacantes;
 	}
 
+	/**
+	 * @return the fechaInicioCursada
+	 */
+	public LocalDateTime getFechaInicioCursada() {
+		return fechaInicioCursada;
+	}
+
+	/**
+	 * @param fechaInicioCursada the fechaInicioCursada to set
+	 */
+	public void setFechaInicioCursada(LocalDateTime fechaInicioCursada) {
+		this.fechaInicioCursada = fechaInicioCursada;
+	}
+
+	/**
+	 * @return the diasDeClase
+	 */
+	public int getDiasDeClase() {
+		return diasDeClase;
+	}
+
+	/**
+	 * @param diasDeClase the diasDeClase to set
+	 */
+	public void setDiasDeClase(int diasDeClase) {
+		this.diasDeClase = diasDeClase;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "CursadaDTO [idCursada: " + idCursada + ", idEmpresa: " + idEmpresa + ", idCurso: " + idCurso + ", idSala: "
-				+ idSala + ", idEstadoCurso: " + idEstadoCurso + ", fechaInicioInscripcion: " + fechaInicioInscripcion
-				+ ", fechaFinInscripcion: " + fechaFinInscripcion + ", vacantes: " + vacantes + "]";
+		return "CursadaDTO [idCursada: " + idCursada + ", idEmpresa: " + idEmpresa + ", idCurso: " + idCurso
+				+ ", idEstadoCurso: " + idEstadoCurso + ", fechaInicioInscripcion: " + fechaInicioInscripcion
+				+ ", fechaFinInscripcion: " + fechaFinInscripcion + ", vacantes: " + vacantes + ", fechaInicioCursada: "
+				+ fechaInicioCursada + ", diasDeClase: " + diasDeClase + "]";
 	}
 	
 }

@@ -70,9 +70,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `gestiondecursos`.`estadoCurso`
+-- Table `gestiondecursos`.`estadocurso`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gestiondecursos`.`estadoCurso` (
+CREATE TABLE IF NOT EXISTS `gestiondecursos`.`estadocurso` (
   `idEstadoCurso` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idEstadoCurso`))
@@ -98,14 +98,14 @@ CREATE TABLE IF NOT EXISTS `gestiondecursos`.`cursada` (
   `idCursada` INT NOT NULL AUTO_INCREMENT,
   `idEmpresa` INT NOT NULL DEFAULT 1,
   `idCurso` INT NOT NULL,
-  `idSala` INT NOT NULL,
   `idEstadoCurso` INT NOT NULL DEFAULT 1,
   `fechaInicioInscripcion` DATETIME NOT NULL,
   `fechaFinInscripcion` DATETIME NOT NULL,
   `vacantes` INT NOT NULL,
+  `fechaInicioCursada` DATETIME NOT NULL,
+  `diasDeClase` INT NOT NULL,
   PRIMARY KEY (`idCursada`),
   INDEX `fk_cursada_curso1_idx` (`idCurso` ASC),
-  INDEX `fk_cursada_sala1_idx` (`idSala` ASC),
   INDEX `fk_cursada_estadoCurso1_idx` (`idEstadoCurso` ASC),
   INDEX `fk_cursada_empresa1_idx` (`idEmpresa` ASC),
   CONSTRAINT `fk_cursada_curso1`
@@ -113,14 +113,9 @@ CREATE TABLE IF NOT EXISTS `gestiondecursos`.`cursada` (
     REFERENCES `gestiondecursos`.`curso` (`idCurso`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_cursada_sala1`
-    FOREIGN KEY (`idSala`)
-    REFERENCES `gestiondecursos`.`sala` (`idSala`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_cursada_estadoCurso1`
     FOREIGN KEY (`idEstadoCurso`)
-    REFERENCES `gestiondecursos`.`estadoCurso` (`idEstadoCurso`)
+    REFERENCES `gestiondecursos`.`estadocurso` (`idEstadoCurso`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_cursada_empresa1`
@@ -279,12 +274,14 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `gestiondecursos`.`horario`
+-- Table `gestiondecursos`.`diacursadaclase`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gestiondecursos`.`horario` (
+CREATE TABLE IF NOT EXISTS `gestiondecursos`.`diacursadaclase` (
   `idCursada` INT NOT NULL,
-  `fechaHoraInicio` DATETIME NOT NULL,
-  `fechaHoraFin` DATETIME NOT NULL,
+  `idDia` INT NOT NULL,
+  `nombreDia` VARCHAR(45) NOT NULL,
+  `horaInicio` DATETIME NOT NULL,
+  `horaFin` DATETIME NOT NULL,
   INDEX `fk_horario_cursada1_idx` (`idCursada` ASC),
   CONSTRAINT `fk_horario_cursada1`
     FOREIGN KEY (`idCursada`)
@@ -356,19 +353,25 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `gestiondecursos`.`clase`
+-- Table `gestiondecursos`.`fechacursadaclase`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `gestiondecursos`.`clase` (
-  `idClase` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `gestiondecursos`.`fechacursadaclase` (
+  `idFechaCursadaClase` INT NOT NULL AUTO_INCREMENT,
   `idCursada` INT NOT NULL,
+  `idSala` INT NOT NULL,
   `fechaInicio` DATETIME NOT NULL,
   `fechaFin` DATETIME NOT NULL,
-  `esFeriado` TINYINT(1) NOT NULL,
-  PRIMARY KEY (`idClase`),
+  PRIMARY KEY (`idFechaCursadaClase`),
   INDEX `fk_clases_cursada1_idx` (`idCursada` ASC),
+  INDEX `fk_calendariocursada_sala1_idx` (`idSala` ASC),
   CONSTRAINT `fk_clases_cursada1`
     FOREIGN KEY (`idCursada`)
     REFERENCES `gestiondecursos`.`cursada` (`idCursada`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_calendariocursada_sala1`
+    FOREIGN KEY (`idSala`)
+    REFERENCES `gestiondecursos`.`sala` (`idSala`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -386,7 +389,7 @@ CREATE TABLE IF NOT EXISTS `gestiondecursos`.`asistencia` (
   INDEX `fk_asistencia_inscripto1_idx` (`idAlumno` ASC),
   CONSTRAINT `fk_asistencia_clase1`
     FOREIGN KEY (`idClase`)
-    REFERENCES `gestiondecursos`.`clase` (`idClase`)
+    REFERENCES `gestiondecursos`.`fechacursadaclase` (`idFechaCursadaClase`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_asistencia_inscripto1`

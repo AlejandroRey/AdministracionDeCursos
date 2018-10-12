@@ -11,7 +11,7 @@ import persistencia.conexion.Conexion;
 public class CursadaFullVista {
 
 	private JFrame frame;
-	private CursadaNuevaVista panelCursada;
+	private CursadaABMPanel panelCursada;
 	private AlumnosInscriptosPanel panelInscriptos;
 	
 	public CursadaFullVista() {
@@ -25,7 +25,7 @@ public class CursadaFullVista {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
-		panelCursada = new CursadaNuevaVista();
+		panelCursada = new CursadaABMPanel();
 		panelCursada.setSize(700, 622);
 		panelCursada.setLocation(2, 2);
 		//panelCursada.setBounds(0, 0, 1064, 262);
@@ -38,20 +38,6 @@ public class CursadaFullVista {
 	}
 
 	public void show() {
-//		this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-//		this.frame.addWindowListener(new WindowAdapter() {
-//			@Override
-//			public void windowClosing(WindowEvent e) {
-//				int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que quieres salir de la Aplicacion!?",
-//						"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-//				if (confirm == 0) {
-//					Conexion.getConexion().cerrarConexion();
-//					//System.exit(0);
-//					this.frame.
-//				}
-//			}
-//		});
-//		this.frame.setVisible(true);
 		this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.frame.addWindowListener(new WindowAdapter() {
 			@Override
@@ -70,14 +56,14 @@ public class CursadaFullVista {
 	/**
 	 * @return the panelCursada
 	 */
-	public CursadaNuevaVista getPanelCursada() {
+	public CursadaABMPanel getPanelCursada() {
 		return panelCursada;
 	}
 
 	/**
 	 * @param panelCursada the panelCursada to set
 	 */
-	public void setPanelCursada(CursadaNuevaVista panelCursada) {
+	public void setPanelCursada(CursadaABMPanel panelCursada) {
 		this.panelCursada = panelCursada;
 	}
 

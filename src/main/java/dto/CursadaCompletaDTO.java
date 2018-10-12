@@ -7,32 +7,32 @@ public class CursadaCompletaDTO {
 	private long idCursada;
 	private long idEmpresa;
 	private long idCurso;
-	private long idSala;
 	private long idEstadoCurso;
 	private LocalDateTime fechaInicioInscripcion;
 	private LocalDateTime fechaFinInscripcion;
 	private String vacantes;
+	private LocalDateTime fechaInicioCursada;
+	private int diasDeClase;
 	private String empresa;
 	private String  curso;
 	private String estadoCurso;
-	private String sala;
 	
-	public CursadaCompletaDTO(long idCursada, long idEmpresa, long idCurso, long idSala, long idEstadoCurso,
-			LocalDateTime fechaInicioInscripcion, LocalDateTime fechaFinInscripcion, String vacantes, String empresa,
-			String curso, String estadoCurso, String sala) {
+	public CursadaCompletaDTO(long idCursada, long idEmpresa, long idCurso, long idEstadoCurso,
+			LocalDateTime fechaInicioInscripcion, LocalDateTime fechaFinInscripcion, String vacantes,
+			LocalDateTime fechaInicioCursada, int diasDeClase, String empresa, String curso, String estadoCurso) {
 		super();
 		this.idCursada = idCursada;
 		this.idEmpresa = idEmpresa;
 		this.idCurso = idCurso;
-		this.idSala = idSala;
 		this.idEstadoCurso = idEstadoCurso;
 		this.fechaInicioInscripcion = fechaInicioInscripcion;
 		this.fechaFinInscripcion = fechaFinInscripcion;
 		this.vacantes = vacantes;
+		this.fechaInicioCursada = fechaInicioCursada;
+		this.diasDeClase = diasDeClase;
 		this.empresa = empresa;
 		this.curso = curso;
 		this.estadoCurso = estadoCurso;
-		this.sala = sala;
 	}
 
 	/**
@@ -75,20 +75,6 @@ public class CursadaCompletaDTO {
 	 */
 	public void setIdCurso(long idCurso) {
 		this.idCurso = idCurso;
-	}
-
-	/**
-	 * @return the idSala
-	 */
-	public long getIdSala() {
-		return idSala;
-	}
-
-	/**
-	 * @param idSala the idSala to set
-	 */
-	public void setIdSala(long idSala) {
-		this.idSala = idSala;
 	}
 
 	/**
@@ -148,6 +134,34 @@ public class CursadaCompletaDTO {
 	}
 
 	/**
+	 * @return the fechaInicioCursada
+	 */
+	public LocalDateTime getFechaInicioCursada() {
+		return fechaInicioCursada;
+	}
+
+	/**
+	 * @param fechaInicioCursada the fechaInicioCursada to set
+	 */
+	public void setFechaInicioCursada(LocalDateTime fechaInicioCursada) {
+		this.fechaInicioCursada = fechaInicioCursada;
+	}
+
+	/**
+	 * @return the diasDeClase
+	 */
+	public int getDiasDeClase() {
+		return diasDeClase;
+	}
+
+	/**
+	 * @param diasDeClase the diasDeClase to set
+	 */
+	public void setDiasDeClase(int diasDeClase) {
+		this.diasDeClase = diasDeClase;
+	}
+
+	/**
 	 * @return the empresa
 	 */
 	public String getEmpresa() {
@@ -189,29 +203,16 @@ public class CursadaCompletaDTO {
 		this.estadoCurso = estadoCurso;
 	}
 
-	/**
-	 * @return the sala
-	 */
-	public String getSala() {
-		return sala;
-	}
-
-	/**
-	 * @param sala the sala to set
-	 */
-	public void setSala(String sala) {
-		this.sala = sala;
-	}
-
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "CursadaCompletaDTO [idCursada: " + idCursada + ", idEmpresa: " + idEmpresa + ", idCurso: " + idCurso
-				+ ", idSala: " + idSala + ", idEstadoCurso: " + idEstadoCurso + ", fechaInicioInscripcion: "
-				+ fechaInicioInscripcion + ", fechaFinInscripcion: " + fechaFinInscripcion + ", vacantes: " + vacantes
-				+ ", empresa: " + empresa + ", curso: " + curso + ", estadoCurso: " + estadoCurso + ", sala: " + sala + "]";
+				+ ", idEstadoCurso: " + idEstadoCurso + ", fechaInicioInscripcion: " + fechaInicioInscripcion
+				+ ", fechaFinInscripcion: " + fechaFinInscripcion + ", vacantes: " + vacantes + ", fechaInicioCursada: "
+				+ fechaInicioCursada + ", diasDeClase: " + diasDeClase + ", empresa: " + empresa + ", curso: " + curso
+				+ ", estadoCurso: " + estadoCurso + "]";
 	}
-
+	
 }
