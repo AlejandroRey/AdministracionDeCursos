@@ -5,20 +5,28 @@ import java.awt.event.ActionListener;
 
 import modelo.AdministracionDeCursos;
 import presentacion.vista.AdministracionDeCursosVista;
-import presentacion.vista.AlumnoCrudVista;
+import presentacion.vista.AlumnoABMPanel;
+import presentacion.vista.CursadaABMPanel;
+import presentacion.vista.CursadaVista;
 
 public class AdministracionDeCursosControlador implements ActionListener {
 	
 	private AdministracionDeCursosVista vista;
 	private AdministracionDeCursos modelo;
 	
-	private AlumnoCrudVista alumnoABM;
+	private AlumnoABMPanel alumnoABM;
 	private AlumnoCrudControlador alumnoABMControlador;
+	
+	private CursadaABMPanel cursadaABM;
+	private CursadaABMControlador cursadaABMControlador;
 	
 	public AdministracionDeCursosControlador(AdministracionDeCursosVista vista, AdministracionDeCursos modelo) {
 		super();
 		this.modelo = modelo;
 		this.vista = vista;
+		
+		CursadaVista v = new CursadaVista();
+		this.vista.getMainPanel().add(v);
 		
 		this.vista.getMenuItemLogin().addActionListener(this);
 		this.vista.getMenuItemLogout().addActionListener(this);
@@ -32,7 +40,9 @@ public class AdministracionDeCursosControlador implements ActionListener {
 		this.vista.getMenuItemEliminarAlumno().addActionListener(this);
 		this.vista.getMenuItemSeleccionarAlumno().addActionListener(this);
 		
-		
+		this.vista.getMenuItemActualizarCursada().addActionListener(this);
+		this.vista.getMenuItemAgregarCursada().addActionListener(this);
+		this.vista.getMenuItemEliminarCursada().addActionListener(this);		
 	}
 
 	public void inicializar() {
@@ -50,7 +60,7 @@ public class AdministracionDeCursosControlador implements ActionListener {
 
 		} else if (e.getSource() == this.vista.getMenuItemActualizarAlumno()) {
 			if (alumnoABMControlador == null) {
-				alumnoABM = new AlumnoCrudVista();
+				alumnoABM = new AlumnoABMPanel();
 				alumnoABMControlador = new AlumnoCrudControlador(alumnoABM, modelo);
 				alumnoABMControlador.inicializar();
 				alumnoABMControlador.setVisibleBtnActualizar();
@@ -61,7 +71,7 @@ public class AdministracionDeCursosControlador implements ActionListener {
 			}
 		} else if (e.getSource() == this.vista.getMenuItemAgregarAlumno()) {
 			if (alumnoABMControlador == null) {
-				alumnoABM = new AlumnoCrudVista();
+				alumnoABM = new AlumnoABMPanel();
 				alumnoABMControlador = new AlumnoCrudControlador(alumnoABM, modelo);
 				alumnoABMControlador.inicializar();
 				alumnoABMControlador.setVisibleBtnAgregar();
@@ -72,7 +82,7 @@ public class AdministracionDeCursosControlador implements ActionListener {
 			}
 		} else if (e.getSource() == this.vista.getMenuItemEliminarAlumno()) {
 			if (alumnoABMControlador == null) {
-				alumnoABM = new AlumnoCrudVista();
+				alumnoABM = new AlumnoABMPanel();
 				alumnoABMControlador = new AlumnoCrudControlador(alumnoABM, modelo);
 				alumnoABMControlador.inicializar();
 				alumnoABMControlador.setVisibleBtnEliminar();
@@ -83,7 +93,7 @@ public class AdministracionDeCursosControlador implements ActionListener {
 			}
 		} else if (e.getSource() == this.vista.getMenuItemSeleccionarAlumno()) {
 			if (alumnoABMControlador == null) {
-				alumnoABM = new AlumnoCrudVista();
+				alumnoABM = new AlumnoABMPanel();
 				alumnoABMControlador = new AlumnoCrudControlador(alumnoABM, modelo);
 				alumnoABMControlador.inicializar();
 				alumnoABMControlador.setVisibleBtnSeleccionar();
@@ -92,7 +102,21 @@ public class AdministracionDeCursosControlador implements ActionListener {
 			} else {
 				alumnoABMControlador.setVisibleBtnSeleccionar();
 			}
+		} else if (e.getSource() == this.vista.getMenuItemActualizarCursada()) {
+		} else if (e.getSource() == this.vista.getMenuItemAgregarCursada()) {
+			if (cursadaABMControlador == null) {
+				cursadaABM = new CursadaABMPanel();
+				cursadaABMControlador = new CursadaABMControlador(cursadaABM, modelo);
+				cursadaABMControlador.inicializar();
+				
+				this.vista.getMainPanel().add(cursadaABM);
+			}else{
+				
+			}
+		} else if (e.getSource() == this.vista.getMenuItemEliminarCursada()) {
 		}
+		
+		
 		this.vista.getFrame().repaint();
 	}
 	

@@ -14,18 +14,19 @@ import javax.swing.table.DefaultTableCellRenderer;
 import dto.AlumnoDTO;
 import modelo.AdministracionDeCursos;
 import persistencia.conexion.Conexion;
-import presentacion.vista.AlumnoCrudVista;
+import presentacion.vista.AlumnoABMPanel;
 
 public class AlumnoCrudControlador implements ActionListener {
 	
-	private AlumnoCrudVista vista;
+	private AlumnoABMPanel vista;
 	private AdministracionDeCursos modelo;
 	private List<AlumnoDTO> alumnosLista;
 	
-	public AlumnoCrudControlador(AlumnoCrudVista vista, AdministracionDeCursos modelo) {
+	public AlumnoCrudControlador(AlumnoABMPanel vista, AdministracionDeCursos modelo) {
 		this.vista = vista;
 		this.modelo = modelo;
 		this.alumnosLista = null;
+		
 		this.vista.getBtnActualizar().addActionListener(this);
 		this.vista.getBtnAgregar().addActionListener(this);
 		this.vista.getBtnEliminar().addActionListener(this);

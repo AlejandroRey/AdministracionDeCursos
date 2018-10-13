@@ -46,7 +46,7 @@ public class CursadaABMPanel extends JPanel {
 	private JButton btnActualizar;
 	private JButton btnEliminar;
 	private JButton btnAddAlumnos;
-	private JButton btnAddPagos;
+	private JButton btnAddInstructor;
 	private JButton btnAddHorariosCursada;
 	private JTextField textFechaInicioCursada;
 	private JTextField textDiasDeClase;
@@ -57,21 +57,22 @@ public class CursadaABMPanel extends JPanel {
 	 */
 	public CursadaABMPanel() {
 		super();
+		this.setBounds(0, 0, 700, 625);
+		this.setLayout(null);
 		inicializar();
 	}
 
 	private void inicializar() {
-		setBounds(100, 100, 700, 650);		
+		
 		inicializarTabla();
 		inicializarEditor();
 		inicializarBotones();
 	}
 
 	private void inicializarTabla() {
-		setLayout(null);
 		
 		spCursadas = new JScrollPane();
-		spCursadas.setBounds(10, 10, 681, 373);
+		spCursadas.setBounds(10, 240, 681, 373);
 		this.add(spCursadas);
 		
 		modelCursadas = new DefaultTableModel(null, nombreColumnas);
@@ -90,7 +91,7 @@ public class CursadaABMPanel extends JPanel {
 		spCursadas.setViewportView(tblCursadas);	
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 395, 682, 1);
+		separator.setBounds(10, 222, 682, 1);
 		separator.setForeground(SystemColor.activeCaption);
 		separator.setBackground(SystemColor.activeCaption);
 		this.add(separator);
@@ -99,8 +100,8 @@ public class CursadaABMPanel extends JPanel {
 	private void inicializarEditor() {	
 		
 		panel = new JPanel();
-		panel.setBounds(10, 405, 500, 195);
-		panel.setBorder(new TitledBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Cursada", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), "Cursada:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(153, 180, 209)));
+		panel.setBounds(10, 10, 500, 195);
+		panel.setBorder(new TitledBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Cursada", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), "Cursada:", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK));
 		panel.setLayout(null);
 		this.add(panel);
 		
@@ -161,6 +162,7 @@ public class CursadaABMPanel extends JPanel {
 		panel.add(cbxCurso);
 		
 		cbxEstado = new JComboBox<EstadoDeCursoDTO>();
+		cbxEstado.setEnabled(false);
 		cbxEstado.setBounds(333, 135, 141, 20);
 		panel.add(cbxEstado);
 		
@@ -202,7 +204,7 @@ public class CursadaABMPanel extends JPanel {
 	private void inicializarBotones() {
 		
 		panelButtons = new JPanel();
-		panelButtons.setBounds(520, 410, 170, 204);
+		panelButtons.setBounds(520, 15, 170, 204);
 		panelButtons.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
 		panelButtons.setLayout(null);
 		this.add(panelButtons);
@@ -225,9 +227,9 @@ public class CursadaABMPanel extends JPanel {
 		btnEliminar.setBounds(10, 73, 150, 23);
 		panelButtons.add(btnEliminar);
 		
-		btnAddPagos = new JButton("Generar Pagos");
-		btnAddPagos.setBounds(10, 136, 150, 23);
-		panelButtons.add(btnAddPagos);
+		btnAddInstructor = new JButton("Asignar Instructor");
+		btnAddInstructor.setBounds(10, 136, 150, 23);
+		panelButtons.add(btnAddInstructor);
 		
 		btnAddHorariosCursada = new JButton("Agregar Horarios Cursada");
 		btnAddHorariosCursada.setBounds(10, 170, 150, 23);
@@ -476,14 +478,14 @@ public class CursadaABMPanel extends JPanel {
 	 * @return the btnAddPagos
 	 */
 	public JButton getBtnAddPagos() {
-		return btnAddPagos;
+		return btnAddInstructor;
 	}
 
 	/**
 	 * @param btnAddPagos the btnAddPagos to set
 	 */
 	public void setBtnAddPagos(JButton btnAddPagos) {
-		this.btnAddPagos = btnAddPagos;
+		this.btnAddInstructor = btnAddPagos;
 	}
 
 	/**

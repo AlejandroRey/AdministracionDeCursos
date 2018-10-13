@@ -16,10 +16,9 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
-import java.awt.SystemColor;
 
 @SuppressWarnings("serial")
-public class AlumnoCrudVista extends JPanel {
+public class AlumnoABMPanel extends JPanel {
 
 	//private JPanel mainPanel;
 	private JScrollPane spAlumnos;
@@ -43,7 +42,7 @@ public class AlumnoCrudVista extends JPanel {
 	/**
 	 * Create the frame.
 	 */
-	public AlumnoCrudVista() {
+	public AlumnoABMPanel() {
 		super();
 		this.setBounds(0, 0, 590, 500);
 		this.setLayout(null);
@@ -53,8 +52,7 @@ public class AlumnoCrudVista extends JPanel {
 	private void inicializar() {
 		
 		inicializarTabla();
-		inicializarEditor();	
-		//setBtnNotVisible();
+		inicializarEditor();
 	}
 
 	private void inicializarTabla() {
