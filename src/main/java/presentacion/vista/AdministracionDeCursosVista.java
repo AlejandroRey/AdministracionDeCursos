@@ -146,7 +146,7 @@ public class AdministracionDeCursosVista extends JFrame {
 		menuCursada.setMnemonic(KeyEvent.VK_A);
 		menuBar.add(menuCursada);
 
-		menuItemAgregarCursada = new JMenuItem("Agregar Nuevo Usuario");
+		menuItemAgregarCursada = new JMenuItem("Agregar Cursada");
 		menuCursada.add(menuItemAgregarCursada);
 		
 		menuItemActualizarCursada = new JMenuItem("Actualizar Cursada");

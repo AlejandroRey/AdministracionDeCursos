@@ -7,7 +7,6 @@ import modelo.AdministracionDeCursos;
 import presentacion.vista.AdministracionDeCursosVista;
 import presentacion.vista.AlumnoABMPanel;
 import presentacion.vista.CursadaABMPanel;
-import presentacion.vista.CursadaVista;
 
 public class AdministracionDeCursosControlador implements ActionListener {
 	
@@ -24,9 +23,6 @@ public class AdministracionDeCursosControlador implements ActionListener {
 		super();
 		this.modelo = modelo;
 		this.vista = vista;
-		
-		CursadaVista v = new CursadaVista();
-		this.vista.getMainPanel().add(v);
 		
 		this.vista.getMenuItemLogin().addActionListener(this);
 		this.vista.getMenuItemLogout().addActionListener(this);
