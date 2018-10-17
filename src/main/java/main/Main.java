@@ -3,11 +3,11 @@ package main;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import dto.CursadaCompletaDTO;
-import dto.CursadaDTO;
 import modelo.AdministracionDeCursos;
 import persistencia.controlador.AdministracionDeCursosControlador;
+import persistencia.controlador.AdministracionDeCursosTestControlador;
 import persistencia.dao.mysql.DAOSQLFactory;
+import presentacion.vista.AdministracionDeCursosTestVista;
 import presentacion.vista.AdministracionDeCursosVista;
 
 public class Main {
@@ -25,20 +25,16 @@ public class Main {
 		} catch (UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		} finally {
-			AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
-			AdministracionDeCursosVista vista = new AdministracionDeCursosVista();
-			AdministracionDeCursosControlador controlador = new AdministracionDeCursosControlador(vista, modelo);
-			controlador.inicializar();
+//			AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
+//			AdministracionDeCursosVista vista = new AdministracionDeCursosVista();
+//			AdministracionDeCursosControlador controlador = new AdministracionDeCursosControlador(vista, modelo);
+//			controlador.inicializar();
 		}
 		
 		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
-		for (CursadaDTO cursada	: modelo.obtenerCursadas()) {
-			System.out.println(cursada.toString());
-		}
-		
-		for (CursadaCompletaDTO	cursada	: modelo.obtenerCursadasCompletas()) {
-			System.out.println(cursada.toString());
-		}
+		AdministracionDeCursosTestVista vista = new AdministracionDeCursosTestVista();
+		AdministracionDeCursosTestControlador controlador = new AdministracionDeCursosTestControlador(modelo, vista);
+		controlador.inicializar();		
 
 	}
 }
