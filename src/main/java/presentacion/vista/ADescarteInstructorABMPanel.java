@@ -2,14 +2,10 @@ package presentacion.vista;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -23,11 +19,11 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 import dto.CursoTipoDTO;
-import persistencia.conexion.Conexion;
+import java.awt.SystemColor;
+import javax.swing.border.MatteBorder;
 
-public class InstructorCrudVista {
-
-	private JFrame frame;
+@SuppressWarnings("serial")
+public class ADescarteInstructorABMPanel extends JPanel {
 	
 	private JComboBox<CursoTipoDTO> cbxCursoTipoFiltro;
 	private JScrollPane spInstructores;
@@ -50,36 +46,33 @@ public class InstructorCrudVista {
 	private JButton btnCerrar;
 
 	/**
-	 * Create the frame.
+	 * Create the panel.
 	 */
-	public InstructorCrudVista() {
+	public ADescarteInstructorABMPanel() {
 		super();
+		this.setBounds(0, 0, 590, 560);
+		this.setLayout(null);
 		inicializar();
 	}
 
 	private void inicializar() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 600, 600);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
 		
 		inicializarTabla();
 		inicializarEditor();		
 	}
 
-	@SuppressWarnings("serial")
 	private void inicializarTabla() {
 		JLabel lblFiltro = new JLabel("Filtro:");
 		lblFiltro.setBounds(4, 14, 46, 14);
-		frame.getContentPane().add(lblFiltro);
+		this.add(lblFiltro);
 		
 		cbxCursoTipoFiltro = new JComboBox<>();
 		cbxCursoTipoFiltro.setBounds(48, 11, 105, 20);
-		frame.getContentPane().add(cbxCursoTipoFiltro);
+		this.add(cbxCursoTipoFiltro);
 		
 		spInstructores = new JScrollPane();
 		spInstructores.setBounds(4, 53, 578, 308);
-		frame.getContentPane().add(spInstructores);
+		this.add(spInstructores);
 		
 		modelInstructores = new DefaultTableModel(null, nombreColumnas);
 		tblInstructores = new JTable(modelInstructores){
@@ -99,9 +92,9 @@ public class InstructorCrudVista {
 
 	private void inicializarEditor() {		
 		panel = new JPanel();
-		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Instructor - Editor:", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
+		panel.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Instructor - Editor:", TitledBorder.LEADING, TitledBorder.TOP, null, UIManager.getColor("textText")));
 		panel.setBounds(43, 380, 500, 170);
-		frame.getContentPane().add(panel);
+		this.add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblIdInstructor = new JLabel("id Instructor:");
@@ -165,42 +158,26 @@ public class InstructorCrudVista {
 		panel.add(textEmail);		
 		
 		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(20, 136, 89, 23);
+		btnAgregar.setBounds(206, 136, 89, 23);
 		panel.add(btnAgregar);
 		
 		btnActualizar = new JButton("Actualizar");
-		btnActualizar.setBounds(145, 136, 89, 23);
+		btnActualizar.setBounds(206, 136, 89, 23);
 		panel.add(btnActualizar);
 		
 		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(262, 136, 89, 23);
+		btnEliminar.setBounds(206, 136, 89, 23);
 		panel.add(btnEliminar);
 		
 		btnCerrar = new JButton("Cerrar");
-		btnCerrar.setBounds(385, 136, 89, 23);
+		btnCerrar.setBounds(206, 136, 89, 23);
 		panel.add(btnCerrar);
 		
 		JSeparator separator = new JSeparator();
-		separator.setForeground(Color.BLUE);
-		separator.setBackground(Color.BLUE);
+		separator.setForeground(SystemColor.activeCaption);
+		separator.setBackground(SystemColor.activeCaption);
 		separator.setBounds(13, 372, 560, 1);
-		frame.getContentPane().add(separator);
-	}
-	
-	public void show() {
-		this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		this.frame.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que quieres salir de la Aplicacion!?",
-						"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-				if (confirm == 0) {
-					Conexion.getConexion().cerrarConexion();
-					frame.dispose();
-				}
-			}
-		});
-		this.frame.setVisible(true);
+		this.add(separator);
 	}
 
 	/**

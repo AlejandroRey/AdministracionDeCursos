@@ -8,13 +8,13 @@ import javax.swing.JOptionPane;
 
 import persistencia.conexion.Conexion;
 
-public class CursadaFullVista {
+public class ADescarteCursadaFullVista {
 
 	private JFrame frame;
 	private CursadaABMPanel panelCursada;
-	private AlumnosInscriptosPanel panelInscriptos;
+	private AdescarteAlumnosInscriptosPanel panelInscriptos;
 	
-	public CursadaFullVista() {
+	public ADescarteCursadaFullVista() {
 		super();
 		initialize();
 	}
@@ -31,7 +31,7 @@ public class CursadaFullVista {
 		//panelCursada.setBounds(0, 0, 1064, 262);
 		frame.getContentPane().add(panelCursada);
 		
-		panelInscriptos = new AlumnosInscriptosPanel();
+		panelInscriptos = new AdescarteAlumnosInscriptosPanel();
 		panelInscriptos.setSize(628, 536);
 		panelInscriptos.setLocation(708, 2);
 		frame.getContentPane().add(panelInscriptos);
@@ -70,14 +70,14 @@ public class CursadaFullVista {
 	/**
 	 * @return the panelInscriptos
 	 */
-	public AlumnosInscriptosPanel getPanelInscriptos() {
+	public AdescarteAlumnosInscriptosPanel getPanelInscriptos() {
 		return panelInscriptos;
 	}
 
 	/**
 	 * @param panelInscriptos the panelInscriptos to set
 	 */
-	public void setPanelInscriptos(AlumnosInscriptosPanel panelInscriptos) {
+	public void setPanelInscriptos(AdescarteAlumnosInscriptosPanel panelInscriptos) {
 		this.panelInscriptos = panelInscriptos;
 	}
 

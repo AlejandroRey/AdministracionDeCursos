@@ -10,37 +10,29 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
-@SuppressWarnings("serial")
-public class AdministracionDeCursosVista extends JFrame {
-
+public class AdministracionDeCursosVista {
+	
 	private JFrame frame;
 	private JPanel mainPanel;
 	private JMenuBar menuBar;
 	
-	private JMenu menuLogin;
-	private JMenuItem menuItemLogin;
-	private JMenuItem menuItemLogout;	
-	
-	private JMenu menuUsuario;
-	private JMenuItem menuItemAgregarUsuario;
-	private JMenuItem menuItemActualizarUsuario;
-	private JMenuItem menuItemEliminarUsuario;	
+	private JMenu menuAlumno;
+	private JMenuItem menuItemAlumnoVer;
 	
 	private JMenu menuCursada;
-	private JMenuItem menuItemAgregarCursada;
-	private JMenuItem menuItemActualizarCursada;
-	private JMenuItem menuItemEliminarCursada;
-	private JMenuItem menuItemAddAlumno;
-	private JMenuItem menuItemAddSala;
-	private JMenuItem menuItemAddHorario;
-	private JMenuItem menuItemAddInstructor;	
 	
-	private JMenu menuAlumno;
-	private JMenuItem menuItemAgregarAlumno;
-	private JMenuItem menuItemActualizarAlumno;
-	private JMenuItem menuItemEliminarAlumno;
-	private JMenuItem menuItemSeleccionarAlumno;
+	private JMenu menuCurso;
+	private JMenuItem menuItemCursoVer;
+	
+	private JMenu menuLogin;
+	private JMenuItem menuItemLogin;
+	private JMenuItem menuItemLogout;
+	
+	private JMenu menuUsuario;
+	private JMenuItem menuItemUsuarioVer;
+	
 
+	
 	/**
 	 * Create the frame.
 	 */
@@ -75,97 +67,73 @@ public class AdministracionDeCursosVista extends JFrame {
 		
 		buildMenuLogin();
 		menuBar.add(menuLogin);
-		
-		buildMenuUsuario();
-		menuBar.add(menuUsuario);
-		
-		buildMenuCursada();
-		menuBar.add(menuCursada);
-		
+
 		buildMenuAlumno();
 		menuBar.add(menuAlumno);
-	}
-	
-	private void buildMenuLogin() {
+		
+		buildMenuCurso();
+		menuBar.add(menuCurso);
 
-		menuLogin = new JMenu("Login");
-		menuLogin.setMnemonic(KeyEvent.VK_A);
-		menuLogin.getAccessibleContext().setAccessibleDescription(
-		        "");
-		menuBar.add(menuLogin);
-		
-		menuItemLogin = new JMenuItem("Cambiar de Usuario");
-		menuLogin.add(menuItemLogin);
-		
-		menuItemLogout = new JMenuItem("Salir del Sistema");
-		menuLogin.add(menuItemLogout);		
+		buildMenuCursada();
+		menuBar.add(menuCursada);
+
+		buildMenuUsuario();
+		menuBar.add(menuUsuario);
 	}
 
 	private void buildMenuAlumno() {
 		
 		menuAlumno = new JMenu("Alumno");
 		menuAlumno.setMnemonic(KeyEvent.VK_A);
-		menuAlumno.getAccessibleContext().setAccessibleDescription(
-		        "");
-		menuBar.add(menuAlumno);		
+		menuAlumno.getAccessibleContext().setAccessibleDescription("");
+		menuBar.add(menuAlumno);
 		
-		menuItemAgregarAlumno =new JMenuItem("Agregar Nuevo Alumno");
-		menuAlumno.add(menuItemAgregarAlumno);
-		
-		menuItemActualizarAlumno =new JMenuItem("Actualizar Alumno");
-		menuAlumno.add(menuItemActualizarAlumno);
-		
-		menuItemEliminarAlumno =new JMenuItem("Eliminar Alumno");
-		menuAlumno.add(menuItemEliminarAlumno);		
-		
-		menuItemSeleccionarAlumno = new JMenuItem("Seleccionar Alumno");
-		menuAlumno.add(menuItemSeleccionarAlumno);
-	}
-
-	private void buildMenuUsuario() {
-
-		menuUsuario = new JMenu("Usuario");
-		menuUsuario.setMnemonic(KeyEvent.VK_A);
-		menuUsuario.getAccessibleContext().setAccessibleDescription(
-		        "");
-		menuBar.add(menuUsuario);
-
-		menuItemAgregarUsuario = new JMenuItem("Agregar Nuevo Usuario");
-		menuUsuario.add(menuItemAgregarUsuario);	
-		
-		menuItemActualizarUsuario = new JMenuItem("Actualizar Usuario");
-		menuUsuario.add(menuItemActualizarUsuario);
-		
-		menuItemEliminarUsuario = new JMenuItem("Eliminar Usuario");
-		menuUsuario.add(menuItemEliminarUsuario);		
+		menuItemAlumnoVer = new JMenuItem("Ver Alumno");
+		menuAlumno.add(menuItemAlumnoVer);
 	}
 	
+	private void buildMenuCurso() {
+
+		menuCurso = new JMenu("Curso");
+		menuCurso.setMnemonic(KeyEvent.VK_A);
+		menuCurso.getAccessibleContext().setAccessibleDescription("");
+		menuBar.add(menuCurso);
+		
+		menuItemCursoVer = new JMenuItem("Ver Curso");
+		menuCurso.add(menuItemCursoVer);
+	}
+
 	private void buildMenuCursada() {
 		
 		menuCursada = new JMenu("Cursada");
 		menuCursada.setMnemonic(KeyEvent.VK_A);
-		menuBar.add(menuCursada);
+		menuCursada.getAccessibleContext().setAccessibleDescription("");
+		menuBar.add(menuCursada);		
+	}
 
-		menuItemAgregarCursada = new JMenuItem("Agregar Cursada");
-		menuCursada.add(menuItemAgregarCursada);
+	private void buildMenuLogin() {
 		
-		menuItemActualizarCursada = new JMenuItem("Actualizar Cursada");
-		menuCursada.add(menuItemActualizarCursada);
+		menuLogin = new JMenu("Login");
+		menuLogin.setMnemonic(KeyEvent.VK_A);
+		menuLogin.getAccessibleContext().setAccessibleDescription("");
+		menuBar.add(menuLogin);
 		
-		menuItemEliminarCursada = new JMenuItem("Eliminar Cursada");
-		menuCursada.add(menuItemEliminarCursada );
+		menuItemLogin = new JMenuItem("Cambiar de Usuario");
+		menuLogin.add(menuItemLogin);
+
+		menuItemLogout = new JMenuItem("Salir del Sistema");
+		menuLogin.add(menuItemLogout);		
+	}
+
+	private void buildMenuUsuario() {
 		
-		menuItemAddAlumno = new JMenuItem("Agregar Alumnos a Cursada");
-		menuCursada.add(menuItemAddAlumno);
+		menuUsuario = new JMenu("Usuario");
+		menuUsuario.setMnemonic(KeyEvent.VK_U);
+		menuUsuario.getAccessibleContext().setAccessibleDescription("");
+		menuBar.add(menuUsuario);	
 		
-		menuItemAddSala = new JMenuItem("Seleccionar Cursada");
-		menuCursada.add(menuItemAddSala );
-		
-		menuItemAddHorario = new JMenuItem("Dias & Horarios");
-		menuCursada.add(menuItemAddHorario);
-		
-		menuItemAddInstructor = new JMenuItem("Agregar Instructor");
-		menuCursada.add(menuItemAddInstructor);
+		menuItemUsuarioVer = new JMenuItem("Ver Usuario");
+		menuUsuario.add(menuItemUsuarioVer);
 	}
 
 	/**
@@ -194,6 +162,48 @@ public class AdministracionDeCursosVista extends JFrame {
 	 */
 	public void setMainPanel(JPanel mainPanel) {
 		this.mainPanel = mainPanel;
+	}
+
+	/**
+	 * @return the menuBar
+	 */
+	public JMenuBar getMenuBar() {
+		return menuBar;
+	}
+
+	/**
+	 * @param menuBar the menuBar to set
+	 */
+	public void setMenuBar(JMenuBar menuBar) {
+		this.menuBar = menuBar;
+	}
+
+	/**
+	 * @return the menuAlumno
+	 */
+	public JMenu getMenuAlumno() {
+		return menuAlumno;
+	}
+
+	/**
+	 * @param menuAlumno the menuAlumno to set
+	 */
+	public void setMenuAlumno(JMenu menuAlumno) {
+		this.menuAlumno = menuAlumno;
+	}
+
+	/**
+	 * @return the menuCursada
+	 */
+	public JMenu getMenuCursada() {
+		return menuCursada;
+	}
+
+	/**
+	 * @param menuCursada the menuCursada to set
+	 */
+	public void setMenuCursada(JMenu menuCursada) {
+		this.menuCursada = menuCursada;
 	}
 
 	/**
@@ -253,227 +263,59 @@ public class AdministracionDeCursosVista extends JFrame {
 	}
 
 	/**
-	 * @return the menuItemAgregarUsuario
+	 * @return the menuItemAlumnoVer
 	 */
-	public JMenuItem getMenuItemAgregarUsuario() {
-		return menuItemAgregarUsuario;
+	public JMenuItem getMenuItemAlumnoVer() {
+		return menuItemAlumnoVer;
 	}
 
 	/**
-	 * @param menuItemAgregarUsuario the menuItemAgregarUsuario to set
+	 * @param menuItemAlumnoVer the menuItemAlumnoVer to set
 	 */
-	public void setMenuItemAgregarUsuario(JMenuItem menuItemAgregarUsuario) {
-		this.menuItemAgregarUsuario = menuItemAgregarUsuario;
+	public void setMenuItemAlumnoVer(JMenuItem menuItemAlumnoVer) {
+		this.menuItemAlumnoVer = menuItemAlumnoVer;
 	}
 
 	/**
-	 * @return the menuItemActualizarUsuario
+	 * @return the menuItemUsuarioVer
 	 */
-	public JMenuItem getMenuItemActualizarUsuario() {
-		return menuItemActualizarUsuario;
+	public JMenuItem getMenuItemUsuarioVer() {
+		return menuItemUsuarioVer;
 	}
 
 	/**
-	 * @param menuItemActualizarUsuario the menuItemActualizarUsuario to set
+	 * @param menuItemUsuarioVer the menuItemUsuarioVer to set
 	 */
-	public void setMenuItemActualizarUsuario(JMenuItem menuItemActualizarUsuario) {
-		this.menuItemActualizarUsuario = menuItemActualizarUsuario;
+	public void setMenuItemUsuarioVer(JMenuItem menuItemUsuarioVer) {
+		this.menuItemUsuarioVer = menuItemUsuarioVer;
 	}
 
 	/**
-	 * @return the menuItemEliminarUsuario
+	 * @return the menuCurso
 	 */
-	public JMenuItem getMenuItemEliminarUsuario() {
-		return menuItemEliminarUsuario;
+	public JMenu getMenuCurso() {
+		return menuCurso;
 	}
 
 	/**
-	 * @param menuItemEliminarUsuario the menuItemEliminarUsuario to set
+	 * @param menuCurso the menuCurso to set
 	 */
-	public void setMenuItemEliminarUsuario(JMenuItem menuItemEliminarUsuario) {
-		this.menuItemEliminarUsuario = menuItemEliminarUsuario;
+	public void setMenuCurso(JMenu menuCurso) {
+		this.menuCurso = menuCurso;
 	}
 
 	/**
-	 * @return the menuCursada
+	 * @return the menuItemCursoVer
 	 */
-	public JMenu getMenuCursada() {
-		return menuCursada;
+	public JMenuItem getMenuItemCursoVer() {
+		return menuItemCursoVer;
 	}
 
 	/**
-	 * @param menuCursada the menuCursada to set
+	 * @param menuItemCursoVer the menuItemCursoVer to set
 	 */
-	public void setMenuCursada(JMenu menuCursada) {
-		this.menuCursada = menuCursada;
-	}
-
-	/**
-	 * @return the menuItemAgregarCursada
-	 */
-	public JMenuItem getMenuItemAgregarCursada() {
-		return menuItemAgregarCursada;
-	}
-
-	/**
-	 * @param menuItemAgregarCursada the menuItemAgregarCursada to set
-	 */
-	public void setMenuItemAgregarCursada(JMenuItem menuItemAgregarCursada) {
-		this.menuItemAgregarCursada = menuItemAgregarCursada;
-	}
-
-	/**
-	 * @return the menuItemActualizarCursada
-	 */
-	public JMenuItem getMenuItemActualizarCursada() {
-		return menuItemActualizarCursada;
-	}
-
-	/**
-	 * @param menuItemActualizarCursada the menuItemActualizarCursada to set
-	 */
-	public void setMenuItemActualizarCursada(JMenuItem menuItemActualizarCursada) {
-		this.menuItemActualizarCursada = menuItemActualizarCursada;
-	}
-
-	/**
-	 * @return the menuItemEliminarCursada
-	 */
-	public JMenuItem getMenuItemEliminarCursada() {
-		return menuItemEliminarCursada;
-	}
-
-	/**
-	 * @param menuItemEliminarCursada the menuItemEliminarCursada to set
-	 */
-	public void setMenuItemEliminarCursada(JMenuItem menuItemEliminarCursada) {
-		this.menuItemEliminarCursada = menuItemEliminarCursada;
-	}
-
-	/**
-	 * @return the menuItemAddAlumno
-	 */
-	public JMenuItem getMenuItemAddAlumno() {
-		return menuItemAddAlumno;
-	}
-
-	/**
-	 * @param menuItemAddAlumno the menuItemAddAlumno to set
-	 */
-	public void setMenuItemAddAlumno(JMenuItem menuItemAddAlumno) {
-		this.menuItemAddAlumno = menuItemAddAlumno;
-	}
-
-	/**
-	 * @return the menuItemAddSala
-	 */
-	public JMenuItem getMenuItemAddSala() {
-		return menuItemAddSala;
-	}
-
-	/**
-	 * @param menuItemAddSala the menuItemAddSala to set
-	 */
-	public void setMenuItemAddSala(JMenuItem menuItemAddSala) {
-		this.menuItemAddSala = menuItemAddSala;
-	}
-
-	/**
-	 * @return the menuItemAddHorario
-	 */
-	public JMenuItem getMenuItemAddHorario() {
-		return menuItemAddHorario;
-	}
-
-	/**
-	 * @param menuItemAddHorario the menuItemAddHorario to set
-	 */
-	public void setMenuItemAddHorario(JMenuItem menuItemAddHorario) {
-		this.menuItemAddHorario = menuItemAddHorario;
-	}
-
-	/**
-	 * @return the menuItemAddInstructor
-	 */
-	public JMenuItem getMenuItemAddInstructor() {
-		return menuItemAddInstructor;
-	}
-
-	/**
-	 * @param menuItemAddInstructor the menuItemAddInstructor to set
-	 */
-	public void setMenuItemAddInstructor(JMenuItem menuItemAddInstructor) {
-		this.menuItemAddInstructor = menuItemAddInstructor;
-	}
-
-	/**
-	 * @return the menuAlumno
-	 */
-	public JMenu getMenuAlumno() {
-		return menuAlumno;
-	}
-
-	/**
-	 * @param menuAlumno the menuAlumno to set
-	 */
-	public void setMenuAlumno(JMenu menuAlumno) {
-		this.menuAlumno = menuAlumno;
-	}
-
-	/**
-	 * @return the menuItemAgregarAlumno
-	 */
-	public JMenuItem getMenuItemAgregarAlumno() {
-		return menuItemAgregarAlumno;
-	}
-
-	/**
-	 * @param menuItemAgregarAlumno the menuItemAgregarAlumno to set
-	 */
-	public void setMenuItemAgregarAlumno(JMenuItem menuItemAgregarAlumno) {
-		this.menuItemAgregarAlumno = menuItemAgregarAlumno;
-	}
-
-	/**
-	 * @return the menuItemActualizarAlumno
-	 */
-	public JMenuItem getMenuItemActualizarAlumno() {
-		return menuItemActualizarAlumno;
-	}
-
-	/**
-	 * @param menuItemActualizarAlumno the menuItemActualizarAlumno to set
-	 */
-	public void setMenuItemActualizarAlumno(JMenuItem menuItemActualizarAlumno) {
-		this.menuItemActualizarAlumno = menuItemActualizarAlumno;
-	}
-
-	/**
-	 * @return the menuItemEliminarAlumno
-	 */
-	public JMenuItem getMenuItemEliminarAlumno() {
-		return menuItemEliminarAlumno;
-	}
-
-	/**
-	 * @param menuItemEliminarAlumno the menuItemEliminarAlumno to set
-	 */
-	public void setMenuItemEliminarAlumno(JMenuItem menuItemEliminarAlumno) {
-		this.menuItemEliminarAlumno = menuItemEliminarAlumno;
-	}
-
-	/**
-	 * @return the menuItemSeleccionarAlumno
-	 */
-	public JMenuItem getMenuItemSeleccionarAlumno() {
-		return menuItemSeleccionarAlumno;
-	}
-
-	/**
-	 * @param menuItemSeleccionarAlumno the menuItemSeleccionarAlumno to set
-	 */
-	public void setMenuItemSeleccionarAlumno(JMenuItem menuItemSeleccionarAlumno) {
-		this.menuItemSeleccionarAlumno = menuItemSeleccionarAlumno;
+	public void setMenuItemCursoVer(JMenuItem menuItemCursoVer) {
+		this.menuItemCursoVer = menuItemCursoVer;
 	}
 
 }

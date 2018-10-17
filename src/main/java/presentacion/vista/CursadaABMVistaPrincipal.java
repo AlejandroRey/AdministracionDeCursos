@@ -10,13 +10,17 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 @SuppressWarnings("serial")
-public class AlumnoABMVistaPrincipal extends JPanel {
+public class CursadaABMVistaPrincipal extends JPanel {
 	
 	private JPanel mainPanel;
 	
-	private JPanel buttonPanel;
+	private JPanel buttonPanel;	
 	
-	private JPanel btnVer;
+	private JLabel lblHome;
+	private JLabel lblCursada;
+	private JLabel lblIconoPrincipal;
+	
+	private JPanel btnSeleccionar;
 	private JLabel lblTitleBtn1;
 	private JLabel lblIconBtn1;
 	
@@ -30,16 +34,12 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 	
 	private JPanel btnEliminar;
 	private JLabel lblIconBtn4; 
-	private JLabel lblTitleBtn4;
-	private JLabel lblTitulo;
-	private JLabel lblHome;
-	private JLabel lblIconoPrincipal;
-	
+	private JLabel lblTitleBtn4;	
 
 	/**
 	 * Create the panel.
 	 */
-	public AlumnoABMVistaPrincipal() {
+	public CursadaABMVistaPrincipal() {
 		super();
 		this.setBounds(0, 0, 1366, 768);
 		this.setLayout(null);
@@ -67,7 +67,7 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		buttonPanel.setBounds(0, 0, 200, 736);
 		add(buttonPanel);
 		buttonPanel.setLayout(null);
-		buttonPanel.setBackground(new Color(23, 35, 51));
+		buttonPanel.setBackground(Color.DARK_GRAY);
 		
 		buildButtonVer();
 		buildButtonAgregar();
@@ -77,33 +77,33 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 
 	private void buildButtonVer() {
 		
-		btnVer = new JPanel();
-		btnVer.setLayout(null);
-		btnVer.setBackground(new Color(23, 35, 51));
-		btnVer.setBounds(0, 234, 200, 50);
-		buttonPanel.add(btnVer);
-		btnVer.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		btnVer.setLayout(null);
+		btnSeleccionar = new JPanel();
+		btnSeleccionar.setLayout(null);
+		btnSeleccionar.setBackground(Color.DARK_GRAY);
+		btnSeleccionar.setBounds(0, 219, 200, 50);
+		buttonPanel.add(btnSeleccionar);
+		btnSeleccionar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		btnSeleccionar.setLayout(null);
 		
 		lblIconBtn1 = new JLabel("New label");
 		lblIconBtn1.setIcon(new ImageIcon("imagenes/read.png"));
 		lblIconBtn1.setBounds(10, 11, 32, 32);
-		btnVer.add(lblIconBtn1);
+		btnSeleccionar.add(lblIconBtn1);
 		
-		lblTitleBtn1 = new JLabel("Seleccionar Alumno");
+		lblTitleBtn1 = new JLabel("Seleccionar Curso");
 		lblTitleBtn1.setForeground(Color.WHITE);
 		lblTitleBtn1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblTitleBtn1.setEnabled(true);
 		lblTitleBtn1.setBounds(74, 25, 116, 14);
-		btnVer.add(lblTitleBtn1);		
+		btnSeleccionar.add(lblTitleBtn1);		
 	}
 	
 	private void buildButtonAgregar() {
 
 		btnAgregar = new JPanel();
 		btnAgregar.setLayout(null);
-		btnAgregar.setBackground(new Color(23, 35, 51));
-		btnAgregar.setBounds(0, 284, 200, 50);
+		btnAgregar.setBackground(Color.DARK_GRAY);
+		btnAgregar.setBounds(0, 269, 200, 50);
 		buttonPanel.add(btnAgregar);
 		btnAgregar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnAgregar.setLayout(null);
@@ -113,7 +113,7 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		lblIconBtn2.setBounds(10, 11, 32, 32);
 		btnAgregar.add(lblIconBtn2);
 
-		lblTitleBtn2 = new JLabel("Agregar Alumno");
+		lblTitleBtn2 = new JLabel("Agregar Curso");
 		lblTitleBtn2.setForeground(Color.WHITE);
 		lblTitleBtn2.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblTitleBtn2.setEnabled(true);
@@ -125,8 +125,8 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		
 		btnActualizar = new JPanel();
 		btnActualizar.setLayout(null);
-		btnActualizar.setBackground(new Color(23, 35, 51));
-		btnActualizar.setBounds(0, 334, 200, 50);
+		btnActualizar.setBackground(Color.DARK_GRAY);
+		btnActualizar.setBounds(0, 319, 200, 50);
 		buttonPanel.add(btnActualizar);
 		btnActualizar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnActualizar.setLayout(null);
@@ -136,7 +136,7 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		lblIconBtn3.setBounds(10, 11, 32, 32);
 		btnActualizar.add(lblIconBtn3);
 		
-		lblTitleBtn3 = new JLabel("Actualizar Alumno");
+		lblTitleBtn3 = new JLabel("Actualizar Curso");
 		lblTitleBtn3.setForeground(Color.WHITE);
 		lblTitleBtn3.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblTitleBtn3.setEnabled(true);
@@ -148,8 +148,8 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		
 		btnEliminar = new JPanel();
 		btnEliminar.setLayout(null);
-		btnEliminar.setBackground(new Color(23, 35, 51));
-		btnEliminar.setBounds(0, 383, 200, 50);
+		btnEliminar.setBackground(Color.DARK_GRAY);
+		btnEliminar.setBounds(0, 368, 200, 50);
 		buttonPanel.add(btnEliminar);
 		btnEliminar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnEliminar.setLayout(null);
@@ -159,27 +159,27 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		lblIconBtn4.setBounds(10, 11, 32, 32);
 		btnEliminar.add(lblIconBtn4);
 		
-		lblTitleBtn4 = new JLabel("Eliminar Alumno");
+		lblTitleBtn4 = new JLabel("Eliminar Curso");
 		lblTitleBtn4.setForeground(Color.WHITE);
 		lblTitleBtn4.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblTitleBtn4.setEnabled(true);
 		lblTitleBtn4.setBounds(74, 25, 116, 14);
-		btnEliminar.add(lblTitleBtn4);		
-		
-		lblTitulo = new JLabel("Alumno");
-		lblTitulo.setForeground(Color.WHITE);
-		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblTitulo.setBounds(70, 64, 60, 26);
-		buttonPanel.add(lblTitulo);
+		btnEliminar.add(lblTitleBtn4);
 		
 		lblHome = new JLabel("New label");
 		lblHome.setIcon(new ImageIcon("imagenes/home.png"));
 		lblHome.setBounds(82, 5, 48, 48);
-		buttonPanel.add(lblHome);
+		buttonPanel.add(lblHome);	
+		
+		lblCursada = new JLabel("Cursada");
+		lblCursada.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblCursada.setForeground(Color.WHITE);
+		lblCursada.setBounds(69, 57, 63, 26);
+		buttonPanel.add(lblCursada);
 		
 		lblIconoPrincipal = new JLabel("New label");
-		lblIconoPrincipal.setIcon(new ImageIcon("imagenes/alumno.png"));
-		lblIconoPrincipal.setBounds(50, 111, 100, 100);
+		lblIconoPrincipal.setIcon(new ImageIcon("imagenes/cursada.png"));
+		lblIconoPrincipal.setBounds(49, 94, 100, 100);
 		buttonPanel.add(lblIconoPrincipal);
 	}
 
@@ -198,17 +198,59 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 	}
 
 	/**
-	 * @return the btnVer
+	 * @return the buttonPanel
 	 */
-	public JPanel getBtnVer() {
-		return btnVer;
+	public JPanel getButtonPanel() {
+		return buttonPanel;
 	}
 
 	/**
-	 * @param btnVer the btnVer to set
+	 * @param buttonPanel the buttonPanel to set
 	 */
-	public void setBtnVer(JPanel btnVer) {
-		this.btnVer = btnVer;
+	public void setButtonPanel(JPanel buttonPanel) {
+		this.buttonPanel = buttonPanel;
+	}
+
+	/**
+	 * @return the btnSeleccionar
+	 */
+	public JPanel getBtnSeleccionar() {
+		return btnSeleccionar;
+	}
+
+	/**
+	 * @param btnSeleccionar the btnSeleccionar to set
+	 */
+	public void setBtnSeleccionar(JPanel btnSeleccionar) {
+		this.btnSeleccionar = btnSeleccionar;
+	}
+
+	/**
+	 * @return the lblTitleBtn1
+	 */
+	public JLabel getLblTitleBtn1() {
+		return lblTitleBtn1;
+	}
+
+	/**
+	 * @param lblTitleBtn1 the lblTitleBtn1 to set
+	 */
+	public void setLblTitleBtn1(JLabel lblTitleBtn1) {
+		this.lblTitleBtn1 = lblTitleBtn1;
+	}
+
+	/**
+	 * @return the lblIconBtn1
+	 */
+	public JLabel getLblIconBtn1() {
+		return lblIconBtn1;
+	}
+
+	/**
+	 * @param lblIconBtn1 the lblIconBtn1 to set
+	 */
+	public void setLblIconBtn1(JLabel lblIconBtn1) {
+		this.lblIconBtn1 = lblIconBtn1;
 	}
 
 	/**
@@ -226,6 +268,34 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 	}
 
 	/**
+	 * @return the lblTitleBtn2
+	 */
+	public JLabel getLblTitleBtn2() {
+		return lblTitleBtn2;
+	}
+
+	/**
+	 * @param lblTitleBtn2 the lblTitleBtn2 to set
+	 */
+	public void setLblTitleBtn2(JLabel lblTitleBtn2) {
+		this.lblTitleBtn2 = lblTitleBtn2;
+	}
+
+	/**
+	 * @return the lblIconBtn2
+	 */
+	public JLabel getLblIconBtn2() {
+		return lblIconBtn2;
+	}
+
+	/**
+	 * @param lblIconBtn2 the lblIconBtn2 to set
+	 */
+	public void setLblIconBtn2(JLabel lblIconBtn2) {
+		this.lblIconBtn2 = lblIconBtn2;
+	}
+
+	/**
 	 * @return the btnActualizar
 	 */
 	public JPanel getBtnActualizar() {
@@ -240,6 +310,34 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 	}
 
 	/**
+	 * @return the lblIconBtn3
+	 */
+	public JLabel getLblIconBtn3() {
+		return lblIconBtn3;
+	}
+
+	/**
+	 * @param lblIconBtn3 the lblIconBtn3 to set
+	 */
+	public void setLblIconBtn3(JLabel lblIconBtn3) {
+		this.lblIconBtn3 = lblIconBtn3;
+	}
+
+	/**
+	 * @return the lblTitleBtn3
+	 */
+	public JLabel getLblTitleBtn3() {
+		return lblTitleBtn3;
+	}
+
+	/**
+	 * @param lblTitleBtn3 the lblTitleBtn3 to set
+	 */
+	public void setLblTitleBtn3(JLabel lblTitleBtn3) {
+		this.lblTitleBtn3 = lblTitleBtn3;
+	}
+
+	/**
 	 * @return the btnEliminar
 	 */
 	public JPanel getBtnEliminar() {
@@ -251,6 +349,48 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 	 */
 	public void setBtnEliminar(JPanel btnEliminar) {
 		this.btnEliminar = btnEliminar;
+	}
+
+	/**
+	 * @return the lblIconBtn4
+	 */
+	public JLabel getLblIconBtn4() {
+		return lblIconBtn4;
+	}
+
+	/**
+	 * @param lblIconBtn4 the lblIconBtn4 to set
+	 */
+	public void setLblIconBtn4(JLabel lblIconBtn4) {
+		this.lblIconBtn4 = lblIconBtn4;
+	}
+
+	/**
+	 * @return the lblTitleBtn4
+	 */
+	public JLabel getLblTitleBtn4() {
+		return lblTitleBtn4;
+	}
+
+	/**
+	 * @param lblTitleBtn4 the lblTitleBtn4 to set
+	 */
+	public void setLblTitleBtn4(JLabel lblTitleBtn4) {
+		this.lblTitleBtn4 = lblTitleBtn4;
+	}
+
+	/**
+	 * @return the lblIconoPrincipal
+	 */
+	public JLabel getLblIconoPrincipal() {
+		return lblIconoPrincipal;
+	}
+
+	/**
+	 * @param lblIconoPrincipal the lblIconoPrincipal to set
+	 */
+	public void setLblIconoPrincipal(JLabel lblIconoPrincipal) {
+		this.lblIconoPrincipal = lblIconoPrincipal;
 	}
 
 }

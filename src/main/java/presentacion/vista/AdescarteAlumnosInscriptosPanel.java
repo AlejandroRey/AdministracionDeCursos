@@ -18,7 +18,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 @SuppressWarnings("serial")
-public class AlumnosInscriptosPanel extends JPanel {
+public class AdescarteAlumnosInscriptosPanel extends JPanel {
 
 	private JScrollPane spAlumnos;
 	private DefaultTableModel modelAlumnos;
@@ -44,7 +44,7 @@ public class AlumnosInscriptosPanel extends JPanel {
 	/**
 	 * Create the frame.
 	 */
-	public AlumnosInscriptosPanel() {
+	public AdescarteAlumnosInscriptosPanel() {
 		super();
 		inicializar();
 	}

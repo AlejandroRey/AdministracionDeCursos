@@ -22,6 +22,7 @@ import dto.CursoDTO;
 import dto.EmpresaDTO;
 import dto.EstadoDeCursoDTO;
 import java.awt.SystemColor;
+import javax.swing.border.MatteBorder;
 
 @SuppressWarnings("serial")
 public class CursadaABMPanel extends JPanel {
@@ -101,7 +102,7 @@ public class CursadaABMPanel extends JPanel {
 		
 		panel = new JPanel();
 		panel.setBounds(10, 10, 500, 195);
-		panel.setBorder(new TitledBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Cursada", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), "Cursada:", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK));
+		panel.setBorder(new TitledBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Cursada", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), "Cursada:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel.setLayout(null);
 		this.add(panel);
 		

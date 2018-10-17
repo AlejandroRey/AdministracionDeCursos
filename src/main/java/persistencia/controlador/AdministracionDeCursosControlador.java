@@ -5,115 +5,87 @@ import java.awt.event.ActionListener;
 
 import modelo.AdministracionDeCursos;
 import presentacion.vista.AdministracionDeCursosVista;
-import presentacion.vista.AlumnoABMPanel;
-import presentacion.vista.CursadaABMPanel;
+import presentacion.vista.AlumnoABMVistaPrincipal;
+import presentacion.vista.CursoABMPanel;
+import presentacion.vista.CursoABMVistaPrincipal;
+import presentacion.vista.UsuarionABMVistaPrincipal;
 
 public class AdministracionDeCursosControlador implements ActionListener {
 	
-	private AdministracionDeCursosVista vista;
 	private AdministracionDeCursos modelo;
+	private AdministracionDeCursosVista vista;
 	
-	private AlumnoABMPanel alumnoABM;
-	private AlumnoCrudControlador alumnoABMControlador;
+	private AlumnoABMVistaPrincipal alumnoABM;
+	private AlumnoABMVistaPrincipalControlador alumnoABMControlador;
 	
-	private CursadaABMPanel cursadaABM;
-	private CursadaABMControlador cursadaABMControlador;
+	private UsuarionABMVistaPrincipal usuarioABM;
+	private UsuarioABMVistaPrincipalControlador usuarioABMControlador;
 	
-	public AdministracionDeCursosControlador(AdministracionDeCursosVista vista, AdministracionDeCursos modelo) {
+	private CursoABMVistaPrincipal cursoABM;
+	private CursoABMVistaPrincipalControlador cursoABMControlador;
+	
+	public AdministracionDeCursosControlador(AdministracionDeCursos modelo, AdministracionDeCursosVista vista) {
 		super();
 		this.modelo = modelo;
 		this.vista = vista;
 		
-		this.vista.getMenuItemLogin().addActionListener(this);
-		this.vista.getMenuItemLogout().addActionListener(this);
-		
-		this.vista.getMenuItemActualizarUsuario().addActionListener(this);
-		this.vista.getMenuItemAgregarUsuario().addActionListener(this);
-		this.vista.getMenuItemEliminarUsuario().addActionListener(this);
-		
-		this.vista.getMenuItemActualizarAlumno().addActionListener(this);
-		this.vista.getMenuItemAgregarAlumno().addActionListener(this);
-		this.vista.getMenuItemEliminarAlumno().addActionListener(this);
-		this.vista.getMenuItemSeleccionarAlumno().addActionListener(this);
-		
-		this.vista.getMenuItemActualizarCursada().addActionListener(this);
-		this.vista.getMenuItemAgregarCursada().addActionListener(this);
-		this.vista.getMenuItemEliminarCursada().addActionListener(this);		
+		this.vista.getMenuItemAlumnoVer().addActionListener(this);		
+		this.vista.getMenuItemUsuarioVer().addActionListener(this);
+		this.vista.getMenuItemCursoVer().addActionListener(this);
 	}
+	
 
 	public void inicializar() {
-		//this.vista.show();
+		
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		resetVistas();
+		
+		if (e.getSource() == this.vista.getMenuItemAlumnoVer()) {
+			if (alumnoABM == null) {
+				alumnoABM = new AlumnoABMVistaPrincipal();
+				alumnoABMControlador = new AlumnoABMVistaPrincipalControlador(modelo, alumnoABM);
 
-		if (e.getSource() == this.vista.getMenuItemActualizarUsuario()) {
-
-		} else if (e.getSource() == this.vista.getMenuItemAgregarUsuario()) {
-
-		} else if (e.getSource() == this.vista.getMenuItemEliminarUsuario()) {
-
-		} else if (e.getSource() == this.vista.getMenuItemActualizarAlumno()) {
-			if (alumnoABMControlador == null) {
-				alumnoABM = new AlumnoABMPanel();
-				alumnoABMControlador = new AlumnoCrudControlador(alumnoABM, modelo);
-				alumnoABMControlador.inicializar();
-				alumnoABMControlador.setVisibleBtnActualizar();
+				this.vista.getMainPanel().add(alumnoABM);
+			}
+		} else if (e.getSource()== this.vista.getMenuItemUsuarioVer()) {
+			if (usuarioABM == null) {
+				usuarioABM = new UsuarionABMVistaPrincipal();
+				usuarioABMControlador = new UsuarioABMVistaPrincipalControlador(modelo, usuarioABM);
 				
-				this.vista.getMainPanel().add(alumnoABM);
-			} else {
-				alumnoABMControlador.setVisibleBtnActualizar();
+				this.vista.getMainPanel().add(usuarioABM);
 			}
-		} else if (e.getSource() == this.vista.getMenuItemAgregarAlumno()) {
-			if (alumnoABMControlador == null) {
-				alumnoABM = new AlumnoABMPanel();
-				alumnoABMControlador = new AlumnoCrudControlador(alumnoABM, modelo);
-				alumnoABMControlador.inicializar();
-				alumnoABMControlador.setVisibleBtnAgregar();
-
-				this.vista.getMainPanel().add(alumnoABM);
-			} else {
-				alumnoABMControlador.setVisibleBtnAgregar();
-			}
-		} else if (e.getSource() == this.vista.getMenuItemEliminarAlumno()) {
-			if (alumnoABMControlador == null) {
-				alumnoABM = new AlumnoABMPanel();
-				alumnoABMControlador = new AlumnoCrudControlador(alumnoABM, modelo);
-				alumnoABMControlador.inicializar();
-				alumnoABMControlador.setVisibleBtnEliminar();
-
-				this.vista.getMainPanel().add(alumnoABM);
-			} else {
-				alumnoABMControlador.setVisibleBtnEliminar();
-			}
-		} else if (e.getSource() == this.vista.getMenuItemSeleccionarAlumno()) {
-			if (alumnoABMControlador == null) {
-				alumnoABM = new AlumnoABMPanel();
-				alumnoABMControlador = new AlumnoCrudControlador(alumnoABM, modelo);
-				alumnoABMControlador.inicializar();
-				alumnoABMControlador.setVisibleBtnSeleccionar();
-
-				this.vista.getMainPanel().add(alumnoABM);
-			} else {
-				alumnoABMControlador.setVisibleBtnSeleccionar();
-			}
-		} else if (e.getSource() == this.vista.getMenuItemActualizarCursada()) {
-		} else if (e.getSource() == this.vista.getMenuItemAgregarCursada()) {
-			if (cursadaABMControlador == null) {
-				cursadaABM = new CursadaABMPanel();
-				cursadaABMControlador = new CursadaABMControlador(cursadaABM, modelo);
-				cursadaABMControlador.inicializar();
+		} else if (e.getSource()== this.vista.getMenuItemCursoVer()) {
+			if (cursoABM == null) {
+				cursoABM = new CursoABMVistaPrincipal();
+				cursoABMControlador = new CursoABMVistaPrincipalControlador(modelo , cursoABM);
 				
-				this.vista.getMainPanel().add(cursadaABM);
-			}else{
-				
-			}
-		} else if (e.getSource() == this.vista.getMenuItemEliminarCursada()) {
+				this.vista.getMainPanel().add(cursoABM);
+			}			
 		}
 		
-		
-		this.vista.getFrame().repaint();
+		this.vista.getFrame().repaint();		
 	}
 	
+	private void resetVistas() {
+		if (cursoABMControlador != null) {
+			cursoABM = null;
+			cursoABMControlador = null;
+		}
+		if (usuarioABMControlador != null) {
+			usuarioABM = null;
+			usuarioABMControlador = null;
+		}
+		if (alumnoABMControlador != null) {
+			alumnoABM = null;
+			alumnoABMControlador = null;
+		}
+		
+		this.vista.getMainPanel().removeAll();
+		this.vista.getFrame().repaint();
+	}
+
 }

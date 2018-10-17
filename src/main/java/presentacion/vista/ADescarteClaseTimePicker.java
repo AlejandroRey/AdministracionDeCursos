@@ -19,7 +19,7 @@ import com.github.lgooddatepicker.components.TimePickerSettings.TimeArea;
 import com.toedter.calendar.JCalendar;
 
 @SuppressWarnings("serial")
-public class ClaseTimePicker extends JPanel {
+public class ADescarteClaseTimePicker extends JPanel {
 	
 	private JCalendar calendario;
 	private JScrollPane spFechas;
@@ -32,7 +32,7 @@ public class ClaseTimePicker extends JPanel {
 	
 	private JButton btnAgregar;
 
-	public ClaseTimePicker() {
+	public ADescarteClaseTimePicker() {
 		super();
 		
 		inicializar();

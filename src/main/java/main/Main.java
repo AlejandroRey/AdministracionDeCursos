@@ -4,11 +4,11 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import modelo.AdministracionDeCursos;
+import persistencia.controlador.ADescarteAdministracionDeCursosControlador;
 import persistencia.controlador.AdministracionDeCursosControlador;
-import persistencia.controlador.AdministracionDeCursosTestControlador;
 import persistencia.dao.mysql.DAOSQLFactory;
-import presentacion.vista.AdministracionDeCursosTestVista;
 import presentacion.vista.AdministracionDeCursosVista;
+import presentacion.vista.ADescarteAdministracionDeCursosVista;
 
 public class Main {
 
@@ -32,8 +32,8 @@ public class Main {
 		}
 		
 		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
-		AdministracionDeCursosTestVista vista = new AdministracionDeCursosTestVista();
-		AdministracionDeCursosTestControlador controlador = new AdministracionDeCursosTestControlador(modelo, vista);
+		AdministracionDeCursosVista vista = new AdministracionDeCursosVista();
+		AdministracionDeCursosControlador controlador = new AdministracionDeCursosControlador(modelo, vista);
 		controlador.inicializar();		
 
 	}

@@ -14,7 +14,7 @@ public class AlumnoABMVistaPrincipalControlador {
 	private AdministracionDeCursos modelo;
 	private AlumnoABMVistaPrincipal vista;
 	
-	private AlumnoCrudControlador alumnoABMControlador;
+	private AlumnoABMControlador alumnoABMControlador;
 	private AlumnoABMPanel alumnoABM;
 
 	public AlumnoABMVistaPrincipalControlador(AdministracionDeCursos modelo, AlumnoABMVistaPrincipal vista) {
@@ -24,7 +24,7 @@ public class AlumnoABMVistaPrincipalControlador {
 
 		this.vista.getBtnVer().addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mousePressed(java.awt.event.MouseEvent evt) {
-				btnVer_MousePressed(evt);
+				btnSeleccionar_MousePressed(evt);
 			}
 		});
 
@@ -48,11 +48,9 @@ public class AlumnoABMVistaPrincipalControlador {
 
 	}
 
-	private void btnVer_MousePressed(MouseEvent evt) {
+	private void btnSeleccionar_MousePressed(MouseEvent evt) {
         setColor(this.vista.getBtnVer()); 
         resetColor(new JPanel[]{this.vista.getBtnAgregar(), this.vista.getBtnActualizar(), this.vista.getBtnEliminar()});
-        
-        
         
         this.vista.getMainPanel().repaint();
 	}
@@ -63,7 +61,7 @@ public class AlumnoABMVistaPrincipalControlador {
 
 		if (alumnoABMControlador == null) {
 			alumnoABM = new AlumnoABMPanel();
-			alumnoABMControlador = new AlumnoCrudControlador(alumnoABM, modelo);
+			alumnoABMControlador = new AlumnoABMControlador(alumnoABM, modelo);
 			alumnoABMControlador.inicializar();
 			alumnoABMControlador.setVisibleBtnAgregar();
 
@@ -81,7 +79,7 @@ public class AlumnoABMVistaPrincipalControlador {
 
 		if (alumnoABMControlador == null) {
 			alumnoABM = new AlumnoABMPanel();
-			alumnoABMControlador = new AlumnoCrudControlador(alumnoABM, modelo);
+			alumnoABMControlador = new AlumnoABMControlador(alumnoABM, modelo);
 			alumnoABMControlador.inicializar();
 			alumnoABMControlador.setVisibleBtnActualizar();
 
@@ -99,7 +97,7 @@ public class AlumnoABMVistaPrincipalControlador {
 
 		if (alumnoABMControlador == null) {
 			alumnoABM = new AlumnoABMPanel();
-			alumnoABMControlador = new AlumnoCrudControlador(alumnoABM, modelo);
+			alumnoABMControlador = new AlumnoABMControlador(alumnoABM, modelo);
 			alumnoABMControlador.inicializar();
 			alumnoABMControlador.setVisibleBtnEliminar();
 
@@ -118,7 +116,6 @@ public class AlumnoABMVistaPrincipalControlador {
 	private void resetColor(JPanel[] pane) {
 		for (int i = 0; i < pane.length; i++) {
 			pane[i].setBackground(new Color(23, 35, 51));
-
 		}
 	}
 

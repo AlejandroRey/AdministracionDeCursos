@@ -14,34 +14,37 @@ import javax.swing.table.DefaultTableCellRenderer;
 import dto.CursoDTO;
 import dto.CursoTipoDTO;
 import modelo.AdministracionDeCursos;
-import persistencia.conexion.Conexion;
-import presentacion.vista.CursoCrudVista;
+import presentacion.vista.CursoABMPanel;
 
-public class CursoCrudControlador implements ActionListener {
+public class CursoABMControlador implements ActionListener {
 
-	private CursoCrudVista vista;
+	private CursoABMPanel vista;
 	private AdministracionDeCursos modelo;
+	
 	private List<CursoDTO> cursosLista;
 	private List<CursoTipoDTO> cursoTipoLista;
 
-	public CursoCrudControlador(CursoCrudVista vista, AdministracionDeCursos modelo) {
+	public CursoABMControlador(CursoABMPanel vista, AdministracionDeCursos modelo) {
 		this.vista = vista;
 		this.modelo = modelo;
 		this.cursosLista = null;
+		
 		this.vista.getBtnActualizar().addActionListener(this);
 		this.vista.getBtnAgregar().addActionListener(this);
 		this.vista.getBtnEliminar().addActionListener(this);
-		this.vista.getBtnCerrar().addActionListener(this);
+		this.vista.getBtnSeleccionar().addActionListener(this);
 	}
 
 	public void inicializar() {
 		setCursos();
 		llenarTabla();
-		this.vista.show();
 	}
 
 	private void setCursos() {
 		cursoTipoLista = modelo.obtenerCursoTipos();
+		CursoTipoDTO c = new CursoTipoDTO(0, "");
+		this.vista.getCbxCursoTipo().addItem(c);
+		
 		for (CursoTipoDTO cursoTipoDTO : cursoTipoLista) {
 			this.vista.getCbxCursoTipo().addItem(cursoTipoDTO);
 		}
@@ -65,9 +68,12 @@ public class CursoCrudControlador implements ActionListener {
 		this.vista.getTblCursos().getColumnModel().getColumn(0).setWidth(0);
 		this.vista.getTblCursos().getColumnModel().getColumn(0).setMinWidth(0);
 		this.vista.getTblCursos().getColumnModel().getColumn(0).setMaxWidth(0);
-		this.vista.getTblCursos().getColumnModel().getColumn(0).setWidth(1);
-		this.vista.getTblCursos().getColumnModel().getColumn(0).setMinWidth(1);
-		this.vista.getTblCursos().getColumnModel().getColumn(0).setMaxWidth(1);
+		this.vista.getTblCursos().getColumnModel().getColumn(1).setWidth(0);
+		this.vista.getTblCursos().getColumnModel().getColumn(1).setMinWidth(0);
+		this.vista.getTblCursos().getColumnModel().getColumn(1).setMaxWidth(0);
+		this.vista.getTblCursos().getColumnModel().getColumn(5).setWidth(0);
+		this.vista.getTblCursos().getColumnModel().getColumn(5).setMinWidth(0);
+		this.vista.getTblCursos().getColumnModel().getColumn(5).setMaxWidth(0);
 
 		// Agrego listener para obtener los valores de la fila seleccionada
 		this.vista.getTblCursos().setSelectionModel(new ListSelectionModelCstm());
@@ -80,23 +86,18 @@ public class CursoCrudControlador implements ActionListener {
 							this.vista.getCbxCursoTipo().addItem(cursoTipoDTO);
 						}
 					}
-					Object idCurso = this.vista.getTblCursos().getValueAt(this.vista.getTblCursos().getSelectedRow(),
-							0);
-					Object idCursoTipo = this.vista.getTblCursos()
-							.getValueAt(this.vista.getTblCursos().getSelectedRow(), 1);
-					Object cursoTipo = this.vista.getTblCursos().getValueAt(this.vista.getTblCursos().getSelectedRow(),
-							2);
+					Object idCurso = this.vista.getTblCursos().getValueAt(this.vista.getTblCursos().getSelectedRow(), 0);
+					Object idCursoTipo = this.vista.getTblCursos().getValueAt(this.vista.getTblCursos().getSelectedRow(), 1);
+					Object cursoTipo = this.vista.getTblCursos().getValueAt(this.vista.getTblCursos().getSelectedRow(),	2);
 					Object nombre = this.vista.getTblCursos().getValueAt(this.vista.getTblCursos().getSelectedRow(), 3);
 					Object tema = this.vista.getTblCursos().getValueAt(this.vista.getTblCursos().getSelectedRow(), 4);
-					Object temario = this.vista.getTblCursos().getValueAt(this.vista.getTblCursos().getSelectedRow(),
-							5);
-					System.out.println("LLLLLLegue");
+					Object temario = this.vista.getTblCursos().getValueAt(this.vista.getTblCursos().getSelectedRow(), 5);
 					this.vista.getTextIdCurso().setText(idCurso.toString());
 					this.vista.getCbxCursoTipo().setSelectedItem(
 							new CursoTipoDTO(Long.parseLong(idCursoTipo.toString()), cursoTipo.toString()));
 					this.vista.getTextNombre().setText(nombre.toString());
 					this.vista.getTextTema().setText(tema.toString());
-					this.vista.getTextTemario().setText(temario.toString());
+					this.vista.getTextAreaTemario().setText(temario.toString());
 				}
 			} catch (Exception ex) {
 				System.out.println("Error: " + ex.getMessage());
@@ -127,17 +128,8 @@ public class CursoCrudControlador implements ActionListener {
 			agregarCurso();
 		} else if (e.getSource() == this.vista.getBtnEliminar()) {
 			eliminarCurso();
-		} else if (e.getSource() == this.vista.getBtnCerrar()) {
-			cerrarVistaCurso();
-		}
-	}
+		} else if (e.getSource() == this.vista.getBtnSeleccionar()) {
 
-	private void cerrarVistaCurso() {
-		int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que quieres salir de curso!?", "Confirmacion",
-				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-		if (confirm == 0) {
-			Conexion.getConexion().cerrarConexion();
-			this.vista.getFrame().dispose();
 		}
 	}
 
@@ -150,7 +142,7 @@ public class CursoCrudControlador implements ActionListener {
 				try {
 					CursoDTO curso = new CursoDTO(Long.parseLong(this.vista.getTextIdCurso().getText()),
 							cursoTipo.getIdCursoTipo(), this.vista.getTextNombre().getText(),
-							this.vista.getTextTema().getText(), this.vista.getTextTemario().getText());
+							this.vista.getTextTema().getText(), this.vista.getTextAreaTemario().getText());
 					this.modelo.borrarCurso(curso);
 					llenarTabla();
 				} catch (Exception ex) {
@@ -169,7 +161,7 @@ public class CursoCrudControlador implements ActionListener {
 			CursoTipoDTO cursoTipo = (CursoTipoDTO) this.vista.getCbxCursoTipo().getSelectedItem();
 			if (cursoTipo.getIdCursoTipo() > 0) {
 				CursoDTO curso = new CursoDTO(0, cursoTipo.getIdCursoTipo(), this.vista.getTextNombre().getText(),
-						this.vista.getTextTema().getText(), this.vista.getTextTemario().getText());
+						this.vista.getTextTema().getText(), this.vista.getTextAreaTemario().getText());
 				this.modelo.agregarCurso(curso);
 				llenarTabla();
 //s			}
@@ -183,7 +175,7 @@ public class CursoCrudControlador implements ActionListener {
 //			if (validarCamposCurso()) {
 				CursoDTO curso = new CursoDTO(Long.parseLong(this.vista.getTextIdCurso().getText()),
 						cursoTipo.getIdCursoTipo(), this.vista.getTextNombre().getText(),
-						this.vista.getTextTema().getText(), this.vista.getTextTemario().getText());
+						this.vista.getTextTema().getText(), this.vista.getTextAreaTemario().getText());
 				this.modelo.actualizarCurso(curso);
 				llenarTabla();
 //			}
@@ -194,41 +186,76 @@ public class CursoCrudControlador implements ActionListener {
 		
 	}
 
-	private boolean validarCamposCurso() {
-		CursoTipoDTO cursoTipo = (CursoTipoDTO) this.vista.getCbxCursoTipo().getSelectedItem();
-		if (cursoTipo.getIdCursoTipo() != 1) {
-			if (!this.vista.getTextNombre().getText().toString().equals("")) {
-				if (!this.vista.getTextTema().getText().toString().equals("")) {
-					if (!this.vista.getTextTemario().getText().toString().equals("")) {
-						return true;
-					} else {
-						JOptionPane.showMessageDialog(null, "Seleccione Temario correctamente!",
-								"Informacion: " + "Curso Tipo", JOptionPane.INFORMATION_MESSAGE);
-					}
-
-				} else {
-					JOptionPane.showMessageDialog(null, "Seleccione Tema correctamente!",
-							"Informacion: " + "Nombre", JOptionPane.INFORMATION_MESSAGE);
-				}
-
-			} else {
-				JOptionPane.showMessageDialog(null, "Seleccione Nombre correctamente!", "Informacion: " + "Tema",
-						JOptionPane.INFORMATION_MESSAGE);
-			}
-
-		} else {
-			JOptionPane.showMessageDialog(null, "Seleccione Curso Tipo correctamente!", "Informacion: " + "Temario",
-					JOptionPane.INFORMATION_MESSAGE);
-		}
-		return false;
-	}
+//	private boolean validarCamposCurso() {
+//		CursoTipoDTO cursoTipo = (CursoTipoDTO) this.vista.getCbxCursoTipo().getSelectedItem();
+//		if (cursoTipo.getIdCursoTipo() != 1) {
+//			if (!this.vista.getTextNombre().getText().toString().equals("")) {
+//				if (!this.vista.getTextTema().getText().toString().equals("")) {
+//					if (!this.vista.getTextAreaTemario().getText().toString().equals("")) {
+//						return true;
+//					} else {
+//						JOptionPane.showMessageDialog(null, "Seleccione Temario correctamente!",
+//								"Informacion: " + "Curso Tipo", JOptionPane.INFORMATION_MESSAGE);
+//					}
+//
+//				} else {
+//					JOptionPane.showMessageDialog(null, "Seleccione Tema correctamente!",
+//							"Informacion: " + "Nombre", JOptionPane.INFORMATION_MESSAGE);
+//				}
+//
+//			} else {
+//				JOptionPane.showMessageDialog(null, "Seleccione Nombre correctamente!", "Informacion: " + "Tema",
+//						JOptionPane.INFORMATION_MESSAGE);
+//			}
+//
+//		} else {
+//			JOptionPane.showMessageDialog(null, "Seleccione Curso Tipo correctamente!", "Informacion: " + "Temario",
+//					JOptionPane.INFORMATION_MESSAGE);
+//		}
+//		return false;
+//	}
 
 	private void clearTextInputsBox() {
 		this.vista.getTextIdCurso().setText("");
-		this.vista.getCbxCursoTipo().setSelectedItem(new CursoTipoDTO(1, ""));
+		this.vista.getCbxCursoTipo().setSelectedItem(new CursoTipoDTO(0, ""));
 		this.vista.getTextNombre().setText("");
 		this.vista.getTextTema().setText("");
-		this.vista.getTextTemario().setText("");
+		this.vista.getTextAreaTemario().setText("");
+	}
+	
+	public void setVisibleBtnActualizar() {
+		this.vista.getTblCursos().setEnabled(true);
+		clearTextInputsBox();
+		setBtnNotVisible();
+		this.vista.getBtnActualizar().setVisible(true);
+	}
+	
+	public void setVisibleBtnAgregar() {
+		this.vista.getTblCursos().setEnabled(false);
+		clearTextInputsBox();
+		setBtnNotVisible();
+		this.vista.getBtnAgregar().setVisible(true);
+	}
+	
+	public void setVisibleBtnEliminar() {
+		this.vista.getTblCursos().setEnabled(true);
+		clearTextInputsBox();
+		setBtnNotVisible();
+		this.vista.getBtnEliminar().setVisible(true);		
+	}
+	
+	public void setVisibleBtnSeleccionar() {
+		this.vista.getTblCursos().setEnabled(true);
+		clearTextInputsBox();
+		setBtnNotVisible();
+		this.vista.getBtnSeleccionar().setVisible(true);		
+	}
+	
+	public void setBtnNotVisible() {
+		this.vista.getBtnActualizar().setVisible(false);
+		this.vista.getBtnAgregar().setVisible(false);
+		this.vista.getBtnEliminar().setVisible(false);
+		this.vista.getBtnSeleccionar().setVisible(false);
 	}
 
 	@SuppressWarnings("serial")

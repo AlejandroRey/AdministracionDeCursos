@@ -14,30 +14,30 @@ import javax.swing.table.DefaultTableCellRenderer;
 import dto.CategoriaDTO;
 import dto.UsuarioDTO;
 import modelo.AdministracionDeCursos;
-import persistencia.conexion.Conexion;
-import presentacion.vista.UsuarioCrudVista;
+import presentacion.vista.UsuarioABMPanel;
 
-public class UsuarioCrudControlador implements ActionListener {
+public class UsuarioABMControlador implements ActionListener {
 	
-	private UsuarioCrudVista vista;
+	private UsuarioABMPanel vista;
 	private AdministracionDeCursos modelo;
 	private List<UsuarioDTO> usuariosLista;
 	List<CategoriaDTO> categoriaLista;
 	
-	public UsuarioCrudControlador(UsuarioCrudVista vista, AdministracionDeCursos modelo) {
+	public UsuarioABMControlador(UsuarioABMPanel vista, AdministracionDeCursos modelo) {
+		
 		this.vista = vista;
 		this.modelo = modelo;
 		this.usuariosLista = null;
+		
 		this.vista.getBtnActualizar().addActionListener(this);
 		this.vista.getBtnAgregar().addActionListener(this);
 		this.vista.getBtnEliminar().addActionListener(this);
-		this.vista.getBtnCerrar().addActionListener(this);
+		this.vista.getBtnSeleccionar().addActionListener(this);
 	}
 
 	public void inicializar() {
 		setCategorias();
 		llenarTabla();
-		this.vista.show();
 	}
 	
 	private void setCategorias() {		
@@ -132,17 +132,8 @@ public class UsuarioCrudControlador implements ActionListener {
 			agregarInstructor();
 		} else if (e.getSource() == this.vista.getBtnEliminar()) {
 			eliminarInstructor();
-		} else if (e.getSource() == this.vista.getBtnCerrar()) {
-			cerrarUsuarioVista();
-		}
-	}
-	
-	private void cerrarUsuarioVista() {
-		int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que quieres salir de curso!?", "Confirmacion",
-				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-		if (confirm == 0) {
-			Conexion.getConexion().cerrarConexion();
-			this.vista.getFrame().dispose();
+		} else if (e.getSource() == this.vista.getBtnSeleccionar()) {
+
 		}
 	}
 
@@ -216,6 +207,41 @@ public class UsuarioCrudControlador implements ActionListener {
 		this.vista.getTextEmail().setText("");
 		this.vista.getTextUsuario().setText("");
 		this.vista.getTextPassword().setText("");
+	}
+	
+	public void setVisibleBtnActualizar() {
+		this.vista.getTblUsuarios().setEnabled(true);
+		clearTextInputsBox();
+		setBtnNotVisible();
+		this.vista.getBtnActualizar().setVisible(true);
+	}
+	
+	public void setVisibleBtnAgregar() {
+		this.vista.getTblUsuarios().setEnabled(false);
+		clearTextInputsBox();
+		setBtnNotVisible();
+		this.vista.getBtnAgregar().setVisible(true);
+	}
+	
+	public void setVisibleBtnEliminar() {
+		this.vista.getTblUsuarios().setEnabled(true);
+		clearTextInputsBox();
+		setBtnNotVisible();
+		this.vista.getBtnEliminar().setVisible(true);		
+	}
+	
+	public void setVisibleBtnSeleccionar() {
+		this.vista.getTblUsuarios().setEnabled(true);
+		clearTextInputsBox();
+		setBtnNotVisible();
+		this.vista.getBtnSeleccionar().setVisible(true);		
+	}	
+	
+	public void setBtnNotVisible() {
+		this.vista.getBtnActualizar().setVisible(false);
+		this.vista.getBtnAgregar().setVisible(false);
+		this.vista.getBtnEliminar().setVisible(false);
+		this.vista.getBtnSeleccionar().setVisible(false);
 	}
 	
 	@SuppressWarnings("serial")

@@ -12,15 +12,15 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 import dto.ClaseDTO;
 import modelo.AdministracionDeCursos;
-import presentacion.vista.ClaseTimePicker;
+import presentacion.vista.ADescarteClaseTimePicker;
 
-public class ClaseTimePickerControlador implements ActionListener {
+public class ADescarteClaseTimePickerControlador implements ActionListener {
 	
-	private ClaseTimePicker vista;
+	private ADescarteClaseTimePicker vista;
 	private AdministracionDeCursos modelo;
 	private List<ClaseDTO> clasesLista;
 	
-	public ClaseTimePickerControlador(ClaseTimePicker vista, AdministracionDeCursos modelo) {
+	public ADescarteClaseTimePickerControlador(ADescarteClaseTimePicker vista, AdministracionDeCursos modelo) {
 		super();
 		this.vista = vista;
 		this.modelo = modelo;

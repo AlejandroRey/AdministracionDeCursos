@@ -13,16 +13,16 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 import dto.AlumnoDTO;
 import modelo.AdministracionDeCursos;
-import persistencia.conexion.Conexion;
 import presentacion.vista.AlumnoABMPanel;
 
-public class AlumnoCrudControlador implements ActionListener {
+public class AlumnoABMControlador implements ActionListener {
 	
 	private AlumnoABMPanel vista;
 	private AdministracionDeCursos modelo;
 	private List<AlumnoDTO> alumnosLista;
 	
-	public AlumnoCrudControlador(AlumnoABMPanel vista, AdministracionDeCursos modelo) {
+	public AlumnoABMControlador(AlumnoABMPanel vista, AdministracionDeCursos modelo) {
+		
 		this.vista = vista;
 		this.modelo = modelo;
 		this.alumnosLista = null;
@@ -93,18 +93,8 @@ public class AlumnoCrudControlador implements ActionListener {
 		} else if (e.getSource() == this.vista.getBtnEliminar()) {
 			eliminarAlumno();
 		} else if (e.getSource() == this.vista.getBtnSeleccionar()) {
-			cerrarVistaAlumno();
+
 		}
-	}
-	
-	private void cerrarVistaAlumno() {
-		int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que quieres salir de curso!?", "Confirmacion",
-				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-		if (confirm == 0) {
-			Conexion.getConexion().cerrarConexion();
-			//this.vista.getFrame().dispose();
-		}
-		
 	}
 
 	private void actualizarAlumno() {
@@ -155,29 +145,39 @@ public class AlumnoCrudControlador implements ActionListener {
 	public void setVisibleBtnActualizar() {
 		this.vista.getTblAlumnos().setEnabled(true);
 		clearTextInputsBox();
-		this.vista.setBtnNotVisible();
+		setBtnNotVisible();
 		this.vista.getBtnActualizar().setVisible(true);
 	}
 	
 	public void setVisibleBtnAgregar() {
 		this.vista.getTblAlumnos().setEnabled(false);
 		clearTextInputsBox();
-		this.vista.setBtnNotVisible();
+		setBtnNotVisible();
 		this.vista.getBtnAgregar().setVisible(true);
 	}
 	
 	public void setVisibleBtnEliminar() {
 		this.vista.getTblAlumnos().setEnabled(true);
 		clearTextInputsBox();
-		this.vista.setBtnNotVisible();
+		setBtnNotVisible();
 		this.vista.getBtnEliminar().setVisible(true);		
 	}
 	
 	public void setVisibleBtnSeleccionar() {
 		this.vista.getTblAlumnos().setEnabled(true);
 		clearTextInputsBox();
-		this.vista.setBtnNotVisible();
+		setBtnNotVisible();
 		this.vista.getBtnSeleccionar().setVisible(true);		
+	}	
+	
+	/**
+	 * @param btn's set hide all buttons
+	 */
+	public void setBtnNotVisible() {
+		this.vista.getBtnActualizar().setVisible(false);
+		this.vista.getBtnAgregar().setVisible(false);
+		this.vista.getBtnEliminar().setVisible(false);
+		this.vista.getBtnSeleccionar().setVisible(false);
 	}
 	
 	@SuppressWarnings("serial")

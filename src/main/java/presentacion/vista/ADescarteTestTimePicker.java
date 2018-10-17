@@ -2,12 +2,12 @@ package presentacion.vista;
 
 import javax.swing.JFrame;
 
-public class TestTimePicker {
+public class ADescarteTestTimePicker {
 
 	private JFrame frame;
-	private ClaseTimePicker TimePicker;
+	private ADescarteClaseTimePicker TimePicker;
 
-	public TestTimePicker() {
+	public ADescarteTestTimePicker() {
 		super();
 		inicializar();
 		this.frame.setVisible(true);
@@ -20,7 +20,7 @@ public class TestTimePicker {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		TimePicker = new ClaseTimePicker();
+		TimePicker = new ADescarteClaseTimePicker();
 		TimePicker.setLocation(0, 0);
 		TimePicker.setSize(574, 353);
 		frame.getContentPane().add(TimePicker);

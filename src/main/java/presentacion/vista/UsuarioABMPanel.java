@@ -2,14 +2,11 @@ package presentacion.vista;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.SystemColor;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
@@ -18,17 +15,16 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 import dto.CategoriaDTO;
-import persistencia.conexion.Conexion;
 
-public class UsuarioCrudVista {
-
-	private JFrame frame;
+@SuppressWarnings("serial")
+public class UsuarioABMPanel extends JPanel {
 	
 	private JComboBox<CategoriaDTO> cbxCategoriaFiltro;
 	private JScrollPane spUsuarios;
@@ -50,39 +46,37 @@ public class UsuarioCrudVista {
 	private JButton btnAgregar;
 	private JButton btnActualizar;
 	private JButton btnEliminar;
-	private JButton btnCerrar;
+	private JButton btnSeleccionar;
 
 	/**
 	 * Create the frame.
 	 */
-	public UsuarioCrudVista() {
+	public UsuarioABMPanel() {
 		super();
+		this.setBounds(0, 0, 600, 650);
+		this.setLayout(null);
 		inicializar();
 	}
 
 	private void inicializar() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 600, 650);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
 		
 		inicializarTabla();
-		inicializarEditor();		
+		inicializarEditor();
+		
 	}
 
-	@SuppressWarnings("serial")
 	private void inicializarTabla() {
 		JLabel lblFiltro = new JLabel("Filtro:");
 		lblFiltro.setBounds(4, 14, 46, 14);
-		frame.getContentPane().add(lblFiltro);
+		this.add(lblFiltro);
 		
 		cbxCategoriaFiltro = new JComboBox<>();
 		cbxCategoriaFiltro.setBounds(48, 11, 141, 20);
-		frame.getContentPane().add(cbxCategoriaFiltro);
+		this.add(cbxCategoriaFiltro);
 		
 		spUsuarios = new JScrollPane();
 		spUsuarios.setBounds(4, 53, 578, 339);
-		frame.getContentPane().add(spUsuarios);
+		this.add(spUsuarios);
 		
 		modelUsuarios = new DefaultTableModel(null, nombreColumnas);
 		tblUsuarios = new JTable(modelUsuarios){
@@ -102,9 +96,9 @@ public class UsuarioCrudVista {
 
 	private void inicializarEditor() {		
 		panel = new JPanel();
-		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Usuario:", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
+		panel.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Usuario:", TitledBorder.LEADING, TitledBorder.TOP, null, UIManager.getColor("textText")));
 		panel.setBounds(43, 403, 500, 197);
-		frame.getContentPane().add(panel);
+		this.add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblIdUsuario = new JLabel("id Usuario:");
@@ -193,56 +187,26 @@ public class UsuarioCrudVista {
 		///
 		
 		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(20, 161, 89, 23);
+		btnAgregar.setBounds(207, 163, 89, 23);
 		panel.add(btnAgregar);
 		
 		btnActualizar = new JButton("Actualizar");
-		btnActualizar.setBounds(142, 161, 89, 23);
+		btnActualizar.setBounds(207, 163, 89, 23);
 		panel.add(btnActualizar);
 		
 		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(265, 161, 89, 23);
+		btnEliminar.setBounds(207, 163, 89, 23);
 		panel.add(btnEliminar);
 		
-		btnCerrar = new JButton("Cerrar");
-		btnCerrar.setBounds(385, 161, 89, 23);
-		panel.add(btnCerrar);
+		btnSeleccionar = new JButton("Seleccionar");
+		btnSeleccionar.setBounds(207, 163, 89, 23);
+		panel.add(btnSeleccionar);
 		
 		JSeparator separator = new JSeparator();
-		separator.setForeground(Color.BLUE);
-		separator.setBackground(Color.BLUE);
+		separator.setForeground(SystemColor.activeCaption);
+		separator.setBackground(SystemColor.activeCaption);
 		separator.setBounds(13, 395, 560, 1);
-		frame.getContentPane().add(separator);
-	}
-	
-	public void show() {
-		this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		this.frame.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				int confirm = JOptionPane.showOptionDialog(null, "Estas seguro que quieres salir de la Aplicacion!?",
-						"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-				if (confirm == 0) {
-					Conexion.getConexion().cerrarConexion();
-					frame.dispose();
-				}
-			}
-		});
-		this.frame.setVisible(true);
-	}
-
-	/**
-	 * @return the frame
-	 */
-	public JFrame getFrame() {
-		return frame;
-	}
-
-	/**
-	 * @param frame the frame to set
-	 */
-	public void setFrame(JFrame frame) {
-		this.frame = frame;
+		this.add(separator);
 	}
 
 	/**
@@ -484,16 +448,17 @@ public class UsuarioCrudVista {
 	}
 
 	/**
-	 * @return the btnCerrar
+	 * @return the btnSeleccionar
 	 */
-	public JButton getBtnCerrar() {
-		return btnCerrar;
+	public JButton getBtnSeleccionar() {
+		return btnSeleccionar;
 	}
 
 	/**
-	 * @param btnCerrar the btnCerrar to set
+	 * @param btnSeleccionar the btnSeleccionar to set
 	 */
-	public void setBtnCerrar(JButton btnCerrar) {
-		this.btnCerrar = btnCerrar;
+	public void setBtnSeleccionar(JButton btnSeleccionar) {
+		this.btnSeleccionar = btnSeleccionar;
 	}
+
 }
