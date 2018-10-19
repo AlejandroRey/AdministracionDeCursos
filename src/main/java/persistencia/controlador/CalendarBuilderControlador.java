@@ -51,11 +51,18 @@ public class CalendarBuilderControlador implements ActionListener {
 		this.vista.getBtnSeleccionar().addActionListener(this);
 		this.vista.getBtnEliminar().addActionListener(this);
 		this.vista.getBtnGenerarHorario().addActionListener(this);
+		
+		this.vista.getTextHoraInicio().setText("00:00");
+		this.vista.getTextHoraFin().setText("00:00");
 	}
 
 	public void inicializar() {
 		this.vista.getTextFechaInicio().setText(stringDateFormatter(this.cursadaDTO.getFechaInicioCursada().toLocalDate()));
 		this.vista.getTextCantidadDeDias().setText(String.valueOf(this.cursadaDTO.getDiasDeClase()));
+		
+		for (DiaCursadaClaseDTO diaCursadaClaseDTO : modelo.obtenerDiaCursadaClase(cursadaDTO)) {
+			mapDiasDeClaseCursada.put(diaCursadaClaseDTO.getIdDia(), diaCursadaClaseDTO);
+		}
 		
 		llenarTablaDiasDeCursada();
 	}
@@ -170,7 +177,7 @@ public class CalendarBuilderControlador implements ActionListener {
 			if (!this.vista.getTextHoraInicio().getText().equals(null) && this.vista.getTextHoraFin() != null) {
 				System.out.println("Dia Seleccionado: " + this.vista.getCbxDias().getSelectedItem().toString());
 				DiasDTO diaSeleccionado = (DiasDTO) this.vista.getCbxDias().getSelectedItem();
-				DiaCursadaClaseDTO d = new DiaCursadaClaseDTO(0, 
+				DiaCursadaClaseDTO d = new DiaCursadaClaseDTO(cursadaDTO.getIdCursada(), 
 															  diaSeleccionado.getNumeroDia(), 
 															  diaSeleccionado.getNombreDia(), 
 															  this.vista.getTextHoraInicio().getTime(), 
@@ -212,6 +219,12 @@ public class CalendarBuilderControlador implements ActionListener {
 			} while (contador > 0);
 			llenarTablaFechasDeCursada();
 			fechasDeClasesCursadaList.clear();
+			
+			System.out.println("BORRADO");
+			modelo.borrarDiaCursadaClase(cursadaDTO);
+			for (DiaCursadaClaseDTO diaCursadaClaseDTO : diasDeClaseCursadaList) {
+				modelo.agregarDiaCursadaClase(diaCursadaClaseDTO);
+			}
 		}		
 	}
 	

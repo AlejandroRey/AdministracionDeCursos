@@ -11,8 +11,10 @@ import dto.CursoDTO;
 import dto.ClaseDTO;
 import dto.CursadaCompletaDTO;
 import dto.CursoTipoDTO;
+import dto.DiaCursadaClaseDTO;
 import dto.EmpresaDTO;
 import dto.EstadoDeCursoDTO;
+import dto.FechaCursadaClaseDTO;
 import dto.InscriptoDTO;
 import dto.SalaDTO;
 import dto.UsuarioDTO;
@@ -25,10 +27,12 @@ import persistencia.dao.interfaz.ClaseDAO;
 import persistencia.dao.interfaz.CursadaCompletaDAO;
 import persistencia.dao.interfaz.CursoTipoDAO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
+import persistencia.dao.interfaz.DiaCursadaClaseDAO;
 import persistencia.dao.interfaz.UsuarioDAO;
 import persistencia.dao.interfaz.EmpresaDAO;
 import persistencia.dao.interfaz.SalaDAO;
 import persistencia.dao.interfaz.EstadoDeCursoDAO;
+import persistencia.dao.interfaz.FechaCursadaClaseDAO;
 import persistencia.dao.interfaz.CursadaDAO;
 import persistencia.dao.interfaz.InscriptoDAO;
 
@@ -41,6 +45,7 @@ public class AdministracionDeCursos {
 	private CursoTipoDAO cursoTipo;
 	private CursoDAO curso;
 	private ClaseDAO clase;
+	private DiaCursadaClaseDAO diaCursadaClase;
 	private EmpresaDAO empresa;
 	private SalaDAO sala;
 	private EstadoDeCursoDAO estadoDeCurso;
@@ -48,6 +53,7 @@ public class AdministracionDeCursos {
 	private CursadaCompletaDAO cursadaCompleta;
 	private AlumnoInscriptoDAO alumnoInscripto;
 	private InscriptoDAO inscripto;
+	private FechaCursadaClaseDAO fechaCursadaClase;
 
 	public AdministracionDeCursos(DAOAbstractFactory metodo_persistencia) {
 		
@@ -58,6 +64,7 @@ public class AdministracionDeCursos {
 		this.cursoTipo = metodo_persistencia.createCursoTipoDAO();
 		this.curso = metodo_persistencia.createCursoDAO();
 		this.clase = metodo_persistencia.createClaseDAO();
+		this.diaCursadaClase = metodo_persistencia.createDiaCursadaClaseDAO();
 		this.empresa = metodo_persistencia.createEmpresaDAO();
 		this.estadoDeCurso = metodo_persistencia.createEstadoDeCursoDAO();
 		this.sala = metodo_persistencia.createSalaDAO();
@@ -65,6 +72,7 @@ public class AdministracionDeCursos {
 		this.cursadaCompleta = metodo_persistencia.createCursadaCompletaDAO();
 		this.alumnoInscripto = metodo_persistencia.createAlumnoInscriptoDAO();
 		this.inscripto = metodo_persistencia.createInscriptoDAO();
+		this.fechaCursadaClase = metodo_persistencia.createFechaCursadaClaseDAO();
 	}
 	
 	/* ****************************************************************
@@ -276,6 +284,42 @@ public class AdministracionDeCursos {
 	
 	public List<InscriptoDTO> obtenerInscriptos() {
 		return this.inscripto.readAll();
+	}
+	
+	/* ****************************************************************
+	 *                         DiaCursadaClase
+	 * ****************************************************************
+	 */
+	public void agregarDiaCursadaClase(DiaCursadaClaseDTO nuevoDiaCursadaClaseDTO) {
+		this.diaCursadaClase.insert(nuevoDiaCursadaClaseDTO);
+	}
+
+	public void borrarDiaCursadaClase(CursadaDTO cursadaDTO_dias_a_eliminar) {
+		this.diaCursadaClase.delete(cursadaDTO_dias_a_eliminar);
+	}
+	
+	public List<DiaCursadaClaseDTO> obtenerDiaCursadaClase(CursadaDTO cursada) {
+		return this.diaCursadaClase.readAll(cursada);
+	}
+	
+	/* ****************************************************************
+	 *                         FechaCursadaClase
+	 * ****************************************************************
+	 */
+	public void agregarFechaCursadaClase(FechaCursadaClaseDTO fechaCursadaClaseDTO) {
+		this.fechaCursadaClase.insert(fechaCursadaClaseDTO);
+	}
+
+	public void borrarFechaCursadaClase(FechaCursadaClaseDTO fechaCursadaClaseDTO) {
+		this.fechaCursadaClase.delete(fechaCursadaClaseDTO);
+	}
+	
+	public void actualizarFechaCursadaClase(FechaCursadaClaseDTO fechaCursadaClaseDTO) {
+		this.fechaCursadaClase.update(fechaCursadaClaseDTO);
+	}
+	
+	public List<FechaCursadaClaseDTO> obtenerFechaCursadaClase(CursadaDTO cursadaDTO) {
+		return this.fechaCursadaClase.readAll(cursadaDTO);
 	}
 	
 }

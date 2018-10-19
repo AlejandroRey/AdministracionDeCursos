@@ -104,7 +104,7 @@ public class CursadaABMVistaPrincipal extends JPanel {
 		lblIconBtn1.setBounds(10, 11, 32, 32);
 		btnSeleccionar.add(lblIconBtn1);
 		
-		lblTitleBtn1 = new JLabel("Seleccionar Curso");
+		lblTitleBtn1 = new JLabel("Seleccionar Cursada");
 		lblTitleBtn1.setForeground(Color.WHITE);
 		lblTitleBtn1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblTitleBtn1.setEnabled(true);
@@ -124,7 +124,7 @@ public class CursadaABMVistaPrincipal extends JPanel {
 		lblIconBtn2.setBounds(10, 11, 32, 32);
 		btnAgregar.add(lblIconBtn2);
 		
-		lblTitleBtn2 = new JLabel("Agregar Curso");
+		lblTitleBtn2 = new JLabel("Agregar Cursada");
 		lblTitleBtn2.setForeground(Color.WHITE);
 		lblTitleBtn2.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblTitleBtn2.setEnabled(true);
@@ -144,7 +144,7 @@ public class CursadaABMVistaPrincipal extends JPanel {
 		lblIconBtn3.setBounds(10, 11, 32, 32);
 		btnActualizar.add(lblIconBtn3);
 		
-		lblTitleBtn3 = new JLabel("Actualizar Curso");
+		lblTitleBtn3 = new JLabel("Actualizar Cursada");
 		lblTitleBtn3.setForeground(Color.WHITE);
 		lblTitleBtn3.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblTitleBtn3.setEnabled(true);
@@ -164,7 +164,7 @@ public class CursadaABMVistaPrincipal extends JPanel {
 		lblIconBtn4.setBounds(10, 11, 32, 32);
 		btnEliminar.add(lblIconBtn4);
 		
-		lblTitleBtn4 = new JLabel("Eliminar Curso");
+		lblTitleBtn4 = new JLabel("Eliminar Cursada");
 		lblTitleBtn4.setForeground(Color.WHITE);
 		lblTitleBtn4.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblTitleBtn4.setEnabled(true);

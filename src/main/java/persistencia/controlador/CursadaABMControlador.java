@@ -191,6 +191,10 @@ public class CursadaABMControlador implements ActionListener {
 		}
 		return estadoDeCursoDTO;
 	}
+	
+	public void setEstadoCurso() {
+		this.vista.getCbxEstado().setSelectedItem(selectEstadoDeCurso(1));
+	}
 		
 	private String stringDateFormatter(LocalDateTime fecha) {
 		
@@ -217,7 +221,13 @@ public class CursadaABMControlador implements ActionListener {
 		LocalDateTime fechaFinInscripcion = StringToLocalDateTime(this.vista.getTextFechaFinInsc().getText());
 		LocalDateTime fechaInicioCursada = StringToLocalDateTime(this.vista.getTextFechaInicioCursada().getText());
 		
-		CursadaDTO cursadaDTO = new CursadaDTO(Long.parseLong(this.vista.getTextIdCursada().getText().toString()), 
+		long idTemp = 0;
+		if (!this.vista.getTextIdCursada().getText().toString().equals("")) {
+			System.out.println(this.vista.getTextIdCursada().getText().toString());
+			idTemp = Long.parseLong(this.vista.getTextIdCursada().getText().toString());
+		}
+		
+		CursadaDTO cursadaDTO = new CursadaDTO(idTemp, 
 											   empresa.getIdEmpresa(), 
 											   curso.getIdCurso(), 
 											   estadoDeCurso.getIdEstadoDeCurso(), 
@@ -262,6 +272,18 @@ public class CursadaABMControlador implements ActionListener {
 			this.vistaPrincipalControlador.getVista().getMainPanel().removeAll();
 			this.vistaPrincipalControlador.getVista().getMainPanel().repaint();
 			this.vistaPrincipalControlador.getVista().repaint();
+		} else if (e.getSource() == this.vista.getBtnAgregar()) {
+			CursadaDTO cursadaNuevaDTO = getCursadaDTO();
+			modelo.agregarCursada(cursadaNuevaDTO);
+			llenarTablaCursadas();
+		} else if (e.getSource() == this.vista.getBtnActualizar()) {
+			CursadaDTO cursadaActualizarDTO = getCursadaDTO();
+			modelo.actualizarCursada(cursadaActualizarDTO);
+			llenarTablaCursadas();
+		} else if (e.getSource() == this.vista.getBtnEliminar()) {
+			CursadaDTO cursadaEliminarDTO = getCursadaDTO();
+			modelo.borrarCursada(cursadaEliminarDTO);
+			llenarTablaCursadas();
 		}
 		
 	}

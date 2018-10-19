@@ -4,17 +4,19 @@ import persistencia.dao.interfaz.AlumnoDAO;
 import persistencia.dao.interfaz.AlumnoEventoDAO;
 import persistencia.dao.interfaz.AlumnoInscriptoDAO;
 import persistencia.dao.interfaz.CategoriaDAO;
-import persistencia.dao.interfaz.CursoDAO;
 import persistencia.dao.interfaz.ClaseDAO;
 import persistencia.dao.interfaz.CursadaCompletaDAO;
+import persistencia.dao.interfaz.CursadaDAO;
+import persistencia.dao.interfaz.CursoDAO;
 import persistencia.dao.interfaz.CursoTipoDAO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
-import persistencia.dao.interfaz.UsuarioDAO;
-import persistencia.dao.interfaz.EstadoDeCursoDAO;
-import persistencia.dao.interfaz.InscriptoDAO;
+import persistencia.dao.interfaz.DiaCursadaClaseDAO;
 import persistencia.dao.interfaz.EmpresaDAO;
+import persistencia.dao.interfaz.EstadoDeCursoDAO;
+import persistencia.dao.interfaz.FechaCursadaClaseDAO;
+import persistencia.dao.interfaz.InscriptoDAO;
 import persistencia.dao.interfaz.SalaDAO;
-import persistencia.dao.interfaz.CursadaDAO;
+import persistencia.dao.interfaz.UsuarioDAO;
 
 public class DAOSQLFactory implements DAOAbstractFactory {
 	/*
@@ -97,5 +99,17 @@ public class DAOSQLFactory implements DAOAbstractFactory {
 	public InscriptoDAO createInscriptoDAO() {
 		// TODO Auto-generated method stub
 		return new InscriptoDAOSQL();
+	}
+
+	@Override
+	public DiaCursadaClaseDAO createDiaCursadaClaseDAO() {
+		// TODO Auto-generated method stub
+		return new DiaCursadaClaseDAOSQL();
+	}
+
+	@Override
+	public FechaCursadaClaseDAO createFechaCursadaClaseDAO() {
+		// TODO Auto-generated method stub
+		return new FechaCursadaClaseDAOSQL();
 	}
 }

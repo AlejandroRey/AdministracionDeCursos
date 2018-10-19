@@ -108,6 +108,7 @@ public class CursadaABMVistaPrincipalControlador {
 		resetVistas();
 		
 		this.vista.getMainPanel().removeAll();
+		this.vista.getMainPanel().revalidate();
 		this.vista.getMainPanel().repaint();
 		
 		this.vista.getButtonPanelExtends().setVisible(false);
@@ -192,6 +193,7 @@ public class CursadaABMVistaPrincipalControlador {
 			cursadaABMControlador.setVisibleBtnSeleccionar();
 		}
 
+		this.vista.getMainPanel().revalidate();
 		this.vista.getMainPanel().repaint();	
 	}
 
@@ -204,14 +206,17 @@ public class CursadaABMVistaPrincipalControlador {
 		if (cursadaABMControlador == null) {
 			cursadaABM = new CursadaABMPanel();
 			cursadaABMControlador = new CursadaABMControlador(cursadaABM, this, modelo);
-			cursadaABMControlador.inicializar();
+			cursadaABMControlador.inicializar();			
 			cursadaABMControlador.setVisibleBtnAgregar();
+			cursadaABMControlador.setEstadoCurso();
 
 			this.vista.getMainPanel().add(cursadaABM);
-		} else {
+		} else {			
 			cursadaABMControlador.setVisibleBtnAgregar();
+			cursadaABMControlador.setEstadoCurso();
 		}
 
+		this.vista.getMainPanel().revalidate();
 		this.vista.getMainPanel().repaint();
 	}	
 
@@ -232,6 +237,7 @@ public class CursadaABMVistaPrincipalControlador {
 			cursadaABMControlador.setVisibleBtnActualizar();
 		}
 
+		this.vista.getMainPanel().revalidate();
 		this.vista.getMainPanel().repaint();
 	}
 
@@ -252,6 +258,7 @@ public class CursadaABMVistaPrincipalControlador {
 			cursadaABMControlador.setVisibleBtnEliminar();
 		}
 
+		this.vista.getMainPanel().revalidate();
 		this.vista.getMainPanel().repaint();
 	}
 	
