@@ -15,7 +15,7 @@ import dto.UsuarioDTO;
 import modelo.AdministracionDeCursos;
 import presentacion.vista.AlumnoEventoCrudVista;
 
-public class AlumnoEventoCrudControlador implements ActionListener {
+public class ADescarteAlumnoEventoCrudControlador implements ActionListener {
 
 	private AlumnoEventoCrudVista vista;
 	private AdministracionDeCursos modelo;
@@ -24,7 +24,7 @@ public class AlumnoEventoCrudControlador implements ActionListener {
 	private List<UsuarioDTO> usuariosLista;
 	private List<CursoDTO> cursosLista;
 
-	public AlumnoEventoCrudControlador(AlumnoEventoCrudVista vista, AdministracionDeCursos modelo) {
+	public ADescarteAlumnoEventoCrudControlador(AlumnoEventoCrudVista vista, AdministracionDeCursos modelo) {
 		this.vista = vista;
 		this.modelo = modelo;
 		this.alumnoEventosLista = null;

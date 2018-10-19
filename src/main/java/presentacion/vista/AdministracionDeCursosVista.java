@@ -20,6 +20,7 @@ public class AdministracionDeCursosVista {
 	private JMenuItem menuItemAlumnoVer;
 	
 	private JMenu menuCursada;
+	private JMenuItem menuItemCursadaVer;
 	
 	private JMenu menuCurso;
 	private JMenuItem menuItemCursoVer;
@@ -66,19 +67,10 @@ public class AdministracionDeCursosVista {
 		mainPanel.setLayout(null);
 		
 		buildMenuLogin();
-		menuBar.add(menuLogin);
-
 		buildMenuAlumno();
-		menuBar.add(menuAlumno);
-		
 		buildMenuCurso();
-		menuBar.add(menuCurso);
-
 		buildMenuCursada();
-		menuBar.add(menuCursada);
-
 		buildMenuUsuario();
-		menuBar.add(menuUsuario);
 	}
 
 	private void buildMenuAlumno() {
@@ -106,9 +98,12 @@ public class AdministracionDeCursosVista {
 	private void buildMenuCursada() {
 		
 		menuCursada = new JMenu("Cursada");
-		menuCursada.setMnemonic(KeyEvent.VK_A);
+		menuCursada.setMnemonic(KeyEvent.VK_K);
 		menuCursada.getAccessibleContext().setAccessibleDescription("");
-		menuBar.add(menuCursada);		
+		menuBar.add(menuCursada);
+		
+		menuItemCursadaVer = new JMenuItem("Ver Cursada");
+		menuCursada.add(menuItemCursadaVer);
 	}
 
 	private void buildMenuLogin() {
@@ -316,6 +311,20 @@ public class AdministracionDeCursosVista {
 	 */
 	public void setMenuItemCursoVer(JMenuItem menuItemCursoVer) {
 		this.menuItemCursoVer = menuItemCursoVer;
+	}
+
+	/**
+	 * @return the menuItemCursadaVer
+	 */
+	public JMenuItem getMenuItemCursadaVer() {
+		return menuItemCursadaVer;
+	}
+
+	/**
+	 * @param menuItemCursadaVer the menuItemCursadaVer to set
+	 */
+	public void setMenuItemCursadaVer(JMenuItem menuItemCursadaVer) {
+		this.menuItemCursadaVer = menuItemCursadaVer;
 	}
 
 }

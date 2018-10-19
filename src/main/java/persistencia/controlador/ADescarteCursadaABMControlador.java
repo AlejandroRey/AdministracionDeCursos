@@ -1,4 +1,4 @@
-package persistencia.controlador;
+/*package persistencia.controlador;
 //package persistencia.controlador;
 //
 //import java.awt.event.ActionEvent;
@@ -125,7 +125,7 @@ package persistencia.controlador;
 //		}
 //	}
 //	
-//	/**OBTENER NOMBRE DE CURSO**/
+//	/**OBTENER NOMBRE DE CURSO*
 //	private String getCursoString(long idCurso) {
 //		String cursoNombre = "";
 //		for (CursoDTO cursoDTO : cursosLista) {

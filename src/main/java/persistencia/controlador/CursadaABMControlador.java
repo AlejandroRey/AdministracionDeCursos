@@ -1,5 +1,7 @@
 package persistencia.controlador;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -11,15 +13,17 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import dto.CursadaCompletaDTO;
+import dto.CursadaDTO;
 import dto.CursoDTO;
 import dto.EmpresaDTO;
 import dto.EstadoDeCursoDTO;
 import modelo.AdministracionDeCursos;
 import presentacion.vista.CursadaABMPanel;
 
-public class CursadaABMControlador {
+public class CursadaABMControlador implements ActionListener {
 	
 	private CursadaABMPanel vista;
+	private CursadaABMVistaPrincipalControlador vistaPrincipalControlador;
 	private AdministracionDeCursos modelo;
 	
 	private List<CursadaCompletaDTO> cursadasLista;
@@ -28,12 +32,16 @@ public class CursadaABMControlador {
 	private List<CursoDTO> cursosLista;
 	private List<EstadoDeCursoDTO> estadosCurso;
 	
-	public CursadaABMControlador(CursadaABMPanel vista, AdministracionDeCursos modelo) {
+	public CursadaABMControlador(CursadaABMPanel vista, CursadaABMVistaPrincipalControlador vistaPrincipalControlador, AdministracionDeCursos modelo) {
 		super();
 		this.vista = vista;
+		this.vistaPrincipalControlador = vistaPrincipalControlador;
 		this.modelo = modelo;
 		
-		inicializar();
+		this.vista.getBtnSeleccionar().addActionListener(this);
+		this.vista.getBtnAgregar().addActionListener(this);
+		this.vista.getBtnActualizar().addActionListener(this);
+		this.vista.getBtnEliminar().addActionListener(this);
 	}	
 	
 	public void inicializar() {
@@ -198,6 +206,100 @@ public class CursadaABMControlador {
 		LocalDateTime dateTime = LocalDateTime.parse(date, format);
 		return dateTime;
 	}
+	
+	private CursadaDTO getCursadaDTO() {
+
+		EmpresaDTO empresa = (EmpresaDTO) this.vista.getCbxEmpresa().getSelectedItem();
+		CursoDTO curso = (CursoDTO) this.vista.getCbxCurso().getSelectedItem();
+		EstadoDeCursoDTO estadoDeCurso = (EstadoDeCursoDTO) this.vista.getCbxEstado().getSelectedItem();
+		
+		LocalDateTime fechaInicioInscripcion = StringToLocalDateTime(this.vista.getTextFechaInicioInsc().getText());
+		LocalDateTime fechaFinInscripcion = StringToLocalDateTime(this.vista.getTextFechaFinInsc().getText());
+		LocalDateTime fechaInicioCursada = StringToLocalDateTime(this.vista.getTextFechaInicioCursada().getText());
+		
+		CursadaDTO cursadaDTO = new CursadaDTO(Long.parseLong(this.vista.getTextIdCursada().getText().toString()), 
+											   empresa.getIdEmpresa(), 
+											   curso.getIdCurso(), 
+											   estadoDeCurso.getIdEstadoDeCurso(), 
+											   fechaInicioInscripcion, 
+											   fechaFinInscripcion, 
+											   this.vista.getTextVacantes().getText(), 
+											   fechaInicioCursada, 
+											   Integer.parseInt(this.vista.getTextDiasDeClase().getText()));
+	
+		
+		return cursadaDTO;
+	}
+	
+	private String cursadaDTOToString(CursadaDTO cursadaDTO) {
+		EmpresaDTO empresa = selectEmpresa(cursadaDTO.getIdEmpresa());
+		CursoDTO curso = selectCurso(cursadaDTO.getIdCurso());
+		EstadoDeCursoDTO estadoCurso = selectEstadoDeCurso(cursadaDTO.getIdEstadoCurso());
+		
+		String strCursadaDTO = "Curso: " + curso.getNombre() + System.lineSeparator()
+							 + "Empresa: " + empresa.getNombre() + System.lineSeparator()
+							 + "Ini Insc: " + stringDateFormatter(cursadaDTO.getFechaInicioInscripcion()) + System.lineSeparator()
+							 + "Fin Insc: " + stringDateFormatter(cursadaDTO.getFechaFinInscripcion()) + System.lineSeparator()
+							 + "Ini Cursada" + stringDateFormatter(cursadaDTO.getFechaInicioCursada()) + System.lineSeparator()
+							 + "Vacantes: " + cursadaDTO.getVacantes() + System.lineSeparator()
+							 + "Dias de Clase: " + cursadaDTO.getDiasDeClase() + System.lineSeparator()
+							 + "Estado: " + estadoCurso.getNombre();
+		
+		return strCursadaDTO;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		CursadaDTO cursadaDTO = getCursadaDTO();
+		String strCursadaDTO = cursadaDTOToString(cursadaDTO);
+		
+		if (e.getSource()== this.vista.getBtnSeleccionar() ) {
+			this.vistaPrincipalControlador.getVista().getButtonPanel().setVisible(false);
+			this.vistaPrincipalControlador.getVista().getButtonPanelExtends().setVisible(true);
+			this.vistaPrincipalControlador.getVista().getTextAreaCursadaSeleccionada().setText(strCursadaDTO);
+			this.vistaPrincipalControlador.setCursadaDTO(cursadaDTO);
+			
+			this.vistaPrincipalControlador.getVista().getMainPanel().removeAll();
+			this.vistaPrincipalControlador.getVista().getMainPanel().repaint();
+			this.vistaPrincipalControlador.getVista().repaint();
+		}
+		
+	}
+	
+	public void setVisibleBtnActualizar() {
+		this.vista.getTblCursadas().setEnabled(true);
+		clearTextBoxPanelCursadas();
+		setBtnNotVisible();
+		this.vista.getBtnActualizar().setVisible(true);
+	}
+	
+	public void setVisibleBtnAgregar() {
+		this.vista.getTblCursadas().setEnabled(false);
+		clearTextBoxPanelCursadas();
+		setBtnNotVisible();
+		this.vista.getBtnAgregar().setVisible(true);
+	}
+	
+	public void setVisibleBtnEliminar() {
+		this.vista.getTblCursadas().setEnabled(true);
+		clearTextBoxPanelCursadas();
+		setBtnNotVisible();
+		this.vista.getBtnEliminar().setVisible(true);		
+	}
+	
+	public void setVisibleBtnSeleccionar() {
+		this.vista.getTblCursadas().setEnabled(true);
+		clearTextBoxPanelCursadas();
+		setBtnNotVisible();
+		this.vista.getBtnSeleccionar().setVisible(true);		
+	}
+	
+	public void setBtnNotVisible() {
+		this.vista.getBtnActualizar().setVisible(false);
+		this.vista.getBtnAgregar().setVisible(false);
+		this.vista.getBtnEliminar().setVisible(false);
+		this.vista.getBtnSeleccionar().setVisible(false);
+	}
 
 	@SuppressWarnings("serial")
 	public class ListSelectionModelCstm extends DefaultListSelectionModel {
@@ -215,6 +317,5 @@ public class CursadaABMControlador {
 		}
 
 	}	
-	
 
 }

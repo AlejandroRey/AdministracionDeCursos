@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import modelo.AdministracionDeCursos;
 import presentacion.vista.AdministracionDeCursosVista;
 import presentacion.vista.AlumnoABMVistaPrincipal;
-import presentacion.vista.CursoABMPanel;
+import presentacion.vista.CursadaABMVistaPrincipal;
 import presentacion.vista.CursoABMVistaPrincipal;
 import presentacion.vista.UsuarionABMVistaPrincipal;
 
@@ -24,6 +24,9 @@ public class AdministracionDeCursosControlador implements ActionListener {
 	private CursoABMVistaPrincipal cursoABM;
 	private CursoABMVistaPrincipalControlador cursoABMControlador;
 	
+	private CursadaABMVistaPrincipal cursadaABM;
+	private CursadaABMVistaPrincipalControlador cursadaABMControlador;
+	
 	public AdministracionDeCursosControlador(AdministracionDeCursos modelo, AdministracionDeCursosVista vista) {
 		super();
 		this.modelo = modelo;
@@ -32,6 +35,7 @@ public class AdministracionDeCursosControlador implements ActionListener {
 		this.vista.getMenuItemAlumnoVer().addActionListener(this);		
 		this.vista.getMenuItemUsuarioVer().addActionListener(this);
 		this.vista.getMenuItemCursoVer().addActionListener(this);
+		this.vista.getMenuItemCursadaVer().addActionListener(this);
 	}
 	
 
@@ -65,6 +69,13 @@ public class AdministracionDeCursosControlador implements ActionListener {
 				
 				this.vista.getMainPanel().add(cursoABM);
 			}			
+		} else if (e.getSource()== this.vista.getMenuItemCursadaVer()) {
+			if (cursadaABM == null) {
+				cursadaABM = new CursadaABMVistaPrincipal();
+				cursadaABMControlador = new CursadaABMVistaPrincipalControlador(modelo, cursadaABM);
+				
+				this.vista.getMainPanel().add(cursadaABM);
+			}
 		}
 		
 		this.vista.getFrame().repaint();		
@@ -83,8 +94,13 @@ public class AdministracionDeCursosControlador implements ActionListener {
 			alumnoABM = null;
 			alumnoABMControlador = null;
 		}
+		if (cursadaABM != null) {
+			cursadaABM = null;
+			cursadaABMControlador = null;
+		}
 		
 		this.vista.getMainPanel().removeAll();
+		this.vista.getMainPanel().repaint();
 		this.vista.getFrame().repaint();
 	}
 
