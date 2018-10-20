@@ -13,6 +13,8 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.swing.DefaultListSelectionModel;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
@@ -60,13 +62,50 @@ public class CalendarBuilderControlador implements ActionListener {
 		this.vista.getTextFechaInicio().setText(stringDateFormatter(this.cursadaDTO.getFechaInicioCursada().toLocalDate()));
 		this.vista.getTextCantidadDeDias().setText(String.valueOf(this.cursadaDTO.getDiasDeClase()));
 		
-		for (DiaCursadaClaseDTO diaCursadaClaseDTO : modelo.obtenerDiaCursadaClase(cursadaDTO)) {
-			mapDiasDeClaseCursada.put(diaCursadaClaseDTO.getIdDia(), diaCursadaClaseDTO);
+		if (getDiasDeCursada()) {
+			llenarTablaDiasDeCursada();
 		}
-		
-		llenarTablaDiasDeCursada();
+		if (getFechaDeCursada()) {
+			llenarTablaFechasDeCursada();
+		}
 	}
 
+	private boolean getDiasDeCursada() {
+		List<DiaCursadaClaseDTO> diasCursadasClasesList = modelo.obtenerDiaCursadaClase(cursadaDTO);
+
+		if (diasCursadasClasesList.size() > 0) {
+			for (DiaCursadaClaseDTO diaCursadaClaseDTO : modelo.obtenerDiaCursadaClase(cursadaDTO)) {
+				mapDiasDeClaseCursada.put(diaCursadaClaseDTO.getIdDia(), diaCursadaClaseDTO);
+			}
+			return true;
+		} else {
+			JOptionPane.showMessageDialog(null,
+				    "No se encontraron Dias de Clases para la Cursada seleccionada!",
+				    "Dias de Cursadas",
+				    JOptionPane.INFORMATION_MESSAGE);
+			return false;
+		}
+	}
+	
+	private boolean getFechaDeCursada() {
+		List<FechaCursadaClaseDTO> fechaCursadasClases = modelo.obtenerFechaCursadaClase(cursadaDTO);
+
+		if (fechaCursadasClases.size() > 0) {
+			for (FechaCursadaClaseDTO fechaCursadaClaseDTO : fechaCursadasClases) {
+				fechasDeClasesCursadaList.add(fechaCursadaClaseDTO);
+			}
+			return true;
+		} else {
+			JOptionPane.showMessageDialog(null,
+				    "No se encontraron Fechas de Clases para la Cursada seleccionada!",
+				    "Fechas de Cursadas",
+				    JOptionPane.INFORMATION_MESSAGE,
+				    new ImageIcon("imagenes/warning_64.png"));
+			return false;
+		}
+	}
+	
+	
 	private void llenarTablaDiasDeCursada() {
 		this.vista.getModelDiasDeCursada().setRowCount(0); // Para vaciar la tabla
 		this.vista.getModelDiasDeCursada().setColumnCount(0);
@@ -133,21 +172,22 @@ public class CalendarBuilderControlador implements ActionListener {
 								 fechaCursadaClaseDTO.getIdSala(),
 								 (diaDeLaSemana.substring(0,1).toUpperCase() + diaDeLaSemana.substring(1).toLowerCase()),
 								 localDateTimeFormatter(fechaCursadaClaseDTO.getFechaInicio()),
-								 localDateTimeFormatter(fechaCursadaClaseDTO.getFechaFin())};
+								 localDateTimeFormatter(fechaCursadaClaseDTO.getFechaFin()),
+								 "S/A"};
 				this.vista.getModelFechasDeCursada().addRow(fila);
 			}
 		}
 
 		// Oculto los id del Objeto
-		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(0).setWidth(0);
-		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(0).setMinWidth(0);
-		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(0).setMaxWidth(0);
-		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(1).setWidth(0);
-		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(1).setMinWidth(0);
-		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(1).setMaxWidth(0);
-		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(2).setWidth(0);
-		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(2).setMinWidth(0);
-		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(2).setMaxWidth(0);
+//		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(0).setWidth(0);
+//		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(0).setMinWidth(0);
+//		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(0).setMaxWidth(0);
+//		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(1).setWidth(0);
+//		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(1).setMinWidth(0);
+//		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(1).setMaxWidth(0);
+//		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(2).setWidth(0);
+//		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(2).setMinWidth(0);
+//		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(2).setMaxWidth(0);
 		
 		// Agrego listener para obtener los valores de la fila seleccionada
 		this.vista.getTablaFechasDeCursada().setSelectionModel(new ListSelectionModelCstm());
@@ -194,36 +234,39 @@ public class CalendarBuilderControlador implements ActionListener {
 			}else {
 				System.out.println("NADA PARA ELIMINAR");
 			}
-		} else if (e.getSource() == this.vista.getBtnGenerarHorario()) {	
-			for (DiaCursadaClaseDTO diaCursadaClaseDTO : diasDeClaseCursadaList) {
-				System.out.println("DIAS A PROGRAMAR: " + diaCursadaClaseDTO.getNombreDia());
-			}
-			
-			LocalDate date = StringToLocalDate(this.vista.getTextFechaInicio().getText());
-			int incDia= 0;
-			int contador =Integer.parseInt(this.vista.getTextCantidadDeDias().getText());
-			do {				
+		} else if (e.getSource() == this.vista.getBtnGenerarHorario()) {
+			if (diasDeClaseCursadaList.size()>0) {
+				LocalDate date = StringToLocalDate(this.vista.getTextFechaInicio().getText());
+				int incDia= 0;
+				int contador =Integer.parseInt(this.vista.getTextCantidadDeDias().getText());
+				do {				
+					for (DiaCursadaClaseDTO diaCursadaClaseDTO : diasDeClaseCursadaList) {
+						String nombreDia = getDiaDelaSemana(date.plusDays(incDia));
+						if (diaCursadaClaseDTO.getNombreDia().toLowerCase().equals(nombreDia)) {
+							int id = -1;
+							LocalDateTime fechaInicio = LocalDateTime.of(date.plusDays(incDia), diaCursadaClaseDTO.getHoraInicio());
+							LocalDateTime fechaFin = LocalDateTime.of(date.plusDays(incDia), diaCursadaClaseDTO.getHoraFin());
+							FechaCursadaClaseDTO fechaSeleccionada = new FechaCursadaClaseDTO(contador, cursadaDTO.getIdCursada(), id, fechaInicio, fechaFin);
+							
+							fechasDeClasesCursadaList.add(fechaSeleccionada);
+							contador -= 1;
+						}
+					}				
+					incDia += 1;				
+				} while (contador > 0);
+				llenarTablaFechasDeCursada();
+				fechasDeClasesCursadaList.clear();
+				
+				modelo.borrarDiaCursadaClase(cursadaDTO);
 				for (DiaCursadaClaseDTO diaCursadaClaseDTO : diasDeClaseCursadaList) {
-					String nombreDia = getDiaDelaSemana(date.plusDays(incDia));
-					if (diaCursadaClaseDTO.getNombreDia().toLowerCase().equals(nombreDia)) {
-						int id = 1;
-						LocalDateTime fechaInicio = LocalDateTime.of(date.plusDays(incDia), diaCursadaClaseDTO.getHoraInicio());
-						LocalDateTime fechaFin = LocalDateTime.of(date.plusDays(incDia), diaCursadaClaseDTO.getHoraFin());
-						FechaCursadaClaseDTO fechaSeleccionada = new FechaCursadaClaseDTO(id, id, id, fechaInicio, fechaFin);
-						
-						fechasDeClasesCursadaList.add(fechaSeleccionada);
-						contador -= 1;
-					}
-				}				
-				incDia += 1;				
-			} while (contador > 0);
-			llenarTablaFechasDeCursada();
-			fechasDeClasesCursadaList.clear();
-			
-			System.out.println("BORRADO");
-			modelo.borrarDiaCursadaClase(cursadaDTO);
-			for (DiaCursadaClaseDTO diaCursadaClaseDTO : diasDeClaseCursadaList) {
-				modelo.agregarDiaCursadaClase(diaCursadaClaseDTO);
+					modelo.agregarDiaCursadaClase(diaCursadaClaseDTO);
+				}	
+			} else {
+				JOptionPane.showMessageDialog(null,
+					    "Seleccione Dias de Cursada!",
+					    "Dias de Cursada",
+					    JOptionPane.INFORMATION_MESSAGE,
+					    new ImageIcon("imagenes/warning_64.png"));	
 			}
 		}		
 	}
