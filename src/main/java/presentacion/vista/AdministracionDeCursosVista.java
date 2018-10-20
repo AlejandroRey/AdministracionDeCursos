@@ -32,6 +32,11 @@ public class AdministracionDeCursosVista {
 	private JMenu menuUsuario;
 	private JMenuItem menuItemUsuarioVer;
 	
+	private JMenu menuTarea;
+	private JMenuItem menuItemTareaVer;
+	
+	private JMenu menuSala;
+	private JMenuItem menuItemSalaVer;
 
 	
 	/**
@@ -71,6 +76,8 @@ public class AdministracionDeCursosVista {
 		buildMenuCurso();
 		buildMenuCursada();
 		buildMenuUsuario();
+		buildMenuTarea();
+		buildMenuSala();
 	}
 
 	private void buildMenuAlumno() {
@@ -130,6 +137,27 @@ public class AdministracionDeCursosVista {
 		menuItemUsuarioVer = new JMenuItem("Ver Usuario");
 		menuUsuario.add(menuItemUsuarioVer);
 	}
+	
+	private void buildMenuTarea() {
+		menuTarea = new JMenu("Tarea");
+		menuTarea.setMnemonic(KeyEvent.VK_A);
+		menuTarea.getAccessibleContext().setAccessibleDescription("");
+		menuBar.add(menuTarea);
+		
+		menuItemTareaVer = new JMenuItem("Ver Tarea");
+		menuTarea.add(menuItemTareaVer);
+	}
+
+	private void buildMenuSala() {
+		menuSala = new JMenu("Sala");
+		menuSala.setMnemonic(KeyEvent.VK_A);
+		menuSala.getAccessibleContext().setAccessibleDescription("");
+		menuBar.add(menuSala);
+		
+		menuItemSalaVer = new JMenuItem("Ver Sala");
+		menuSala.add(menuItemSalaVer);
+	}
+
 
 	/**
 	 * @return the frame
@@ -325,6 +353,62 @@ public class AdministracionDeCursosVista {
 	 */
 	public void setMenuItemCursadaVer(JMenuItem menuItemCursadaVer) {
 		this.menuItemCursadaVer = menuItemCursadaVer;
+	}
+
+	/**
+	 * @return the menuTarea
+	 */
+	public JMenu getMenuTarea() {
+		return menuTarea;
+	}
+
+	/**
+	 * @param menuTarea the menuTarea to set
+	 */
+	public void setMenuTarea(JMenu menuTarea) {
+		this.menuTarea = menuTarea;
+	}
+
+	/**
+	 * @return the menuItemTareaVer
+	 */
+	public JMenuItem getMenuItemTareaVer() {
+		return menuItemTareaVer;
+	}
+
+	/**
+	 * @param menuItemTareaVer the menuItemTareaVer to set
+	 */
+	public void setMenuItemTareaVer(JMenuItem menuItemTareaVer) {
+		this.menuItemTareaVer = menuItemTareaVer;
+	}
+
+	/**
+	 * @return the menuSala
+	 */
+	public JMenu getMenuSala() {
+		return menuSala;
+	}
+
+	/**
+	 * @param menuSala the menuSala to set
+	 */
+	public void setMenuSala(JMenu menuSala) {
+		this.menuSala = menuSala;
+	}
+
+	/**
+	 * @return the menuItemSalaVer
+	 */
+	public JMenuItem getMenuItemSalaVer() {
+		return menuItemSalaVer;
+	}
+
+	/**
+	 * @param menuItemSalaVer the menuItemSalaVer to set
+	 */
+	public void setMenuItemSalaVer(JMenuItem menuItemSalaVer) {
+		this.menuItemSalaVer = menuItemSalaVer;
 	}
 
 }

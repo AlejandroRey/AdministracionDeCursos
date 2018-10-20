@@ -16,14 +16,13 @@ import persistencia.dao.interfaz.EstadoDeCursoDAO;
 import persistencia.dao.interfaz.FechaCursadaClaseDAO;
 import persistencia.dao.interfaz.InscriptoDAO;
 import persistencia.dao.interfaz.SalaDAO;
+import persistencia.dao.interfaz.SalaDisponibilidadDAO;
 import persistencia.dao.interfaz.UsuarioDAO;
+import persistencia.dao.interfaz.TareaDAO;
 
 public class DAOSQLFactory implements DAOAbstractFactory {
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see persistencia.dao.interfaz.DAOAbstractFactory#createPersonaDAO()
-	 */
+	
+	
 	@Override
 	public CursoTipoDAO createCursoTipoDAO() {
 		return new CursoTipoDAOSQL();
@@ -111,5 +110,17 @@ public class DAOSQLFactory implements DAOAbstractFactory {
 	public FechaCursadaClaseDAO createFechaCursadaClaseDAO() {
 		// TODO Auto-generated method stub
 		return new FechaCursadaClaseDAOSQL();
+	}
+
+	@Override
+	public TareaDAO createTareaDAO() {
+		// TODO Auto-generated method stub
+		return new TareaDAOSQL();
+	}
+
+	@Override
+	public SalaDisponibilidadDAO createSalaDisponibilidadDAO() {
+		// TODO Auto-generated method stub
+		return new SalaDisponibilidadDAOSQL();
 	}
 }
