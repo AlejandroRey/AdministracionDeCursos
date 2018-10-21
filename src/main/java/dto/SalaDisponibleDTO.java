@@ -6,14 +6,14 @@ public class SalaDisponibleDTO {
 	
 	private long idSala;
 	private LocalDateTime dispDesde;
-	private LocalDateTime dispHaasta;
+	private LocalDateTime dispHasta;
 	private String estado;
 	
-	public SalaDisponibleDTO(long idSala, LocalDateTime dispDesde, LocalDateTime dispHaasta, String estado) {
+	public SalaDisponibleDTO(long idSala, LocalDateTime dispDesde, LocalDateTime dispHasta, String estado) {
 		super();
 		this.idSala = idSala;
 		this.dispDesde = dispDesde;
-		this.dispHaasta = dispHaasta;
+		this.dispHasta = dispHasta;
 		this.estado = estado;
 	}
 
@@ -46,17 +46,17 @@ public class SalaDisponibleDTO {
 	}
 
 	/**
-	 * @return the dispHaasta
+	 * @return the dispHasta
 	 */
-	public LocalDateTime getDispHaasta() {
-		return dispHaasta;
+	public LocalDateTime getDispHasta() {
+		return dispHasta;
 	}
 
 	/**
-	 * @param dispHaasta the dispHaasta to set
+	 * @param dispHasta the dispHasta to set
 	 */
-	public void setDispHaasta(LocalDateTime dispHaasta) {
-		this.dispHaasta = dispHaasta;
+	public void setDispHasta(LocalDateTime dispHasta) {
+		this.dispHasta = dispHasta;
 	}
 
 	/**
@@ -78,8 +78,8 @@ public class SalaDisponibleDTO {
 	 */
 	@Override
 	public String toString() {
-		return "SalaDisponibleDTO [idSala: " + idSala + ", dispDesde: " + dispDesde + ", dispHaasta: " + dispHaasta
-				+ ", estado: " + estado + "]";
+		return "SalaDisponibleDTO [idSala=" + idSala + ", dispDesde=" + dispDesde + ", dispHasta=" + dispHasta
+				+ ", estado=" + estado + "]";
 	}
-
+	
 }

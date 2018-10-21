@@ -40,21 +40,21 @@ public class CalendarioBuilderPanel extends JPanel {
 	private JTable tablaDiasDeCursada;
 	private DefaultTableModel modelDiasDeCursada;
 	private String[] nombreColumnasDiasDeCursada = {"idCursada", "idDia", "Dia", "Hora Inicio", "Hora Fin"};
+	private JButton btnEliminar;
 	
+	private JPanel panelFechasDeCursada;
 	private JScrollPane spFechasDeCursada;
 	private JTable tablaFechasDeCursada;
 	private DefaultTableModel modelFechasDeCursada;
 	private String[] nombreColumnasFechasDeCursada = {"", "", "", "Dia", "Fecha Inicio", "Fecha Fin", "Sala"};
-	private JButton btnEliminar;
-	
-	private JPanel panelHorario;
 	private JButton btnGenerarHorario;
+	private JButton btnGuardarCambios;
 	
 	private JPanel panelSalas;
 	private JTable tablaSalas;
 	private JScrollPane spSalas;
 	private DefaultTableModel modelSalas;
-	private String[] nombreColumnasSalas = {"idSala", "Desde", "Hasta", "Estado"};
+	private String[] nombreColumnasSalas = {"idSala", "Sala", "Desde", "Hasta", "Estado"};
 	private JButton btnAsignarSala;
 	
 	private JTextField textSalaDia;
@@ -66,11 +66,12 @@ public class CalendarioBuilderPanel extends JPanel {
 	private JTextField textSalaNombre;
 	private JLabel lblIdsala;
 	private JTextField textSalaId;
+	private JTextField textSalaIdFechaCursada;
 	
 	
 	public CalendarioBuilderPanel() {
 		super();
-		this.setBounds(0, 0, 1000, 650);
+		this.setBounds(0, 0, 1127, 650);
 		this.setLayout(null);
 		
 		initialize();
@@ -183,18 +184,18 @@ public class CalendarioBuilderPanel extends JPanel {
 
 	private void buildPanelDiasDeCursadaGenerados() {
 		
-		panelHorario = new JPanel();
-		panelHorario.setLayout(null);
-		panelHorario.setBorder(new TitledBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), "Calendario de Cursada", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panelHorario.setBounds(300, 11, 319, 516);
-		add(panelHorario);
+		panelFechasDeCursada = new JPanel();
+		panelFechasDeCursada.setLayout(null);
+		panelFechasDeCursada.setBorder(new TitledBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), "Calendario de Cursada", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panelFechasDeCursada.setBounds(300, 11, 390, 516);
+		add(panelFechasDeCursada);
 	}
 
 	private void buildTablaDiasDeCursadaGenerados() {
 		
 		spFechasDeCursada = new JScrollPane();
-		spFechasDeCursada.setBounds(10, 26, 300, 446);
-		panelHorario.add(spFechasDeCursada);
+		spFechasDeCursada.setBounds(10, 26, 370, 380);
+		panelFechasDeCursada.add(spFechasDeCursada);
 		
 		modelFechasDeCursada = new DefaultTableModel(null, nombreColumnasFechasDeCursada);
 		tablaFechasDeCursada = new JTable(modelFechasDeCursada){
@@ -212,8 +213,12 @@ public class CalendarioBuilderPanel extends JPanel {
 		spFechasDeCursada.setViewportView(tablaFechasDeCursada);			
 		
 		btnGenerarHorario = new JButton("Generar Calendario de Cursada");
-		btnGenerarHorario.setBounds(10, 483, 300, 23);
-		panelHorario.add(btnGenerarHorario);
+		btnGenerarHorario.setBounds(10, 420, 370, 23);
+		panelFechasDeCursada.add(btnGenerarHorario);
+		
+		btnGuardarCambios = new JButton("Guardar Cambios");
+		btnGuardarCambios.setBounds(10, 464, 370, 41);
+		panelFechasDeCursada.add(btnGuardarCambios);
 	}
 	
 	private void buildPanelSalasDisponibles() {
@@ -221,14 +226,14 @@ public class CalendarioBuilderPanel extends JPanel {
 		panelSalas = new JPanel();
 		panelSalas.setLayout(null);
 		panelSalas.setBorder(new TitledBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), "Salas Disponibles", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panelSalas.setBounds(629, 11, 319, 516);
+		panelSalas.setBounds(700, 11, 390, 516);
 		add(panelSalas);
 	}
 	
 	private void buildTablaSalas() {
 
 		spSalas = new JScrollPane();
-		spSalas.setBounds(10, 26, 300, 275);
+		spSalas.setBounds(10, 26, 370, 275);
 		panelSalas.add(spSalas);
 		
 		modelSalas = new DefaultTableModel(null, nombreColumnasSalas);
@@ -247,7 +252,7 @@ public class CalendarioBuilderPanel extends JPanel {
 		spSalas.setViewportView(tablaSalas);			
 		
 		btnAsignarSala = new JButton("Asignar Sala");
-		btnAsignarSala.setBounds(10, 483, 300, 23);
+		btnAsignarSala.setBounds(10, 483, 370, 23);
 		panelSalas.add(btnAsignarSala);
 		
 		JLabel lblNewLabel = new JLabel("Dia:");
@@ -296,8 +301,17 @@ public class CalendarioBuilderPanel extends JPanel {
 		panelSalas.add(textSalaId);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 312, 300, 3);
+		separator.setBounds(10, 312, 370, 3);
 		panelSalas.add(separator);
+		
+		JLabel lblIdfechacurs = new JLabel("idFechaCurs:");
+		lblIdfechacurs.setBounds(205, 372, 51, 14);
+		panelSalas.add(lblIdfechacurs);
+		
+		textSalaIdFechaCursada = new JTextField();
+		textSalaIdFechaCursada.setColumns(10);
+		textSalaIdFechaCursada.setBounds(253, 372, 57, 20);
+		panelSalas.add(textSalaIdFechaCursada);
 	}
 
 	/**
@@ -483,6 +497,20 @@ public class CalendarioBuilderPanel extends JPanel {
 	}
 
 	/**
+	 * @return the panelFechasDeCursada
+	 */
+	public JPanel getPanelFechasDeCursada() {
+		return panelFechasDeCursada;
+	}
+
+	/**
+	 * @param panelFechasDeCursada the panelFechasDeCursada to set
+	 */
+	public void setPanelFechasDeCursada(JPanel panelFechasDeCursada) {
+		this.panelFechasDeCursada = panelFechasDeCursada;
+	}
+
+	/**
 	 * @return the spFechasDeCursada
 	 */
 	public JScrollPane getSpFechasDeCursada() {
@@ -539,20 +567,6 @@ public class CalendarioBuilderPanel extends JPanel {
 	}
 
 	/**
-	 * @return the panelHorario
-	 */
-	public JPanel getPanelHorario() {
-		return panelHorario;
-	}
-
-	/**
-	 * @param panelHorario the panelHorario to set
-	 */
-	public void setPanelHorario(JPanel panelHorario) {
-		this.panelHorario = panelHorario;
-	}
-
-	/**
 	 * @return the btnGenerarHorario
 	 */
 	public JButton getBtnGenerarHorario() {
@@ -564,6 +578,20 @@ public class CalendarioBuilderPanel extends JPanel {
 	 */
 	public void setBtnGenerarHorario(JButton btnGenerarHorario) {
 		this.btnGenerarHorario = btnGenerarHorario;
+	}
+
+	/**
+	 * @return the btnGuardarCambios
+	 */
+	public JButton getBtnGuardarCambios() {
+		return btnGuardarCambios;
+	}
+
+	/**
+	 * @param btnGuardarCambios the btnGuardarCambios to set
+	 */
+	public void setBtnGuardarCambios(JButton btnGuardarCambios) {
+		this.btnGuardarCambios = btnGuardarCambios;
 	}
 
 	/**
@@ -719,5 +747,20 @@ public class CalendarioBuilderPanel extends JPanel {
 	public void setTextSalaId(JTextField textSalaId) {
 		this.textSalaId = textSalaId;
 	}
+
+	/**
+	 * @return the textSalaIdFechaCursada
+	 */
+	public JTextField getTextSalaIdFechaCursada() {
+		return textSalaIdFechaCursada;
+	}
+
+	/**
+	 * @param textSalaIdFechaCursada the textSalaIdFechaCursada to set
+	 */
+	public void setTextSalaIdFechaCursada(JTextField textSalaIdFechaCursada) {
+		this.textSalaIdFechaCursada = textSalaIdFechaCursada;
+	}
+
 }
 

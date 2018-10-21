@@ -17,6 +17,7 @@ import dto.EstadoDeCursoDTO;
 import dto.FechaCursadaClaseDTO;
 import dto.InscriptoDTO;
 import dto.SalaDTO;
+import dto.SalaDisponibleDTO;
 import dto.TareaDTO;
 import dto.UsuarioDTO;
 import persistencia.dao.interfaz.AlumnoDAO;
@@ -32,6 +33,7 @@ import persistencia.dao.interfaz.DiaCursadaClaseDAO;
 import persistencia.dao.interfaz.UsuarioDAO;
 import persistencia.dao.interfaz.EmpresaDAO;
 import persistencia.dao.interfaz.SalaDAO;
+import persistencia.dao.interfaz.SalaDisponibleDAO;
 import persistencia.dao.interfaz.EstadoDeCursoDAO;
 import persistencia.dao.interfaz.FechaCursadaClaseDAO;
 import persistencia.dao.interfaz.CursadaDAO;
@@ -57,6 +59,7 @@ public class AdministracionDeCursos {
 	private InscriptoDAO inscripto;
 	private FechaCursadaClaseDAO fechaCursadaClase;
 	private TareaDAO tarea;
+	private SalaDisponibleDAO salaDisponible;
 
 	public AdministracionDeCursos(DAOAbstractFactory metodo_persistencia) {
 		
@@ -77,6 +80,7 @@ public class AdministracionDeCursos {
 		this.inscripto = metodo_persistencia.createInscriptoDAO();
 		this.fechaCursadaClase = metodo_persistencia.createFechaCursadaClaseDAO();
 		this.tarea = metodo_persistencia.createTareaDAO();
+		this.salaDisponible = metodo_persistencia.createSalaDisponibleDAO();
 	}
 	
 	/* ****************************************************************
@@ -344,6 +348,15 @@ public class AdministracionDeCursos {
 	
 	public List<TareaDTO> obtenerTareas() {
 		return this.tarea.readAll();
+	}
+	
+	/* ****************************************************************
+	 *                         Sala Disponible
+	 * ****************************************************************
+	 */
+	
+	public List<SalaDisponibleDTO> obtenerSalaDisponible(FechaCursadaClaseDTO fechaCursadaDTO, SalaDTO salaDTO) {
+		return this.salaDisponible.readAll(fechaCursadaDTO, salaDTO);
 	}
 	
 }

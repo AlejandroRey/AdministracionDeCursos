@@ -12,12 +12,15 @@ import java.util.List;
 import com.mysql.jdbc.CallableStatement;
 
 import dto.FechaCursadaClaseDTO;
+import dto.SalaDTO;
 import dto.SalaDisponibleDTO;
 import persistencia.conexion.Conexion;
+import persistencia.dao.interfaz.SalaDisponibleDAO;
 
-public class SalaDisponibleDAOSQL {
+public class SalaDisponibleDAOSQL implements SalaDisponibleDAO {
 
-	public List<SalaDisponibleDTO> readAll(FechaCursadaClaseDTO fechaCursadaDTO) {
+	@Override
+	public List<SalaDisponibleDTO> readAll(FechaCursadaClaseDTO fechaCursadaDTO, SalaDTO salaDTO) {
 		LocalDate localDate = fechaCursadaDTO.getFechaInicio().toLocalDate();
 		LocalDateTime localDateTimeInicio = LocalDateTime.of(localDate, LocalTime.MIN);
 		LocalDateTime localDateTimeFin = localDateTimeInicio.plusDays(1);
@@ -30,12 +33,13 @@ public class SalaDisponibleDAOSQL {
 		Conexion conexion = Conexion.getConexion();
 		try {
 			CallableStatement spSalaDisponible = (CallableStatement) conexion.getSQLConexion()
-					.prepareCall("{CALL salaDispobleSP(?, ?, ?, ?, ?)}");
+			.prepareCall("{CALL estadosSalasSP(?, ?, ?)}");
+			//estadosSalasSP.prepareCall("{CALL salaDispobleSP(?, ?, ?, ?, ?)}");
 			spSalaDisponible.setTimestamp(1, convert(localDateTimeInicio));
 			spSalaDisponible.setTimestamp(2, convert(localDateTimeFin));
-			spSalaDisponible.setLong(3, 1);
-			spSalaDisponible.setTimestamp(4, convert(fechaCursadaDTO.getFechaFin()));
-			spSalaDisponible.setTimestamp(5, convert(fechaCursadaDTO.getFechaFin().plusHours(1)));
+			spSalaDisponible.setLong(3, salaDTO.getIdSala());
+			//spSalaDisponible.setTimestamp(4, convert(fechaCursadaDTO.getFechaFin()));
+			//spSalaDisponible.setTimestamp(5, convert(fechaCursadaDTO.getFechaFin().plusHours(1)));
 
 			spSalaDisponible.execute();
 
@@ -56,7 +60,7 @@ public class SalaDisponibleDAOSQL {
 		
 		return salasDisponibles;
 	}
-
+	
 	/**
 	 * Convert a LocalDateTime to a Timestamp using the system timezone.
 	 */
