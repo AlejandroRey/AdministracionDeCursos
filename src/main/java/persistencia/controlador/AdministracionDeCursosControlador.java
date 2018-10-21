@@ -8,6 +8,8 @@ import presentacion.vista.AdministracionDeCursosVista;
 import presentacion.vista.AlumnoABMVistaPrincipal;
 import presentacion.vista.CursadaABMVistaPrincipal;
 import presentacion.vista.CursoABMVistaPrincipal;
+import presentacion.vista.SalaABMVistaPrincipal;
+import presentacion.vista.TareaABMVistaPrincipal;
 import presentacion.vista.UsuarionABMVistaPrincipal;
 
 public class AdministracionDeCursosControlador implements ActionListener {
@@ -27,6 +29,12 @@ public class AdministracionDeCursosControlador implements ActionListener {
 	private CursadaABMVistaPrincipal cursadaABM;
 	private CursadaABMVistaPrincipalControlador cursadaABMControlador;
 	
+	private TareaABMVistaPrincipal tareaABM;
+	private TareaABMVistaPrincipalControlador tareaABMControlador;
+	
+	private SalaABMVistaPrincipal salaABM;
+	private SalaABMVistaPrincipalControlador salaABMControlador;
+	
 	public AdministracionDeCursosControlador(AdministracionDeCursos modelo, AdministracionDeCursosVista vista) {
 		super();
 		this.modelo = modelo;
@@ -36,6 +44,8 @@ public class AdministracionDeCursosControlador implements ActionListener {
 		this.vista.getMenuItemUsuarioVer().addActionListener(this);
 		this.vista.getMenuItemCursoVer().addActionListener(this);
 		this.vista.getMenuItemCursadaVer().addActionListener(this);
+		this.vista.getMenuItemTareaVer().addActionListener(this);
+		this.vista.getMenuItemSalaVer().addActionListener(this);
 	}
 	
 
@@ -76,8 +86,21 @@ public class AdministracionDeCursosControlador implements ActionListener {
 				
 				this.vista.getMainPanel().add(cursadaABM);
 			}
+		} else if (e.getSource()== this.vista.getMenuItemTareaVer()) {
+			if (tareaABM == null) {
+				tareaABM = new TareaABMVistaPrincipal();
+				tareaABMControlador = new TareaABMVistaPrincipalControlador(modelo, tareaABM);
+				
+				this.vista.getMainPanel().add(tareaABM);
+			}
+		} else if (e.getSource()== this.vista.getMenuItemSalaVer()) {
+			if (salaABM == null) {
+				salaABM = new SalaABMVistaPrincipal();
+				salaABMControlador = new SalaABMVistaPrincipalControlador(modelo, salaABM);
+				
+				this.vista.getMainPanel().add(salaABM);
+			}
 		}
-		
 		this.vista.getFrame().repaint();		
 	}
 	
@@ -94,9 +117,17 @@ public class AdministracionDeCursosControlador implements ActionListener {
 			alumnoABM = null;
 			alumnoABMControlador = null;
 		}
-		if (cursadaABM != null) {
+		if (cursadaABMControlador != null) {
 			cursadaABM = null;
 			cursadaABMControlador = null;
+		}
+		if (tareaABMControlador != null) {
+			tareaABM = null;
+			tareaABMControlador = null;
+		}
+		if (salaABMControlador != null) {
+			salaABM = null;
+			salaABMControlador = null;
 		}
 		
 		this.vista.getMainPanel().removeAll();

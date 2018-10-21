@@ -20,6 +20,8 @@ public interface DAOAbstractFactory {
 	
 	public SalaDAO createSalaDAO();
 	
+	public SalaDisponibilidadDAO createSalaDisponibilidadDAO();
+	
 	public CursadaDAO createCursadaDAO();
 
 	public CursadaCompletaDAO createCursadaCompletaDAO();
@@ -33,5 +35,7 @@ public interface DAOAbstractFactory {
 	public DiaCursadaClaseDAO createDiaCursadaClaseDAO();
 
 	public FechaCursadaClaseDAO createFechaCursadaClaseDAO();
+	
+	public TareaDAO createTareaDAO();
 	
 }

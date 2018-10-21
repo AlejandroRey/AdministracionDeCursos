@@ -17,6 +17,7 @@ import dto.EstadoDeCursoDTO;
 import dto.FechaCursadaClaseDTO;
 import dto.InscriptoDTO;
 import dto.SalaDTO;
+import dto.TareaDTO;
 import dto.UsuarioDTO;
 import persistencia.dao.interfaz.AlumnoDAO;
 import persistencia.dao.interfaz.AlumnoEventoDAO;
@@ -35,6 +36,7 @@ import persistencia.dao.interfaz.EstadoDeCursoDAO;
 import persistencia.dao.interfaz.FechaCursadaClaseDAO;
 import persistencia.dao.interfaz.CursadaDAO;
 import persistencia.dao.interfaz.InscriptoDAO;
+import persistencia.dao.interfaz.TareaDAO;
 
 public class AdministracionDeCursos {
 
@@ -54,6 +56,7 @@ public class AdministracionDeCursos {
 	private AlumnoInscriptoDAO alumnoInscripto;
 	private InscriptoDAO inscripto;
 	private FechaCursadaClaseDAO fechaCursadaClase;
+	private TareaDAO tarea;
 
 	public AdministracionDeCursos(DAOAbstractFactory metodo_persistencia) {
 		
@@ -73,6 +76,7 @@ public class AdministracionDeCursos {
 		this.alumnoInscripto = metodo_persistencia.createAlumnoInscriptoDAO();
 		this.inscripto = metodo_persistencia.createInscriptoDAO();
 		this.fechaCursadaClase = metodo_persistencia.createFechaCursadaClaseDAO();
+		this.tarea = metodo_persistencia.createTareaDAO();
 	}
 	
 	/* ****************************************************************
@@ -320,6 +324,26 @@ public class AdministracionDeCursos {
 	
 	public List<FechaCursadaClaseDTO> obtenerFechaCursadaClase(CursadaDTO cursadaDTO) {
 		return this.fechaCursadaClase.readAll(cursadaDTO);
+	}
+	
+	/* ****************************************************************
+	 *                         Tarea
+	 * ****************************************************************
+	 */
+	public void agregarTarea(TareaDTO tareaDTO) {
+		this.tarea.insert(tareaDTO);
+	}
+
+	public void borrarTarea(TareaDTO tareaDTO) {
+		this.tarea.delete(tareaDTO);
+	}
+	
+	public void actualizarTarea(TareaDTO tareaDTO) {
+		this.tarea.update(tareaDTO);
+	}
+	
+	public List<TareaDTO> obtenerTareas() {
+		return this.tarea.readAll();
 	}
 	
 }

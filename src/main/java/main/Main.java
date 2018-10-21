@@ -57,6 +57,5 @@ public class Main {
 		AdministracionDeCursosVista vista = new AdministracionDeCursosVista();
 		AdministracionDeCursosControlador controlador = new AdministracionDeCursosControlador(modelo, vista);
 		controlador.inicializar();		
-
 	}
 }

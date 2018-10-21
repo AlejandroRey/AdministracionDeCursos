@@ -12,7 +12,7 @@ import persistencia.dao.interfaz.SalaDAO;
 
 public class SalaDAOSQL implements SalaDAO{
 	
-	private static final String insert = "INSERT INTO sala (idSala, nombre, cantidadAlumnos, cantidadPC, descripcion) VALUES (?, ?, ?, ?, ?)";
+	private static final String insert = "INSERT INTO sala (nombre, cantidadAlumnos, cantidadPC, descripcion) VALUES (?, ?, ?, ?)";
 	private static final String delete = "DELETE FROM sala WHERE idSala = ?";
 	private static final String update = "UPDATE sala SET nombre = ?, cantidadAlumnos = ?, cantidadPC = ?, descripcion = ? WHERE idSala = ?";
 	private static final String readall = "SELECT * FROM sala";
@@ -66,6 +66,7 @@ public class SalaDAOSQL implements SalaDAO{
 			statement.setInt(2, sala.getCantidadAlumnos());
 			statement.setInt(3, sala.getCantidadPc());
 			statement.setString(4, sala.getDescripcion());
+			statement.setLong(5, sala.getIdSala());;
 			if (statement.executeUpdate() > 0) // True is successfully return
 				return true;
 		} catch (SQLException e) {
