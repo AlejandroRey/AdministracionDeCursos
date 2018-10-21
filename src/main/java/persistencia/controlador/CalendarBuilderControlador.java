@@ -179,28 +179,35 @@ public class CalendarBuilderControlador implements ActionListener {
 		}
 
 		// Oculto los id del Objeto
-//		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(0).setWidth(0);
-//		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(0).setMinWidth(0);
-//		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(0).setMaxWidth(0);
-//		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(1).setWidth(0);
-//		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(1).setMinWidth(0);
-//		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(1).setMaxWidth(0);
-//		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(2).setWidth(0);
-//		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(2).setMinWidth(0);
-//		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(2).setMaxWidth(0);
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(0).setWidth(0);
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(0).setMinWidth(0);
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(0).setMaxWidth(0);
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(1).setWidth(0);
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(1).setMinWidth(0);
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(1).setMaxWidth(0);
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(2).setWidth(0);
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(2).setMinWidth(0);
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(2).setMaxWidth(0);
 		
 		// Agrego listener para obtener los valores de la fila seleccionada
 		this.vista.getTablaFechasDeCursada().setSelectionModel(new ListSelectionModelCstm());
 		this.vista.getTablaFechasDeCursada().getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
 			try {
-//				if (this.vista.getTablaFechasDeCursada().getSelectedRow() >= 0) {					
-//					Object idFechaCursadaClase = this.vista.getTablaFechasDeCursada().getValueAt(this.vista.getTablaFechasDeCursada().getSelectedRow(), 0);
-//					Object idCursada = this.vista.getTablaFechasDeCursada().getValueAt(this.vista.getTablaFechasDeCursada().getSelectedRow(), 1);
-//					Object idSala = this.vista.getTablaFechasDeCursada().getValueAt(this.vista.getTablaFechasDeCursada().getSelectedRow(), 2);
-//					Object fechaInicio = this.vista.getTablaFechasDeCursada().getValueAt(this.vista.getTablaFechasDeCursada().getSelectedRow(), 3);
-//					Object fechaFin = this.vista.getTablaFechasDeCursada().getValueAt(this.vista.getTablaFechasDeCursada().getSelectedRow(), 4);
-//
-//				}
+				if (this.vista.getTablaFechasDeCursada().getSelectedRow() >= 0) {					
+					Object idFechaCursadaClase = this.vista.getTablaFechasDeCursada().getValueAt(this.vista.getTablaFechasDeCursada().getSelectedRow(), 0);
+					Object idCursada = this.vista.getTablaFechasDeCursada().getValueAt(this.vista.getTablaFechasDeCursada().getSelectedRow(), 1);
+					Object idSala = this.vista.getTablaFechasDeCursada().getValueAt(this.vista.getTablaFechasDeCursada().getSelectedRow(), 2);
+					Object dia = this.vista.getTablaFechasDeCursada().getValueAt(this.vista.getTablaFechasDeCursada().getSelectedRow(), 3);
+					Object fechaInicio = this.vista.getTablaFechasDeCursada().getValueAt(this.vista.getTablaFechasDeCursada().getSelectedRow(), 4);
+					Object fechaFin = this.vista.getTablaFechasDeCursada().getValueAt(this.vista.getTablaFechasDeCursada().getSelectedRow(), 5);
+					Object sala = this.vista.getTablaFechasDeCursada().getValueAt(this.vista.getTablaFechasDeCursada().getSelectedRow(), 6);
+
+					this.vista.getTextSalaId().setText(idSala.toString());
+					this.vista.getTextSalaDia().setText(dia.toString());
+					this.vista.getTextSalaFechaInicio().setText(fechaInicio.toString());
+					this.vista.getTextSalaFechaFin().setText(fechaFin.toString());
+					this.vista.getTextSalaNombre().setText(sala.toString());					
+				}
 			} catch (Exception ex) {
 				System.out.println("Error: " + ex.getMessage());
 			}

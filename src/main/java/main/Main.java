@@ -29,6 +29,30 @@ public class Main {
 //			controlador.inicializar();
 		}
 		
+//		String str = "2017-10-01 01:00:00";
+//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//		LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
+//		
+//		String strStart = "2017-10-01 08:00:00";
+//		DateTimeFormatter formatterStart = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//		LocalDateTime dateTimeStart = LocalDateTime.parse(strStart, formatter);
+//		
+//		LocalDate d = dateTime.toLocalDate();
+//		System.out.println(d.toString());
+//		System.out.println(LocalDateTime.of(d, LocalTime.MIN));
+//		
+//		
+//		System.out.println(dateTime.toString());
+//		System.out.println(dateTime.plusDays(1).toString());
+//		
+//		FechaCursadaClaseDTO f = new FechaCursadaClaseDTO(1, 1, 1, dateTime, dateTimeStart);
+//		SalaDisponibleDAOSQL sql = new SalaDisponibleDAOSQL();
+//		
+//		List<SalaDisponibleDTO> salasList = sql.readAll(f);
+//		for (SalaDisponibleDTO salaDisponibleDTO : salasList) {
+//			System.out.println(salaDisponibleDTO.toString());
+//		}
+		
 		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
 		AdministracionDeCursosVista vista = new AdministracionDeCursosVista();
 		AdministracionDeCursosControlador controlador = new AdministracionDeCursosControlador(modelo, vista);

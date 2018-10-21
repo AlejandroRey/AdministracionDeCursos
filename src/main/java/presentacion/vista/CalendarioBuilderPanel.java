@@ -21,6 +21,7 @@ import javax.swing.table.TableColumn;
 import com.github.lgooddatepicker.components.TimePicker;
 
 import dto.DiasDTO;
+import javax.swing.JSeparator;
 
 @SuppressWarnings("serial")
 public class CalendarioBuilderPanel extends JPanel {
@@ -40,19 +41,36 @@ public class CalendarioBuilderPanel extends JPanel {
 	private DefaultTableModel modelDiasDeCursada;
 	private String[] nombreColumnasDiasDeCursada = {"idCursada", "idDia", "Dia", "Hora Inicio", "Hora Fin"};
 	
-	private JButton btnEliminar;
-	
 	private JScrollPane spFechasDeCursada;
 	private JTable tablaFechasDeCursada;
 	private DefaultTableModel modelFechasDeCursada;
 	private String[] nombreColumnasFechasDeCursada = {"", "", "", "Dia", "Fecha Inicio", "Fecha Fin", "Sala"};
+	private JButton btnEliminar;
 	
 	private JPanel panelHorario;
 	private JButton btnGenerarHorario;
 	
+	private JPanel panelSalas;
+	private JTable tablaSalas;
+	private JScrollPane spSalas;
+	private DefaultTableModel modelSalas;
+	private String[] nombreColumnasSalas = {"idSala", "Desde", "Hasta", "Estado"};
+	private JButton btnAsignarSala;
+	
+	private JTextField textSalaDia;
+	private JLabel lblFechaIni;
+	private JTextField textSalaFechaInicio;
+	private JLabel lblFechaFin;
+	private JTextField textSalaFechaFin;
+	private JLabel lblSala;
+	private JTextField textSalaNombre;
+	private JLabel lblIdsala;
+	private JTextField textSalaId;
+	
+	
 	public CalendarioBuilderPanel() {
 		super();
-		this.setBounds(0, 0, 650, 650);
+		this.setBounds(0, 0, 1000, 650);
 		this.setLayout(null);
 		
 		initialize();
@@ -65,6 +83,8 @@ public class CalendarioBuilderPanel extends JPanel {
 		buildTablaSeleccionarDiasDeCursada();
 		buildPanelDiasDeCursadaGenerados();
 		buildTablaDiasDeCursadaGenerados();
+		buildPanelSalasDisponibles();
+		buildTablaSalas();
 	}
 	
 	private void buildFechaDeInicio() {
@@ -168,7 +188,6 @@ public class CalendarioBuilderPanel extends JPanel {
 		panelHorario.setBorder(new TitledBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), "Calendario de Cursada", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panelHorario.setBounds(300, 11, 319, 516);
 		add(panelHorario);
-		panelHorario.setLayout(null);
 	}
 
 	private void buildTablaDiasDeCursadaGenerados() {
@@ -195,6 +214,90 @@ public class CalendarioBuilderPanel extends JPanel {
 		btnGenerarHorario = new JButton("Generar Calendario de Cursada");
 		btnGenerarHorario.setBounds(10, 483, 300, 23);
 		panelHorario.add(btnGenerarHorario);
+	}
+	
+	private void buildPanelSalasDisponibles() {
+		
+		panelSalas = new JPanel();
+		panelSalas.setLayout(null);
+		panelSalas.setBorder(new TitledBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), "Salas Disponibles", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panelSalas.setBounds(629, 11, 319, 516);
+		add(panelSalas);
+	}
+	
+	private void buildTablaSalas() {
+
+		spSalas = new JScrollPane();
+		spSalas.setBounds(10, 26, 300, 275);
+		panelSalas.add(spSalas);
+		
+		modelSalas = new DefaultTableModel(null, nombreColumnasSalas);
+		tablaSalas = new JTable(modelSalas){
+		    @Override
+		       public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+		           Component component = super.prepareRenderer(renderer, row, column);
+		           int rendererWidth = component.getPreferredSize().width;
+		           TableColumn tableColumn = getColumnModel().getColumn(column);
+		           tableColumn.setPreferredWidth(Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
+		           return component;
+		        }
+		    };
+		tablaSalas.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+		//tablaFechasDeCursada.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);		
+		spSalas.setViewportView(tablaSalas);			
+		
+		btnAsignarSala = new JButton("Asignar Sala");
+		btnAsignarSala.setBounds(10, 483, 300, 23);
+		panelSalas.add(btnAsignarSala);
+		
+		JLabel lblNewLabel = new JLabel("Dia:");
+		lblNewLabel.setBounds(10, 337, 66, 14);
+		panelSalas.add(lblNewLabel);
+		
+		textSalaDia = new JTextField();
+		textSalaDia.setBounds(76, 337, 105, 20);
+		panelSalas.add(textSalaDia);
+		textSalaDia.setColumns(10);
+		
+		lblFechaIni = new JLabel("Fecha Ini:");
+		lblFechaIni.setBounds(10, 372, 66, 14);
+		panelSalas.add(lblFechaIni);
+		
+		textSalaFechaInicio = new JTextField();
+		textSalaFechaInicio.setColumns(10);
+		textSalaFechaInicio.setBounds(76, 372, 105, 20);
+		panelSalas.add(textSalaFechaInicio);
+		
+		lblFechaFin = new JLabel("Fecha Fin:");
+		lblFechaFin.setBounds(10, 407, 66, 14);
+		panelSalas.add(lblFechaFin);
+		
+		textSalaFechaFin = new JTextField();
+		textSalaFechaFin.setColumns(10);
+		textSalaFechaFin.setBounds(76, 407, 105, 20);
+		panelSalas.add(textSalaFechaFin);
+		
+		lblSala = new JLabel("Sala:");
+		lblSala.setBounds(10, 438, 66, 14);
+		panelSalas.add(lblSala);
+		
+		textSalaNombre = new JTextField();
+		textSalaNombre.setColumns(10);
+		textSalaNombre.setBounds(76, 438, 105, 20);
+		panelSalas.add(textSalaNombre);
+		
+		lblIdsala = new JLabel("idSala:");
+		lblIdsala.setBounds(205, 337, 51, 14);
+		panelSalas.add(lblIdsala);
+		
+		textSalaId = new JTextField();
+		textSalaId.setColumns(10);
+		textSalaId.setBounds(253, 337, 57, 20);
+		panelSalas.add(textSalaId);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(10, 312, 300, 3);
+		panelSalas.add(separator);
 	}
 
 	/**
@@ -463,5 +566,158 @@ public class CalendarioBuilderPanel extends JPanel {
 		this.btnGenerarHorario = btnGenerarHorario;
 	}
 
+	/**
+	 * @return the panelSalas
+	 */
+	public JPanel getPanelSalas() {
+		return panelSalas;
+	}
+
+	/**
+	 * @param panelSalas the panelSalas to set
+	 */
+	public void setPanelSalas(JPanel panelSalas) {
+		this.panelSalas = panelSalas;
+	}
+
+	/**
+	 * @return the tablaSalas
+	 */
+	public JTable getTablaSalas() {
+		return tablaSalas;
+	}
+
+	/**
+	 * @param tablaSalas the tablaSalas to set
+	 */
+	public void setTablaSalas(JTable tablaSalas) {
+		this.tablaSalas = tablaSalas;
+	}
+
+	/**
+	 * @return the spSalas
+	 */
+	public JScrollPane getSpSalas() {
+		return spSalas;
+	}
+
+	/**
+	 * @param spSalas the spSalas to set
+	 */
+	public void setSpSalas(JScrollPane spSalas) {
+		this.spSalas = spSalas;
+	}
+
+	/**
+	 * @return the modelSalas
+	 */
+	public DefaultTableModel getModelSalas() {
+		return modelSalas;
+	}
+
+	/**
+	 * @param modelSalas the modelSalas to set
+	 */
+	public void setModelSalas(DefaultTableModel modelSalas) {
+		this.modelSalas = modelSalas;
+	}
+
+	/**
+	 * @return the nombreColumnasSalas
+	 */
+	public String[] getNombreColumnasSalas() {
+		return nombreColumnasSalas;
+	}
+
+	/**
+	 * @param nombreColumnasSalas the nombreColumnasSalas to set
+	 */
+	public void setNombreColumnasSalas(String[] nombreColumnasSalas) {
+		this.nombreColumnasSalas = nombreColumnasSalas;
+	}
+
+	/**
+	 * @return the btnAsignarSala
+	 */
+	public JButton getBtnAsignarSala() {
+		return btnAsignarSala;
+	}
+
+	/**
+	 * @param btnAsignarSala the btnAsignarSala to set
+	 */
+	public void setBtnAsignarSala(JButton btnAsignarSala) {
+		this.btnAsignarSala = btnAsignarSala;
+	}
+
+	/**
+	 * @return the textSalaDia
+	 */
+	public JTextField getTextSalaDia() {
+		return textSalaDia;
+	}
+
+	/**
+	 * @param textSalaDia the textSalaDia to set
+	 */
+	public void setTextSalaDia(JTextField textSalaDia) {
+		this.textSalaDia = textSalaDia;
+	}
+
+	/**
+	 * @return the textSalaFechaInicio
+	 */
+	public JTextField getTextSalaFechaInicio() {
+		return textSalaFechaInicio;
+	}
+
+	/**
+	 * @param textSalaFechaInicio the textSalaFechaInicio to set
+	 */
+	public void setTextSalaFechaInicio(JTextField textSalaFechaInicio) {
+		this.textSalaFechaInicio = textSalaFechaInicio;
+	}
+
+	/**
+	 * @return the textSalaFechaFin
+	 */
+	public JTextField getTextSalaFechaFin() {
+		return textSalaFechaFin;
+	}
+
+	/**
+	 * @param textSalaFechaFin the textSalaFechaFin to set
+	 */
+	public void setTextSalaFechaFin(JTextField textSalaFechaFin) {
+		this.textSalaFechaFin = textSalaFechaFin;
+	}
+
+	/**
+	 * @return the textSalaNombre
+	 */
+	public JTextField getTextSalaNombre() {
+		return textSalaNombre;
+	}
+
+	/**
+	 * @param textSalaNombre the textSalaNombre to set
+	 */
+	public void setTextSalaNombre(JTextField textSalaNombre) {
+		this.textSalaNombre = textSalaNombre;
+	}
+
+	/**
+	 * @return the textSalaId
+	 */
+	public JTextField getTextSalaId() {
+		return textSalaId;
+	}
+
+	/**
+	 * @param textSalaId the textSalaId to set
+	 */
+	public void setTextSalaId(JTextField textSalaId) {
+		this.textSalaId = textSalaId;
+	}
 }
 
