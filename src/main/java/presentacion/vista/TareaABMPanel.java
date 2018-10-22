@@ -14,7 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
@@ -32,7 +31,13 @@ public class TareaABMPanel extends JPanel {
 	private JTable tableTareas;
 	private DefaultTableModel modelTareas;
 	private TableRowSorter<TableModel> modeloOrdenado;
-	private String[] nombreColumnas = {"Tarea", "Descripcion", "Estado", "Responsable" , "Fecha de Creacion", "Fecha de cierre"};
+	private String[] nombreColumnas = {"ID", "Tarea", "Descripcion", "Estado", "Responsable" , "ID Reponsable", "Fecha de Creacion", "Fecha de cierre"};
+	
+	private JScrollPane spAdministrativos;
+	private JTable tableAdministrativos;
+	private DefaultTableModel modelAdministrativos;
+	private TableRowSorter<TableModel> modeloOrdenadoAdministrativos;
+	private String[] nombreColumnasAdministrativos = {"Id", "idCategoria", "Categoria", "Nombre", "Apellido", "Telefono", "Email", "Usuario", "Password"};
 	
 	private JPanel panelEditor;
 	private JTextField txtNombre;
@@ -60,13 +65,14 @@ public class TareaABMPanel extends JPanel {
 		inicializarPanel();
 		inicializarTablaTareas(); 
 		inicializarPanelEditorTareas();
+		inicializarPanelAdministrativos();
 		inicializarLbls();
 		inicializarTxts();
 		inicializarBtns();
 	}
 
 	private void inicializarPanel() {
-		setBounds(0, 0, 759, 627);
+		setBounds(0, 0, 1181, 627);
 		setLayout(null);
 	}
 
@@ -78,12 +84,36 @@ public class TareaABMPanel extends JPanel {
 		this.add(panelEditor);
 	}
 	
+	private void inicializarPanelAdministrativos() {
+		spAdministrativos = new JScrollPane();
+		spAdministrativos.setBounds(758, 27, 396, 578);
+		spAdministrativos.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Administrativos:", TitledBorder.LEADING, TitledBorder.TOP, null, UIManager.getColor("textText")));
+		this.add(spAdministrativos);
+		
+		modelAdministrativos = new DefaultTableModel(null, nombreColumnasAdministrativos){public boolean isCellEditable(int row, int column){return false;}};
+		tableAdministrativos = new JTable(modelAdministrativos){
+			@Override
+		       public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+		           Component component = super.prepareRenderer(renderer, row, column);
+		           int rendererWidth = component.getPreferredSize().width;
+		           TableColumn tableColumn = getColumnModel().getColumn(column);
+		           tableColumn.setPreferredWidth(Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
+		           return component;
+		        }
+		};
+		tableAdministrativos.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+		spAdministrativos.setViewportView(tableAdministrativos);
+		
+		modeloOrdenadoAdministrativos = new TableRowSorter<TableModel>(modelAdministrativos);
+		tableAdministrativos.setRowSorter(modeloOrdenadoAdministrativos);
+	}
+
 	private void inicializarTablaTareas() {
 		spTareas = new JScrollPane();
 		spTareas.setBounds(27, 27, 706, 310);
 		this.add(spTareas);
 		
-		modelTareas = new DefaultTableModel(null, nombreColumnas);
+		modelTareas = new DefaultTableModel(null, nombreColumnas){public boolean isCellEditable(int row, int column){return false;}};
 		tableTareas = new JTable(modelTareas){
 			@Override
 		       public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
@@ -160,7 +190,7 @@ public class TareaABMPanel extends JPanel {
 
 	private void inicializarBtns() {
 		btnSeleccionarResponsable = new JButton("Seleccionar Responsable");
-		btnSeleccionarResponsable.setBounds(513, 55, 151, 23);
+		btnSeleccionarResponsable.setBounds(493, 55, 171, 23);
 		panelEditor.add(btnSeleccionarResponsable);
 		
 		btnAgregar = new JButton("Agregar");
@@ -176,8 +206,8 @@ public class TareaABMPanel extends JPanel {
 		panelEditor.add(btnEliminar);
 		
 		lblId = new JLabel("ID:");
-		lblId.setEnabled(false);
 		lblId.setVisible(false);
+		lblId.setEnabled(false);
 		lblId.setBounds(248, 98, 30, 14);
 		panelEditor.add(lblId);
 		
@@ -190,9 +220,9 @@ public class TareaABMPanel extends JPanel {
 		txtID.setColumns(10);
 		
 		txtIDResponsable = new JTextField();
+		txtIDResponsable.setVisible(false);
 		txtIDResponsable.setEditable(false);
 		txtIDResponsable.setEnabled(false);
-		txtIDResponsable.setVisible(false);
 		txtIDResponsable.setBounds(578, 89, 86, 20);
 		panelEditor.add(txtIDResponsable);
 		txtIDResponsable.setColumns(10);
@@ -331,6 +361,78 @@ public class TareaABMPanel extends JPanel {
 	 */
 	public void setTxtIDResponsable(JTextField txtIDResponsable) {
 		this.txtIDResponsable = txtIDResponsable;
+	}
+	
+	/**
+	 * @return the tableAdministrativos
+	 */
+	public JTable getTableAdministrativos() {
+		return tableAdministrativos;
+	}
+
+	/**
+	 * @param tableAdministrativos the tableAdministrativos to set
+	 */
+	public void setTableAdministrativos(JTable tableAdministrativos) {
+		this.tableAdministrativos = tableAdministrativos;
+	}
+
+	/**
+	 * @return the modelAdministrativos
+	 */
+	public DefaultTableModel getModelAdministrativos() {
+		return modelAdministrativos;
+	}
+
+	/**
+	 * @param modelAdministrativos the modelAdministrativos to set
+	 */
+	public void setModelAdministrativos(DefaultTableModel modelAdministrativos) {
+		this.modelAdministrativos = modelAdministrativos;
+	}
+
+	/**
+	 * @return the modeloOrdenadoAdministrativos
+	 */
+	public TableRowSorter<TableModel> getModeloOrdenadoAdministrativos() {
+		return modeloOrdenadoAdministrativos;
+	}
+
+	/**
+	 * @param modeloOrdenadoAdministrativos the modeloOrdenadoAdministrativos to set
+	 */
+	public void setModeloOrdenadoAdministrativos(
+			TableRowSorter<TableModel> modeloOrdenadoAdministrativos) {
+		this.modeloOrdenadoAdministrativos = modeloOrdenadoAdministrativos;
+	}
+
+	/**
+	 * @return the nombreColumnasAdministrativos
+	 */
+	public String[] getNombreColumnasAdministrativos() {
+		return nombreColumnasAdministrativos;
+	}
+
+	/**
+	 * @param nombreColumnasAdministrativos the nombreColumnasAdministrativos to set
+	 */
+	public void setNombreColumnasAdministrativos(
+			String[] nombreColumnasAdministrativos) {
+		this.nombreColumnasAdministrativos = nombreColumnasAdministrativos;
+	}
+	
+	/**
+	 * @return the spAdministrativos
+	 */
+	public JScrollPane getSpAdministrativos() {
+		return spAdministrativos;
+	}
+
+	/**
+	 * @param spAdministrativos the spAdministrativos to set
+	 */
+	public void setSpAdministrativos(JScrollPane spAdministrativos) {
+		this.spAdministrativos = spAdministrativos;
 	}
 }
 

@@ -28,7 +28,6 @@ public class Main {
 //			AdministracionDeCursosControlador controlador = new AdministracionDeCursosControlador(vista, modelo);
 //			controlador.inicializar();
 		}
-		
 		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
 		AdministracionDeCursosVista vista = new AdministracionDeCursosVista();
 		AdministracionDeCursosControlador controlador = new AdministracionDeCursosControlador(modelo, vista);

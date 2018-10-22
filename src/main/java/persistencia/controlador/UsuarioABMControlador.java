@@ -38,12 +38,20 @@ public class UsuarioABMControlador implements ActionListener {
 	public void inicializar() {
 		setCategorias();
 		llenarTabla();
+		loadCategorias();
 	}
 	
 	private void setCategorias() {		
 		categoriaLista = modelo.obtenerCategorias();
 		for (CategoriaDTO categoriaFiltroDTO : categoriaLista) {
 			this.vista.getCbxCategoriaFiltro().addItem(categoriaFiltroDTO);
+		}
+	}
+	
+	private void loadCategorias() {
+		this.vista.getCbxCategoria().addItem(new CategoriaDTO(0, ""));
+		for (CategoriaDTO categoriaFiltroDTO : categoriaLista) {
+			this.vista.getCbxCategoria().addItem(categoriaFiltroDTO);
 		}
 	}
 

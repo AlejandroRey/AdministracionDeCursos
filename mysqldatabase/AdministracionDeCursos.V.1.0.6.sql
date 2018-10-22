@@ -298,7 +298,7 @@ CREATE TABLE IF NOT EXISTS `gestiondecursos`.`tarea` (
   `idTarea` INT NOT NULL AUTO_INCREMENT,
   `idAdministrativo` INT NOT NULL,
   `nombre` VARCHAR(45) NOT NULL,
-  `descripcion` VARCHAR(45) NOT NULL,
+  `descripcion` VARCHAR(1024) NOT NULL,
   `estado` VARCHAR(45) NOT NULL,
   `fechaCreacion` DATETIME NOT NULL,
   `fechaCierre` DATETIME,

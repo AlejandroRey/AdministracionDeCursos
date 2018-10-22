@@ -90,7 +90,7 @@ public class SalaABMPanel extends JPanel{
 		spSalaHorarios.setBounds(10, 37, 284, 417);
 		panelSalaHorarios.add(spSalaHorarios);
 		
-		modelSalasHs = new DefaultTableModel(null, nombreColumnasSalaHs);
+		modelSalasHs = new DefaultTableModel(null, nombreColumnasSalaHs){public boolean isCellEditable(int row, int column){return false;}};
 		tbSalaHorarios = new JTable(modelSalasHs){
 			@Override
 		       public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
@@ -110,7 +110,7 @@ public class SalaABMPanel extends JPanel{
 		spSalas.setBounds(27, 27, 706, 310);
 		this.add(spSalas);
 		
-		modelSalas = new DefaultTableModel(null, nombreColumnas);
+		modelSalas = new DefaultTableModel(null, nombreColumnas){public boolean isCellEditable(int row, int column){return false;}};
 		tableSalas = new JTable(modelSalas){
 			@Override
 		       public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {

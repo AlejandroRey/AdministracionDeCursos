@@ -71,7 +71,7 @@ public class TareaDAOSQL implements TareaDAO{
 			statement.setString(4, tarea.getEstado());
 			statement.setTimestamp(5, convertToTimeStamp(tarea.getFechaCreacion()));
 			statement.setTimestamp(6, convertToTimeStamp(tarea.getFechaCierre()));
-			statement.setLong(1, tarea.getIdTarea());
+			statement.setLong(7, tarea.getIdTarea());
 			if (statement.executeUpdate() > 0) // True is successfully return
 				return true;
 		} catch (SQLException e) {
@@ -93,7 +93,7 @@ public class TareaDAOSQL implements TareaDAO{
 			resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				LocalDateTime fechaCreacion = resultSet.getTimestamp("fechaCreacion").toLocalDateTime();
-				LocalDateTime fechaCierre = resultSet.getTimestamp("fechaCierre").toLocalDateTime();
+				LocalDateTime fechaCierre = convertToLocalDateTime(resultSet.getTimestamp("fechaCierre"));
 				tareas.add(new TareaDTO(resultSet.getLong("idTarea"), 
 											resultSet.getLong("idAdministrativo"),
 											resultSet.getString("nombre"), 
@@ -111,14 +111,11 @@ public class TareaDAOSQL implements TareaDAO{
 	}
 	
 	public Timestamp convertToTimeStamp(LocalDateTime ldt) {
-		return Timestamp.valueOf(ldt);
+		return ldt != null ? Timestamp.valueOf(ldt) : null;
 	}
 
 	public LocalDateTime convertToLocalDateTime(Timestamp ts) {
-		if (ts != null) {
-			return ts.toLocalDateTime();
-		}
-		return null;
+		return ts != null ? ts.toLocalDateTime() : null;
 	}
 
 }
