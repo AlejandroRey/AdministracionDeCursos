@@ -18,7 +18,7 @@ public class FechaCursadaClaseDAOSQL implements FechaCursadaClaseDAO {
 	private static final String insert = "INSERT INTO fechacursadaclase (idCursada, idSala, fechaInicio, fechaFin) VALUES (?, ?, ?, ?)";
 	private static final String delete = "DELETE FROM fechacursadaclase WHERE idFechaCursadaClase = ?";
 	private static final String update = "UPDATE fechacursadaclase SET idFechaCursadaClase = ?, idCursada = ?, idSala = ?, fechaInicio = ?, fechaFin = ? WHERE idFechaCursadaClase = ?";
-	private static final String readall = "SELECT * FROM idFechaCursadaClase WHERE idCursada = ?";
+	private static final String readall = "SELECT * FROM fechacursadaclase WHERE idCursada = ?";
 
 	@Override
 	public boolean insert(FechaCursadaClaseDTO fechaCursadaClaseDTO) {
@@ -92,6 +92,7 @@ public class FechaCursadaClaseDAOSQL implements FechaCursadaClaseDAO {
 		Conexion conexion = Conexion.getConexion();
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(readall);
+			statement.setLong(1, cursadaDTO.getIdCursada());
 			resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				fechasCursadasClases.add(new FechaCursadaClaseDTO(resultSet.getLong("idFechaCursadaClase"), 

@@ -17,6 +17,7 @@ import persistencia.dao.interfaz.FechaCursadaClaseDAO;
 import persistencia.dao.interfaz.InscriptoDAO;
 import persistencia.dao.interfaz.SalaDAO;
 import persistencia.dao.interfaz.SalaDisponibilidadDAO;
+import persistencia.dao.interfaz.SalaDisponibleDAO;
 import persistencia.dao.interfaz.UsuarioDAO;
 import persistencia.dao.interfaz.TareaDAO;
 
@@ -122,5 +123,11 @@ public class DAOSQLFactory implements DAOAbstractFactory {
 	public SalaDisponibilidadDAO createSalaDisponibilidadDAO() {
 		// TODO Auto-generated method stub
 		return new SalaDisponibilidadDAOSQL();
+	}
+
+	@Override
+	public SalaDisponibleDAO createSalaDisponibleDAO() {
+		// TODO Auto-generated method stub
+		return new SalaDisponibleDAOSQL();
 	}
 }

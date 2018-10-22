@@ -435,4 +435,3 @@ public class TareaABMPanel extends JPanel {
 		this.spAdministrativos = spAdministrativos;
 	}
 }
-
