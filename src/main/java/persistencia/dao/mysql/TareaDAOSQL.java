@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+//<<<<<<< HEAD
 package persistencia.dao.mysql;
 
 import java.sql.PreparedStatement;
