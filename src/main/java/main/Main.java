@@ -3,10 +3,12 @@ package main;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import modelo.AdministracionDeCursos;
-import persistencia.controlador.AdministracionDeCursosControlador;
-import persistencia.dao.mysql.DAOSQLFactory;
-import presentacion.vista.AdministracionDeCursosVista;
+//import modelo.AdministracionDeCursos;
+//import persistencia.controlador.AdministracionDeCursosControlador;
+import persistencia.controlador.VistaInicialControlador;
+//import persistencia.dao.mysql.DAOSQLFactory;
+//import presentacion.vista.AdministracionDeCursosVista;
+import presentacion.vista.VistaInicial;
 
 public class Main {
 
@@ -53,9 +55,13 @@ public class Main {
 //			System.out.println(salaDisponibleDTO.toString());
 //		}
 		
-		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
+		/*AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
 		AdministracionDeCursosVista vista = new AdministracionDeCursosVista();
 		AdministracionDeCursosControlador controlador = new AdministracionDeCursosControlador(modelo, vista);
-		controlador.inicializar();		
+		controlador.inicializar();*/
+		
+		VistaInicial vista = new VistaInicial();
+		VistaInicialControlador controlador = new VistaInicialControlador(vista);
+		controlador.inicializar();
 	}
 }
