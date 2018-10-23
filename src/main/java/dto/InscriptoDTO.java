@@ -7,12 +7,14 @@ public class InscriptoDTO {
 	private long idAlumno;
 	private long idCursada;
 	private LocalDateTime fecha;
+	private boolean estado;
 	
-	public InscriptoDTO(long idAlumno, long idCursada, LocalDateTime fecha) {
+	public InscriptoDTO(long idAlumno, long idCursada, LocalDateTime fecha, boolean estado) {
 		super();
 		this.idAlumno = idAlumno;
 		this.idCursada = idCursada;
 		this.fecha = fecha;
+		this.estado = estado;
 	}
 
 	/**
@@ -57,12 +59,27 @@ public class InscriptoDTO {
 		this.fecha = fecha;
 	}
 
+	/**
+	 * @return the estado
+	 */
+	public boolean isEstado() {
+		return estado;
+	}
+
+	/**
+	 * @param estado the estado to set
+	 */
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "InscritptoDTO [idAlumno: " + idAlumno + ", idCursada: " + idCursada + ", fecha: " + fecha + "]";
+		return "InscriptoDTO [idAlumno=" + idAlumno + ", idCursada=" + idCursada + ", fecha=" + fecha + ", estado="
+				+ estado + "]";
 	}
 
 }

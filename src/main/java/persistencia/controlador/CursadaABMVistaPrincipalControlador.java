@@ -2,14 +2,19 @@ package persistencia.controlador;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
+import java.time.LocalDateTime;
 
 import javax.swing.JPanel;
 
 import dto.CursadaDTO;
 import modelo.AdministracionDeCursos;
+import persistencia.dao.mysql.DAOSQLFactory;
+import presentacion.vista.AlumnosAsistenciaPanel;
+import presentacion.vista.AlumnosInscriptosPanel;
 import presentacion.vista.CalendarioBuilderPanel;
 import presentacion.vista.CursadaABMPanel;
 import presentacion.vista.CursadaABMVistaPrincipal;
+import presentacion.vista.TestFrame;
 
 public class CursadaABMVistaPrincipalControlador {
 	
@@ -23,6 +28,9 @@ public class CursadaABMVistaPrincipalControlador {
 	
 	private CalendarBuilderControlador calendarioControlador;
 	private CalendarioBuilderPanel calendario;
+	
+	private AlumnosInscriptosControlador alumnosInscriptosControlador;
+	private AlumnosInscriptosPanel alumnosInscriptos;	
 	
 	public CursadaABMVistaPrincipalControlador(AdministracionDeCursos modelo, CursadaABMVistaPrincipal vista) {
 		super();
@@ -124,6 +132,21 @@ public class CursadaABMVistaPrincipalControlador {
 								  this.vista.getBtnInscriptos(),
 								  this.vista.getBtnPagos()});
 		
+		
+		CursadaDTO xcursadaDTO = new CursadaDTO(1, 
+											   1, 
+											   1, 
+											   1, 
+											   LocalDateTime.now(), 
+											   LocalDateTime.now(), 
+											   "1", 
+											   LocalDateTime.now(), 
+											   15);
+		TestFrame vistaMain = new TestFrame();
+		AlumnosAsistenciaPanel vista = vistaMain.getAlumnosAsistenciaPanel();
+		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
+		AlumnosAsistenciaControlador controlador = new AlumnosAsistenciaControlador(vista, modelo, cursadaDTO);
+		controlador.inicializar();		
 	}
 
 	private void btnCalendario_MousePressed(MouseEvent evt) {
@@ -163,7 +186,17 @@ public class CursadaABMVistaPrincipalControlador {
 		resetColor(new JPanel[] { this.vista.getBtnAsistencias(), 
 								  this.vista.getBtnCalendario(),
 								  this.vista.getBtnEvaluaciones(),
-								  this.vista.getBtnPagos()});		
+								  this.vista.getBtnPagos()});
+		
+		if (alumnosInscriptos == null && cursadaDTO != null) {
+			alumnosInscriptos =  new AlumnosInscriptosPanel();
+			alumnosInscriptosControlador = new AlumnosInscriptosControlador(alumnosInscriptos, modelo, cursadaDTO);
+			alumnosInscriptosControlador.inicializar();
+			
+			this.vista.getMainPanel().add(alumnosInscriptos);
+		}
+		
+		refreshVistas();
 	}	
 
 	private void btnPagos_MousePressed(MouseEvent evt) {
@@ -278,6 +311,10 @@ public class CursadaABMVistaPrincipalControlador {
 		if (calendario != null) {
 			calendario = null;
 			calendarioControlador = null;
+		}
+		if (alumnosInscriptos != null) {
+			alumnosInscriptos = null;
+			alumnosInscriptosControlador = null;
 		}
 		
 		this.vista.getMainPanel().removeAll();

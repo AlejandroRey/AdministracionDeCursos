@@ -2,6 +2,7 @@ package presentacion.vista;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.SystemColor;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -11,19 +12,19 @@ import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
+import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 @SuppressWarnings("serial")
-public class AdescarteAlumnosInscriptosPanel extends JPanel {
+public class AlumnosInscriptosPanel extends JPanel {
 
 	private JScrollPane spAlumnos;
 	private DefaultTableModel modelAlumnos;
 	private JTable tblAlumnos;
-	private String[] nombreColumnas = {"idAlumno", "idCursada", "Nombre", "Apellido", "Telefono", "Email", "Fecha Insc"};
+	private String[] nombreColumnas = {"", "", "Nombre", "Apellido", "Telefono", "Email", "Fecha Insc"};
 	
 	private JPanel panel;
 	
@@ -37,15 +38,15 @@ public class AdescarteAlumnosInscriptosPanel extends JPanel {
 	
 	private JPanel panelButtons;
 	private JButton btnAgregar;
-	private JButton btnActualizar;
 	private JButton btnEliminar;
-	private JButton btnCerrar;
 
 	/**
 	 * Create the frame.
 	 */
-	public AdescarteAlumnosInscriptosPanel() {
+	public AlumnosInscriptosPanel() {
 		super();
+		this.setBounds(0, 0, 630, 600);
+		this.setLayout(null);
 		inicializar();
 	}
 
@@ -57,7 +58,6 @@ public class AdescarteAlumnosInscriptosPanel extends JPanel {
 	}
 
 	private void inicializarTabla() {
-		setLayout(null);
 		
 		spAlumnos = new JScrollPane();
 		spAlumnos.setBounds(10, 10, 610, 310);
@@ -82,7 +82,7 @@ public class AdescarteAlumnosInscriptosPanel extends JPanel {
 	private void inicializarEditor() {		
 		panel = new JPanel();
 		panel.setBounds(65, 336, 500, 120);
-		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Alumno - Inscripto:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 255)));
+		panel.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Alumno - Inscripto:", TitledBorder.LEADING, TitledBorder.TOP, null, SystemColor.desktop));
 		panel.setLayout(null);
 		this.add(panel);
 		
@@ -113,6 +113,7 @@ public class AdescarteAlumnosInscriptosPanel extends JPanel {
 		panel.add(lblNombre);
 		
 		textNombre = new JTextField();
+		textNombre.setEnabled(false);
 		textNombre.setHorizontalAlignment(SwingConstants.LEFT);
 		textNombre.setColumns(10);
 		textNombre.setBounds(97, 24, 141, 20);
@@ -123,6 +124,7 @@ public class AdescarteAlumnosInscriptosPanel extends JPanel {
 		panel.add(lblApellido);
 		
 		textApellido = new JTextField();
+		textApellido.setEnabled(false);
 		textApellido.setHorizontalAlignment(SwingConstants.LEFT);
 		textApellido.setColumns(10);
 		textApellido.setBounds(334, 24, 141, 20);
@@ -133,6 +135,7 @@ public class AdescarteAlumnosInscriptosPanel extends JPanel {
 		panel.add(lblTelefono);
 		
 		textTelefono = new JTextField();
+		textTelefono.setEnabled(false);
 		textTelefono.setHorizontalAlignment(SwingConstants.LEFT);
 		textTelefono.setColumns(10);
 		textTelefono.setBounds(97, 55, 141, 20);
@@ -143,6 +146,7 @@ public class AdescarteAlumnosInscriptosPanel extends JPanel {
 		panel.add(lblEmail);
 		
 		textEmail = new JTextField();
+		textEmail.setEnabled(false);
 		textEmail.setHorizontalAlignment(SwingConstants.LEFT);
 		textEmail.setColumns(10);
 		textEmail.setBounds(334, 52, 141, 20);
@@ -153,43 +157,34 @@ public class AdescarteAlumnosInscriptosPanel extends JPanel {
 		panel.add(lblFecha);
 		
 		textFecha = new JTextField();
+		textFecha.setEnabled(false);
 		textFecha.setHorizontalAlignment(SwingConstants.LEFT);
 		textFecha.setColumns(10);
 		textFecha.setBounds(97, 83, 141, 20);
 		panel.add(textFecha);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 325, 610, 1);
-		separator.setForeground(Color.BLUE);
-		separator.setBackground(Color.BLUE);
+		separator.setBounds(10, 325, 610, 2);
+		separator.setForeground(SystemColor.activeCaption);
+		separator.setBackground(SystemColor.activeCaption);
 		this.add(separator);
 	}
 
 	private void inicializarPanelButtons() {
 		
 		panelButtons = new JPanel();
-		panelButtons.setBounds(65, 470, 500, 35);
+		panelButtons.setBounds(65, 470, 500, 84);
 		this.add(panelButtons);
 		panelButtons.setLayout(null);
 		
 		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(10, 5, 71, 23);
-		btnAgregar.setVisible(false);
+		btnAgregar.setBounds(108, 46, 280, 30);
+		btnAgregar.setVisible(true);
 		panelButtons.add(btnAgregar);
 		
-		btnActualizar = new JButton("Actualizar");
-		btnActualizar.setBounds(91, 5, 79, 23);
-		btnActualizar.setVisible(false);
-		panelButtons.add(btnActualizar);
-		
 		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(177, 5, 153, 23);
+		btnEliminar.setBounds(108, 5, 280, 30);
 		panelButtons.add(btnEliminar);
-		
-		btnCerrar = new JButton("Cerrar");
-		btnCerrar.setBounds(335, 5, 63, 23);
-		btnCerrar.setVisible(false);
-		panelButtons.add(btnCerrar);
 	}
 
 	/**
@@ -389,20 +384,6 @@ public class AdescarteAlumnosInscriptosPanel extends JPanel {
 	}
 
 	/**
-	 * @return the btnActualizar
-	 */
-	public JButton getBtnActualizar() {
-		return btnActualizar;
-	}
-
-	/**
-	 * @param btnActualizar the btnActualizar to set
-	 */
-	public void setBtnActualizar(JButton btnActualizar) {
-		this.btnActualizar = btnActualizar;
-	}
-
-	/**
 	 * @return the btnEliminar
 	 */
 	public JButton getBtnEliminar() {
@@ -414,20 +395,6 @@ public class AdescarteAlumnosInscriptosPanel extends JPanel {
 	 */
 	public void setBtnEliminar(JButton btnEliminar) {
 		this.btnEliminar = btnEliminar;
-	}
-
-	/**
-	 * @return the btnCerrar
-	 */
-	public JButton getBtnCerrar() {
-		return btnCerrar;
-	}
-
-	/**
-	 * @param btnCerrar the btnCerrar to set
-	 */
-	public void setBtnCerrar(JButton btnCerrar) {
-		this.btnCerrar = btnCerrar;
 	}
 
 }

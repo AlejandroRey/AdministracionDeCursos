@@ -9,6 +9,8 @@ public class FechaCursadaClaseDTO {
 	private long idSala;
 	LocalDateTime fechaInicio;
 	LocalDateTime fechaFin;
+	
+	//idCursada, idSala, fechaInicio, fechaFin
 
 	public FechaCursadaClaseDTO(long idFechaCursadaClase, long idCursada, long idSala, LocalDateTime fechaInicio,
 			LocalDateTime fechaFin) {

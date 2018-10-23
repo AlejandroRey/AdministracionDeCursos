@@ -68,11 +68,11 @@ public class CursadaABMControlador implements ActionListener {
 					         cursadaCompletaDTO.getIdEstadoCurso(),
 					         cursadaCompletaDTO.getCurso(),
 					         cursadaCompletaDTO.getEmpresa(),
-					         stringDateFormatter(cursadaCompletaDTO.getFechaInicioInscripcion()),
-					         stringDateFormatter(cursadaCompletaDTO.getFechaFinInscripcion()),
+					         stringToLocalDateFormatter(cursadaCompletaDTO.getFechaInicioInscripcion()),
+					         stringToLocalDateFormatter(cursadaCompletaDTO.getFechaFinInscripcion()),
 					         cursadaCompletaDTO.getEstadoCurso(),
 							 cursadaCompletaDTO.getVacantes(),
-							 stringDateFormatter(cursadaCompletaDTO.getFechaInicioCursada()),
+							 stringToLocalDateFormatter(cursadaCompletaDTO.getFechaInicioCursada()),
 							 cursadaCompletaDTO.getDiasDeClase()};						 
 			this.vista.getModelCursadas().addRow(fila);
 		}
@@ -196,7 +196,7 @@ public class CursadaABMControlador implements ActionListener {
 		this.vista.getCbxEstado().setSelectedItem(selectEstadoDeCurso(1));
 	}
 		
-	private String stringDateFormatter(LocalDateTime fecha) {
+	private String stringToLocalDateFormatter(LocalDateTime fecha) {
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		String formatDateTime = fecha.format(formatter);
@@ -248,9 +248,9 @@ public class CursadaABMControlador implements ActionListener {
 		
 		String strCursadaDTO = "Curso: " + curso.getNombre() + System.lineSeparator()
 							 + "Empresa: " + empresa.getNombre() + System.lineSeparator()
-							 + "Ini Insc: " + stringDateFormatter(cursadaDTO.getFechaInicioInscripcion()) + System.lineSeparator()
-							 + "Fin Insc: " + stringDateFormatter(cursadaDTO.getFechaFinInscripcion()) + System.lineSeparator()
-							 + "Ini Cursada" + stringDateFormatter(cursadaDTO.getFechaInicioCursada()) + System.lineSeparator()
+							 + "Ini Insc: " + stringToLocalDateFormatter(cursadaDTO.getFechaInicioInscripcion()) + System.lineSeparator()
+							 + "Fin Insc: " + stringToLocalDateFormatter(cursadaDTO.getFechaFinInscripcion()) + System.lineSeparator()
+							 + "Ini Cursada" + stringToLocalDateFormatter(cursadaDTO.getFechaInicioCursada()) + System.lineSeparator()
 							 + "Vacantes: " + cursadaDTO.getVacantes() + System.lineSeparator()
 							 + "Dias de Clase: " + cursadaDTO.getDiasDeClase() + System.lineSeparator()
 							 + "Estado: " + estadoCurso.getNombre();

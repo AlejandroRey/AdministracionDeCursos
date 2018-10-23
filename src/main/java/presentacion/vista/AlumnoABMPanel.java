@@ -40,6 +40,7 @@ public class AlumnoABMPanel extends JPanel {
 	private JButton btnActualizar;
 	private JButton btnEliminar;
 	private JButton btnSeleccionar;
+	private JButton btnInscribir;
 
 	/**
 	 * Create the panel.
@@ -161,6 +162,10 @@ public class AlumnoABMPanel extends JPanel {
 		btnSeleccionar = new JButton("Seleccionar");
 		btnSeleccionar.setBounds(176, 106, 150, 34);
 		panel.add(btnSeleccionar);
+		
+		btnInscribir = new JButton("Inscribir Alumno");
+		btnInscribir.setBounds(176, 106, 150, 34);
+		panel.add(btnInscribir);
 	}
 
 	/**
@@ -343,6 +348,20 @@ public class AlumnoABMPanel extends JPanel {
 	 */
 	public void setBtnSeleccionar(JButton btnSeleccionar) {
 		this.btnSeleccionar = btnSeleccionar;
+	}
+
+	/**
+	 * @return the btnInscribir
+	 */
+	public JButton getBtnInscribir() {
+		return btnInscribir;
+	}
+
+	/**
+	 * @param btnInscribir the btnInscribir to set
+	 */
+	public void setBtnInscribir(JButton btnInscribir) {
+		this.btnInscribir = btnInscribir;
 	}
 	
 }

@@ -11,9 +11,10 @@ public class AlumnoInscriptoDTO {
 	private String telefono;
 	private String email;
 	private LocalDateTime fecha;
+	private boolean estado;
 	
 	public AlumnoInscriptoDTO(long idAlumno, long idCursada, String nombre, String apellido, String telefono,
-			String email, LocalDateTime fecha) {
+			String email, LocalDateTime fecha, boolean estado) {
 		super();
 		this.idAlumno = idAlumno;
 		this.idCursada = idCursada;
@@ -22,6 +23,7 @@ public class AlumnoInscriptoDTO {
 		this.telefono = telefono;
 		this.email = email;
 		this.fecha = fecha;
+		this.estado = estado;
 	}
 
 	/**
@@ -122,13 +124,28 @@ public class AlumnoInscriptoDTO {
 		this.fecha = fecha;
 	}
 
+	/**
+	 * @return the estado
+	 */
+	public boolean isEstado() {
+		return estado;
+	}
+
+	/**
+	 * @param estado the estado to set
+	 */
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "AlumnoCursadaDTO [idAlumno: " + idAlumno + ", idCursada: " + idCursada + ", nombre: " + nombre
-				+ ", apellido: " + apellido + ", telefono: " + telefono + ", email: " + email + ", fecha: " + fecha + "]";
-	}
-	
+		return "AlumnoInscriptoDTO [idAlumno: " + idAlumno + ", idCursada: " + idCursada + ", nombre: " + nombre
+				+ ", apellido: " + apellido + ", telefono: " + telefono + ", email: " + email + ", fecha: " + fecha
+				+ ", estado: " + estado + "]";	
+	}	
+
 }

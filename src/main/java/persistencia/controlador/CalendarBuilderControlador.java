@@ -64,6 +64,8 @@ public class CalendarBuilderControlador implements ActionListener {
 		this.vista.getBtnAsignarSala().addActionListener(this);
 		this.vista.getBtnGuardarCambios().addActionListener(this);
 		
+		this.vista.getBtnGuardarCambios().setVisible(false);
+		
 		this.salasList = modelo.obtenerSalas();
 		for (SalaDTO salaDTO : salasList) {
 			System.out.println("Sala: "+salaDTO.toString());
@@ -90,6 +92,8 @@ public class CalendarBuilderControlador implements ActionListener {
 		List<DiaCursadaClaseDTO> diasCursadasClasesList = modelo.obtenerDiaCursadaClase(cursadaDTO);
 
 		if (diasCursadasClasesList.size() > 0) {
+			this.vista.getBtnSeleccionar().setVisible(false);
+			this.vista.getBtnEliminar().setVisible(false);
 			for (DiaCursadaClaseDTO diaCursadaClaseDTO : modelo.obtenerDiaCursadaClase(cursadaDTO)) {
 				mapDiasDeClaseCursada.put(diaCursadaClaseDTO.getIdDia(), diaCursadaClaseDTO);
 			}
@@ -98,7 +102,8 @@ public class CalendarBuilderControlador implements ActionListener {
 			JOptionPane.showMessageDialog(null,
 				    "No se encontraron Dias de Clases para la Cursada seleccionada!",
 				    "Dias de Cursadas",
-				    JOptionPane.INFORMATION_MESSAGE);
+				    JOptionPane.INFORMATION_MESSAGE,
+				    new ImageIcon("imagenes/warning_64.png"));
 			return false;
 		}
 	}
@@ -107,6 +112,9 @@ public class CalendarBuilderControlador implements ActionListener {
 		List<FechaCursadaClaseDTO> fechaCursadasClases = modelo.obtenerFechaCursadaClase(cursadaDTO);
 
 		if (fechaCursadasClases.size() > 0) {
+			this.vista.getBtnSeleccionar().setVisible(false);
+			this.vista.getBtnEliminar().setVisible(false);
+			this.vista.getBtnGenerarHorario().setVisible(false);
 			for (FechaCursadaClaseDTO fechaCursadaClaseDTO : fechaCursadasClases) {
 				fechasDeClasesCursadaList.add(fechaCursadaClaseDTO);
 			}
@@ -350,6 +358,12 @@ public class CalendarBuilderControlador implements ActionListener {
 					}				
 					incDia += 1;				
 				} while (contador > 0);
+				
+				for (FechaCursadaClaseDTO fechaCursadaClaseDTO : fechasDeClasesCursadaList) {
+					modelo.agregarFechaCursadaClase(fechaCursadaClaseDTO);
+				}
+				fechasDeClasesCursadaList.clear();
+				getFechaDeCursada();				
 				llenarTablaFechasDeCursada();				
 				
 				modelo.borrarDiaCursadaClase(cursadaDTO);
@@ -369,12 +383,13 @@ public class CalendarBuilderControlador implements ActionListener {
 				long idSala = Long.parseLong(this.vista.getTextSalaId().getText().toString());
 				if (idFechacursada == fechaCursadaClaseDTO.getIdFechaCursadaClase()) {
 					fechaCursadaClaseDTO.setIdSala(idSala);
+					modelo.actualizarFechaCursadaClase(fechaCursadaClaseDTO);
 				}
 			}
 			llenarTablaFechasDeCursada();
 		} else if (e.getSource() == this.vista.getBtnGuardarCambios()) {
 			for (FechaCursadaClaseDTO fechaCursadaClaseDTO : fechasDeClasesCursadaList) {
-				modelo.agregarFechaCursadaClase(fechaCursadaClaseDTO);
+				modelo.actualizarFechaCursadaClase(fechaCursadaClaseDTO);
 			}
 		}		
 	}

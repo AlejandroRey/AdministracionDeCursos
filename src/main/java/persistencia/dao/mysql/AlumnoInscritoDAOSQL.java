@@ -15,8 +15,8 @@ import persistencia.dao.interfaz.AlumnoInscriptoDAO;
 
 public class AlumnoInscritoDAOSQL implements AlumnoInscriptoDAO {
 	
-	private static final String readall = "SELECT T1.idAlumno, T1.idCursada, T2.nombre, T2.apellido, T2.telefono, T2.email, T1.fecha FROM " + 
-										  "(SELECT T1.idCursada, T2.idAlumno, T2.fecha FROM cursada AS T1 " + 
+	private static final String readall = "SELECT T1.idAlumno, T1.idCursada, T2.nombre, T2.apellido, T2.telefono, T2.email, T1.fecha, T1.estado FROM " + 
+										  "(SELECT T1.idCursada, T2.idAlumno, T2.fecha, T2.estado FROM cursada AS T1 " + 
 										  "INNER JOIN inscripto AS T2 ON T1.idCursada = T2.idCursada) AS T1 " + 
 										  "INNER JOIN alumno AS T2 ON T1.idAlumno = T2.idAlumno WHERE T1.idCursada = ?";
 
@@ -31,14 +31,14 @@ public class AlumnoInscritoDAOSQL implements AlumnoInscriptoDAO {
 			statement.setLong(1, cursada.getIdCursada());
 			resultSet = statement.executeQuery();
 			while (resultSet.next()) {
-				LocalDateTime fecha = resultSet.getTimestamp("fecha").toLocalDateTime();
 				alumnosInscriptos.add(new AlumnoInscriptoDTO(resultSet.getLong("idAlumno"), 
 												   resultSet.getLong("idCursada"), 
 												   resultSet.getString("nombre"), 
 										           resultSet.getString("apellido"), 
 												   resultSet.getString("telefono"), 
 												   resultSet.getString("email"), 
-											 	   fecha));
+												   resultSet.getTimestamp("fecha").toLocalDateTime(),
+												   resultSet.getBoolean("estado")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

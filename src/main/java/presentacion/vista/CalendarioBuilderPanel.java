@@ -97,6 +97,7 @@ public class CalendarioBuilderPanel extends JPanel {
 		panelFechaInicio.setBorder(new TitledBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), "Fecha de Inicio de Cursada", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK));
 		
 		textFechaInicio = new JTextField();
+		textFechaInicio.setEnabled(false);
 		textFechaInicio.setHorizontalAlignment(SwingConstants.CENTER);
 		textFechaInicio.setColumns(10);
 		textFechaInicio.setBounds(120, 23, 87, 20);
@@ -111,6 +112,7 @@ public class CalendarioBuilderPanel extends JPanel {
 		panelFechaInicio.add(lblDiasDeCursada);
 		
 		textCantidadDeDias = new JTextField();
+		textCantidadDeDias.setEnabled(false);
 		textCantidadDeDias.setHorizontalAlignment(SwingConstants.CENTER);
 		textCantidadDeDias.setColumns(10);
 		textCantidadDeDias.setBounds(120, 54, 87, 20);
@@ -156,14 +158,14 @@ public class CalendarioBuilderPanel extends JPanel {
 		panelSeleccionarDia.add(btnSeleccionar);
 		
 		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(181, 383, 89, 23);
+		btnEliminar.setBounds(10, 365, 260, 41);
 		panelSeleccionarDia.add(btnEliminar);
 	}
 	
 	private void buildTablaSeleccionarDiasDeCursada() {
 		
 		spDiasDeCursada = new JScrollPane();
-		spDiasDeCursada.setBounds(10, 149, 260, 223);
+		spDiasDeCursada.setBounds(10, 149, 260, 210);
 		panelSeleccionarDia.add(spDiasDeCursada);
 		
 		modelDiasDeCursada = new DefaultTableModel(null, nombreColumnasDiasDeCursada);
@@ -194,7 +196,7 @@ public class CalendarioBuilderPanel extends JPanel {
 	private void buildTablaDiasDeCursadaGenerados() {
 		
 		spFechasDeCursada = new JScrollPane();
-		spFechasDeCursada.setBounds(10, 26, 370, 380);
+		spFechasDeCursada.setBounds(10, 26, 370, 432);
 		panelFechasDeCursada.add(spFechasDeCursada);
 		
 		modelFechasDeCursada = new DefaultTableModel(null, nombreColumnasFechasDeCursada);
@@ -213,11 +215,11 @@ public class CalendarioBuilderPanel extends JPanel {
 		spFechasDeCursada.setViewportView(tablaFechasDeCursada);			
 		
 		btnGenerarHorario = new JButton("Generar Calendario de Cursada");
-		btnGenerarHorario.setBounds(10, 420, 370, 23);
+		btnGenerarHorario.setBounds(10, 464, 370, 41);
 		panelFechasDeCursada.add(btnGenerarHorario);
 		
 		btnGuardarCambios = new JButton("Guardar Cambios");
-		btnGuardarCambios.setBounds(10, 464, 370, 41);
+		btnGuardarCambios.setBounds(10, 417, 370, 41);
 		panelFechasDeCursada.add(btnGuardarCambios);
 	}
 	
@@ -252,7 +254,7 @@ public class CalendarioBuilderPanel extends JPanel {
 		spSalas.setViewportView(tablaSalas);			
 		
 		btnAsignarSala = new JButton("Asignar Sala");
-		btnAsignarSala.setBounds(10, 483, 370, 23);
+		btnAsignarSala.setBounds(10, 464, 370, 41);
 		panelSalas.add(btnAsignarSala);
 		
 		JLabel lblNewLabel = new JLabel("Dia:");
@@ -292,10 +294,12 @@ public class CalendarioBuilderPanel extends JPanel {
 		panelSalas.add(textSalaNombre);
 		
 		lblIdsala = new JLabel("idSala:");
+		lblIdsala.setVisible(false);
 		lblIdsala.setBounds(205, 337, 51, 14);
 		panelSalas.add(lblIdsala);
 		
 		textSalaId = new JTextField();
+		textSalaId.setVisible(false);
 		textSalaId.setColumns(10);
 		textSalaId.setBounds(253, 337, 57, 20);
 		panelSalas.add(textSalaId);
@@ -305,10 +309,12 @@ public class CalendarioBuilderPanel extends JPanel {
 		panelSalas.add(separator);
 		
 		JLabel lblIdfechacurs = new JLabel("idFechaCurs:");
+		lblIdfechacurs.setVisible(false);
 		lblIdfechacurs.setBounds(205, 372, 51, 14);
 		panelSalas.add(lblIdfechacurs);
 		
 		textSalaIdFechaCursada = new JTextField();
+		textSalaIdFechaCursada.setVisible(false);
 		textSalaIdFechaCursada.setColumns(10);
 		textSalaIdFechaCursada.setBounds(253, 372, 57, 20);
 		panelSalas.add(textSalaIdFechaCursada);

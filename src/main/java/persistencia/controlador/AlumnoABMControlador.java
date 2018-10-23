@@ -134,12 +134,28 @@ public class AlumnoABMControlador implements ActionListener {
 		llenarTabla();
 	}
 	
+	public AlumnoDTO getAlumnoDTO() {
+		AlumnoDTO alumnoDTO = new AlumnoDTO(Long.parseLong(this.vista.getTextIdAlumno().getText().toString()),
+										    this.vista.getTextNombre().getText(),
+										    this.vista.getTextApellido().getText(),
+										    this.vista.getTextTelefono().getText(),
+										    this.vista.getTextEmail().getText());		
+		return alumnoDTO;
+	}
+	
 	private void clearTextInputsBox() {
 		this.vista.getTextIdAlumno().setText("");
 		this.vista.getTextNombre().setText("");
 		this.vista.getTextApellido().setText("");
 		this.vista.getTextTelefono().setText("");
 		this.vista.getTextEmail().setText("");
+	}
+	
+	public void setDisableTextFields() {
+		this.vista.getTextNombre().setEnabled(false);
+		this.vista.getTextApellido().setEnabled(false);
+		this.vista.getTextTelefono().setEnabled(false);
+		this.vista.getTextEmail().setEnabled(false);
 	}
 	
 	public void setVisibleBtnActualizar() {
@@ -170,6 +186,13 @@ public class AlumnoABMControlador implements ActionListener {
 		this.vista.getBtnSeleccionar().setVisible(true);		
 	}	
 	
+	public void setVisibleBtnInscribir() {
+		this.vista.getTblAlumnos().setEnabled(true);
+		clearTextInputsBox();
+		setBtnNotVisible();
+		this.vista.getBtnInscribir().setVisible(true);		
+	}
+	
 	/**
 	 * @param btn's set hide all buttons
 	 */
@@ -178,6 +201,7 @@ public class AlumnoABMControlador implements ActionListener {
 		this.vista.getBtnAgregar().setVisible(false);
 		this.vista.getBtnEliminar().setVisible(false);
 		this.vista.getBtnSeleccionar().setVisible(false);
+		this.vista.getBtnInscribir().setVisible(false);
 	}
 	
 	@SuppressWarnings("serial")
@@ -195,5 +219,19 @@ public class AlumnoABMControlador implements ActionListener {
 	    public void removeSelectionInterval(int index0, int index1) {
 	    }
 
+	}
+
+	/**
+	 * @return the vista
+	 */
+	public AlumnoABMPanel getVista() {
+		return vista;
+	}
+
+	/**
+	 * @param vista the vista to set
+	 */
+	public void setVista(AlumnoABMPanel vista) {
+		this.vista = vista;
 	}
 }
