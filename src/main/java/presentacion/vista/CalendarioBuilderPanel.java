@@ -9,11 +9,13 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
@@ -21,7 +23,6 @@ import javax.swing.table.TableColumn;
 import com.github.lgooddatepicker.components.TimePicker;
 
 import dto.DiasDTO;
-import javax.swing.JSeparator;
 
 @SuppressWarnings("serial")
 public class CalendarioBuilderPanel extends JPanel {
@@ -39,7 +40,7 @@ public class CalendarioBuilderPanel extends JPanel {
 	private JScrollPane spDiasDeCursada;
 	private JTable tablaDiasDeCursada;
 	private DefaultTableModel modelDiasDeCursada;
-	private String[] nombreColumnasDiasDeCursada = {"idCursada", "idDia", "Dia", "Hora Inicio", "Hora Fin"};
+	private String[] nombreColumnasDiasDeCursada = {"idCursada", "idDia", "Dia", "Hora Inicio", "Hora Fin", "Sala"};
 	private JButton btnEliminar;
 	
 	private JPanel panelFechasDeCursada;
@@ -169,7 +170,7 @@ public class CalendarioBuilderPanel extends JPanel {
 		panelSeleccionarDia.add(spDiasDeCursada);
 		
 		modelDiasDeCursada = new DefaultTableModel(null, nombreColumnasDiasDeCursada);
-		tablaDiasDeCursada = new JTable(modelDiasDeCursada){
+		tablaDiasDeCursada = new JTable(modelDiasDeCursada) {
 		    @Override
 		       public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
 		           Component component = super.prepareRenderer(renderer, row, column);
@@ -179,6 +180,11 @@ public class CalendarioBuilderPanel extends JPanel {
 		           return component;
 		        }
 		    };
+
+		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+		renderer.setToolTipText("Haga Click aqui para elegir SALA!");
+		tablaDiasDeCursada.getColumnModel().getColumn(4).setCellRenderer(renderer);
+			
 		tablaDiasDeCursada.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 		//tablaDiasDeCursada.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);		
 		spDiasDeCursada.setViewportView(tablaDiasDeCursada);

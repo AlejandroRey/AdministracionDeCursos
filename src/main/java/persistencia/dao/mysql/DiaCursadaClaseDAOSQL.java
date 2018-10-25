@@ -16,9 +16,9 @@ import persistencia.dao.interfaz.DiaCursadaClaseDAO;
 
 public class DiaCursadaClaseDAOSQL implements DiaCursadaClaseDAO {
 	
-	private static final String insert = "INSERT INTO diacursadaclase (idCursada, idDia, nombreDia, horaInicio, horaFin) VALUES (?, ?, ?, ?, ?)";
-	private static final String delete = "DELETE FROM diacursadaclase WHERE idCursada = ?";
-	private static final String update = "UPDATE diacursadaclase SET idDia = ?, nombreDia = ?, horaInicio = ?, horaFin = ? WHERE idCursada = ? AND idDia = ?";
+	private static final String insert = "INSERT INTO diacursadaclase (idCursada, idDia, nombreDia, horaInicio, horaFin, idSala) VALUES (?, ?, ?, ?, ?, ?)";
+	private static final String delete = "DELETE FROM diacursadaclase WHERE idCursada = ? AND nombreDia = ? AND horaInicio = ? AND horaFin = ?";
+	private static final String update = "UPDATE diacursadaclase SET idSala = ? WHERE idCursada = ? AND nombreDia = ? AND horaInicio = ? AND horaFin = ?";
 	private static final String readall = "SELECT * FROM diacursadaclase WHERE idCursada = ?";	
 
 	@Override
@@ -33,6 +33,7 @@ public class DiaCursadaClaseDAOSQL implements DiaCursadaClaseDAO {
 			statement.setString(3, diaCursadaClaseDTO.getNombreDia());
 			statement.setTimestamp(4, convert(diaCursadaClaseDTO.getHoraInicio()));
 			statement.setTimestamp(5, convert(diaCursadaClaseDTO.getHoraFin()));
+			statement.setLong(6, diaCursadaClaseDTO.getIdSala());
 			
 			if (statement.executeUpdate() > 0) // True is successfully return
 				return true;
@@ -45,13 +46,17 @@ public class DiaCursadaClaseDAOSQL implements DiaCursadaClaseDAO {
 	}
 
 	@Override
-	public boolean delete(CursadaDTO cursadaDTO) {
+	public boolean delete(DiaCursadaClaseDTO diaCursadaClaseDTO) {
 		PreparedStatement statement;
 		int chequeoUpdate = 0;
 		Conexion conexion = Conexion.getConexion();
+		//idCursada = ? AND nombreDia = ? AND horaInicio = ? AND horaFin = ?"
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(delete);
-			statement.setString(1, Long.toString(cursadaDTO.getIdCursada()));
+			statement.setLong(1, diaCursadaClaseDTO.getIdCursada());
+			statement.setString(2, diaCursadaClaseDTO.getNombreDia());
+			statement.setTimestamp(3, convert(diaCursadaClaseDTO.getHoraInicio()));
+			statement.setTimestamp(4, convert(diaCursadaClaseDTO.getHoraFin()));
 			chequeoUpdate = statement.executeUpdate();
 			if (chequeoUpdate > 0) // True is successfully return
 				return true;
@@ -67,9 +72,15 @@ public class DiaCursadaClaseDAOSQL implements DiaCursadaClaseDAO {
 	public boolean update(DiaCursadaClaseDTO diaCursadaClaseDTO) {
 		PreparedStatement statement;
 		Conexion conexion = Conexion.getConexion();
+		//SET idSala = ? WHERE idCursada = ? AND nombreDia = ? AND horaInicio = ? AND horaFin = ?";
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(update);			
-			//statement.setString(1, sala.getNombre());
+			statement.setLong(1, diaCursadaClaseDTO.getIdSala());
+			statement.setLong(2, diaCursadaClaseDTO.getIdCursada());
+			statement.setString(3, diaCursadaClaseDTO.getNombreDia());
+			statement.setTimestamp(4, convert(diaCursadaClaseDTO.getHoraInicio()));
+			statement.setTimestamp(5, convert(diaCursadaClaseDTO.getHoraFin()));
+			
 			if (statement.executeUpdate() > 0) // True is successfully return
 				return true;
 		} catch (SQLException e) {
@@ -95,7 +106,8 @@ public class DiaCursadaClaseDAOSQL implements DiaCursadaClaseDAO {
 															  resultSet.getInt("idDia"), 
 															  resultSet.getString("nombreDia"), 
 															  resultSet.getTime("horaInicio").toLocalTime(), 
-															  resultSet.getTime("horaFin").toLocalTime()));
+															  resultSet.getTime("horaFin").toLocalTime(),
+															  resultSet.getLong("idSala")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

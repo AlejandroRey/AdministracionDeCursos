@@ -9,14 +9,17 @@ public class DiaCursadaClaseDTO {
 	private String nombreDia;
 	private LocalTime horaInicio;
 	private LocalTime horaFin;
+	private long idSala;
 	
-	public DiaCursadaClaseDTO(long idCursada, int idDia, String nombreDia, LocalTime horaInicio, LocalTime horaFin) {
+	public DiaCursadaClaseDTO(long idCursada, int idDia, String nombreDia, LocalTime horaInicio, LocalTime horaFin,
+			long idSala) {
 		super();
 		this.idCursada = idCursada;
 		this.idDia = idDia;
 		this.nombreDia = nombreDia;
 		this.horaInicio = horaInicio;
 		this.horaFin = horaFin;
+		this.idSala = idSala;
 	}
 
 	/**
@@ -89,13 +92,27 @@ public class DiaCursadaClaseDTO {
 		this.horaFin = horaFin;
 	}
 
+	/**
+	 * @return the idSala
+	 */
+	public long getIdSala() {
+		return idSala;
+	}
+
+	/**
+	 * @param idSala the idSala to set
+	 */
+	public void setIdSala(long idSala) {
+		this.idSala = idSala;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "DiaCursadaClaseDTO [idCursada: " + idCursada + ", idDia: " + idDia + ", nombreDia: " + nombreDia
-				+ ", horaInicio: " + horaInicio + ", horaFin: " + horaFin + "]";
-	}
+				+ ", horaInicio: " + horaInicio + ", horaFin: " + horaFin + ", idSala: " + idSala + "]";
+	}	
 	
 }

@@ -9,7 +9,7 @@ public interface DiaCursadaClaseDAO {
 	
 	public boolean insert(DiaCursadaClaseDTO diaCursadaClaseDTO);
 
-	public boolean delete(CursadaDTO diaCursadaClaseDTO);
+	public boolean delete(DiaCursadaClaseDTO diaCursadaClaseDTO);
 
 	public boolean update(DiaCursadaClaseDTO diaCursadaClaseDTO);
 	

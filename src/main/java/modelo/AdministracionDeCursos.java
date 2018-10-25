@@ -300,10 +300,14 @@ public class AdministracionDeCursos {
 	 */
 	public void agregarDiaCursadaClase(DiaCursadaClaseDTO nuevoDiaCursadaClaseDTO) {
 		this.diaCursadaClase.insert(nuevoDiaCursadaClaseDTO);
-	}
+	}	
 
-	public void borrarDiaCursadaClase(CursadaDTO cursadaDTO_dias_a_eliminar) {
-		this.diaCursadaClase.delete(cursadaDTO_dias_a_eliminar);
+	public void borrarDiaCursadaClase(DiaCursadaClaseDTO dia_a_eliminar) {
+		this.diaCursadaClase.delete(dia_a_eliminar);
+	}
+	
+	public void actualizarDiaCursadaClase(DiaCursadaClaseDTO diaCursadaClaseDTO_a_actualizar) {
+		this.diaCursadaClase.update(diaCursadaClaseDTO_a_actualizar);
 	}
 	
 	public List<DiaCursadaClaseDTO> obtenerDiaCursadaClase(CursadaDTO cursada) {

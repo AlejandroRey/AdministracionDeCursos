@@ -15,9 +15,9 @@ import persistencia.dao.interfaz.FechaCursadaClaseDAO;
 
 public class FechaCursadaClaseDAOSQL implements FechaCursadaClaseDAO {
 	
-	private static final String insert = "INSERT INTO fechacursadaclase (idCursada, idSala, fechaInicio, fechaFin) VALUES (?, ?, ?, ?)";
+	private static final String insert = "INSERT INTO fechacursadaclase (idCursada, idSala, fechaInicio, fechaFin, estadoSala) VALUES (?, ?, ?, ?, ?)";
 	private static final String delete = "DELETE FROM fechacursadaclase WHERE idFechaCursadaClase = ?";
-	private static final String update = "UPDATE fechacursadaclase SET idCursada = ?, idSala = ?, fechaInicio = ?, fechaFin = ? WHERE idFechaCursadaClase = ?";
+	private static final String update = "UPDATE fechacursadaclase SET idCursada = ?, idSala = ?, fechaInicio = ?, fechaFin = ?, estadoSala = ? WHERE idFechaCursadaClase = ?";
 	private static final String readall = "SELECT * FROM fechacursadaclase WHERE idCursada = ?";
 
 	@Override
@@ -31,6 +31,7 @@ public class FechaCursadaClaseDAOSQL implements FechaCursadaClaseDAO {
 			statement.setLong(2, fechaCursadaClaseDTO.getIdSala());
 			statement.setTimestamp(3, convertToTimeStamp(fechaCursadaClaseDTO.getFechaInicio()));
 			statement.setTimestamp(4, convertToTimeStamp(fechaCursadaClaseDTO.getFechaFin()));
+			statement.setBoolean(5, fechaCursadaClaseDTO.isEstadoSala());
 			
 			if (statement.executeUpdate() > 0) // True is successfully return
 				return true;
@@ -72,7 +73,8 @@ public class FechaCursadaClaseDAOSQL implements FechaCursadaClaseDAO {
 			statement.setLong(2, fechaCursadaClaseDTO.getIdSala());
 			statement.setTimestamp(3, convertToTimeStamp(fechaCursadaClaseDTO.getFechaInicio()));
 			statement.setTimestamp(4, convertToTimeStamp(fechaCursadaClaseDTO.getFechaFin()));
-			statement.setLong(5, fechaCursadaClaseDTO.getIdFechaCursadaClase());
+			statement.setBoolean(5, fechaCursadaClaseDTO.isEstadoSala());
+			statement.setLong(6, fechaCursadaClaseDTO.getIdFechaCursadaClase());
 			
 			if (statement.executeUpdate() > 0) // True is successfully return
 				return true;
@@ -99,7 +101,8 @@ public class FechaCursadaClaseDAOSQL implements FechaCursadaClaseDAO {
 																  resultSet.getLong("idCursada"), 
 																  resultSet.getLong("idSala"), 
 																  resultSet.getTimestamp("fechaInicio").toLocalDateTime(), 
-																  resultSet.getTimestamp("fechaFin").toLocalDateTime()));
+																  resultSet.getTimestamp("fechaFin").toLocalDateTime(),
+																  resultSet.getBoolean("estadoSala")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

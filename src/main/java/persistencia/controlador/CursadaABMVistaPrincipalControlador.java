@@ -131,17 +131,7 @@ public class CursadaABMVistaPrincipalControlador {
 								  this.vista.getBtnEvaluaciones(),
 								  this.vista.getBtnInscriptos(),
 								  this.vista.getBtnPagos()});
-		
-		
-		CursadaDTO xcursadaDTO = new CursadaDTO(1, 
-											   1, 
-											   1, 
-											   1, 
-											   LocalDateTime.now(), 
-											   LocalDateTime.now(), 
-											   "1", 
-											   LocalDateTime.now(), 
-											   15);
+
 		TestFrame vistaMain = new TestFrame();
 		AlumnosAsistenciaPanel vista = vistaMain.getAlumnosAsistenciaPanel();
 		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());

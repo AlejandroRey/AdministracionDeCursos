@@ -60,17 +60,17 @@ public class Main {
 //		for (SalaDisponibleDTO salaDisponibleDTO : salasList) {
 //			System.out.println(salaDisponibleDTO.toString());
 //		}
-//		
-//		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
-//		AdministracionDeCursosVista vista = new AdministracionDeCursosVista();
-//		AdministracionDeCursosControlador controlador = new AdministracionDeCursosControlador(modelo, vista);
-//		controlador.inicializar();
-//		vista.getFrame().revalidate();
-//		vista.getFrame().repaint();
-
 		
-		VistaInicial vista = new VistaInicial();
-		VistaInicialControlador controlador = new VistaInicialControlador(vista);
+		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
+		AdministracionDeCursosVista vista = new AdministracionDeCursosVista();
+		AdministracionDeCursosControlador controlador = new AdministracionDeCursosControlador(modelo, vista);
 		controlador.inicializar();
+		vista.getFrame().revalidate();
+		vista.getFrame().repaint();
+//
+//		
+//		VistaInicial vista = new VistaInicial();
+//		VistaInicialControlador controlador = new VistaInicialControlador(vista);
+//		controlador.inicializar();
 	}
 }

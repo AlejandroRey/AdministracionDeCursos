@@ -18,7 +18,7 @@ public class TestFrame {
 	
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//frame.setDefaultCloseOperation(JFrame.e);
 		frame.getContentPane().setLayout(null);
 		
 		alumnosAsistenciaPanel =  new AlumnosAsistenciaPanel();

@@ -25,10 +25,6 @@ public class SalaDisponibleDAOSQL implements SalaDisponibleDAO {
 		LocalDateTime localDateTimeInicio = LocalDateTime.of(localDate, LocalTime.MIN);
 		LocalDateTime localDateTimeFin = localDateTimeInicio.plusDays(1);
 
-		System.out.println("!!!!!!!" + localDateTimeInicio.toString());
-		System.out.println("!!!!!!!" + localDateTimeFin.toString());
-		System.out.println("@@@@@@@" + fechaCursadaDTO.getFechaFin().toString());
-
 		ArrayList<SalaDisponibleDTO> salasDisponibles = new ArrayList<SalaDisponibleDTO>();
 		Conexion conexion = Conexion.getConexion();
 		try {
@@ -45,7 +41,6 @@ public class SalaDisponibleDAOSQL implements SalaDisponibleDAO {
 
 			ResultSet rs = spSalaDisponible.getResultSet();
 			while (rs.next()) {
-				System.out.println("{}" + rs.getLong(1) + "!!!" + rs.getTimestamp(2).toLocalDateTime());
 				salasDisponibles.add(new SalaDisponibleDTO(rs.getLong(1), 
 														   rs.getTimestamp(2).toLocalDateTime(),
 														   rs.getTimestamp(3).toLocalDateTime(), 
