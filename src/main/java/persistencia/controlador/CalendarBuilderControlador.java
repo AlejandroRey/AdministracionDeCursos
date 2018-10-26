@@ -136,14 +136,9 @@ public class CalendarBuilderControlador implements ActionListener {
                     SalaDTO s = (SalaDTO) e.getItem();
                     diaDeCursadaDTO.setIdSala(s.getIdSala());
                     modelo.actualizarDiaCursadaClase(diaDeCursadaDTO);
-                    diaDeCursadaDTO = null;    				
-    				diasDeCursadaList.clear();
-    				diasDeCursadaList = modelo.obtenerDiaCursadaClase(cursadaDTO);
-    				llenarTablaDiasDeCursada();
                 }
             }
-        });
-		
+        });		
 		
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setToolTipText("Haga Click aqui para elegir SALA!");
@@ -189,6 +184,8 @@ public class CalendarBuilderControlador implements ActionListener {
 																LocalTime.parse(horaFin.toString(), formatter),
 																salaDTO.getIdSala());
 					System.out.println(diaDeCursadaDTO.toString());
+					this.vista.revalidate();
+					this.vista.repaint();
 				}
 			} catch (Exception ex) {
 				System.out.println("Error: " + ex.getMessage());
@@ -222,9 +219,12 @@ public class CalendarBuilderControlador implements ActionListener {
 								 fechaCursadaClaseDTO.getIdCursada(), 
 								 fechaCursadaClaseDTO.getIdSala(),
 								 (diaDeLaSemana.substring(0,1).toUpperCase() + diaDeLaSemana.substring(1).toLowerCase()),
+								 localDateTimeFormatterFecha(fechaCursadaClaseDTO.getFechaInicio()),
+								 localDateTimeFormatterHora(fechaCursadaClaseDTO.getFechaInicio()),
+								 localDateTimeFormatterHora(fechaCursadaClaseDTO.getFechaFin()),
+								 getNombreSala(fechaCursadaClaseDTO.getIdSala()),
 								 localDateTimeFormatter(fechaCursadaClaseDTO.getFechaInicio()),
-								 localDateTimeFormatter(fechaCursadaClaseDTO.getFechaFin()),
-								 getNombreSala(fechaCursadaClaseDTO.getIdSala())};
+								 localDateTimeFormatter(fechaCursadaClaseDTO.getFechaFin())};
 				this.vista.getModelFechasDeCursada().addRow(fila);
 			}
 		}
@@ -238,7 +238,13 @@ public class CalendarBuilderControlador implements ActionListener {
 		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(1).setMaxWidth(0);
 		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(2).setWidth(0);
 		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(2).setMinWidth(0);
-		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(2).setMaxWidth(0);
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(2).setMaxWidth(0);		
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(8).setWidth(0);
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(8).setMinWidth(0);
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(8).setMaxWidth(0);		
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(9).setWidth(0);
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(9).setMinWidth(0);
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(9).setMaxWidth(0);
 		
 		// Agrego listener para obtener los valores de la fila seleccionada
 		this.vista.getTablaFechasDeCursada().setSelectionModel(new ListSelectionModelCstm());
@@ -249,9 +255,9 @@ public class CalendarBuilderControlador implements ActionListener {
 					//Object idCursada = this.vista.getTablaFechasDeCursada().getValueAt(this.vista.getTablaFechasDeCursada().getSelectedRow(), 1);
 					Object idSala = this.vista.getTablaFechasDeCursada().getValueAt(this.vista.getTablaFechasDeCursada().getSelectedRow(), 2);
 					Object dia = this.vista.getTablaFechasDeCursada().getValueAt(this.vista.getTablaFechasDeCursada().getSelectedRow(), 3);
-					Object fechaInicio = this.vista.getTablaFechasDeCursada().getValueAt(this.vista.getTablaFechasDeCursada().getSelectedRow(), 4);
-					Object fechaFin = this.vista.getTablaFechasDeCursada().getValueAt(this.vista.getTablaFechasDeCursada().getSelectedRow(), 5);
-					Object sala = this.vista.getTablaFechasDeCursada().getValueAt(this.vista.getTablaFechasDeCursada().getSelectedRow(), 6);
+					Object fechaInicio = this.vista.getTablaFechasDeCursada().getValueAt(this.vista.getTablaFechasDeCursada().getSelectedRow(), 8);
+					Object fechaFin = this.vista.getTablaFechasDeCursada().getValueAt(this.vista.getTablaFechasDeCursada().getSelectedRow(), 9);
+					Object sala = this.vista.getTablaFechasDeCursada().getValueAt(this.vista.getTablaFechasDeCursada().getSelectedRow(), 7);
 
 					this.vista.getTextSalaIdFechaCursada().setText(idFechaCursadaClase.toString());
 					this.vista.getTextSalaId().setText(idSala.toString());
@@ -370,8 +376,13 @@ public class CalendarBuilderControlador implements ActionListener {
 					    new ImageIcon("imagenes/warning_64.png"));
 			}
 		} else if (e.getSource() == this.vista.getBtnGenerarHorario()) {
+			
+			diasDeCursadaList.clear();
+			diasDeCursadaList = modelo.obtenerDiaCursadaClase(cursadaDTO);
+			llenarTablaDiasDeCursada();
+			
 			if (diasDeCursadaList.size()>0) {
-				
+
 				for (FechaCursadaClaseDTO fechaCursadaClaseDTO : fechasDeCursadaList) {
 					modelo.borrarFechaCursadaClase(fechaCursadaClaseDTO);
 				}				
@@ -383,12 +394,13 @@ public class CalendarBuilderControlador implements ActionListener {
 				do {				
 					for (DiaCursadaClaseDTO diaCursadaClaseDTO : diasDeCursadaList) {
 						String nombreDia = getDiaDelaSemana(date.plusDays(incDia));
+						System.out.println("NOMBRE DIA: "+nombreDia+" SALA: "+getSalaDTO(diaCursadaClaseDTO.getIdSala()));
 						if (diaCursadaClaseDTO.getNombreDia().toLowerCase().equals(nombreDia)) {
 							LocalDateTime fechaInicio = LocalDateTime.of(date.plusDays(incDia), diaCursadaClaseDTO.getHoraInicio());
 							LocalDateTime fechaFin = LocalDateTime.of(date.plusDays(incDia), diaCursadaClaseDTO.getHoraFin());
 							FechaCursadaClaseDTO fechaSeleccionada = new FechaCursadaClaseDTO(contador, 
 																							  cursadaDTO.getIdCursada(), 
-																							  salasList.get(0).getIdSala(), 
+																							  diaCursadaClaseDTO.getIdSala(), 
 																							  fechaInicio, 
 																							  fechaFin,
 																							  false);							
@@ -399,12 +411,47 @@ public class CalendarBuilderControlador implements ActionListener {
 					incDia += 1;				
 				} while (contador > 0);
 				
-				for (FechaCursadaClaseDTO fechaCursadaClaseDTO : fechasDeCursadaList) {
+				for (FechaCursadaClaseDTO fechaCursadaClaseDTO : fechasDeCursadaList) {	
+					for (SalaDTO salaDTO : salasList) {
+						for (SalaDisponibleDTO salaDisponibleDTO : modelo.obtenerSalaDisponible(fechaCursadaClaseDTO, salaDTO)) {						
+							if (salaDisponibleDTO.getDispDesde().isBefore(fechaCursadaClaseDTO.getFechaInicio())
+									&& fechaCursadaClaseDTO.getFechaFin().isBefore(salaDisponibleDTO.getDispHasta())) {
+								salasDisponiblesList.add(salaDisponibleDTO);
+							}						
+						}
+					}
+					
+					System.out.println("Entre");
+					int size = salasDisponiblesList.size();
+					int loopValue = 0;
+					for (SalaDisponibleDTO salaDisponibleDTO : salasDisponiblesList) {
+						System.out.println("Loop: " + getSalaDTO(fechaCursadaClaseDTO.getIdSala()));
+						if (!salaDisponibleDTO.getEstado().equals("Ocupado") && salaDisponibleDTO.getIdSala() == fechaCursadaClaseDTO.getIdSala()) {
+							System.out.println("BREAK " + salaDisponibleDTO.getEstado() + "" + getSalaDTO(salaDisponibleDTO.getIdSala()));
+							break;
+						}
+						loopValue += 1;
+					}
+					salasDisponiblesList.clear();
+					System.out.println("Size: " + size + "Loop: " + loopValue);
+					if (size > 0 && loopValue == size) {
+						System.out.println("SALA NO DISPONIBLE");
+						fechaCursadaClaseDTO.setIdSala(1);
+					}
 					modelo.agregarFechaCursadaClase(fechaCursadaClaseDTO);
 				}
+				
+				
 				fechasDeCursadaList.clear();
 				fechasDeCursadaList = modelo.obtenerFechaCursadaClase(cursadaDTO);				
-				llenarTablaFechasDeCursada();					
+				llenarTablaFechasDeCursada();
+				
+				JOptionPane.showMessageDialog(null,
+					    "Se actualizaron las Fechas de Cursadas  las asignaciones de Salas!",
+					    "Fecha de Cursada",
+					    JOptionPane.INFORMATION_MESSAGE,
+					    new ImageIcon("imagenes/information_64.png"));
+				
 			} else {
 				JOptionPane.showMessageDialog(null,
 					    "Seleccione Dias de Cursada!",
@@ -444,6 +491,18 @@ public class CalendarBuilderControlador implements ActionListener {
 	
 	private String localDateTimeFormatter(LocalDateTime dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        String formatDateTime = dateTime.format(formatter);
+        return formatDateTime;
+	}
+	
+	private String localDateTimeFormatterFecha(LocalDateTime dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String formatDateTime = dateTime.format(formatter);
+        return formatDateTime;
+	}
+	
+	private String localDateTimeFormatterHora(LocalDateTime dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         String formatDateTime = dateTime.format(formatter);
         return formatDateTime;
 	}

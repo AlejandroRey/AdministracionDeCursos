@@ -19,7 +19,7 @@ public class DiaCursadaClaseDAOSQL implements DiaCursadaClaseDAO {
 	private static final String insert = "INSERT INTO diacursadaclase (idCursada, idDia, nombreDia, horaInicio, horaFin, idSala) VALUES (?, ?, ?, ?, ?, ?)";
 	private static final String delete = "DELETE FROM diacursadaclase WHERE idCursada = ? AND nombreDia = ? AND horaInicio = ? AND horaFin = ?";
 	private static final String update = "UPDATE diacursadaclase SET idSala = ? WHERE idCursada = ? AND nombreDia = ? AND horaInicio = ? AND horaFin = ?";
-	private static final String readall = "SELECT * FROM diacursadaclase WHERE idCursada = ?";	
+	private static final String readall = "SELECT * FROM diacursadaclase WHERE idCursada = ? ORDER BY idDia ASC, horaInicio ASC";	
 
 	@Override
 	public boolean insert(DiaCursadaClaseDTO diaCursadaClaseDTO) {
