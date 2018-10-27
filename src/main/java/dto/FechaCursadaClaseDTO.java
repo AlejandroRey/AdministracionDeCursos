@@ -9,10 +9,10 @@ public class FechaCursadaClaseDTO {
 	private long idSala;
 	LocalDateTime fechaInicio;
 	LocalDateTime fechaFin;
-	private boolean estadoSala;
+	private int estadoSala;
 	
 	public FechaCursadaClaseDTO(long idFechaCursadaClase, long idCursada, long idSala, LocalDateTime fechaInicio,
-			LocalDateTime fechaFin, boolean estadoSala) {
+			LocalDateTime fechaFin, int estadoSala) {
 		super();
 		this.idFechaCursadaClase = idFechaCursadaClase;
 		this.idCursada = idCursada;
@@ -95,14 +95,14 @@ public class FechaCursadaClaseDTO {
 	/**
 	 * @return the estadoSala
 	 */
-	public boolean isEstadoSala() {
+	public int getEstadoSala() {
 		return estadoSala;
 	}
 
 	/**
 	 * @param estadoSala the estadoSala to set
 	 */
-	public void setEstadoSala(boolean estadoSala) {
+	public void setEstadoSala(int estadoSala) {
 		this.estadoSala = estadoSala;
 	}
 
@@ -111,9 +111,9 @@ public class FechaCursadaClaseDTO {
 	 */
 	@Override
 	public String toString() {
-		return "FechaCursadaClaseDTO [idFechaCursadaClase: " + idFechaCursadaClase + ", idCursada: " + idCursada
-				+ ", idSala: " + idSala + ", fechaInicio: " + fechaInicio + ", fechaFin: " + fechaFin + ", estadoSala: "
+		return "FechaCursadaClaseDTO [idFechaCursadaClase=" + idFechaCursadaClase + ", idCursada=" + idCursada
+				+ ", idSala=" + idSala + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", estadoSala="
 				+ estadoSala + "]";
-	}	
+	}
 	
 }

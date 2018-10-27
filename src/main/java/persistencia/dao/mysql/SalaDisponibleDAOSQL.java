@@ -28,29 +28,30 @@ public class SalaDisponibleDAOSQL implements SalaDisponibleDAO {
 		ArrayList<SalaDisponibleDTO> salasDisponibles = new ArrayList<SalaDisponibleDTO>();
 		Conexion conexion = Conexion.getConexion();
 		try {
-			CallableStatement spSalaDisponible = (CallableStatement) conexion.getSQLConexion()
-			.prepareCall("{CALL estadosSalasSP(?, ?, ?)}");
-			//estadosSalasSP.prepareCall("{CALL salaDispobleSP(?, ?, ?, ?, ?)}");
+			CallableStatement spSalaDisponible = (CallableStatement) conexion.getSQLConexion().prepareCall("{CALL modEstadosSalasSP(?, ?, ?)}");
 			spSalaDisponible.setTimestamp(1, convert(localDateTimeInicio));
 			spSalaDisponible.setTimestamp(2, convert(localDateTimeFin));
 			spSalaDisponible.setLong(3, salaDTO.getIdSala());
-			//spSalaDisponible.setTimestamp(4, convert(fechaCursadaDTO.getFechaFin()));
-			//spSalaDisponible.setTimestamp(5, convert(fechaCursadaDTO.getFechaFin().plusHours(1)));
 
 			spSalaDisponible.execute();
 
-			ResultSet rs = spSalaDisponible.getResultSet();
-			while (rs.next()) {
-				salasDisponibles.add(new SalaDisponibleDTO(rs.getLong(1), 
-														   rs.getTimestamp(2).toLocalDateTime(),
-														   rs.getTimestamp(3).toLocalDateTime(), 
-														   rs.getString(4)));
+			ResultSet resultSet = spSalaDisponible.getResultSet();
+			while (resultSet.next()) {
+				salasDisponibles.add(new SalaDisponibleDTO(resultSet.getLong(1), 
+														   resultSet.getInt(2), 
+														   resultSet.getTimestamp(3).toLocalDateTime(),
+														   resultSet.getTimestamp(4).toLocalDateTime(), 
+														   resultSet.getString(5)));
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			conexion.cerrarConexion();
+		}
+		
+		for (SalaDisponibleDTO salaDisponibleDTO : salasDisponibles) {
+			System.out.println("SALA DISPONIBLE--------->>>>>>>>: "+salaDisponibleDTO);
 		}
 		
 		return salasDisponibles;

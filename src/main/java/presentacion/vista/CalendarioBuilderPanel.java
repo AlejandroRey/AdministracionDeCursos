@@ -47,7 +47,7 @@ public class CalendarioBuilderPanel extends JPanel {
 	private JScrollPane spFechasDeCursada;
 	private JTable tablaFechasDeCursada;
 	private DefaultTableModel modelFechasDeCursada;
-	private String[] nombreColumnasFechasDeCursada = {"", "", "", "Dia", "Fecha", "Hora.Ini", "Hora.Fin", "Sala", "Fecha.Inicio", "Fecha.Fin"};
+	private String[] nombreColumnasFechasDeCursada = {"", "", "", "Dia", "Fecha", "Hora.Ini", "Hora.Fin", "Sala", "Fecha.Inicio", "Fecha.Fin", "Estado"};
 	private JButton btnGenerarHorario;
 	private JButton btnGuardarCambios;
 	

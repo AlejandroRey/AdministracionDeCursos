@@ -5,13 +5,16 @@ import java.time.LocalDateTime;
 public class SalaDisponibleDTO {
 	
 	private long idSala;
+	private int estadoSala;
 	private LocalDateTime dispDesde;
 	private LocalDateTime dispHasta;
 	private String estado;
 	
-	public SalaDisponibleDTO(long idSala, LocalDateTime dispDesde, LocalDateTime dispHasta, String estado) {
+	public SalaDisponibleDTO(long idSala, int estadoSala, LocalDateTime dispDesde, LocalDateTime dispHasta,
+			String estado) {
 		super();
 		this.idSala = idSala;
+		this.estadoSala = estadoSala;
 		this.dispDesde = dispDesde;
 		this.dispHasta = dispHasta;
 		this.estado = estado;
@@ -29,6 +32,20 @@ public class SalaDisponibleDTO {
 	 */
 	public void setIdSala(long idSala) {
 		this.idSala = idSala;
+	}
+
+	/**
+	 * @return the estadoSala
+	 */
+	public int getEstadoSala() {
+		return estadoSala;
+	}
+
+	/**
+	 * @param estadoSala the estadoSala to set
+	 */
+	public void setEstadoSala(int estadoSala) {
+		this.estadoSala = estadoSala;
 	}
 
 	/**
@@ -78,8 +95,8 @@ public class SalaDisponibleDTO {
 	 */
 	@Override
 	public String toString() {
-		return "SalaDisponibleDTO [idSala=" + idSala + ", dispDesde=" + dispDesde + ", dispHasta=" + dispHasta
-				+ ", estado=" + estado + "]";
-	}
+		return "SalaDisponibleDTO [idSala: " + idSala + ", estadoSala: " + estadoSala + ", dispDesde: " + dispDesde
+				+ ", dispHasta: " + dispHasta + ", estado: " + estado + "]";
+	}	
 	
 }

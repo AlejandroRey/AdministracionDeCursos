@@ -31,7 +31,7 @@ public class FechaCursadaClaseDAOSQL implements FechaCursadaClaseDAO {
 			statement.setLong(2, fechaCursadaClaseDTO.getIdSala());
 			statement.setTimestamp(3, convertToTimeStamp(fechaCursadaClaseDTO.getFechaInicio()));
 			statement.setTimestamp(4, convertToTimeStamp(fechaCursadaClaseDTO.getFechaFin()));
-			statement.setBoolean(5, fechaCursadaClaseDTO.isEstadoSala());
+			statement.setInt(5, fechaCursadaClaseDTO.getEstadoSala());
 			
 			if (statement.executeUpdate() > 0) // True is successfully return
 				return true;
@@ -73,7 +73,7 @@ public class FechaCursadaClaseDAOSQL implements FechaCursadaClaseDAO {
 			statement.setLong(2, fechaCursadaClaseDTO.getIdSala());
 			statement.setTimestamp(3, convertToTimeStamp(fechaCursadaClaseDTO.getFechaInicio()));
 			statement.setTimestamp(4, convertToTimeStamp(fechaCursadaClaseDTO.getFechaFin()));
-			statement.setBoolean(5, fechaCursadaClaseDTO.isEstadoSala());
+			statement.setInt(5, fechaCursadaClaseDTO.getEstadoSala());
 			statement.setLong(6, fechaCursadaClaseDTO.getIdFechaCursadaClase());
 			
 			if (statement.executeUpdate() > 0) // True is successfully return
@@ -102,7 +102,7 @@ public class FechaCursadaClaseDAOSQL implements FechaCursadaClaseDAO {
 																  resultSet.getLong("idSala"), 
 																  resultSet.getTimestamp("fechaInicio").toLocalDateTime(), 
 																  resultSet.getTimestamp("fechaFin").toLocalDateTime(),
-																  resultSet.getBoolean("estadoSala")));
+																  resultSet.getInt("estadoSala")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

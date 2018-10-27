@@ -128,7 +128,7 @@ public class AlumnosAsistenciaControlador implements ActionListener {
 																  1, 
     															  LocalDateTime.now(), 
 																  LocalDateTime.now(),
-																  false);
+																  0);
 				
 				System.out.println("2222");
 				asistenciaFechaCursadaList = mySql.readAll(f);
