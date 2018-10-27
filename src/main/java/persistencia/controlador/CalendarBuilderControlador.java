@@ -1,5 +1,6 @@
 package persistencia.controlador;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -18,10 +19,12 @@ import javax.swing.DefaultListSelectionModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 import dto.CursadaDTO;
@@ -29,6 +32,7 @@ import dto.DiaCursadaClaseDTO;
 import dto.DiasDTO;
 import dto.EstadoSalaDTO;
 import dto.FechaCursadaClaseDTO;
+import dto.FeriadoDTO;
 import dto.SalaDTO;
 import dto.SalaDisponibleDTO;
 import modelo.AdministracionDeCursos;
@@ -44,9 +48,10 @@ public class CalendarBuilderControlador implements ActionListener {
 	private DiaCursadaClaseDTO diaDeCursadaDTO;
 	
 	private List<FechaCursadaClaseDTO> fechasDeCursadaList;
-	private List<SalaDisponibleDTO> salasDisponiblesList;
-	private List<SalaDTO> salasList;
+	private List<FeriadoDTO> feriadosList;
 	
+	private List<SalaDTO> salasList;
+	private List<SalaDisponibleDTO> salasDisponiblesList;	
 
 	public CalendarBuilderControlador(CursadaDTO cursadaDTO, CalendarioBuilderPanel vista, AdministracionDeCursos modelo) {
 		super();
@@ -65,7 +70,8 @@ public class CalendarBuilderControlador implements ActionListener {
 		
 		this.vista.getBtnGuardarCambios().setVisible(false);
 		
-		this.salasList = modelo.obtenerSalas();		
+		this.salasList = modelo.obtenerSalas();
+		this.feriadosList = modelo.obtenerFeriados(cursadaDTO.getFechaInicioCursada().getYear());
 		
 		this.vista.getTextHoraInicio().setText("00:00");
 		this.vista.getTextHoraFin().setText("00:00");
@@ -278,6 +284,29 @@ public class CalendarBuilderControlador implements ActionListener {
 		DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
 		leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
 		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
+		
+		this.vista.getTablaFechasDeCursada().setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		for (int column = 0; column < this.vista.getTablaFechasDeCursada().getColumnCount(); column++) {
+			TableColumn tableColumn = this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(column);
+			int preferredWidth = tableColumn.getMinWidth();
+			int maxWidth = tableColumn.getMaxWidth();
+
+			for (int row = 0; row < this.vista.getTablaFechasDeCursada().getRowCount(); row++) {
+				TableCellRenderer cellRenderer = this.vista.getTablaFechasDeCursada().getCellRenderer(row, column);
+				Component c = this.vista.getTablaFechasDeCursada().prepareRenderer(cellRenderer, row, column);
+				int width = c.getPreferredSize().width + this.vista.getTablaFechasDeCursada().getIntercellSpacing().width;
+				preferredWidth = Math.max(preferredWidth, width);
+
+				// We've exceeded the maximum width, no need to check other rows
+
+				if (preferredWidth >= maxWidth) {
+					preferredWidth = maxWidth;
+					break;
+				}
+			}
+
+			tableColumn.setPreferredWidth(preferredWidth);
+		}		
 	}
 
 	private void llenarTablaSalasDisponibles() {
@@ -399,8 +428,118 @@ public class CalendarBuilderControlador implements ActionListener {
 	}
 	
 	private void buildCalendarioFechaDeCursada() {
-		// TODO Auto-generated method stub
+
+		diasDeCursadaList.clear();
+		diasDeCursadaList = modelo.obtenerDiaCursadaClase(cursadaDTO);
+		llenarTablaDiasDeCursada();
 		
+		if (diasDeCursadaList.size()>0) {
+
+			for (FechaCursadaClaseDTO fechaCursadaClaseDTO : fechasDeCursadaList) {
+				modelo.borrarFechaCursadaClase(fechaCursadaClaseDTO);
+			}				
+			fechasDeCursadaList.clear();
+			
+			LocalDate date = StringToLocalDate(this.vista.getTextFechaInicio().getText());
+			int incDia= 0;
+			int contador =Integer.parseInt(this.vista.getTextCantidadDeDias().getText());
+			do {
+				String nombreDia = getDiaDelaSemana(date.plusDays(incDia));
+				if (!isFeriado(date.plusDays(incDia))) {
+					for (DiaCursadaClaseDTO diaCursadaClaseDTO : diasDeCursadaList) {
+						
+						if (contador > 0 && diaCursadaClaseDTO.getNombreDia().toLowerCase().equals(nombreDia)) {
+							LocalDateTime fechaInicio = LocalDateTime.of(date.plusDays(incDia), diaCursadaClaseDTO.getHoraInicio());
+							LocalDateTime fechaFin = LocalDateTime.of(date.plusDays(incDia), diaCursadaClaseDTO.getHoraFin());
+							FechaCursadaClaseDTO fechaSeleccionada = new FechaCursadaClaseDTO(contador, 
+																							  cursadaDTO.getIdCursada(), 
+																							  diaCursadaClaseDTO.getIdSala(), 
+																							  fechaInicio, 
+																							  fechaFin,
+																							  0);							
+							fechasDeCursadaList.add(fechaSeleccionada);
+							contador -= 1;
+						}
+					}
+				}				
+				incDia += 1;				
+			} while (contador > 0);
+			
+			for (FechaCursadaClaseDTO fechaCursadaClaseDTO : fechasDeCursadaList) {	
+				for (SalaDTO salaDTO : salasList) {
+					for (SalaDisponibleDTO salaDisponibleDTO : modelo.obtenerSalaDisponible(fechaCursadaClaseDTO, salaDTO)) {						
+						if (salaDisponibleDTO.getDispDesde().isEqual((fechaCursadaClaseDTO.getFechaInicio())) 
+							&& fechaCursadaClaseDTO.getFechaFin().isEqual(salaDisponibleDTO.getDispHasta())) {
+							salasDisponiblesList.add(salaDisponibleDTO);
+						} else if (salaDisponibleDTO.getDispDesde().isBefore(fechaCursadaClaseDTO.getFechaInicio()) && 
+								   fechaCursadaClaseDTO.getFechaFin().isBefore(salaDisponibleDTO.getDispHasta())) {
+							salasDisponiblesList.add(salaDisponibleDTO);								
+						} else if (salaDisponibleDTO.getDispDesde().isEqual((fechaCursadaClaseDTO.getFechaInicio())) && 
+								   fechaCursadaClaseDTO.getFechaFin().isBefore(salaDisponibleDTO.getDispHasta())) {
+							salasDisponiblesList.add(salaDisponibleDTO);
+						} else if (salaDisponibleDTO.getDispDesde().isBefore(fechaCursadaClaseDTO.getFechaInicio()) &&
+								   fechaCursadaClaseDTO.getFechaFin().isEqual(salaDisponibleDTO.getDispHasta())) {
+							salasDisponiblesList.add(salaDisponibleDTO);
+						}					
+					}
+				}
+				
+				
+				int size = salasDisponiblesList.size();
+				int loopValue = 0;
+				for (SalaDisponibleDTO salaDTO : salasDisponiblesList) {
+					System.out.println("SALAALALALALALAL----->>>>>>>>>>: "+salaDTO);
+				}
+				for (SalaDisponibleDTO salaDisponibleDTO : salasDisponiblesList) {
+					System.out.println("Loop: Estado SALA " + salaDisponibleDTO.getEstadoSala());
+					if (salaDisponibleDTO.getEstadoSala() != 1 
+						&& salaDisponibleDTO.getIdSala() == fechaCursadaClaseDTO.getIdSala()) {
+						if (salaDisponibleDTO.getEstadoSala() == 3) {
+							fechaCursadaClaseDTO.setEstadoSala(3);
+						} else if (salaDisponibleDTO.getEstadoSala() == 2) {
+							fechaCursadaClaseDTO.setEstadoSala(3);
+						} else if (salaDisponibleDTO.getEstadoSala() == 0) {
+							fechaCursadaClaseDTO.setEstadoSala(2);
+						}
+						System.out.println("BREAK " + salaDisponibleDTO.getEstado() + "" + getSalaDTO(salaDisponibleDTO.getIdSala()));
+						break;
+					}
+					loopValue += 1;
+				}
+				salasDisponiblesList.clear();
+				if (size > 0 && loopValue == size) {
+					fechaCursadaClaseDTO.setIdSala(1);
+				}
+				modelo.agregarFechaCursadaClase(fechaCursadaClaseDTO);
+			}
+			
+			
+			fechasDeCursadaList.clear();
+			fechasDeCursadaList = modelo.obtenerFechaCursadaClase(cursadaDTO);				
+			llenarTablaFechasDeCursada();
+			
+			JOptionPane.showMessageDialog(null,
+				    "Se actualizaron las Fechas de Cursadas  las asignaciones de Salas!",
+				    "Fecha de Cursada",
+				    JOptionPane.INFORMATION_MESSAGE,
+				    new ImageIcon("imagenes/information_64.png"));
+			
+		} else {
+			JOptionPane.showMessageDialog(null,
+				    "Seleccione Dias de Cursada!",
+				    "Dias de Cursada",
+				    JOptionPane.INFORMATION_MESSAGE,
+				    new ImageIcon("imagenes/warning_64.png"));	
+		}
+	}
+
+	private boolean isFeriado(LocalDate date) {
+		for (FeriadoDTO feriadoDTO : feriadosList) {
+			if (feriadoDTO.getFeriado().equals(date)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private EstadoSalaDTO getEstadoSalaDTO(int idEstadoSala) {

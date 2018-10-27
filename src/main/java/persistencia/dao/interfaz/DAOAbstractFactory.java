@@ -1,6 +1,5 @@
 package persistencia.dao.interfaz;
 
-
 public interface DAOAbstractFactory {
 	
 	public AlumnoDAO createAlumnoDAO();
@@ -40,5 +39,7 @@ public interface DAOAbstractFactory {
 	public TareaDAO createTareaDAO();
 
 	public SalaDisponibleDAO createSalaDisponibleDAO();
+
+	public FeriadoDAO createFeriadoDAO();
 	
 }

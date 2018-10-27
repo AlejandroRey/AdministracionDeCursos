@@ -15,6 +15,7 @@ import dto.DiaCursadaClaseDTO;
 import dto.EmpresaDTO;
 import dto.EstadoDeCursoDTO;
 import dto.FechaCursadaClaseDTO;
+import dto.FeriadoDTO;
 import dto.InscriptoDTO;
 import dto.SalaDTO;
 import dto.SalaDisponibleDTO;
@@ -36,6 +37,7 @@ import persistencia.dao.interfaz.SalaDAO;
 import persistencia.dao.interfaz.SalaDisponibleDAO;
 import persistencia.dao.interfaz.EstadoDeCursoDAO;
 import persistencia.dao.interfaz.FechaCursadaClaseDAO;
+import persistencia.dao.interfaz.FeriadoDAO;
 import persistencia.dao.interfaz.CursadaDAO;
 import persistencia.dao.interfaz.InscriptoDAO;
 import persistencia.dao.interfaz.TareaDAO;
@@ -60,6 +62,7 @@ public class AdministracionDeCursos {
 	private FechaCursadaClaseDAO fechaCursadaClase;
 	private TareaDAO tarea;
 	private SalaDisponibleDAO salaDisponible;
+	private FeriadoDAO feriado;
 
 	public AdministracionDeCursos(DAOAbstractFactory metodo_persistencia) {
 		
@@ -81,6 +84,7 @@ public class AdministracionDeCursos {
 		this.fechaCursadaClase = metodo_persistencia.createFechaCursadaClaseDAO();
 		this.tarea = metodo_persistencia.createTareaDAO();
 		this.salaDisponible = metodo_persistencia.createSalaDisponibleDAO();
+		this.feriado = metodo_persistencia.createFeriadoDAO();
 	}
 	
 	/* ****************************************************************
@@ -357,10 +361,17 @@ public class AdministracionDeCursos {
 	/* ****************************************************************
 	 *                         Sala Disponible
 	 * ****************************************************************
-	 */
-	
+	 */	
 	public List<SalaDisponibleDTO> obtenerSalaDisponible(FechaCursadaClaseDTO fechaCursadaDTO, SalaDTO salaDTO) {
 		return this.salaDisponible.readAll(fechaCursadaDTO, salaDTO);
+	}
+	
+	/* ****************************************************************
+	 *                         Feriados
+	 * ****************************************************************
+	 */
+	public List<FeriadoDTO> obtenerFeriados(int year) {
+		return this.feriado.readAll(year);
 	}
 	
 }
