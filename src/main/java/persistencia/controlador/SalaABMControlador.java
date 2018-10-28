@@ -10,26 +10,39 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import modelo.AdministracionDeCursos;
+import dto.CursadaCompletaDTO;
+import dto.CursadaDTO;
+import dto.CursoDTO;
+import dto.FechaCursadaClaseDTO;
 import dto.SalaDTO;
 import presentacion.vista.SalaABMPanel;
+import presentacion.vista.SalaDisponibilidadDialog;
 
 public class SalaABMControlador implements ActionListener{
 
 	private SalaABMPanel vista;
 	private AdministracionDeCursos modelo;
 	private List<SalaDTO> salasLista;
+	private List<CursadaCompletaDTO> cursadasCompletasLista;
+	private List<CursoDTO> cursosLista;
+	private List<FechaCursadaClaseDTO> fechasCursadasLista;
 	
 	public SalaABMControlador(SalaABMPanel vista, AdministracionDeCursos modelo) {
 		this.salasLista = null;
+		this.cursadasCompletasLista = null;
+		this.cursosLista = null;
+		this.fechasCursadasLista = null;
 		this.vista = vista;
 		this.modelo = modelo;
 		
 		this.vista.getBtnAgregar().addActionListener(this);
 		this.vista.getBtnActualizar().addActionListener(this);
 		this.vista.getBtnEliminar().addActionListener(this);
+		this.vista.getBtnVerDisponibilidad().addActionListener(this);
 	}
 	
 	public void inicializar() {
+		getDatosCursadas();
 		llenarTabla();
 	}
 	
@@ -151,8 +164,20 @@ public class SalaABMControlador implements ActionListener{
 		llenarTabla();
 	}
 	
+	private void openDisponibilidad() {
+		SalaDisponibilidadDialog dialog = new SalaDisponibilidadDialog();
+		SalaDisponibilidadControlador ctr = new SalaDisponibilidadControlador(dialog, modelo);
+		ctr.inicializar();
+	}
+	
 	public boolean datosValidos() {
 		return false;
+	}
+	
+	private void getDatosCursadas() {
+		this.cursadasCompletasLista = this.modelo.obtenerCursadasCompletas();
+		this.cursosLista = this.modelo.obtenerCursos();
+//		this.fechasCursadasLista = this.modelo.obtenerFechaCursadaClase();
 	}
 	
 	@Override
@@ -166,8 +191,11 @@ public class SalaABMControlador implements ActionListener{
 		else if (event.getSource() == this.vista.getBtnEliminar()) {
 			eliminarSala();
 		}
+		else if (event.getSource() == this.vista.getBtnVerDisponibilidad()) {
+			openDisponibilidad();
+		}
 	}
-	
+
 	@SuppressWarnings("serial")
 	public class ListSelectionModelCstm extends DefaultListSelectionModel {
 
@@ -182,6 +210,5 @@ public class SalaABMControlador implements ActionListener{
 	    @Override
 	    public void removeSelectionInterval(int index0, int index1) {
 	    }
-
 	}
 }

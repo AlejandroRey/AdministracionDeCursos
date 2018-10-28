@@ -47,6 +47,7 @@ public class SalaABMPanel extends JPanel{
 	private JButton btnAgregar;
 	private JButton btnActualizar;
 	private JButton btnEliminar;
+	private JButton btnVerDisponibilidad;
 	
 	private JTable tbSalaHorarios;
 	private DefaultTableModel modelSalasHs;
@@ -103,6 +104,8 @@ public class SalaABMPanel extends JPanel{
 		};
 		tbSalaHorarios.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 		spSalaHorarios.setViewportView(tbSalaHorarios);
+		
+		
 	}
 	
 	private void inicializarTablaSalas() {
@@ -208,6 +211,10 @@ public class SalaABMPanel extends JPanel{
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.setBounds(287, 180, 107, 23);
 		panel.add(btnEliminar);
+		
+		btnVerDisponibilidad = new JButton("Ver Disponibilidad");
+		btnVerDisponibilidad.setBounds(762, 504, 176, 31);
+		add(btnVerDisponibilidad);
 	}
 	
 	public JButton getBtnAgregar() {
@@ -236,6 +243,20 @@ public class SalaABMPanel extends JPanel{
 
 	public JTextField getTxtNombre() {
 		return txtNombre;
+	}
+	
+	/**
+	 * @return the btnVerDisponibilidad
+	 */
+	public JButton getBtnVerDisponibilidad() {
+		return btnVerDisponibilidad;
+	}
+
+	/**
+	 * @param btnVerDisponibilidad the btnVerDisponibilidad to set
+	 */
+	public void setBtnVerDisponibilidad(JButton btnVerDisponibilidad) {
+		this.btnVerDisponibilidad = btnVerDisponibilidad;
 	}
 
 	public void setTxtNombre(JTextField txtNombre) {

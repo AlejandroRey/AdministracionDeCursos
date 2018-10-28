@@ -4,6 +4,7 @@ import java.util.List;
 
 import dto.CursadaDTO;
 import dto.FechaCursadaClaseDTO;
+import dto.SalaDTO;
 
 public interface FechaCursadaClaseDAO {
 	
@@ -14,5 +15,6 @@ public interface FechaCursadaClaseDAO {
 	public boolean update(FechaCursadaClaseDTO fechaCursadaClaseDTO);
 
 	public List<FechaCursadaClaseDTO> readAll(CursadaDTO cursadaDTO);
-
+	
+	public List<FechaCursadaClaseDTO> readAll(SalaDTO salaDTO);
 }
