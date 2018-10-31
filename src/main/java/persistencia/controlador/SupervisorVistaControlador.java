@@ -5,14 +5,21 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+import modelo.AdministracionDeCursos;
+import persistencia.dao.mysql.DAOSQLFactory;
+import presentacion.vista.AdministrativoABMVistaPrincipal;
+import presentacion.vista.LoginVista;
+import presentacion.vista.SupervisorAdministracionVista;
 import presentacion.vista.SupervisorVista;
-import presentacion.vista.VistaInicial;
 
 public class SupervisorVistaControlador implements ActionListener {
 
 	private SupervisorVista vista;
-	private VistaInicial vistaInicial;
-	private VistaInicialControlador vistaInicialControlador;
+	private AdministracionDeCursos modelo;
+	private SupervisorAdministracionVista supervisorAdministracionVista;
+	private SupervisorAdministracionVistaControlador supervisorAdministracionVistaControlador;
+	private AdministrativoABMVistaPrincipal administrativoABMVistaPrincipal;
+	private AdministrativoABMVistaPrincipalControlador administrativoABMVistaPrincipalControlador;
 	
 	public SupervisorVistaControlador(SupervisorVista vista) {
 		super();
@@ -34,9 +41,10 @@ public class SupervisorVistaControlador implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.vista.getMntmCerrarSesion()) {
 			this.vista.getFrmSupervisor().dispose();
-			this.vistaInicial = new VistaInicial();
-			this.vistaInicialControlador = new VistaInicialControlador(vistaInicial);
-			vistaInicialControlador.inicializar();
+			LoginVista vista = new LoginVista();
+			AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
+			LoginVistaControlador controlador = new LoginVistaControlador(vista, modelo);
+			controlador.inicializar();
 		}
 	
 		if (e.getSource() == this.vista.getMntmImportar()) {
@@ -52,7 +60,14 @@ public class SupervisorVistaControlador implements ActionListener {
 			JOptionPane.showMessageDialog(null, "Esta función todavía no fue desarrollada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 		}
 		if (e.getSource() == this.vista.getBtnAdministrativos()) {
-			
+			this.vista.getFrmSupervisor().dispose();
+			//supervisorAdministracionVistaControlador = new SupervisorAdministracionVistaControlador(AdministracionDeCursos, vista);
+			modelo = new AdministracionDeCursos(new DAOSQLFactory());
+			supervisorAdministracionVista = new SupervisorAdministracionVista();
+			supervisorAdministracionVistaControlador = new SupervisorAdministracionVistaControlador(modelo,supervisorAdministracionVista);
+			administrativoABMVistaPrincipal = new AdministrativoABMVistaPrincipal();
+			administrativoABMVistaPrincipalControlador = new AdministrativoABMVistaPrincipalControlador(modelo, administrativoABMVistaPrincipal);
+			this.supervisorAdministracionVista.getMainPanel().add(administrativoABMVistaPrincipal);
 		}
 		if (e.getSource() == this.vista.getBtnTareas()) {
 			

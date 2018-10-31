@@ -5,7 +5,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+import modelo.AdministracionDeCursos;
+import persistencia.dao.mysql.DAOSQLFactory;
 import presentacion.vista.InstructorVista;
+import presentacion.vista.LoginVista;
 
 public class InstructorVistaControlador implements ActionListener {
 	
@@ -28,6 +31,10 @@ public class InstructorVistaControlador implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.vista.getBtnCerrarSesion()) {
 			this.vista.getFrmInstructor().dispose();
+			LoginVista vista = new LoginVista();
+			AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
+			LoginVistaControlador controlador = new LoginVistaControlador(vista, modelo);
+			controlador.inicializar();
 		}
 		
 		if (e.getSource() == this.vista.getBtnRecados()) {

@@ -8,10 +8,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
-import java.awt.SystemColor;
 
 @SuppressWarnings("serial")
-public class UsuarionABMVistaPrincipal extends JPanel {
+public class AdministrativoABMVistaPrincipal extends JPanel {
 	
 	private JPanel mainPanel;
 	
@@ -39,7 +38,7 @@ public class UsuarionABMVistaPrincipal extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public UsuarionABMVistaPrincipal() {
+	public AdministrativoABMVistaPrincipal() {
 		super();
 		this.setBounds(0, 0, 1366, 768);
 		this.setLayout(null);
@@ -90,11 +89,11 @@ public class UsuarionABMVistaPrincipal extends JPanel {
 		lblIconBtn1.setBounds(10, 11, 32, 32);
 		btnSeleccionar.add(lblIconBtn1);
 		
-		lblTitleBtn1 = new JLabel("Seleccionar instructor");
+		lblTitleBtn1 = new JLabel("Seleccionar administrativo");
 		lblTitleBtn1.setForeground(Color.WHITE);
 		lblTitleBtn1.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblTitleBtn1.setEnabled(true);
-		lblTitleBtn1.setBounds(72, 29, 138, 14);
+		lblTitleBtn1.setBounds(52, 29, 158, 14);
 		btnSeleccionar.add(lblTitleBtn1);		
 	}
 	
@@ -113,11 +112,11 @@ public class UsuarionABMVistaPrincipal extends JPanel {
 		lblIconBtn2.setBounds(10, 11, 32, 32);
 		btnAgregar.add(lblIconBtn2);
 
-		lblTitleBtn2 = new JLabel("Agregar Instructor");
+		lblTitleBtn2 = new JLabel("Agregar administrativo");
 		lblTitleBtn2.setForeground(Color.WHITE);
 		lblTitleBtn2.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblTitleBtn2.setEnabled(true);
-		lblTitleBtn2.setBounds(74, 25, 116, 14);
+		lblTitleBtn2.setBounds(52, 25, 138, 14);
 		btnAgregar.add(lblTitleBtn2);
 	}
 	
@@ -136,11 +135,11 @@ public class UsuarionABMVistaPrincipal extends JPanel {
 		lblIconBtn3.setBounds(10, 11, 32, 32);
 		btnActualizar.add(lblIconBtn3);
 		
-		lblTitleBtn3 = new JLabel("Actualizar Instructor");
+		lblTitleBtn3 = new JLabel("Actualizar Administrativo");
 		lblTitleBtn3.setForeground(Color.WHITE);
 		lblTitleBtn3.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblTitleBtn3.setEnabled(true);
-		lblTitleBtn3.setBounds(74, 25, 116, 14);
+		lblTitleBtn3.setBounds(52, 25, 138, 14);
 		btnActualizar.add(lblTitleBtn3);		
 	}
 
@@ -159,17 +158,17 @@ public class UsuarionABMVistaPrincipal extends JPanel {
 		lblIconBtn4.setBounds(10, 11, 32, 32);
 		btnEliminar.add(lblIconBtn4);
 		
-		lblTitleBtn4 = new JLabel("Eliminar Instructor");
+		lblTitleBtn4 = new JLabel("Eliminar Administrativo");
 		lblTitleBtn4.setForeground(Color.WHITE);
 		lblTitleBtn4.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblTitleBtn4.setEnabled(true);
-		lblTitleBtn4.setBounds(74, 25, 116, 14);
+		lblTitleBtn4.setBounds(52, 25, 138, 14);
 		btnEliminar.add(lblTitleBtn4);		
 		
-		JLabel lblUsuario = new JLabel("Instructor");
+		JLabel lblUsuario = new JLabel("Administrativos");
 		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblUsuario.setForeground(Color.WHITE);
-		lblUsuario.setBounds(63, 56, 100, 26);
+		lblUsuario.setBounds(47, 56, 126, 26);
 		buttonPanel.add(lblUsuario);
 		
 		lblIconoPrincipal = new JLabel("New label");

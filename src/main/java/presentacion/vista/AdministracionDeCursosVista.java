@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class AdministracionDeCursosVista {
@@ -52,7 +53,7 @@ public class AdministracionDeCursosVista {
 		this.frame = new JFrame();
 		this.frame.setBounds(0, 0, 1366, 768);
 		this.frame.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
-		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	    
+		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.frame.setLayout( new FlowLayout() );
 		this.frame.setVisible( true );
 		
@@ -129,12 +130,12 @@ public class AdministracionDeCursosVista {
 
 	private void buildMenuUsuario() {
 		
-		menuUsuario = new JMenu("Usuario");
+		menuUsuario = new JMenu("Instructores");
 		menuUsuario.setMnemonic(KeyEvent.VK_U);
 		menuUsuario.getAccessibleContext().setAccessibleDescription("");
 		menuBar.add(menuUsuario);	
 		
-		menuItemUsuarioVer = new JMenuItem("Ver Usuario");
+		menuItemUsuarioVer = new JMenuItem("Ver Instructores");
 		menuUsuario.add(menuItemUsuarioVer);
 	}
 	

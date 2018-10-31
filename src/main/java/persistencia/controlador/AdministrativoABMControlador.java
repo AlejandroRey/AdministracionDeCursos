@@ -14,20 +14,19 @@ import javax.swing.table.DefaultTableCellRenderer;
 import dto.CategoriaDTO;
 import dto.UsuarioDTO;
 import modelo.AdministracionDeCursos;
-import presentacion.vista.UsuarioABMPanel;
+import presentacion.vista.AdministrativoABMPanel;
 
-public class UsuarioABMControlador implements ActionListener {
-	
-	private UsuarioABMPanel vista;
+public class AdministrativoABMControlador implements ActionListener {
+	private AdministrativoABMPanel vista;
 	private AdministracionDeCursos modelo;
-	private List<UsuarioDTO> usuariosLista;
-	List<CategoriaDTO> categoriaLista;
+	private List<UsuarioDTO> administrativosLista;
+	private List<CategoriaDTO> categoriaLista;
 	
-	public UsuarioABMControlador(UsuarioABMPanel vista, AdministracionDeCursos modelo) {
-		
+	public AdministrativoABMControlador(AdministrativoABMPanel vista, AdministracionDeCursos modelo) {
 		this.vista = vista;
 		this.modelo = modelo;
-		this.usuariosLista = null;
+		this.categoriaLista = null;
+		this.administrativosLista = null;
 		
 		this.vista.getBtnActualizar().addActionListener(this);
 		this.vista.getBtnAgregar().addActionListener(this);
@@ -41,7 +40,7 @@ public class UsuarioABMControlador implements ActionListener {
 		loadCategorias();
 	}
 	
-	private void setCategorias() {		
+	private void setCategorias() {
 		categoriaLista = modelo.obtenerCategorias();
 		for (CategoriaDTO categoriaFiltroDTO : categoriaLista) {
 			this.vista.getCbxCategoriaFiltro().addItem(categoriaFiltroDTO);
@@ -61,8 +60,8 @@ public class UsuarioABMControlador implements ActionListener {
 		this.vista.getModelUsuarios().setColumnIdentifiers(this.vista.getNombreColumnas());
 		clearTextInputsBox();
 
-		this.usuariosLista = modelo.obtenerUsuarios();
-		for (UsuarioDTO usuarioDTO : usuariosLista) {
+		administrativosLista = modelo.obtenerUsuarios();
+		for (UsuarioDTO usuarioDTO : administrativosLista) {
 			Object[] fila = {usuarioDTO.getIdUsuario(),
 							 usuarioDTO.getIdCategoria(),
 							 getCategoriaString(usuarioDTO.getIdCategoria()),
@@ -73,7 +72,7 @@ public class UsuarioABMControlador implements ActionListener {
 							 usuarioDTO.getUsuario(),
 							 usuarioDTO.getPassword()};
 			//filtro para obterner solo los instructores
-			if (usuarioDTO.getIdCategoria() == 3) {
+			if (usuarioDTO.getIdCategoria() == 2) {
 				this.vista.getModelUsuarios().addRow(fila);
 			}
 		}
@@ -195,7 +194,7 @@ public class UsuarioABMControlador implements ActionListener {
 		//CategoriaDTO categoria = (CategoriaDTO) this.vista.getCbxCategoria().getSelectedItem();
 		//if (categoria.getIdCategoria() > 0) {
 			UsuarioDTO usuario = new UsuarioDTO(0,
-						3,
+						2,
 					   //categoria.getIdCategoria(),
 					   this.vista.getTextNombre().getText(),
 					   this.vista.getTextApellido().getText(),

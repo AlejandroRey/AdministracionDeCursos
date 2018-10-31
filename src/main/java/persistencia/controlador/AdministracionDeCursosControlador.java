@@ -3,11 +3,15 @@ package persistencia.controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
 import modelo.AdministracionDeCursos;
+import persistencia.dao.mysql.DAOSQLFactory;
 import presentacion.vista.AdministracionDeCursosVista;
 import presentacion.vista.AlumnoABMVistaPrincipal;
 import presentacion.vista.CursadaABMVistaPrincipal;
 import presentacion.vista.CursoABMVistaPrincipal;
+import presentacion.vista.LoginVista;
 import presentacion.vista.SalaABMVistaPrincipal;
 import presentacion.vista.TareaABMVistaPrincipal;
 import presentacion.vista.UsuarionABMVistaPrincipal;
@@ -46,6 +50,8 @@ public class AdministracionDeCursosControlador implements ActionListener {
 		this.vista.getMenuItemCursadaVer().addActionListener(this);
 		this.vista.getMenuItemTareaVer().addActionListener(this);
 		this.vista.getMenuItemSalaVer().addActionListener(this);
+		this.vista.getMenuItemLogin().addActionListener(this);
+		this.vista.getMenuItemLogout().addActionListener(this);
 	}
 	
 
@@ -100,6 +106,22 @@ public class AdministracionDeCursosControlador implements ActionListener {
 				
 				this.vista.getMainPanel().add(salaABM);
 			}
+		}
+		else if (e.getSource()== this.vista.getMenuItemLogout()) {
+			System.out.println("Salir del sistema");
+			int respuesta = JOptionPane.showConfirmDialog(null, "Estas seguro que deseas salir?", "Salir del sistema", JOptionPane.YES_NO_OPTION);
+		    if (respuesta == JOptionPane.YES_OPTION)
+		    {
+		    	this.vista.getFrame().dispose();
+		    }
+			}
+		else if (e.getSource()==this.vista.getMenuItemLogin()) {
+			System.out.println("Cambiar de usuario");
+			this.vista.getFrame().dispose();
+			LoginVista vista = new LoginVista();
+			AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
+			LoginVistaControlador controlador = new LoginVistaControlador(vista, modelo);
+			controlador.inicializar();
 		}
 		this.vista.getFrame().repaint();		
 	}

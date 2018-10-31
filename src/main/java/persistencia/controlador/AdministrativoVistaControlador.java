@@ -12,6 +12,7 @@ import presentacion.vista.AdministrativoVista;
 import presentacion.vista.AlumnoABMVistaPrincipal;
 import presentacion.vista.CursadaABMVistaPrincipal;
 import presentacion.vista.CursoABMVistaPrincipal;
+import presentacion.vista.LoginVista;
 import presentacion.vista.SalaABMVistaPrincipal;
 import presentacion.vista.TareaABMVistaPrincipal;
 import presentacion.vista.VistaInicial;
@@ -79,8 +80,10 @@ public class AdministrativoVistaControlador implements ActionListener {
 		}
 		if (e.getSource() == this.vista.getBtnCerrarSesion()) {
 			this.vista.getFrmAdministrativo().dispose();
-			this.vistaInicial = new VistaInicial();
-			this.vistaInicialControlador = new VistaInicialControlador(vistaInicial);
+			LoginVista vista = new LoginVista();
+			AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
+			LoginVistaControlador controlador = new LoginVistaControlador(vista, modelo);
+			controlador.inicializar();
 		}
 		if (e.getSource() == this.vista.getBtnContactos()) {
 		
