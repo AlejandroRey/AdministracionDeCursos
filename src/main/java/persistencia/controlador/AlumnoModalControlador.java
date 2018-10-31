@@ -65,7 +65,7 @@ public class AlumnoModalControlador implements ActionListener {
 								    JOptionPane.INFORMATION_MESSAGE,
 								    new ImageIcon("imagenes/warning_64.png"));	
 							break;
-						}else {							
+						}else {
 							int optionResult = JOptionPane.showConfirmDialog(null, 
 																			 "El Alumno se encuentra con la inscripcion dada de baja!"
 																		   + System.lineSeparator()

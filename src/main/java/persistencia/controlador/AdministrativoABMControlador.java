@@ -35,22 +35,25 @@ public class AdministrativoABMControlador implements ActionListener {
 	}
 
 	public void inicializar() {
-		setCategorias();
+		//setCategorias();
 		llenarTabla();
 		loadCategorias();
 	}
 	
-	private void setCategorias() {
+	/*private void setCategorias() {
 		categoriaLista = modelo.obtenerCategorias();
 		for (CategoriaDTO categoriaFiltroDTO : categoriaLista) {
 			this.vista.getCbxCategoriaFiltro().addItem(categoriaFiltroDTO);
 		}
-	}
+	}*/
 	
 	private void loadCategorias() {
+		categoriaLista = modelo.obtenerCategorias();
 		this.vista.getCbxCategoria().addItem(new CategoriaDTO(0, ""));
 		for (CategoriaDTO categoriaFiltroDTO : categoriaLista) {
-			this.vista.getCbxCategoria().addItem(categoriaFiltroDTO);
+			if (!categoriaFiltroDTO.getNombre().equals("Instructor")) {
+				this.vista.getCbxCategoria().addItem(categoriaFiltroDTO);
+			}
 		}
 	}
 
@@ -73,6 +76,9 @@ public class AdministrativoABMControlador implements ActionListener {
 							 usuarioDTO.getPassword()};
 			//filtro para obterner solo los instructores
 			if (usuarioDTO.getIdCategoria() == 2) {
+				this.vista.getModelUsuarios().addRow(fila);
+			}
+			if (usuarioDTO.getIdCategoria() == 1) {
 				this.vista.getModelUsuarios().addRow(fila);
 			}
 		}
@@ -126,6 +132,7 @@ public class AdministrativoABMControlador implements ActionListener {
 
 	private String getCategoriaString(long idCategoria) {
 		String categoriaNombre = "";
+		categoriaLista = modelo.obtenerCategorias();
 		for (CategoriaDTO categoriaDTO : categoriaLista) {
 			if (categoriaDTO.getIdCategoria() == idCategoria) {
 				categoriaNombre = categoriaDTO.getNombre();
@@ -191,11 +198,11 @@ public class AdministrativoABMControlador implements ActionListener {
 	}
 
 	private void agregarInstructor() {
-		//CategoriaDTO categoria = (CategoriaDTO) this.vista.getCbxCategoria().getSelectedItem();
-		//if (categoria.getIdCategoria() > 0) {
+		CategoriaDTO categoria = (CategoriaDTO) this.vista.getCbxCategoria().getSelectedItem();
+		if (categoria.getIdCategoria() > 0) {
 			UsuarioDTO usuario = new UsuarioDTO(0,
-						2,
-					   //categoria.getIdCategoria(),
+						//2,
+					   categoria.getIdCategoria(),
 					   this.vista.getTextNombre().getText(),
 					   this.vista.getTextApellido().getText(),
 					   this.vista.getTextTelefono().getText(),
@@ -204,9 +211,9 @@ public class AdministrativoABMControlador implements ActionListener {
 					   String.valueOf(this.vista.getTextPassword().getPassword()));		
 			this.modelo.agregarUsuario(usuario);
 			llenarTabla();
-		//} else {
-		//	JOptionPane.showMessageDialog(null, "Seleccione Curso Tipo correctamente!", "Informacion: " + "Curso Tipo", JOptionPane.INFORMATION_MESSAGE);
-		//}
+		} else {
+			JOptionPane.showMessageDialog(null, "Seleccione Curso Tipo correctamente!", "Informacion: " + "Curso Tipo", JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 	
 	private void clearTextInputsBox() {
