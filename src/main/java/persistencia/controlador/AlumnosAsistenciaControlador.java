@@ -1,5 +1,6 @@
 package persistencia.controlador;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
@@ -9,17 +10,20 @@ import java.util.List;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
+import dto.AlumnoAsistenciaQtyDTO;
 import dto.AlumnoInscriptoDTO;
 import dto.AsistenciaDTO;
 import dto.CursadaDTO;
 import dto.FechaCursadaClaseDTO;
 import modelo.AdministracionDeCursos;
-import persistencia.dao.mysql.AsistenciaDAOSQL;
 import presentacion.vista.AlumnosAsistenciaPanel;
 
 public class AlumnosAsistenciaControlador implements ActionListener {
@@ -29,11 +33,14 @@ public class AlumnosAsistenciaControlador implements ActionListener {
 	
 	private List<FechaCursadaClaseDTO> fechaCursadaClaseList;
 	private List<AlumnoInscriptoDTO> alumnosInscriptosList;
-	private List<AsistenciaDTO> asistenciaFechaCursadaList;
+	private List<AsistenciaDTO> asistenciaAlumnoFechaCursadaList;
+	private List<AlumnoAsistenciaQtyDTO> alumnosAsistenciasList;
+	
 	private CursadaDTO cursadaDTO;
-	
-	private AsistenciaDAOSQL mySql;
-	
+	private FechaCursadaClaseDTO currentFechaCursadaClaseDTO;
+	private AsistenciaDTO asistenciaChangeDTO;
+	private AlumnoInscriptoDTO alumnoInscriptoDTO;
+	private int indexAlumno = -1;	
 
 	public AlumnosAsistenciaControlador(AlumnosAsistenciaPanel vista, AdministracionDeCursos modelo, CursadaDTO cursadaDTO) {
 		super();
@@ -45,7 +52,11 @@ public class AlumnosAsistenciaControlador implements ActionListener {
 		this.vista.getBtnAgregar().addActionListener(this);
 		this.vista.getBtnEliminar().addActionListener(this);
 		
-		mySql = new AsistenciaDAOSQL();
+		this.vista.getBtnAnterior().addActionListener(this);
+		this.vista.getBtnSiguiente().addActionListener(this);
+		
+		this.vista.getRbtnPresente().addActionListener(this);
+		this.vista.getRbtnAusente().addActionListener(this);
 	}
 
 	public void inicializar() {
@@ -83,87 +94,131 @@ public class AlumnosAsistenciaControlador implements ActionListener {
 			return false;
 		}
 		return true;
-	}
+	}	
 	
+	//https://stackoverflow.com/questions/17585112/calculate-the-subtotal-while-every-time-adding-a-new-row-in-jtable
 	public void llenarTablaFechasDeCursada() {
-	this.vista.getModelFechasDeCursada().setRowCount(0); // Para vaciar la tabla
-	this.vista.getModelFechasDeCursada().setColumnCount(0);
-	this.vista.getModelFechasDeCursada().setColumnIdentifiers(this.vista.getNombreColumnasFechasDeCursada());
-	clearTextInputsBox();
-
-	for (FechaCursadaClaseDTO fechaCursadaClaseDTO : fechaCursadaClaseList) {
-		Object[] fila = {fechaCursadaClaseDTO.getIdFechaCursadaClase(),
-						 fechaCursadaClaseDTO.getIdCursada(),
-						 fechaCursadaClaseDTO.getIdSala(),
-						 stringToLocalDateFormatter(fechaCursadaClaseDTO.getFechaInicio()),
-						 stringToLocalDateFormatter(fechaCursadaClaseDTO.getFechaFin())};
-		this.vista.getModelFechasDeCursada().addRow(fila);
-	}
-	
-	// Oculto los id del Objeto
-	this.vista.getTblFechasDeCursada().getColumnModel().getColumn(0).setWidth(0);
-	this.vista.getTblFechasDeCursada().getColumnModel().getColumn(0).setMinWidth(0);
-	this.vista.getTblFechasDeCursada().getColumnModel().getColumn(0).setMaxWidth(0);
-	this.vista.getTblFechasDeCursada().getColumnModel().getColumn(1).setWidth(0);
-	this.vista.getTblFechasDeCursada().getColumnModel().getColumn(1).setMinWidth(0);
-	this.vista.getTblFechasDeCursada().getColumnModel().getColumn(1).setMaxWidth(0);
-	this.vista.getTblFechasDeCursada().getColumnModel().getColumn(2).setWidth(0);
-	this.vista.getTblFechasDeCursada().getColumnModel().getColumn(2).setMinWidth(0);
-	this.vista.getTblFechasDeCursada().getColumnModel().getColumn(2).setMaxWidth(0);
-	
-	// Agrego listener para obtener los valores de la fila seleccionada
-	this.vista.getTblFechasDeCursada().setSelectionModel(new ListSelectionModelCstm());
-	this.vista.getTblFechasDeCursada().getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
-		try {
-			if (this.vista.getTblFechasDeCursada().getSelectedRow() >= 0) {	
-				Object id = this.vista.getTblFechasDeCursada().getValueAt(this.vista.getTblFechasDeCursada().getSelectedRow(), 0);
-//				Object idFechaCursadaClase = this.vista.getTblFechasDeCursada().getValueAt(this.vista.getTblFechasDeCursada().getSelectedRow(), 1);
-//				Object idCursada = this.vista.getTblFechasDeCursada().getValueAt(this.vista.getTblFechasDeCursada().getSelectedRow(), 2);
-//				Object idSala = this.vista.getTblFechasDeCursada().getValueAt(this.vista.getTblFechasDeCursada().getSelectedRow(), 3);
-//				Object fechaInicio = this.vista.getTblFechasDeCursada().getValueAt(this.vista.getTblFechasDeCursada().getSelectedRow(), 4);
-//				Object fechaFin = this.vista.getTblFechasDeCursada().getValueAt(this.vista.getTblFechasDeCursada().getSelectedRow(), 5);
-				System.out.println("11111");
-				FechaCursadaClaseDTO f = new FechaCursadaClaseDTO(Long.parseLong(id.toString()), 
-																  1, 
-																  1, 
-    															  LocalDateTime.now(), 
-																  LocalDateTime.now(),
-																  0);
-				
-				System.out.println("2222");
-				asistenciaFechaCursadaList = mySql.readAll(f);
-				if (asistenciaFechaCursadaList.size() > 0) {
-					System.out.println("Llenaaaaaaaaaa");
-					llenarTablaAsistenciaAlumnos();
-				} else {
-					for (AlumnoInscriptoDTO	alumnoInscriptoDTO : alumnosInscriptosList) {
-						AsistenciaDTO a = new AsistenciaDTO(alumnoInscriptoDTO.getIdAlumno(), 
-															f.getIdFechaCursadaClase(), 
-															false, 
-															"");
-						mySql.insert(a);
-						asistenciaFechaCursadaList = mySql.readAll(f);
+		
+		this.vista.getModelFechasDeCursada().setRowCount(0); // Para vaciar la tabla
+		this.vista.getModelFechasDeCursada().setColumnCount(0);
+		this.vista.getModelFechasDeCursada().setColumnIdentifiers(this.vista.getNombreColumnasFechasDeCursada());
+		
+		for (FechaCursadaClaseDTO fechaCursadaClaseDTO : fechaCursadaClaseList) {
+			
+			int qtyPresentes = 0;
+			int qtyAusentes = 0;
+			List<AsistenciaDTO> asistenciaList = modelo.obtenerAsistencia(fechaCursadaClaseDTO);
+			if (asistenciaList.size() > 0) {
+				for (AsistenciaDTO asistenciaDTO : asistenciaList) {
+					if (asistenciaDTO.getTipoAsistencia() == 1) {
+						qtyPresentes += 1;
+					} else if (asistenciaDTO.getTipoAsistencia() == 0) {
+						qtyAusentes += 1;
 					}
 				}
 			}
-		} catch (Exception ex) {
-			System.out.println("Error: " + ex.getMessage());
+			
+			Object[] fila = { fechaCursadaClaseDTO.getIdFechaCursadaClase(), fechaCursadaClaseDTO.getIdCursada(),
+					fechaCursadaClaseDTO.getIdSala(), localDateTimeFormatter(fechaCursadaClaseDTO.getFechaInicio()),
+					localDateTimeFormatter(fechaCursadaClaseDTO.getFechaFin()),
+					localDateTimeFormatterFecha((fechaCursadaClaseDTO.getFechaInicio())),
+					localDateTimeFormatterHora((fechaCursadaClaseDTO.getFechaInicio())),
+					localDateTimeFormatterHora(fechaCursadaClaseDTO.getFechaFin()),
+				    qtyPresentes,
+					qtyAusentes};
+			this.vista.getModelFechasDeCursada().addRow(fila);
 		}
-	});
 
-	DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
-	leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
-	this.vista.getTblFechasDeCursada().getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
-}	
+		// Oculto los id del Objeto
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(0).setWidth(0);
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(0).setMinWidth(0);
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(0).setMaxWidth(0);
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(1).setWidth(0);
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(1).setMinWidth(0);
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(1).setMaxWidth(0);
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(2).setWidth(0);
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(2).setMinWidth(0);
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(2).setMaxWidth(0);
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(3).setWidth(0);
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(3).setMinWidth(0);
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(3).setMaxWidth(0);
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(4).setWidth(0);
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(4).setMinWidth(0);
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(4).setMaxWidth(0);
+
+		// Agrego listener para obtener los valores de la fila seleccionada
+		this.vista.getTblFechasDeCursada().setSelectionModel(new ListSelectionModelCstm());
+		this.vista.getTblFechasDeCursada().getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+			try {
+				if (this.vista.getTblFechasDeCursada().getSelectedRow() >= 0) {
+					Object id = this.vista.getTblFechasDeCursada().getValueAt(this.vista.getTblFechasDeCursada().getSelectedRow(), 0);
+					// Object idFechaCursadaClase = this.vista.getTblFechasDeCursada().getValueAt(this.vista.getTblFechasDeCursada().getSelectedRow(), 1);
+					// Object idCursada = this.vista.getTblFechasDeCursada().getValueAt(this.vista.getTblFechasDeCursada().getSelectedRow(), 2);
+					// Object idSala = this.vista.getTblFechasDeCursada().getValueAt(this.vista.getTblFechasDeCursada().getSelectedRow(), 3);
+					Object fechaInicio = this.vista.getTblFechasDeCursada().getValueAt(this.vista.getTblFechasDeCursada().getSelectedRow(), 5);
+					// Object fechaFin = this.vista.getTblFechasDeCursada().getValueAt(this.vista.getTblFechasDeCursada().getSelectedRow(), 5);
+					currentFechaCursadaClaseDTO = new FechaCursadaClaseDTO(Long.parseLong(id.toString()),	
+																						 1, 
+																						 1, 
+																						 LocalDateTime.now(), 
+																						 LocalDateTime.now(), 
+																						 0);
+
+					asistenciaAlumnoFechaCursadaList = modelo.obtenerAsistencia(currentFechaCursadaClaseDTO);
+					if (asistenciaAlumnoFechaCursadaList.size() > 0) {
+						llenarTablaAsistenciaAlumnos();
+					} else {
+						for (AlumnoInscriptoDTO alumnoInscriptoDTO : alumnosInscriptosList) {
+							AsistenciaDTO asistenciaDTO = new AsistenciaDTO(alumnoInscriptoDTO.getIdAlumno(),
+																		 	currentFechaCursadaClaseDTO.getIdFechaCursadaClase(), 
+																		 	-1, 
+																		 	"");
+							modelo.agregarAsistencia(asistenciaDTO);
+							asistenciaAlumnoFechaCursadaList = modelo.obtenerAsistencia(currentFechaCursadaClaseDTO);
+						}
+					}
+					this.vista.getLblFechaCursadaSeleccionada().setText(fechaInicio.toString());
+				}
+			} catch (Exception ex) {
+				System.out.println("Error: " + ex.getMessage());
+			}
+		});
+
+		DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
+		leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
+
+		this.vista.getTblFechasDeCursada().setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		for (int column = 0; column < this.vista.getTblFechasDeCursada().getColumnCount(); column++) {
+			TableColumn tableColumn = this.vista.getTblFechasDeCursada().getColumnModel().getColumn(column);
+			int preferredWidth = tableColumn.getMinWidth();
+			int maxWidth = tableColumn.getMaxWidth();
+
+			for (int row = 0; row < this.vista.getTblFechasDeCursada().getRowCount(); row++) {
+				TableCellRenderer cellRenderer = this.vista.getTblFechasDeCursada().getCellRenderer(row, column);
+				Component c = this.vista.getTblFechasDeCursada().prepareRenderer(cellRenderer, row, column);
+				int width = c.getPreferredSize().width + this.vista.getTblFechasDeCursada().getIntercellSpacing().width;
+				preferredWidth = Math.max(preferredWidth, width);
+				if (preferredWidth >= maxWidth) {
+					preferredWidth = maxWidth;
+					break;
+				}
+			}
+			tableColumn.setPreferredWidth(preferredWidth);
+		}
+	}
 
 	public void llenarTablaAsistenciaAlumnos() {
+		
 		this.vista.getModelAlumnos().setRowCount(0); // Para vaciar la tabla
 		this.vista.getModelAlumnos().setColumnCount(0);
 		this.vista.getModelAlumnos().setColumnIdentifiers(this.vista.getNombreColumnas());
-		clearTextInputsBox();
-
+		
+		checkAlumnosInscriptosList();
+		setCountAlumnoAsistenciaQty();
+		
 		for (AlumnoInscriptoDTO alumnoInscriptoDTO : alumnosInscriptosList) {
-			for (AsistenciaDTO alumnoAsistenciaDTO : asistenciaFechaCursadaList) {
+			for (AsistenciaDTO alumnoAsistenciaDTO : asistenciaAlumnoFechaCursadaList) {
 				if (alumnoInscriptoDTO.getIdAlumno() == alumnoAsistenciaDTO.getIdAlumno()) {
 					Object[] fila = {alumnoInscriptoDTO.getIdAlumno(),
 							 alumnoAsistenciaDTO.getIdFechaCursadaClase(),
@@ -171,19 +226,28 @@ public class AlumnosAsistenciaControlador implements ActionListener {
 							 alumnoInscriptoDTO.getApellido(),
 							 alumnoInscriptoDTO.getTelefono(),
 							 alumnoInscriptoDTO.getEmail(),
-							 stringToLocalDateFormatter(alumnoInscriptoDTO.getFecha()),
-							 alumnoAsistenciaDTO.isTipoAsistencia()};
+							 localDateTimeFormatterFecha(alumnoInscriptoDTO.getFecha()),
+							 getTipoDeAsistencia(alumnoAsistenciaDTO.getTipoAsistencia()),
+							 getAlumnoAsistenciaPresenteFechaCursada(alumnoInscriptoDTO.getIdAlumno()),
+							 getAlumnoAsistenciaAusenteFechaCursada(alumnoInscriptoDTO.getIdAlumno())};
 					this.vista.getModelAlumnos().addRow(fila);
 				}				
 			}
 		}
+		
 		// Oculto los id del Objeto
 		this.vista.getTblAlumnos().getColumnModel().getColumn(0).setWidth(0);
 		this.vista.getTblAlumnos().getColumnModel().getColumn(0).setMinWidth(0);
 		this.vista.getTblAlumnos().getColumnModel().getColumn(0).setMaxWidth(0);
 		this.vista.getTblAlumnos().getColumnModel().getColumn(1).setWidth(0);
 		this.vista.getTblAlumnos().getColumnModel().getColumn(1).setMinWidth(0);
-		this.vista.getTblAlumnos().getColumnModel().getColumn(1).setMaxWidth(0);
+		this.vista.getTblAlumnos().getColumnModel().getColumn(1).setMaxWidth(0);		
+		this.vista.getTblAlumnos().getColumnModel().getColumn(4).setWidth(0);
+		this.vista.getTblAlumnos().getColumnModel().getColumn(4).setMinWidth(0);
+		this.vista.getTblAlumnos().getColumnModel().getColumn(4).setMaxWidth(0);		
+		this.vista.getTblAlumnos().getColumnModel().getColumn(5).setWidth(0);
+		this.vista.getTblAlumnos().getColumnModel().getColumn(5).setMinWidth(0);
+		this.vista.getTblAlumnos().getColumnModel().getColumn(5).setMaxWidth(0);
 		
 		// Agrego listener para obtener los valores de la fila seleccionada
 		this.vista.getTblAlumnos().setSelectionModel(new ListSelectionModelCstm());
@@ -197,7 +261,9 @@ public class AlumnosAsistenciaControlador implements ActionListener {
 					Object telefono = this.vista.getTblAlumnos().getValueAt(this.vista.getTblAlumnos().getSelectedRow(), 4);
 					Object email = this.vista.getTblAlumnos().getValueAt(this.vista.getTblAlumnos().getSelectedRow(), 5);
 					Object fecha = this.vista.getTblAlumnos().getValueAt(this.vista.getTblAlumnos().getSelectedRow(), 6);
-					boolean asistencia = ((Boolean) this.vista.getTblAlumnos().getValueAt(this.vista.getTblAlumnos().getSelectedRow(), 7)).booleanValue();;
+					Object presente = this.vista.getTblAlumnos().getValueAt(this.vista.getTblAlumnos().getSelectedRow(), 7);
+					Object qtyPresente = this.vista.getTblAlumnos().getValueAt(this.vista.getTblAlumnos().getSelectedRow(), 8);
+					Object qtyAusente = this.vista.getTblAlumnos().getValueAt(this.vista.getTblAlumnos().getSelectedRow(), 9);
 					
 					this.vista.getTextIdAlumno().setText(idAlumno.toString());
 					this.vista.getTextIdCursada().setText(idFechaCursada.toString());
@@ -206,13 +272,26 @@ public class AlumnosAsistenciaControlador implements ActionListener {
 					this.vista.getTextTelefono().setText(telefono.toString());
 					this.vista.getTextEmail().setText(email.toString());
 					this.vista.getTextFecha().setText(fecha.toString());
+					this.vista.getTextPresente().setText(qtyPresente.toString());
+					this.vista.getTextAusente().setText(qtyAusente.toString());
 					
-					AsistenciaDTO asistenciaDTO =  new AsistenciaDTO(Long.parseLong(idAlumno.toString()), 
+					int presenteInt = -1;
+					if (presente.toString().equals("Sin Asignar")) {
+						System.out.println("SIN ASIGNAR........");
+						this.vista.getRbtnGroup().clearSelection();
+						presenteInt = -1;
+					} else if (presente.toString().equals("Ausente")) {
+						this.vista.getRbtnAusente().setSelected(true);
+						presenteInt = 0;
+					}else if (presente.toString().equals("Presente")) {
+						this.vista.getRbtnPresente().setSelected(true);
+						presenteInt = 1;
+					}
+					
+					asistenciaChangeDTO =  new AsistenciaDTO(Long.parseLong(idAlumno.toString()), 
 							                             Long.parseLong(idFechaCursada.toString()), 
-							                             asistencia, 
+							                             presenteInt, 
 							                             "");
-					mySql.update(asistenciaDTO);
-					System.out.println("UPDATE");
 				}
 			} catch (Exception ex) {
 				System.out.println("Error: " + ex.getMessage());
@@ -224,21 +303,148 @@ public class AlumnosAsistenciaControlador implements ActionListener {
 		this.vista.getTblAlumnos().getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
 	}
 	
+	private int getAlumnoAsistenciaAusenteFechaCursada(long idAlumno) {
+		int qty = 0;
+		for (AlumnoAsistenciaQtyDTO alumnoAsistenciaQtyDTO : alumnosAsistenciasList) {
+			System.out.println("IDALUMNO"+alumnoAsistenciaQtyDTO);
+			if (alumnoAsistenciaQtyDTO.getIdAlumno() == idAlumno) {
+				qty = alumnoAsistenciaQtyDTO.getAusente();
+			}else if (alumnoAsistenciaQtyDTO.getIdAlumno() == 0) {
+				this.vista.getTextAusenteTotal().setText(Integer.toString(alumnoAsistenciaQtyDTO.getAusente()));
+			}
+		}
+		return qty;
+	}
+
+	private int getAlumnoAsistenciaPresenteFechaCursada(long idAlumno) {
+		int qty = 0;
+		for (AlumnoAsistenciaQtyDTO alumnoAsistenciaQtyDTO : alumnosAsistenciasList) {
+			System.out.println("IDALUMNO"+alumnoAsistenciaQtyDTO);
+			if (alumnoAsistenciaQtyDTO.getIdAlumno() == idAlumno) {
+				qty = alumnoAsistenciaQtyDTO.getPresente();
+			} else if (alumnoAsistenciaQtyDTO.getIdAlumno() == 0) {
+				this.vista.getTextPresenteTotal().setText(Integer.toString(alumnoAsistenciaQtyDTO.getPresente()));
+			}
+		}
+		return qty;
+	}
+
+	private void checkAlumnosInscriptosList() {
+
+		if (alumnosInscriptosList.size() > asistenciaAlumnoFechaCursadaList.size()) {
+			for (AlumnoInscriptoDTO alumnoInscriptoDTO : alumnosInscriptosList) {
+				int contador = 1;
+				for (AsistenciaDTO asistenciaDTO : asistenciaAlumnoFechaCursadaList) {
+					if (asistenciaDTO.getIdAlumno()==alumnoInscriptoDTO.getIdAlumno()) {
+						break;
+					}
+					if (contador == asistenciaAlumnoFechaCursadaList.size()) {
+						AsistenciaDTO newAsistenciaDTO = new AsistenciaDTO(alumnoInscriptoDTO.getIdAlumno(), 
+																		   asistenciaDTO.getIdFechaCursadaClase(), 
+																		   -1, 
+																		   "");
+						modelo.agregarAsistencia(newAsistenciaDTO);
+					}
+					contador += 1;
+				}
+			}
+		}		
+	}
+
+	private String getTipoDeAsistencia(int tipoAsistencia) {
+		if (tipoAsistencia == -1) {
+			return "Sin Asignar";
+		} else if (tipoAsistencia == 0) {
+			return "Ausente";
+		} else if (tipoAsistencia == 1) {
+			return "Presente";
+		}
+		return "Sin Asignar";
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		if (e.getSource() == this.vista.getBtnAgregar()) {
-
-		} else if (e.getSource() == this.vista.getBtnEliminar()) {
-			
+		if (e.getSource() == this.vista.getBtnAnterior()) {
+			indexAlumno--;
+			if (indexAlumno > -1 && indexAlumno <= alumnosInscriptosList.size()) {
+				alumnoInscriptoDTO = alumnosInscriptosList.get(indexAlumno);
+				
+				this.vista.getTextIdAlumno().setText(Long.toString(alumnoInscriptoDTO.getIdAlumno()));
+				this.vista.getTextIdCursada().setText(Long.toString(alumnoInscriptoDTO.getIdCursada()));
+				this.vista.getTextNombre().setText(alumnoInscriptoDTO.getNombre());
+				this.vista.getTextApellido().setText(alumnoInscriptoDTO.getApellido());
+				this.vista.getTextTelefono().setText(alumnoInscriptoDTO.getTelefono());
+				this.vista.getTextEmail().setText(alumnoInscriptoDTO.getEmail());
+				this.vista.getTextFecha().setText(localDateTimeFormatter(alumnoInscriptoDTO.getFecha()));
+				
+				System.out.println(alumnoInscriptoDTO.toString());
+			}else {
+				indexAlumno = 0;
+			}
+		} else if (e.getSource() == this.vista.getBtnSiguiente()) {
+			indexAlumno++;
+			if (indexAlumno < alumnosInscriptosList.size()) {
+				alumnoInscriptoDTO = alumnosInscriptosList.get(indexAlumno);
+				
+				this.vista.getTextIdAlumno().setText(Long.toString(alumnoInscriptoDTO.getIdAlumno()));
+				this.vista.getTextIdCursada().setText(Long.toString(alumnoInscriptoDTO.getIdCursada()));
+				this.vista.getTextNombre().setText(alumnoInscriptoDTO.getNombre());
+				this.vista.getTextApellido().setText(alumnoInscriptoDTO.getApellido());
+				this.vista.getTextTelefono().setText(alumnoInscriptoDTO.getTelefono());
+				this.vista.getTextEmail().setText(alumnoInscriptoDTO.getEmail());
+				this.vista.getTextFecha().setText(localDateTimeFormatter(alumnoInscriptoDTO.getFecha()));
+				
+				System.out.println(alumnoInscriptoDTO.toString());
+			}else {
+				indexAlumno = alumnosInscriptosList.size()-1;
+			}
+		} else if (e.getSource() == this.vista.getRbtnPresente()) {
+			System.out.println("PRESENTE");
+			asistenciaChangeDTO.setTipoAsistencia(1);
+			modelo.actualizarAsistencia(asistenciaChangeDTO);
+			clearTextInputsBox();
+			asistenciaAlumnoFechaCursadaList.clear();
+			asistenciaAlumnoFechaCursadaList = modelo.obtenerAsistencia(currentFechaCursadaClaseDTO);
+			llenarTablaFechasDeCursada();
+			llenarTablaAsistenciaAlumnos();
+			setCountAlumnoAsistenciaQty();
+		} else if (e.getSource() == this.vista.getRbtnAusente()) {
+			System.out.println("AUSENTE");
+			asistenciaChangeDTO.setTipoAsistencia(0);
+			modelo.actualizarAsistencia(asistenciaChangeDTO);
+			clearTextInputsBox();
+			asistenciaAlumnoFechaCursadaList.clear();
+			asistenciaAlumnoFechaCursadaList = modelo.obtenerAsistencia(currentFechaCursadaClaseDTO);
+			llenarTablaFechasDeCursada();
+			llenarTablaAsistenciaAlumnos();
+			setCountAlumnoAsistenciaQty();
 		}
 	}
 	
-	private String stringToLocalDateFormatter(LocalDateTime fecha) {
+	private String localDateTimeFormatter(LocalDateTime dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        String formatDateTime = dateTime.format(formatter);
+        return formatDateTime;
+	}
+	
+	private String localDateTimeFormatterFecha(LocalDateTime dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String formatDateTime = dateTime.format(formatter);
+        return formatDateTime;
+	}
+	
+	private String localDateTimeFormatterHora(LocalDateTime dateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        String formatDateTime = dateTime.format(formatter);
+        return formatDateTime;
+	}
+	
+	private void setCountAlumnoAsistenciaQty() {
 		
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-		String formatDateTime = fecha.format(formatter);
-		return formatDateTime;
+		if (fechaCursadaClaseList.size() > 0 && asistenciaAlumnoFechaCursadaList.size() > 0) {
+			alumnosAsistenciasList = modelo.obtenerAlumnosAsistenciasQty(cursadaDTO);
+		}
 	}
 	
 	private void clearTextInputsBox() {
@@ -249,6 +455,9 @@ public class AlumnosAsistenciaControlador implements ActionListener {
 		this.vista.getTextTelefono().setText("");
 		this.vista.getTextEmail().setText("");
 		this.vista.getTextFecha().setText("");
+		this.vista.getTextPresente().setText("");
+		this.vista.getTextAusente().setText("");
+		this.vista.getRbtnGroup().clearSelection();
 	}
 	
 	@SuppressWarnings("serial")

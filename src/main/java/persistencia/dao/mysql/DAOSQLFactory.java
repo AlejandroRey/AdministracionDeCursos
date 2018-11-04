@@ -1,8 +1,10 @@
 package persistencia.dao.mysql;
 
+import persistencia.dao.interfaz.AlumnoAsistenciaQtyDAO;
 import persistencia.dao.interfaz.AlumnoDAO;
 import persistencia.dao.interfaz.AlumnoEventoDAO;
 import persistencia.dao.interfaz.AlumnoInscriptoDAO;
+import persistencia.dao.interfaz.AsistenciaDAO;
 import persistencia.dao.interfaz.CategoriaDAO;
 import persistencia.dao.interfaz.ClaseDAO;
 import persistencia.dao.interfaz.CursadaCompletaDAO;
@@ -13,9 +15,13 @@ import persistencia.dao.interfaz.DAOAbstractFactory;
 import persistencia.dao.interfaz.DiaCursadaClaseDAO;
 import persistencia.dao.interfaz.EmpresaDAO;
 import persistencia.dao.interfaz.EstadoDeCursoDAO;
+import persistencia.dao.interfaz.EvaluacionCursadaDAO;
+import persistencia.dao.interfaz.EvaluacionDAO;
+import persistencia.dao.interfaz.EvaluacionTipoDAO;
 import persistencia.dao.interfaz.FechaCursadaClaseDAO;
 import persistencia.dao.interfaz.FeriadoDAO;
 import persistencia.dao.interfaz.InscriptoDAO;
+import persistencia.dao.interfaz.NotaDAO;
 import persistencia.dao.interfaz.SalaDAO;
 import persistencia.dao.interfaz.SalaDisponibilidadDAO;
 import persistencia.dao.interfaz.SalaDisponibleDAO;
@@ -23,7 +29,6 @@ import persistencia.dao.interfaz.UsuarioDAO;
 import persistencia.dao.interfaz.TareaDAO;
 
 public class DAOSQLFactory implements DAOAbstractFactory {
-	
 	
 	@Override
 	public CursoTipoDAO createCursoTipoDAO() {
@@ -137,4 +142,42 @@ public class DAOSQLFactory implements DAOAbstractFactory {
 		// TODO Auto-generated method stub
 		return new FeriadoDAOSQL();
 	}
+
+	@Override
+	public AsistenciaDAO createAsistenciaDAO() {
+		// TODO Auto-generated method stub
+		return new AsistenciaDAOSQL();
+	}
+
+	@Override
+	public AlumnoAsistenciaQtyDAO createAlumnoAsistenciaQtyDAO() {
+		// TODO Auto-generated method stub
+		return new AlumnoAsistenciaQtyDAOSQL();
+	}
+
+	@Override
+	public EvaluacionDAO createEvaluacionDAO() {
+		// TODO Auto-generated method stub
+		return new EvaluacionDAOSQL();
+	}
+
+	@Override
+	public EvaluacionTipoDAO createEvaluacionTipoDAO() {
+		// TODO Auto-generated method stub
+		return new EvaluacionTipoDAOSQL();
+	}
+
+	@Override
+	public EvaluacionCursadaDAO createEvaluacionCursadaDAO() {
+		// TODO Auto-generated method stub
+		return new EvaluacionCursadaDAOSQL();
+	}
+
+	@Override
+	public NotaDAO createNotaDAO() {
+		// TODO Auto-generated method stub
+		return new NotaDAOSQL();
+	}
+	
+	
 }

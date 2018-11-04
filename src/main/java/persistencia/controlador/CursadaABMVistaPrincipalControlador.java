@@ -13,7 +13,6 @@ import presentacion.vista.AlumnosInscriptosPanel;
 import presentacion.vista.CalendarioBuilderPanel;
 import presentacion.vista.CursadaABMPanel;
 import presentacion.vista.CursadaABMVistaPrincipal;
-import presentacion.vista.TestFrame;
 
 public class CursadaABMVistaPrincipalControlador {
 	
@@ -30,6 +29,9 @@ public class CursadaABMVistaPrincipalControlador {
 	
 	private AlumnosInscriptosControlador alumnosInscriptosControlador;
 	private AlumnosInscriptosPanel alumnosInscriptos;	
+	
+	private AlumnosAsistenciaControlador alumnosAsistenciaControlador;
+	private AlumnosAsistenciaPanel alumnosAsistencia;
 	
 	public CursadaABMVistaPrincipalControlador(AdministracionDeCursos modelo, CursadaABMVistaPrincipal vista) {
 		super();
@@ -136,11 +138,13 @@ public class CursadaABMVistaPrincipalControlador {
 								  this.vista.getBtnInscriptos(),
 								  this.vista.getBtnPagos()});
 
-		TestFrame vistaMain = new TestFrame();
-		AlumnosAsistenciaPanel vista = vistaMain.getAlumnosAsistenciaPanel();
-		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
-		AlumnosAsistenciaControlador controlador = new AlumnosAsistenciaControlador(vista, modelo, cursadaDTO);
-		controlador.inicializar();		
+		if (alumnosAsistencia == null && cursadaDTO != null) {
+			alumnosAsistencia = new AlumnosAsistenciaPanel();
+			alumnosAsistenciaControlador = new AlumnosAsistenciaControlador(alumnosAsistencia, modelo, cursadaDTO);
+			alumnosAsistenciaControlador.inicializar();
+
+			this.vista.getMainPanel().add(alumnosAsistencia);
+		}
 	}
 
 	private void btnCalendario_MousePressed(MouseEvent evt) {
@@ -295,6 +299,10 @@ public class CursadaABMVistaPrincipalControlador {
 		if (alumnosInscriptos != null) {
 			alumnosInscriptos = null;
 			alumnosInscriptosControlador = null;
+		}
+		if (alumnosAsistencia!=null) {
+			alumnosAsistencia = null;
+			alumnosAsistenciaControlador = null;
 		}
 		
 		this.vista.getMainPanel().removeAll();

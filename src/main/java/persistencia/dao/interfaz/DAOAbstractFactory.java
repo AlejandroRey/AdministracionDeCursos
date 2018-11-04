@@ -41,5 +41,17 @@ public interface DAOAbstractFactory {
 	public SalaDisponibleDAO createSalaDisponibleDAO();
 
 	public FeriadoDAO createFeriadoDAO();
+
+	public AsistenciaDAO createAsistenciaDAO();
+
+	public AlumnoAsistenciaQtyDAO createAlumnoAsistenciaQtyDAO();
+
+	public EvaluacionDAO createEvaluacionDAO();
+
+	public EvaluacionTipoDAO createEvaluacionTipoDAO();
+
+	public EvaluacionCursadaDAO createEvaluacionCursadaDAO();
+
+	public NotaDAO createNotaDAO();
 	
 }
