@@ -46,7 +46,7 @@ public class InstructorVistaControlador implements ActionListener {
 		}
 		
 		if (e.getSource() == this.vista.getBtnRegistrar()) {
-			
+			JOptionPane.showMessageDialog(null, "Esta función todavía no esta desarrollada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 
