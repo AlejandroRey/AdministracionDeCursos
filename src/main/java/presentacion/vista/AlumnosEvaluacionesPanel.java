@@ -84,7 +84,7 @@ public class AlumnosEvaluacionesPanel extends JPanel {
 		lblEvaluacionSeleccionadaFecha.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		
 		btnAgregarEvaluacion = new JButton("Agregar Evaluacion");
-		btnAgregarEvaluacion.setBounds(10, 439, 311, 35);
+		btnAgregarEvaluacion.setBounds(10, 454, 311, 35);
 		btnAgregarEvaluacion.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnAgregarEvaluacion.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(btnAgregarEvaluacion);
@@ -175,14 +175,14 @@ public class AlumnosEvaluacionesPanel extends JPanel {
 		add(btnActualizarNota);
 		
 		btnActualizarEvaluacion = new JButton("Actualizar");
-		btnActualizarEvaluacion.setBounds(10, 531, 311, 35);
+		btnActualizarEvaluacion.setBounds(10, 554, 311, 35);
 		btnActualizarEvaluacion.setVisible(false);
 		btnActualizarEvaluacion.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnActualizarEvaluacion.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(btnActualizarEvaluacion);
 		
 		btnEliminarEvaluacion = new JButton("Eliminar");
-		btnEliminarEvaluacion.setBounds(10, 485, 311, 35);
+		btnEliminarEvaluacion.setBounds(10, 500, 311, 35);
 		btnEliminarEvaluacion.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnEliminarEvaluacion.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		add(btnEliminarEvaluacion);
