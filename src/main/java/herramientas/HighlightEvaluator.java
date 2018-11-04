@@ -1,18 +1,11 @@
 package herramientas;
 
 import java.awt.Color;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import javax.swing.JFrame;
 import com.toedter.calendar.IDateEvaluator;
-import com.toedter.calendar.JCalendar;
-
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
 
 public class HighlightEvaluator implements IDateEvaluator{
 	
@@ -33,27 +26,17 @@ public class HighlightEvaluator implements IDateEvaluator{
 		getDates().add(date);
 	}
 	
-	public Date createDate(int d,int m) {
+	public Date createDate(int day,int month, int hour,int minute,int second) {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DAY_OF_MONTH, d);
-        calendar.set(Calendar.MONTH,m);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.DAY_OF_MONTH, day);
+        calendar.set(Calendar.MONTH,month);
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, second);
         calendar.set(Calendar.MILLISECOND, 0);
         return (calendar.getTime());
     }
-	
-	public Date createDate(int d) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.DAY_OF_MONTH, d);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-        return (calendar.getTime());
-    }
-	
+		
 	private Color getColor() { 
 		return color;
 	}

@@ -68,7 +68,6 @@ public class AAJCalendar {
     private void display() {
         JFrame f = new JFrame("Highlight Test");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         HighlightEvaluator evaluator = new HighlightEvaluator();
         evaluator.add(createDate(14));
         evaluator.add(createDate(15));

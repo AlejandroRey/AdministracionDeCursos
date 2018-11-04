@@ -105,6 +105,7 @@ public class FechaCursadaClaseDAOSQL implements FechaCursadaClaseDAO {
 																  resultSet.getTimestamp("fechaInicio").toLocalDateTime(), 
 																  resultSet.getTimestamp("fechaFin").toLocalDateTime(),
 																  resultSet.getInt("estadoSala")));
+				System.out.println("listo");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -6,10 +6,20 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-import modelo.AdministracionDeCursos;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+
 import presentacion.vista.SalaDisponibilidadDialog;
 import herramientas.HighlightEvaluator;
 
@@ -18,83 +28,171 @@ public class SalaDisponibilidadControlador implements PropertyChangeListener, Ac
 	private HighlightEvaluator highlightGreen;
 	private HighlightEvaluator highlightYellow;
 	private HighlightEvaluator highlightRed;
-	private List<Date> datesSala;
-	private List<Date> dateGreen;
-	private List<Date> dateYellow;
-	private List<Date> dateRed;
 	private SalaDisponibilidadDialog vista;
-	private AdministracionDeCursos modelo;
+	private HashMap<LocalDate, ArrayList<Disponibilidad>> hashHorarios;
 	
-	public SalaDisponibilidadControlador(SalaDisponibilidadDialog vista, AdministracionDeCursos modelo) {
+	public SalaDisponibilidadControlador(SalaDisponibilidadDialog vista) {
 		this.vista = vista;
-		this.modelo = modelo;
-		this.datesSala = null;
-		this.dateGreen = null;
-		this.dateYellow = null;
-		this.dateRed = null;
+		this.hashHorarios = null;
 	}	
 	
 	public void inicializar() {
-		addCalendar();
 		addActionBtn();
 		this.vista.showDialog();
 	}
 	
 	private void addActionBtn() {
 		this.vista.getBtnCerrar().addActionListener(this);
+		this.vista.getDisponibilidadPanel().getCalendar().getDayChooser().addPropertyChangeListener(this);
+	}
+
+	public void createHighlights(List<Disponibilidad> fechas) {
+		HashMap<LocalDate,Integer> horariosFecha = new HashMap<>();
+		evaluarFechas(fechas,horariosFecha);
+		addDatesToHighlight(horariosFecha);
+		addCalendar();
 	}
 
 	private void addCalendar() {
-		this.vista.getDisponibilidadPanel().getCalendar().getDayChooser().addPropertyChangeListener(this);
-		addHighlightGreen();
-        addHighlightYellow();
-        addHighlightRed();
-        
-        this.vista.getDisponibilidadPanel().getCalendar().getDayChooser().addDateEvaluator(highlightGreen);
+		this.vista.getDisponibilidadPanel().getCalendar().getDayChooser().removeDateEvaluator(highlightGreen);
+		this.vista.getDisponibilidadPanel().getCalendar().getDayChooser().removeDateEvaluator(highlightYellow);
+		this.vista.getDisponibilidadPanel().getCalendar().getDayChooser().removeDateEvaluator(highlightRed);
+		this.vista.getDisponibilidadPanel().getCalendar().getDayChooser().addDateEvaluator(highlightGreen);
         this.vista.getDisponibilidadPanel().getCalendar().getDayChooser().addDateEvaluator(highlightYellow);
         this.vista.getDisponibilidadPanel().getCalendar().getDayChooser().addDateEvaluator(highlightRed);
-        this.vista.getDisponibilidadPanel().getCalendar().setCalendar(vista.getDisponibilidadPanel().getCalendar().getCalendar());
-	}
-
-	private void addHighlightRed() {
-		highlightRed = new HighlightEvaluator(Color.YELLOW);
-        highlightRed.add(highlightRed.createDate(17,10));
-        highlightRed.add(highlightRed.createDate(16,10));
-	}
-
-	private void addHighlightYellow() {
-		highlightYellow = new HighlightEvaluator(Color.RED);
-        highlightYellow.add(highlightYellow.createDate(13,11));
-        highlightYellow.add(highlightYellow.createDate(12,11));
-	}
-
-	private void addHighlightGreen() {
-		highlightGreen = new HighlightEvaluator(Color.GREEN);
-        highlightGreen.add(highlightGreen.createDate(14,11));
-        highlightGreen.add(highlightGreen.createDate(15,11));
+        this.vista.getDisponibilidadPanel().getCalendar().setCalendar(vista.getDisponibilidadPanel().getCalendar()
+        		.getCalendar());
 	}
 	
-	public static void main(String args[]) {
-		System.out.println("Hola");
-		AdministracionDeCursos modelo = null ;
-		SalaDisponibilidadDialog dialog = new SalaDisponibilidadDialog();
-		SalaDisponibilidadControlador ctr = new SalaDisponibilidadControlador(dialog, modelo);
-		ctr.inicializar();
-		System.out.println("Sali");
+	private void addDatesToHighlight(HashMap<LocalDate, Integer> horariosFecha) {
+		Map<LocalDate, Integer> fechasGreen = horariosFecha.entrySet().stream()
+              .filter(map -> map.getValue() <= 4 )
+              .collect(Collectors.toMap(p -> p.getKey(), p -> p.getValue()));
+		Set<LocalDate> green = fechasGreen.keySet();
+		
+		Map<LocalDate, Integer> fechasYellow = horariosFecha.entrySet().stream()
+	              .filter(map -> map.getValue() > 4 && map.getValue() <= 10)
+	              .collect(Collectors.toMap(p -> p.getKey(), p -> p.getValue()));
+		Set<LocalDate> yellow = fechasYellow.keySet();
+		
+		Map<LocalDate, Integer> fechasRed = horariosFecha.entrySet().stream()
+	              .filter(map -> map.getValue() > 10)
+	              .collect(Collectors.toMap(p -> p.getKey(), p -> p.getValue()));
+		Set<LocalDate> red = fechasRed.keySet();
+		
+		loadHighlightEvaluatorGreen(green);
+		loadHighlightEvaluatorYellow(yellow);
+		loadHighlightEvaluatorRed(red);
 	}
 
+	private void loadHighlightEvaluatorGreen(Set<LocalDate> fechas) {
+		highlightGreen = new HighlightEvaluator(Color.GREEN);
+		for(LocalDate date : fechas) {
+			int day = date.getDayOfMonth();
+			int month = date.getMonthValue();
+			highlightGreen.add(highlightGreen.createDate(day,month - 1, 0, 0, 0));
+		}
+	}
+	
+	private void loadHighlightEvaluatorYellow(Set<LocalDate> fechas) {
+		highlightYellow = new HighlightEvaluator(Color.YELLOW);
+		for(LocalDate date : fechas) {
+			int day = date.getDayOfMonth();
+			int month = date.getMonthValue();
+			highlightYellow.add(highlightYellow.createDate(day,month - 1, 0, 0, 0));
+		}
+	}
+	
+	private void loadHighlightEvaluatorRed(Set<LocalDate> fechas) {
+		highlightRed = new HighlightEvaluator(Color.RED);
+		for(LocalDate date : fechas) {
+			int day = date.getDayOfMonth();
+			int month = date.getMonthValue();
+			highlightRed.add(highlightRed.createDate(day,month - 1, 0, 0, 0));
+		}
+	}
+	
+	private void evaluarFechas(List<Disponibilidad> fechas, HashMap<LocalDate,Integer> horariosFecha) {
+		hashHorarios = new HashMap<LocalDate, ArrayList<Disponibilidad>>();
+		for (Disponibilidad dato : fechas) {
+			LocalDate fecha = dato.getFecha();
+			calculateHours(horariosFecha, dato, fecha);
+			addToHashHorarios(dato, fecha);
+		}
+	}
+
+	private void calculateHours(HashMap<LocalDate, Integer> horariosFecha, Disponibilidad dato, LocalDate fecha) {
+		LocalDateTime horaInicio = dato.getHoraInicio();
+		LocalDateTime horaFin = dato.getHoraFin();
+		boolean containsDate = horariosFecha.containsKey(fecha);
+		Integer horas = (int) horaInicio.until(horaFin, ChronoUnit.HOURS);
+		if(!containsDate)
+			horariosFecha.put(fecha, horas);
+		else {
+			horas = horariosFecha.get(fecha) + horas;
+			horariosFecha.put(fecha, horas);
+		}
+	}
+
+	private void addToHashHorarios(Disponibilidad dato, LocalDate fecha) {
+		if(!hashHorarios.containsKey(fecha)){
+			hashHorarios.put(fecha, new ArrayList<Disponibilidad> ());
+			hashHorarios.get(fecha).add(dato);
+		} else {
+			hashHorarios.get(fecha).add(dato);
+		}
+	}
+	
+	private String stringDate(LocalDateTime fecha, String pattern) {
+		String formatDateTime = "";
+		if ( fecha != null){
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+			formatDateTime = fecha.format(formatter);
+		}
+		return formatDateTime;
+	}
+
+	private void loadTableWithHours(ArrayList<Disponibilidad> disponibilidades) {
+		this.vista.getDisponibilidadPanel().getModelHorarios().setRowCount(0); // Para vaciar la tabla
+		this.vista.getDisponibilidadPanel().getModelHorarios().setColumnCount(0);
+		this.vista.getDisponibilidadPanel().getModelHorarios().setColumnIdentifiers(this.vista
+															  .getDisponibilidadPanel().getNombreColumnasHorarios());
+
+		for (Disponibilidad disponibilidad : disponibilidades) {
+			Object[] fila = {this.stringDate(disponibilidad.getHoraInicio(), "HH:mm"),
+							 this.stringDate(disponibilidad.getHoraInicio(), "HH:mm"), 
+							 disponibilidad.getNombreCurso()};
+			this.vista.getDisponibilidadPanel().getModelHorarios().addRow(fila);
+		}
+		
+		// Agrego listener para obtener los valores de la fila seleccionada
+		DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
+		leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
+		this.vista.getDisponibilidadPanel().getTableHorarios().getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
+	}
+
+	private void paintCalendar() {
+		vista.getDisponibilidadPanel().getCalendar().setCalendar(vista.getDisponibilidadPanel().getCalendar().getCalendar());
+	}
+	
 	@Override
 	public void propertyChange(PropertyChangeEvent arg0) {
 		if (arg0.getPropertyName().compareTo("day") == 0) {
-            SimpleDateFormat formatoDeFecha = new SimpleDateFormat("dd/MM/yyyy");
-            System.out.println(formatoDeFecha.format(vista.getDisponibilidadPanel().getCalendar().getDate()));
-            vista.getDisponibilidadPanel().getCalendar().setCalendar(vista.getDisponibilidadPanel().getCalendar().getCalendar());
-        }		
+            SimpleDateFormat formatoDeFecha = new SimpleDateFormat("yyyy-MM-dd");
+            String currentDate = formatoDeFecha.format(vista.getDisponibilidadPanel().getCalendar().getDate());
+            LocalDate date = LocalDate.parse(currentDate);
+            ArrayList<Disponibilidad> disponibilidades = hashHorarios.get(date);
+            loadTableWithHours(disponibilidades);
+            paintCalendar();
+        }
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		if(event.getSource() == this.vista.getBtnCerrar())
 			this.vista.dispose();
+	}
+	
+	public static void main(String args[]) {
 	}
 }

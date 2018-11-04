@@ -40,5 +40,5 @@ public interface DAOAbstractFactory {
 	public TareaDAO createTareaDAO();
 
 	public SalaDisponibleDAO createSalaDisponibleDAO();
-	
+
 }

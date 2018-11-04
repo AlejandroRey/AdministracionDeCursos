@@ -17,6 +17,7 @@ import dto.EstadoDeCursoDTO;
 import dto.FechaCursadaClaseDTO;
 import dto.InscriptoDTO;
 import dto.SalaDTO;
+import dto.SalaDisponibilidadDTO;
 import dto.SalaDisponibleDTO;
 import dto.TareaDTO;
 import dto.UsuarioDTO;
@@ -34,6 +35,7 @@ import persistencia.dao.interfaz.UsuarioDAO;
 import persistencia.dao.interfaz.EmpresaDAO;
 import persistencia.dao.interfaz.SalaDAO;
 import persistencia.dao.interfaz.SalaDisponibleDAO;
+import persistencia.dao.interfaz.SalaDisponibilidadDAO;
 import persistencia.dao.interfaz.EstadoDeCursoDAO;
 import persistencia.dao.interfaz.FechaCursadaClaseDAO;
 import persistencia.dao.interfaz.CursadaDAO;
@@ -60,6 +62,7 @@ public class AdministracionDeCursos {
 	private FechaCursadaClaseDAO fechaCursadaClase;
 	private TareaDAO tarea;
 	private SalaDisponibleDAO salaDisponible;
+	private SalaDisponibilidadDAO salaDisponibilidad;
 
 	public AdministracionDeCursos(DAOAbstractFactory metodo_persistencia) {
 		
@@ -81,6 +84,7 @@ public class AdministracionDeCursos {
 		this.fechaCursadaClase = metodo_persistencia.createFechaCursadaClaseDAO();
 		this.tarea = metodo_persistencia.createTareaDAO();
 		this.salaDisponible = metodo_persistencia.createSalaDisponibleDAO();
+		this.salaDisponibilidad = metodo_persistencia.createSalaDisponibilidadDAO();
 	}
 	
 	/* ****************************************************************
@@ -334,6 +338,10 @@ public class AdministracionDeCursos {
 		return this.fechaCursadaClase.readAll(cursadaDTO);
 	}
 	
+	public List<FechaCursadaClaseDTO> obtenerFechaCursadaClase(SalaDTO salaDTO) {
+		return this.fechaCursadaClase.readAll(salaDTO);
+	}
+	
 	/* ****************************************************************
 	 *                         Tarea
 	 * ****************************************************************
@@ -361,6 +369,15 @@ public class AdministracionDeCursos {
 	
 	public List<SalaDisponibleDTO> obtenerSalaDisponible(FechaCursadaClaseDTO fechaCursadaDTO, SalaDTO salaDTO) {
 		return this.salaDisponible.readAll(fechaCursadaDTO, salaDTO);
+	}
+	
+	/* ****************************************************************
+	 *                         Sala Disponibilidad
+	 * ****************************************************************
+	 */
+	
+	public List<SalaDisponibilidadDTO> obtenerSalaDisponibilidad(SalaDTO salaDTO) {
+		return this.salaDisponibilidad.readAll(salaDTO);
 	}
 	
 }

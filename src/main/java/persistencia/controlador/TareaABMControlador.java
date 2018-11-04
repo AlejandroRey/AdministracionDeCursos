@@ -135,6 +135,7 @@ public class TareaABMControlador implements ActionListener{
 		this.vista.getTableTareas().getColumnModel().getColumn(column).setMinWidth(0);
 		this.vista.getTableTareas().getColumnModel().getColumn(column).setMaxWidth(0);
 	}
+
 	private void ocultarColumnasTbAdministrativos() {
 		ocultarColumnaTbAdministrativos(1);
 		ocultarColumnaTbAdministrativos(2);
@@ -176,7 +177,6 @@ public class TareaABMControlador implements ActionListener{
 		return administrativoNombre;
 	}
 
-		
 	public boolean datosValidos() {
 		return false;
 	}

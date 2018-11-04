@@ -67,7 +67,6 @@ public class Main {
 		controlador.inicializar();
 		vista.getFrame().revalidate();
 		vista.getFrame().repaint();
-//
 //		
 //		VistaInicial vista = new VistaInicial();
 //		VistaInicialControlador controlador = new VistaInicialControlador(vista);
