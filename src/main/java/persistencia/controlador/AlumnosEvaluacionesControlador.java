@@ -73,61 +73,69 @@ public class AlumnosEvaluacionesControlador implements ActionListener {
 		clearComponents();
 		
 		this.evaluacionesCursadaLista = modelo.obtenerEvaluacionCursada(cursadaDTO);
-		for (EvaluacionDTO evaluacionDTO : evaluacionesCursadaLista) {
-			Object[] fila = {evaluacionDTO.getIdEvaluacion(),
-							 evaluacionDTO.getIdCursada(),
-							 evaluacionDTO.getIdEvaluacionTipo(),
-							 evaluacionDTO.getDescripcion(),
-							 evaluacionDTO.getTipoParcial(),
-							 localDateFormatterFecha(evaluacionDTO.getFecha())};						 
-			this.vista.getModelEvaluaciones().addRow(fila);
-		}
-		// Oculto los id del Objeto
-		this.vista.getTablaEvaluaciones().getColumnModel().getColumn(0).setWidth(0);
-		this.vista.getTablaEvaluaciones().getColumnModel().getColumn(0).setMinWidth(0);
-		this.vista.getTablaEvaluaciones().getColumnModel().getColumn(0).setMaxWidth(0);			
-		this.vista.getTablaEvaluaciones().getColumnModel().getColumn(1).setWidth(0);
-		this.vista.getTablaEvaluaciones().getColumnModel().getColumn(1).setMinWidth(0);
-		this.vista.getTablaEvaluaciones().getColumnModel().getColumn(1).setMaxWidth(0);			
-		this.vista.getTablaEvaluaciones().getColumnModel().getColumn(2).setWidth(0);
-		this.vista.getTablaEvaluaciones().getColumnModel().getColumn(2).setMinWidth(0);
-		this.vista.getTablaEvaluaciones().getColumnModel().getColumn(2).setMaxWidth(0);		
-		
-		//{"idEvaluacion", "idCursada", "idEvaluacionTipo", "Descripcion", "Tipo Parcial"};
-		// Agrego listener para obtener los valores de la fila seleccionada
-		this.vista.getTablaEvaluaciones().setSelectionModel(new ListSelectionModelCstm());
-		this.vista.getTablaEvaluaciones().getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
-			try {
-				if (this.vista.getTablaEvaluaciones().getSelectedRow() >= 0) {	
-					this.vista.getLblEvaluacionSeleccionada().setText("");
-					Object idEvaluacion = this.vista.getTablaEvaluaciones().getValueAt(this.vista.getTablaEvaluaciones().getSelectedRow(), 0);
-					Object idCursada = this.vista.getTablaEvaluaciones().getValueAt(this.vista.getTablaEvaluaciones().getSelectedRow(), 1);
-					Object idEvaluacionTipo = this.vista.getTablaEvaluaciones().getValueAt(this.vista.getTablaEvaluaciones().getSelectedRow(), 2);
-					Object descripcion = this.vista.getTablaEvaluaciones().getValueAt(this.vista.getTablaEvaluaciones().getSelectedRow(), 3);
-					Object tipoParcial = this.vista.getTablaEvaluaciones().getValueAt(this.vista.getTablaEvaluaciones().getSelectedRow(), 4);
-					Object fecha = this.vista.getTablaEvaluaciones().getValueAt(this.vista.getTablaEvaluaciones().getSelectedRow(), 5);
-					
-					evaluacionActualDTO = new EvaluacionDTO(Long.parseLong(idEvaluacion.toString()), 
-															Long.parseLong(idCursada.toString()), 
-															Long.parseLong(idEvaluacionTipo.toString()), 
-															descripcion.toString(), 
-															tipoParcial.toString(), 
-															StringToLocalDate(fecha.toString()));
-					this.vista.getLblEvaluacionSeleccionada().setText(evaluacionActualDTO.getDescripcion() 
-																    + " - " 
-																    + evaluacionActualDTO.getTipoParcial() 
-																    + System.lineSeparator());	
-					this.vista.getLblEvaluacionSeleccionadaFecha().setText(localDateFormatterFecha(evaluacionActualDTO.getFecha()));
-					llenarTablaAlumnosInscriptos();
-				}
-			} catch (Exception ex) {
-				System.out.println("Error Tabla Evaluacion: " + ex.getMessage());
+		if (this.evaluacionesCursadaLista.size() > 0) {
+			for (EvaluacionDTO evaluacionDTO : evaluacionesCursadaLista) {
+				Object[] fila = {evaluacionDTO.getIdEvaluacion(),
+								 evaluacionDTO.getIdCursada(),
+								 evaluacionDTO.getIdEvaluacionTipo(),
+								 evaluacionDTO.getDescripcion(),
+								 evaluacionDTO.getTipoParcial(),
+								 localDateFormatterFecha(evaluacionDTO.getFecha())};						 
+				this.vista.getModelEvaluaciones().addRow(fila);
 			}
-		});
+			// Oculto los id del Objeto
+			this.vista.getTablaEvaluaciones().getColumnModel().getColumn(0).setWidth(0);
+			this.vista.getTablaEvaluaciones().getColumnModel().getColumn(0).setMinWidth(0);
+			this.vista.getTablaEvaluaciones().getColumnModel().getColumn(0).setMaxWidth(0);			
+			this.vista.getTablaEvaluaciones().getColumnModel().getColumn(1).setWidth(0);
+			this.vista.getTablaEvaluaciones().getColumnModel().getColumn(1).setMinWidth(0);
+			this.vista.getTablaEvaluaciones().getColumnModel().getColumn(1).setMaxWidth(0);			
+			this.vista.getTablaEvaluaciones().getColumnModel().getColumn(2).setWidth(0);
+			this.vista.getTablaEvaluaciones().getColumnModel().getColumn(2).setMinWidth(0);
+			this.vista.getTablaEvaluaciones().getColumnModel().getColumn(2).setMaxWidth(0);		
+			
+			//{"idEvaluacion", "idCursada", "idEvaluacionTipo", "Descripcion", "Tipo Parcial"};
+			// Agrego listener para obtener los valores de la fila seleccionada
+			this.vista.getTablaEvaluaciones().setSelectionModel(new ListSelectionModelCstm());
+			this.vista.getTablaEvaluaciones().getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+				try {
+					if (this.vista.getTablaEvaluaciones().getSelectedRow() >= 0) {	
+						this.vista.getLblEvaluacionSeleccionada().setText("");
+						Object idEvaluacion = this.vista.getTablaEvaluaciones().getValueAt(this.vista.getTablaEvaluaciones().getSelectedRow(), 0);
+						Object idCursada = this.vista.getTablaEvaluaciones().getValueAt(this.vista.getTablaEvaluaciones().getSelectedRow(), 1);
+						Object idEvaluacionTipo = this.vista.getTablaEvaluaciones().getValueAt(this.vista.getTablaEvaluaciones().getSelectedRow(), 2);
+						Object descripcion = this.vista.getTablaEvaluaciones().getValueAt(this.vista.getTablaEvaluaciones().getSelectedRow(), 3);
+						Object tipoParcial = this.vista.getTablaEvaluaciones().getValueAt(this.vista.getTablaEvaluaciones().getSelectedRow(), 4);
+						Object fecha = this.vista.getTablaEvaluaciones().getValueAt(this.vista.getTablaEvaluaciones().getSelectedRow(), 5);
+						
+						evaluacionActualDTO = new EvaluacionDTO(Long.parseLong(idEvaluacion.toString()), 
+																Long.parseLong(idCursada.toString()), 
+																Long.parseLong(idEvaluacionTipo.toString()), 
+																descripcion.toString(), 
+																tipoParcial.toString(), 
+																StringToLocalDate(fecha.toString()));
+						this.vista.getLblEvaluacionSeleccionada().setText(evaluacionActualDTO.getDescripcion() 
+																	    + " - " 
+																	    + evaluacionActualDTO.getTipoParcial() 
+																	    + System.lineSeparator());	
+						this.vista.getLblEvaluacionSeleccionadaFecha().setText(localDateFormatterFecha(evaluacionActualDTO.getFecha()));
+						llenarTablaAlumnosInscriptos();
+					}
+				} catch (Exception ex) {
+					System.out.println("Error Tabla Evaluacion: " + ex.getMessage());
+				}
+			});
 
-		DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
-		leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
-		this.vista.getTablaEvaluaciones().getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
+			DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
+			leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
+			this.vista.getTablaEvaluaciones().getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
+		} else {
+			JOptionPane.showMessageDialog(null,
+				    "No se encontraron Evaluaciones Asignadas para la Cursada seleccionada!",
+				    "Evaluaciones",
+				    JOptionPane.INFORMATION_MESSAGE,
+				    new ImageIcon("imagenes/warning_64.png"));
+		}
 	}
 
 	private void clearComponents() {
@@ -157,80 +165,88 @@ public class AlumnosEvaluacionesControlador implements ActionListener {
 			this.notasEvaluacionActual = modelo.obtenerNotas(evaluacionActualDTO);
 		}
 
-		this.alumnosInscriptosLista= modelo.obtenerAlumnosInscriptos(cursadaDTO);
-		for (AlumnoInscriptoDTO alumnoInscriptoDTO : alumnosInscriptosLista) {
-			Object[] fila = {alumnoInscriptoDTO.getIdAlumno(),
-							 alumnoInscriptoDTO.getIdCursada(),
-							 alumnoInscriptoDTO.getNombre(),
-							 alumnoInscriptoDTO.getApellido(),
-							 alumnoInscriptoDTO.getTelefono(),
-							 alumnoInscriptoDTO.getEmail(),
-							 localDateTimeToStringFormatter(alumnoInscriptoDTO.getFecha()),
-							 "N/A",
-							 getNotaAlumno(alumnoInscriptoDTO.getIdAlumno())};						 
-			this.vista.getModelAlumnos().addRow(fila);
-		}
-
-		// Oculto los id del Objeto
-		this.vista.getTablaAlumnos().getColumnModel().getColumn(0).setWidth(0);
-		this.vista.getTablaAlumnos().getColumnModel().getColumn(0).setMinWidth(0);
-		this.vista.getTablaAlumnos().getColumnModel().getColumn(0).setMaxWidth(0);			
-		this.vista.getTablaAlumnos().getColumnModel().getColumn(1).setWidth(0);
-		this.vista.getTablaAlumnos().getColumnModel().getColumn(1).setMinWidth(0);
-		this.vista.getTablaAlumnos().getColumnModel().getColumn(1).setMaxWidth(0);		
-		this.vista.getTablaAlumnos().getColumnModel().getColumn(1).setWidth(0);
-		this.vista.getTablaAlumnos().getColumnModel().getColumn(1).setMinWidth(0);
-		this.vista.getTablaAlumnos().getColumnModel().getColumn(1).setMaxWidth(0);		
-		this.vista.getTablaAlumnos().getColumnModel().getColumn(4).setWidth(0);
-		this.vista.getTablaAlumnos().getColumnModel().getColumn(4).setMinWidth(0);
-		this.vista.getTablaAlumnos().getColumnModel().getColumn(4).setMaxWidth(0);		
-		this.vista.getTablaAlumnos().getColumnModel().getColumn(5).setWidth(0);
-		this.vista.getTablaAlumnos().getColumnModel().getColumn(5).setMinWidth(0);
-		this.vista.getTablaAlumnos().getColumnModel().getColumn(5).setMaxWidth(0);		
-		this.vista.getTablaAlumnos().getColumnModel().getColumn(6).setWidth(0);
-		this.vista.getTablaAlumnos().getColumnModel().getColumn(6).setMinWidth(0);
-		this.vista.getTablaAlumnos().getColumnModel().getColumn(6).setMaxWidth(0);		
-		this.vista.getTablaAlumnos().getColumnModel().getColumn(7).setWidth(0);
-		this.vista.getTablaAlumnos().getColumnModel().getColumn(7).setMinWidth(0);
-		this.vista.getTablaAlumnos().getColumnModel().getColumn(7).setMaxWidth(0);
-		
-		//{"idAlumno", "idCursada", "Nombre", "Apellido", "Telefono", "Email", "Fecha", "Estado", "Nota"};
-		// Agrego listener para obtener los valores de la fila seleccionada
-		this.vista.getTablaAlumnos().setSelectionModel(new ListSelectionModelCstm());
-		this.vista.getTablaAlumnos().getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
-			try {
-				if (this.vista.getTablaAlumnos().getSelectedRow() >= 0) {	
-					this.vista.getLblAlumnoSeleccionado().setText("");
-					Object idAlumno = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 0);
-					Object idCursada = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 1);
-					Object nombre = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 2);
-					Object apellido = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 3);
-					Object telefono = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 4);
-					Object email = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 5);
-					Object fecha = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 6);
-					Object estado = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 7);
-					Object nota = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 8);
-					
-					this.alumnoActualDTO = new AlumnoInscriptoDTO(Long.parseLong(idAlumno.toString()), 
-																  Long.parseLong(idCursada.toString()), 
-																  nombre.toString(), 
-																  apellido.toString(), 
-																  telefono.toString(), 
-																  email.toString(), 
-																  LocalDateTime.now(), 
-																  Boolean.parseBoolean(estado.toString()));
-					this.notaActual = nota.toString();
-					this.vista.getTextNota().setText(this.notaActual);
-					this.vista.getLblAlumnoSeleccionado().setText(this.alumnoActualDTO.getNombre() + " " + this.alumnoActualDTO.getApellido());
-				}
-			} catch (Exception ex) {
-				System.out.println("Error: " + ex.getMessage());
+		this.alumnosInscriptosLista = modelo.obtenerAlumnosInscriptos(cursadaDTO);
+		if (this.alumnosInscriptosLista.size() > 0) {
+			for (AlumnoInscriptoDTO alumnoInscriptoDTO : alumnosInscriptosLista) {
+				Object[] fila = {alumnoInscriptoDTO.getIdAlumno(),
+								 alumnoInscriptoDTO.getIdCursada(),
+								 alumnoInscriptoDTO.getNombre(),
+								 alumnoInscriptoDTO.getApellido(),
+								 alumnoInscriptoDTO.getTelefono(),
+								 alumnoInscriptoDTO.getEmail(),
+								 localDateTimeToStringFormatter(alumnoInscriptoDTO.getFecha()),
+								 "N/A",
+								 getNotaAlumno(alumnoInscriptoDTO.getIdAlumno())};						 
+				this.vista.getModelAlumnos().addRow(fila);
 			}
-		});
 
-		DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
-		leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
-		this.vista.getTablaAlumnos().getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
+			// Oculto los id del Objeto
+			this.vista.getTablaAlumnos().getColumnModel().getColumn(0).setWidth(0);
+			this.vista.getTablaAlumnos().getColumnModel().getColumn(0).setMinWidth(0);
+			this.vista.getTablaAlumnos().getColumnModel().getColumn(0).setMaxWidth(0);			
+			this.vista.getTablaAlumnos().getColumnModel().getColumn(1).setWidth(0);
+			this.vista.getTablaAlumnos().getColumnModel().getColumn(1).setMinWidth(0);
+			this.vista.getTablaAlumnos().getColumnModel().getColumn(1).setMaxWidth(0);		
+			this.vista.getTablaAlumnos().getColumnModel().getColumn(1).setWidth(0);
+			this.vista.getTablaAlumnos().getColumnModel().getColumn(1).setMinWidth(0);
+			this.vista.getTablaAlumnos().getColumnModel().getColumn(1).setMaxWidth(0);		
+			this.vista.getTablaAlumnos().getColumnModel().getColumn(4).setWidth(0);
+			this.vista.getTablaAlumnos().getColumnModel().getColumn(4).setMinWidth(0);
+			this.vista.getTablaAlumnos().getColumnModel().getColumn(4).setMaxWidth(0);		
+			this.vista.getTablaAlumnos().getColumnModel().getColumn(5).setWidth(0);
+			this.vista.getTablaAlumnos().getColumnModel().getColumn(5).setMinWidth(0);
+			this.vista.getTablaAlumnos().getColumnModel().getColumn(5).setMaxWidth(0);		
+			this.vista.getTablaAlumnos().getColumnModel().getColumn(6).setWidth(0);
+			this.vista.getTablaAlumnos().getColumnModel().getColumn(6).setMinWidth(0);
+			this.vista.getTablaAlumnos().getColumnModel().getColumn(6).setMaxWidth(0);		
+			this.vista.getTablaAlumnos().getColumnModel().getColumn(7).setWidth(0);
+			this.vista.getTablaAlumnos().getColumnModel().getColumn(7).setMinWidth(0);
+			this.vista.getTablaAlumnos().getColumnModel().getColumn(7).setMaxWidth(0);
+			
+			//{"idAlumno", "idCursada", "Nombre", "Apellido", "Telefono", "Email", "Fecha", "Estado", "Nota"};
+			// Agrego listener para obtener los valores de la fila seleccionada
+			this.vista.getTablaAlumnos().setSelectionModel(new ListSelectionModelCstm());
+			this.vista.getTablaAlumnos().getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+				try {
+					if (this.vista.getTablaAlumnos().getSelectedRow() >= 0) {	
+						this.vista.getLblAlumnoSeleccionado().setText("");
+						Object idAlumno = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 0);
+						Object idCursada = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 1);
+						Object nombre = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 2);
+						Object apellido = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 3);
+						Object telefono = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 4);
+						Object email = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 5);
+						Object fecha = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 6);
+						Object estado = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 7);
+						Object nota = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 8);
+						
+						this.alumnoActualDTO = new AlumnoInscriptoDTO(Long.parseLong(idAlumno.toString()), 
+																	  Long.parseLong(idCursada.toString()), 
+																	  nombre.toString(), 
+																	  apellido.toString(), 
+																	  telefono.toString(), 
+																	  email.toString(), 
+																	  LocalDateTime.now(), 
+																	  Boolean.parseBoolean(estado.toString()));
+						this.notaActual = nota.toString();
+						this.vista.getTextNota().setText(this.notaActual);
+						this.vista.getLblAlumnoSeleccionado().setText(this.alumnoActualDTO.getNombre() + " " + this.alumnoActualDTO.getApellido());
+					}
+				} catch (Exception ex) {
+					System.out.println("Error: " + ex.getMessage());
+				}
+			});
+
+			DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
+			leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
+			this.vista.getTablaAlumnos().getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
+		} else {
+			JOptionPane.showMessageDialog(null,
+				    "No se encontraron Alumnos Inscriptos para la Cursada seleccionada!",
+				    "Alumnos Inscriptos",
+				    JOptionPane.INFORMATION_MESSAGE,
+				    new ImageIcon("imagenes/warning_64.png"));
+		}
 	}
 	
 	private String getNotaAlumno(long idAlumno) {

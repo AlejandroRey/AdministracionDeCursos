@@ -7,7 +7,6 @@ import javax.swing.JPanel;
 
 import dto.CursadaDTO;
 import modelo.AdministracionDeCursos;
-import persistencia.dao.mysql.DAOSQLFactory;
 import presentacion.vista.AlumnosAsistenciaPanel;
 import presentacion.vista.AlumnosEvaluacionesPanel;
 import presentacion.vista.AlumnosInscriptosPanel;
@@ -313,9 +312,13 @@ public class CursadaABMVistaPrincipalControlador {
 			alumnosInscriptos = null;
 			alumnosInscriptosControlador = null;
 		}
-		if (alumnosAsistencia!=null) {
+		if (alumnosAsistencia != null) {
 			alumnosAsistencia = null;
 			alumnosAsistenciaControlador = null;
+		}
+		if (alumnosEvaluaciones != null) {
+			alumnosEvaluaciones = null;
+			alumnosEvaluacionesControlador = null;
 		}
 		
 		this.vista.getMainPanel().removeAll();
