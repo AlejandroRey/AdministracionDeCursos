@@ -9,6 +9,7 @@ import dto.CursadaDTO;
 import modelo.AdministracionDeCursos;
 import persistencia.dao.mysql.DAOSQLFactory;
 import presentacion.vista.AlumnosAsistenciaPanel;
+import presentacion.vista.AlumnosEvaluacionesPanel;
 import presentacion.vista.AlumnosInscriptosPanel;
 import presentacion.vista.CalendarioBuilderPanel;
 import presentacion.vista.CursadaABMPanel;
@@ -32,6 +33,9 @@ public class CursadaABMVistaPrincipalControlador {
 	
 	private AlumnosAsistenciaControlador alumnosAsistenciaControlador;
 	private AlumnosAsistenciaPanel alumnosAsistencia;
+	
+	private AlumnosEvaluacionesControlador alumnosEvaluacionesControlador;
+	private AlumnosEvaluacionesPanel alumnosEvaluaciones;
 	
 	public CursadaABMVistaPrincipalControlador(AdministracionDeCursos modelo, CursadaABMVistaPrincipal vista) {
 		super();
@@ -174,7 +178,16 @@ public class CursadaABMVistaPrincipalControlador {
 		resetColor(new JPanel[] { this.vista.getBtnAsistencias(), 
 								  this.vista.getBtnCalendario(),
 								  this.vista.getBtnInscriptos(),
-								  this.vista.getBtnPagos()});		
+								  this.vista.getBtnPagos()});	
+		
+		if (alumnosEvaluaciones == null && cursadaDTO != null) {
+			alumnosEvaluaciones = new AlumnosEvaluacionesPanel();
+			alumnosEvaluacionesControlador = new AlumnosEvaluacionesControlador(alumnosEvaluaciones, modelo, cursadaDTO);
+			alumnosEvaluacionesControlador.inicializar();
+			
+			this.vista.getMainPanel().add(alumnosEvaluaciones);
+		}
+		refreshVistas();
 	}
 
 	private void btnInscriptos_MousePressed(MouseEvent evt) {
