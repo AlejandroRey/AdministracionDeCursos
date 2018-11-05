@@ -2,9 +2,11 @@ package modelo;
 
 import java.util.List;
 
+import dto.AlumnoAsistenciaQtyDTO;
 import dto.AlumnoDTO;
 import dto.AlumnoEventoDTO;
 import dto.AlumnoInscriptoDTO;
+import dto.AsistenciaDTO;
 import dto.CategoriaDTO;
 import dto.CursadaDTO;
 import dto.CursoDTO;
@@ -14,8 +16,13 @@ import dto.CursoTipoDTO;
 import dto.DiaCursadaClaseDTO;
 import dto.EmpresaDTO;
 import dto.EstadoDeCursoDTO;
+import dto.EvaluacionCursadaDTO;
+import dto.EvaluacionDTO;
+import dto.EvaluacionTipoDTO;
 import dto.FechaCursadaClaseDTO;
+import dto.FeriadoDTO;
 import dto.InscriptoDTO;
+import dto.NotaDTO;
 import dto.SalaDTO;
 import dto.SalaDisponibleDTO;
 import dto.TareaDTO;
@@ -23,6 +30,8 @@ import dto.UsuarioDTO;
 import persistencia.dao.interfaz.AlumnoDAO;
 import persistencia.dao.interfaz.AlumnoEventoDAO;
 import persistencia.dao.interfaz.AlumnoInscriptoDAO;
+import persistencia.dao.interfaz.AsistenciaDAO;
+import persistencia.dao.interfaz.AlumnoAsistenciaQtyDAO;
 import persistencia.dao.interfaz.CategoriaDAO;
 import persistencia.dao.interfaz.CursoDAO;
 import persistencia.dao.interfaz.ClaseDAO;
@@ -36,9 +45,14 @@ import persistencia.dao.interfaz.SalaDAO;
 import persistencia.dao.interfaz.SalaDisponibleDAO;
 import persistencia.dao.interfaz.EstadoDeCursoDAO;
 import persistencia.dao.interfaz.FechaCursadaClaseDAO;
+import persistencia.dao.interfaz.FeriadoDAO;
 import persistencia.dao.interfaz.CursadaDAO;
 import persistencia.dao.interfaz.InscriptoDAO;
 import persistencia.dao.interfaz.TareaDAO;
+import persistencia.dao.interfaz.EvaluacionDAO;
+import persistencia.dao.interfaz.EvaluacionTipoDAO;
+import persistencia.dao.interfaz.EvaluacionCursadaDAO;
+import persistencia.dao.interfaz.NotaDAO;
 
 public class AdministracionDeCursos {
 
@@ -60,6 +74,13 @@ public class AdministracionDeCursos {
 	private FechaCursadaClaseDAO fechaCursadaClase;
 	private TareaDAO tarea;
 	private SalaDisponibleDAO salaDisponible;
+	private FeriadoDAO feriado;
+	private AsistenciaDAO asistencia;
+	private AlumnoAsistenciaQtyDAO alumnoAsistenciaQty;
+	private EvaluacionDAO evaluacionDAO;
+	private EvaluacionTipoDAO evaluacionTipoDAO;
+	private EvaluacionCursadaDAO evaluacionCursadaDAO;
+	private NotaDAO notaDAO;
 
 	public AdministracionDeCursos(DAOAbstractFactory metodo_persistencia) {
 		
@@ -81,6 +102,13 @@ public class AdministracionDeCursos {
 		this.fechaCursadaClase = metodo_persistencia.createFechaCursadaClaseDAO();
 		this.tarea = metodo_persistencia.createTareaDAO();
 		this.salaDisponible = metodo_persistencia.createSalaDisponibleDAO();
+		this.feriado = metodo_persistencia.createFeriadoDAO();
+		this.asistencia = metodo_persistencia.createAsistenciaDAO();
+		this.alumnoAsistenciaQty = metodo_persistencia.createAlumnoAsistenciaQtyDAO();
+		this.evaluacionDAO = metodo_persistencia.createEvaluacionDAO();
+		this.evaluacionTipoDAO = metodo_persistencia.createEvaluacionTipoDAO();
+		this.evaluacionCursadaDAO = metodo_persistencia.createEvaluacionCursadaDAO();
+		this.notaDAO = metodo_persistencia.createNotaDAO();
 	}
 	
 	/* ****************************************************************
@@ -357,10 +385,97 @@ public class AdministracionDeCursos {
 	/* ****************************************************************
 	 *                         Sala Disponible
 	 * ****************************************************************
-	 */
-	
+	 */	
 	public List<SalaDisponibleDTO> obtenerSalaDisponible(FechaCursadaClaseDTO fechaCursadaDTO, SalaDTO salaDTO) {
 		return this.salaDisponible.readAll(fechaCursadaDTO, salaDTO);
+	}
+	
+	/* ****************************************************************
+	 *                         Feriados
+	 * ****************************************************************
+	 */
+	public List<FeriadoDTO> obtenerFeriados(int year) {
+		return this.feriado.readAll(year);
+	}
+	
+	/* ****************************************************************
+	 *                         Asistencia
+	 * ****************************************************************
+	 */
+	public void agregarAsistencia(AsistenciaDTO	asistenciaDTO) {
+		this.asistencia.insert(asistenciaDTO);
+	}
+
+	public void borrarAsistencia(AsistenciaDTO asistenciaDTO) {
+		this.asistencia.delete(asistenciaDTO);
+	}
+	
+	public void actualizarAsistencia(AsistenciaDTO	asistenciaDTO) {
+		this.asistencia.update(asistenciaDTO);
+	}
+	
+	public List<AsistenciaDTO> obtenerAsistencia(FechaCursadaClaseDTO fechaCursadaDTO){
+		return this.asistencia.readAll(fechaCursadaDTO);
+	}
+	
+	/* ****************************************************************
+	 *                         AsistenciaAlumno
+	 * ****************************************************************
+	 */
+	public List<AlumnoAsistenciaQtyDTO> obtenerAlumnosAsistenciasQty(CursadaDTO cursadaDTO) {
+		return this.alumnoAsistenciaQty.readAll(cursadaDTO);
+	}
+	
+	/* ****************************************************************
+	 *                         Evaluacion
+	 * ****************************************************************
+	 */
+	public List<EvaluacionDTO> obtenerEvaluacionCursada(CursadaDTO cursadaDTO){
+		return this.evaluacionDAO.readAll(cursadaDTO);
+	}
+	
+	/* ****************************************************************
+	 *                         EvaluacionTipo
+	 * ****************************************************************
+	 */
+	public List<EvaluacionTipoDTO> obtenerEvaluacionTipo(){
+		return this.evaluacionTipoDAO.readAll();
+	}
+	
+	/* ****************************************************************
+	 *                         EvaluacionCursadaDTO
+	 * ****************************************************************
+	 */	
+	public void agregarEvaluacionCursada(EvaluacionCursadaDTO evaluacionCursadaDTO) {
+		this.evaluacionCursadaDAO.insert(evaluacionCursadaDTO);
+	}
+
+	public void borrarEvaluacionCursada(EvaluacionCursadaDTO evaluacionCursadaDTO) {
+		this.evaluacionCursadaDAO.delete(evaluacionCursadaDTO);
+	}
+	
+	public void actualizarEvaluacionCursada(EvaluacionCursadaDTO evaluacionCursadaDTO) {
+		this.evaluacionCursadaDAO.update(evaluacionCursadaDTO);
+	}
+	
+	/* ****************************************************************
+	 *                         EvaluacionCursadaDTO
+	 * ****************************************************************
+	 */
+	public void agregarNota(NotaDTO notaDTO) {
+		this.notaDAO.insert(notaDTO);
+	}
+
+	public void borrarNota(NotaDTO notaDTO) {
+		this.notaDAO.delete(notaDTO);
+	}
+
+	public void actualizarNota(NotaDTO notaDTO) {
+		this.notaDAO.update(notaDTO);
+	}
+
+	public List<NotaDTO> obtenerNotas(EvaluacionDTO evaluacionDTO) {
+		return this.notaDAO.readAll(evaluacionDTO);
 	}
 	
 }

@@ -9,8 +9,9 @@ import java.util.List;
 import dto.AsistenciaDTO;
 import dto.FechaCursadaClaseDTO;
 import persistencia.conexion.Conexion;
+import persistencia.dao.interfaz.AsistenciaDAO;
 
-public class AsistenciaDAOSQL {
+public class AsistenciaDAOSQL implements AsistenciaDAO {
 	
 	private static final String insert = "INSERT INTO asistencia (idAlumno, idFechaCursadaClase, tipoAsistencia, comentario) VALUES (?, ?, ?, ?)";
 	private static final String delete = "DELETE FROM asistencia WHERE idAlumno = ? AND idFechaCursadaClase = ?";
@@ -24,7 +25,7 @@ public class AsistenciaDAOSQL {
 			statement = conexion.getSQLConexion().prepareStatement(insert);
 			statement.setLong(1, asistenciaDTO.getIdAlumno());
 			statement.setLong(2, asistenciaDTO.getIdFechaCursadaClase());
-			statement.setBoolean(3, asistenciaDTO.isTipoAsistencia());
+			statement.setInt(3, asistenciaDTO.getTipoAsistencia());
 			statement.setString(4, asistenciaDTO.getComentario());
 			if (statement.executeUpdate() > 0) // True is successfully return
 				return true;
@@ -41,7 +42,7 @@ public class AsistenciaDAOSQL {
 		Conexion conexion = Conexion.getConexion();
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(update);			
-			statement.setBoolean(1, asistenciaDTO.isTipoAsistencia());
+			statement.setInt(1, asistenciaDTO.getTipoAsistencia());
 			statement.setString(2, asistenciaDTO.getComentario());
 			statement.setLong(3, asistenciaDTO.getIdAlumno());
 			statement.setLong(4, asistenciaDTO.getIdFechaCursadaClase());
@@ -87,7 +88,7 @@ public class AsistenciaDAOSQL {
 			while (resultSet.next()) {
 				asistenciaList.add(new AsistenciaDTO(resultSet.getLong("idAlumno"), 
 													 resultSet.getLong("idFechaCursadaClase"), 
-													 resultSet.getBoolean("tipoAsistencia"), 
+													 resultSet.getInt("tipoAsistencia"), 
 													 resultSet.getString("comentario")));
 			}
 		} catch (SQLException e) {

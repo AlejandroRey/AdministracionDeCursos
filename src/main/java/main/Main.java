@@ -6,6 +6,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import modelo.AdministracionDeCursos;
+<<<<<<< HEAD
 import persistencia.controlador.LoginVistaControlador;
 //import dto.CursadaDTO;
 //import modelo.AdministracionDeCursos;
@@ -19,6 +20,14 @@ import presentacion.vista.LoginVista;
 //import presentacion.vista.AlumnosAsistenciaPanel;
 //import presentacion.vista.TestFrame;
 //import presentacion.vista.VistaInicial;
+=======
+import persistencia.controlador.AdministracionDeCursosControlador;
+import persistencia.controlador.AlumnosEvaluacionesControlador;
+import persistencia.dao.mysql.DAOSQLFactory;
+import presentacion.vista.AdministracionDeCursosVista;
+import presentacion.vista.AlumnosEvaluacionesPanel;
+import presentacion.vista.TestFrame;
+>>>>>>> alejandro
 
 public class Main {
 
@@ -36,11 +45,14 @@ public class Main {
 			e.printStackTrace();
 		} finally {
 //			AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
-//			AdministracionDeCursosVista vista = new AdministracionDeCursosVista();
-//			AdministracionDeCursosControlador controlador = new AdministracionDeCursosControlador(vista, modelo);
+//			AdministracionDeCursosVista vista = new AdministracionDeCursosVista();		
+//			AdministracionDeCursosControlador controlador = new AdministracionDeCursosControlador(modelo, vista);
 //			controlador.inicializar();
+//			vista.getFrame().revalidate();
+//			vista.getFrame().repaint();
 		}
 		
+<<<<<<< HEAD
 //		String str = "2017-10-01 01:00:00";
 //		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 //		LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
@@ -80,6 +92,21 @@ public class Main {
 		LoginVista vista = new LoginVista();
 		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
 		LoginVistaControlador controlador = new LoginVistaControlador(vista, modelo);
+=======
+		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
+		TestFrame vistaPrincipal = new TestFrame();
+		CursadaDTO cursadaDTO = new CursadaDTO(1, 
+											   1, 
+											   1, 
+											   1, 
+											   LocalDateTime.now(), 
+											   LocalDateTime.now(), 
+											   "5", 
+											   LocalDateTime.now(), 
+											   15);
+		
+		AlumnosEvaluacionesControlador controlador = new AlumnosEvaluacionesControlador(vistaPrincipal.getAlumnosEvaluacionesPanel(), modelo, cursadaDTO);
+>>>>>>> alejandro
 		controlador.inicializar();
 	}
 }

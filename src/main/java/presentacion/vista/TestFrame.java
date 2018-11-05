@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 public class TestFrame {
 	
 	private JFrame frame;
-	private AlumnosAsistenciaPanel alumnosAsistenciaPanel;
+	private AlumnosEvaluacionesPanel alumnosEvaluacionesPanel;
 	
 	public TestFrame() {
 		super();
@@ -21,25 +21,38 @@ public class TestFrame {
 		//frame.setDefaultCloseOperation(JFrame.e);
 		frame.getContentPane().setLayout(null);
 		
-		alumnosAsistenciaPanel =  new AlumnosAsistenciaPanel();
-		alumnosAsistenciaPanel.setBounds(0, 0, 880, 800);
-		frame.getContentPane().add(alumnosAsistenciaPanel);
-		alumnosAsistenciaPanel.setLayout(null);
+		alumnosEvaluacionesPanel =  new AlumnosEvaluacionesPanel();
+		alumnosEvaluacionesPanel.setBounds(0, 0, 880, 800);
+		frame.getContentPane().add(alumnosEvaluacionesPanel);
+		alumnosEvaluacionesPanel.setLayout(null);
 		
 	}
 
 	/**
-	 * @return the alumnosAsistenciaPanel
+	 * @return the frame
 	 */
-	public AlumnosAsistenciaPanel getAlumnosAsistenciaPanel() {
-		return alumnosAsistenciaPanel;
+	public JFrame getFrame() {
+		return frame;
 	}
 
 	/**
-	 * @param alumnosAsistenciaPanel the alumnosAsistenciaPanel to set
+	 * @param frame the frame to set
 	 */
-	public void setAlumnosAsistenciaPanel(AlumnosAsistenciaPanel alumnosAsistenciaPanel) {
-		this.alumnosAsistenciaPanel = alumnosAsistenciaPanel;
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
 	}
 
+	/**
+	 * @return the alumnosEvaluacionesPanel
+	 */
+	public AlumnosEvaluacionesPanel getAlumnosEvaluacionesPanel() {
+		return alumnosEvaluacionesPanel;
+	}
+
+	/**
+	 * @param alumnosEvaluacionesPanel the alumnosEvaluacionesPanel to set
+	 */
+	public void setAlumnosEvaluacionesPanel(AlumnosEvaluacionesPanel alumnosEvaluacionesPanel) {
+		this.alumnosEvaluacionesPanel = alumnosEvaluacionesPanel;
+	}
 }

@@ -4,10 +4,10 @@ public class AsistenciaDTO {
 	
 	private long idAlumno;
 	private long idFechaCursadaClase;
-	private boolean tipoAsistencia;
+	private int tipoAsistencia;
 	private String comentario;
 	
-	public AsistenciaDTO(long idAlumno, long idFechaCursadaClase, boolean tipoAsistencia, String comentario) {
+	public AsistenciaDTO(long idAlumno, long idFechaCursadaClase, int tipoAsistencia, String comentario) {
 		super();
 		this.idAlumno = idAlumno;
 		this.idFechaCursadaClase = idFechaCursadaClase;
@@ -46,14 +46,14 @@ public class AsistenciaDTO {
 	/**
 	 * @return the tipoAsistencia
 	 */
-	public boolean isTipoAsistencia() {
+	public int getTipoAsistencia() {
 		return tipoAsistencia;
 	}
 
 	/**
 	 * @param tipoAsistencia the tipoAsistencia to set
 	 */
-	public void setTipoAsistencia(boolean tipoAsistencia) {
+	public void setTipoAsistencia(int tipoAsistencia) {
 		this.tipoAsistencia = tipoAsistencia;
 	}
 
@@ -76,8 +76,9 @@ public class AsistenciaDTO {
 	 */
 	@Override
 	public String toString() {
-		return "AsistenciaDTO [idAlumno=" + idAlumno + ", idFechaCursadaClase=" + idFechaCursadaClase
-				+ ", tipoAsistencia=" + tipoAsistencia + ", comentario=" + comentario + "]";
+		return "AsistenciaDTO [idAlumno: " + idAlumno + ", idFechaCursadaClase: " + idFechaCursadaClase
+				+ ", tipoAsistencia: " + tipoAsistencia + ", comentario: " + comentario + "]";
 	}
+	
 	
 }

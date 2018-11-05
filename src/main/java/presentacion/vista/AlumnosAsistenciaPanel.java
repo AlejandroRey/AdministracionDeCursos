@@ -2,13 +2,15 @@ package presentacion.vista;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.SystemColor;
+import java.awt.Cursor;
+import java.awt.Font;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -21,15 +23,16 @@ import javax.swing.table.TableColumn;
 @SuppressWarnings("serial")
 public class AlumnosAsistenciaPanel extends JPanel {
 
-	private JScrollPane spAlumnos;
-	private DefaultTableModel modelAlumnos;
-	private JTable tblAlumnos;
-	private String[] nombreColumnas = {"idAlumno", "idCursada", "Nombre", "Apellido", "Telefono", "Email", "Fecha Insc", "P"};
-	
 	private JScrollPane spFechasDeCursada;
 	private DefaultTableModel modelFechasDeCursada;
 	private JTable tblFechasDeCursada;
-	private String[] nombreColumnasFechasDeCursada = {"idFechaCursada", "idCursada", "idSala", "fechaInicio", "fechaFin"};
+	private String[] nombreColumnasFechasDeCursada = {"idFechaCursada", "idCursada", "idSala", "fechaInicio", "fechaFin", "Fecha", "Ini", "Fin","Pre", "Aus"};
+	
+	private JScrollPane spAlumnos;
+	private DefaultTableModel modelAlumnos;
+	private JTable tblAlumnos;
+	private String[] nombreColumnas = {"idAlumno", "idCursada", "Nombre", "Apellido", "Telefono", "Email", "Fecha Insc", "Asistencia", "Pres", "Aus"};
+	
 	
 	private JPanel panelAlumnoDTO;	
 	private JTextField textIdAlumno;
@@ -39,18 +42,30 @@ public class AlumnosAsistenciaPanel extends JPanel {
 	private JTextField textTelefono;
 	private JTextField textEmail;
 	private JTextField textFecha;
+	private JTextField textPresente;
+	private JTextField textAusente;
 	//private JCheckBox chxAsistencia;
 	
 	private JPanel panelButtons;
 	private JButton btnAgregar;
 	private JButton btnEliminar;
+	
+	private JButton btnAnterior;
+	private JButton btnSiguiente;
+	
+	private ButtonGroup rbtnGroup;;
+	private JRadioButton rbtnPresente;
+	private JRadioButton rbtnAusente;
+	private JTextField textPresenteTotal;
+	private JTextField textAusenteTotal;
+	private JLabel lblFechaCursadaSeleccionada;
 
 	/**
 	 * Create the frame.
 	 */
 	public AlumnosAsistenciaPanel() {
 		super();
-		this.setBounds(0, 0, 860, 420);
+		this.setBounds(0, 0, 960, 500);
 		this.setLayout(null);
 		inicializar();
 	}
@@ -61,12 +76,31 @@ public class AlumnosAsistenciaPanel extends JPanel {
 		inicializarTablaAlumnosInscriptos();
 		inicializarEditor();
 		inicializarPanelButtons();
+		inicializarRadioButtonsGroup();
 	}
 	
+	private void inicializarRadioButtonsGroup() {
+		
+		rbtnGroup = new ButtonGroup();
+
+		rbtnPresente = new JRadioButton("Presente", false);
+		rbtnPresente.setSize(100, 20);
+		rbtnPresente.setLocation(21, 274);
+		rbtnAusente = new JRadioButton("Ausente", false);
+		rbtnAusente.setSize(100, 20);
+		rbtnAusente.setLocation(21, 297);
+
+		rbtnGroup.add(rbtnPresente);
+		rbtnGroup.add(rbtnAusente);
+
+		panelAlumnoDTO.add(rbtnPresente);
+		panelAlumnoDTO.add(rbtnAusente);
+	}
+
 	private void inicializarTablaFechasDeCursada() {
 		
 		spFechasDeCursada = new JScrollPane();
-		spFechasDeCursada.setBounds(10, 10, 250, 379);
+		spFechasDeCursada.setBounds(10, 90, 250, 379);
 		add(spFechasDeCursada);
 		
 		modelFechasDeCursada = new DefaultTableModel(null, nombreColumnasFechasDeCursada);
@@ -89,7 +123,7 @@ public class AlumnosAsistenciaPanel extends JPanel {
 	private void inicializarTablaAlumnosInscriptos() {
 		
 		spAlumnos = new JScrollPane();
-		spAlumnos.setBounds(270, 10, 610, 379);
+		spAlumnos.setBounds(270, 90, 420, 379);
 		this.add(spAlumnos);
 		
 		modelAlumnos = new DefaultTableModel(null, nombreColumnas);
@@ -103,28 +137,28 @@ public class AlumnosAsistenciaPanel extends JPanel {
 				return component;
 			}
 
-			@SuppressWarnings({ "unchecked", "rawtypes" })
-			@Override
-            public Class getColumnClass(int column) {
-                switch (column) {
-                    case 0:
-                        return String.class;
-                    case 1:
-                        return String.class;
-                    case 2:
-                    	return String.class;
-                    case 3:
-                    	return String.class;
-                    case 4:
-                    	return String.class;
-                    case 5:
-                    	return String.class;
-                    case 6:
-                    	return String.class;
-                    default:
-                        return Boolean.class;
-                }
-            }
+//			@SuppressWarnings({ "unchecked", "rawtypes" })
+//			@Override
+//            public Class getColumnClass(int column) {
+//                switch (column) {
+//                    case 0:
+//                        return String.class;
+//                    case 1:
+//                        return String.class;
+//                    case 2:
+//                    	return String.class;
+//                    case 3:
+//                    	return String.class;
+//                    case 4:
+//                    	return String.class;
+//                    case 5:
+//                    	return String.class;
+//                    case 6:
+//                    	return String.class;
+//                    default:
+//                        return Boolean.class;
+//                }
+//            }
 		};
 		tblAlumnos.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 		//tblInstructores.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);		
@@ -134,120 +168,174 @@ public class AlumnosAsistenciaPanel extends JPanel {
 	private void inicializarEditor() {		
 		
 		panelAlumnoDTO = new JPanel();
-		panelAlumnoDTO.setVisible(false);
-		panelAlumnoDTO.setBounds(295, 10, 500, 120);
-		panelAlumnoDTO.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Alumno - Inscripto:", TitledBorder.LEADING, TitledBorder.TOP, null, SystemColor.desktop));
+		panelAlumnoDTO.setVisible(true);
+		panelAlumnoDTO.setBounds(700, 81, 250, 388);
+		panelAlumnoDTO.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Alumno Seleccionado:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panelAlumnoDTO.setLayout(null);
 		this.add(panelAlumnoDTO);
 		
 		JLabel lblIdAlumno = new JLabel("id Alumno:");
 		lblIdAlumno.setVisible(false);
-		lblIdAlumno.setBounds(339, 83, 56, 14);
+		lblIdAlumno.setBounds(183, 190, 56, 14);
 		panelAlumnoDTO.add(lblIdAlumno);
 		
 		textIdAlumno = new JTextField();
-		textIdAlumno.setBounds(339, 97, 56, 20);
+		textIdAlumno.setBounds(183, 195, 56, 20);
 		textIdAlumno.setVisible(false);
 		textIdAlumno.setEnabled(false);
 		panelAlumnoDTO.add(textIdAlumno);
 		
 		JLabel lblIdCursada = new JLabel("id Cursada:");
 		lblIdCursada.setVisible(false);
-		lblIdCursada.setBounds(405, 83, 56, 14);
+		lblIdCursada.setBounds(183, 215, 56, 14);
 		panelAlumnoDTO.add(lblIdCursada);
 		
 		textIdCursada = new JTextField();
-		textIdCursada .setBounds(405, 97, 56, 20);
+		textIdCursada .setBounds(183, 226, 56, 20);
 		textIdCursada .setVisible(false);
 		textIdCursada .setEnabled(false);
 		panelAlumnoDTO.add(textIdCursada );
 		
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(21, 27, 70, 14);
+		lblNombre.setBounds(21, 25, 70, 14);
 		panelAlumnoDTO.add(lblNombre);
 		
 		textNombre = new JTextField();
-		textNombre.setEnabled(false);
+		textNombre.setEditable(false);
 		textNombre.setHorizontalAlignment(SwingConstants.LEFT);
 		textNombre.setColumns(10);
-		textNombre.setBounds(97, 24, 141, 20);
+		textNombre.setBounds(101, 25, 141, 20);
 		panelAlumnoDTO.add(textNombre);
 		
 		JLabel lblApellido = new JLabel("Apellido");
-		lblApellido.setBounds(258, 27, 70, 14);
+		lblApellido.setBounds(21, 127, 70, 14);
 		panelAlumnoDTO.add(lblApellido);
 		
 		textApellido = new JTextField();
-		textApellido.setEnabled(false);
+		textApellido.setEditable(false);
 		textApellido.setHorizontalAlignment(SwingConstants.LEFT);
 		textApellido.setColumns(10);
-		textApellido.setBounds(334, 24, 141, 20);
+		textApellido.setBounds(101, 127, 141, 20);
 		panelAlumnoDTO.add(textApellido);
 		
 		JLabel lblTelefono = new JLabel("Telefono");
-		lblTelefono.setBounds(21, 58, 70, 14);
+		lblTelefono.setBounds(21, 59, 70, 14);
 		panelAlumnoDTO.add(lblTelefono);
 		
 		textTelefono = new JTextField();
-		textTelefono.setEnabled(false);
+		textTelefono.setEditable(false);
 		textTelefono.setHorizontalAlignment(SwingConstants.LEFT);
 		textTelefono.setColumns(10);
-		textTelefono.setBounds(97, 55, 141, 20);
+		textTelefono.setBounds(101, 59, 141, 20);
 		panelAlumnoDTO.add(textTelefono);
 		
 		JLabel lblEmail = new JLabel("Email:");
-		lblEmail.setBounds(258, 55, 70, 14);
+		lblEmail.setBounds(21, 161, 70, 14);
 		panelAlumnoDTO.add(lblEmail);
 		
 		textEmail = new JTextField();
-		textEmail.setEnabled(false);
+		textEmail.setEditable(false);
 		textEmail.setHorizontalAlignment(SwingConstants.LEFT);
 		textEmail.setColumns(10);
-		textEmail.setBounds(334, 52, 141, 20);
+		textEmail.setBounds(101, 161, 141, 20);
 		panelAlumnoDTO.add(textEmail);		
 		
 		JLabel lblFecha = new JLabel("Fecha:");
-		lblFecha.setBounds(21, 86, 70, 14);
+		lblFecha.setBounds(21, 93, 70, 14);
 		panelAlumnoDTO.add(lblFecha);
 		
 		textFecha = new JTextField();
-		textFecha.setEnabled(false);
+		textFecha.setEditable(false);
 		textFecha.setHorizontalAlignment(SwingConstants.LEFT);
 		textFecha.setColumns(10);
-		textFecha.setBounds(97, 83, 141, 20);
+		textFecha.setBounds(101, 93, 141, 20);
 		panelAlumnoDTO.add(textFecha);
 		
-		JSeparator separator = new JSeparator();
-		separator.setForeground(SystemColor.activeCaptionText);
-		separator.setBounds(270, 400, 610, 4);
-		separator.setBorder(new MatteBorder(4, 1, 1, 1, (Color) new Color(153, 180, 209)));
-		separator.setBackground(SystemColor.activeCaption);
-		this.add(separator);
+		textPresente = new JTextField();
+		textPresente.setEnabled(false);
+		textPresente.setBounds(101, 195, 44, 20);
+		panelAlumnoDTO.add(textPresente);
+		textPresente.setColumns(10);
+		
+		textAusente = new JTextField();
+		textAusente.setEnabled(false);
+		textAusente.setColumns(10);
+		textAusente.setBounds(101, 229, 44, 20);
+		panelAlumnoDTO.add(textAusente);
+		
+		JLabel lblPresente = new JLabel("Presente:");
+		lblPresente.setBounds(21, 195, 60, 14);
+		panelAlumnoDTO.add(lblPresente);
+		
+		JLabel lblAusente = new JLabel("Ausente:");
+		lblAusente.setBounds(21, 229, 60, 14);
+		panelAlumnoDTO.add(lblAusente);
+		
+		btnAnterior = new JButton("Anterior");
+		btnAnterior.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		btnAnterior.setBounds(10, 354, 89, 23);
+		panelAlumnoDTO.add(btnAnterior);
+		
+		btnSiguiente = new JButton("Siguiente");
+		btnSiguiente.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		btnSiguiente.setBounds(150, 354, 89, 23);
+		panelAlumnoDTO.add(btnSiguiente);
 	}
 
 	private void inicializarPanelButtons() {
 		
 		panelButtons = new JPanel();
 		panelButtons.setVisible(false);
-		panelButtons.setBounds(295, 10, 500, 84);
+		panelButtons.setBounds(292, 120, 245, 84);
 		this.add(panelButtons);
 		panelButtons.setLayout(null);
 		
 		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(108, 46, 280, 30);
+		btnAgregar.setBounds(108, 46, 153, 30);
 		btnAgregar.setVisible(true);
 		panelButtons.add(btnAgregar);
 		
 		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(108, 5, 280, 30);
+		btnEliminar.setBounds(108, 5, 153, 30);
 		panelButtons.add(btnEliminar);
 		
-		JSeparator separator = new JSeparator();
-		separator.setForeground(Color.BLACK);
-		separator.setBorder(new MatteBorder(4, 1, 1, 1, (Color) new Color(153, 180, 209)));
-		separator.setBackground(SystemColor.activeCaption);
-		separator.setBounds(10, 400, 250, 4);
-		add(separator);
+		JPanel panel_1 = new JPanel();
+		panel_1.setLayout(null);
+		panel_1.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Ausentismo:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_1.setBounds(10, 11, 250, 69);
+		add(panel_1);
+		
+		JLabel lblAusente_1 = new JLabel("Ausente:");
+		lblAusente_1.setBounds(113, 40, 61, 14);
+		panel_1.add(lblAusente_1);
+		
+		textAusenteTotal = new JTextField();
+		textAusenteTotal.setBounds(184, 40, 56, 20);
+		panel_1.add(textAusenteTotal);
+		textAusenteTotal.setEnabled(false);
+		textAusenteTotal.setColumns(10);
+		
+		JLabel lblPresente_1 = new JLabel("Presente:");
+		lblPresente_1.setBounds(113, 11, 61, 14);
+		panel_1.add(lblPresente_1);
+		
+		textPresenteTotal = new JTextField();
+		textPresenteTotal.setBounds(184, 11, 56, 20);
+		panel_1.add(textPresenteTotal);
+		textPresenteTotal.setEnabled(false);
+		textPresenteTotal.setColumns(10);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(270, 11, 420, 69);
+		add(panel);
+		panel.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Fecha Seleccionada:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setLayout(null);
+		
+		lblFechaCursadaSeleccionada = new JLabel();
+		lblFechaCursadaSeleccionada.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFechaCursadaSeleccionada.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		lblFechaCursadaSeleccionada.setBounds(125, 14, 186, 43);
+		panel.add(lblFechaCursadaSeleccionada);
 	}
 
 	/**
@@ -516,4 +604,143 @@ public class AlumnosAsistenciaPanel extends JPanel {
 		this.nombreColumnas = nombreColumnas;
 	}
 
+	/**
+	 * @return the textPresente
+	 */
+	public JTextField getTextPresente() {
+		return textPresente;
+	}
+
+	/**
+	 * @param textPresente the textPresente to set
+	 */
+	public void setTextPresente(JTextField textPresente) {
+		this.textPresente = textPresente;
+	}
+
+	/**
+	 * @return the textAusente
+	 */
+	public JTextField getTextAusente() {
+		return textAusente;
+	}
+
+	/**
+	 * @param textAusente the textAusente to set
+	 */
+	public void setTextAusente(JTextField textAusente) {
+		this.textAusente = textAusente;
+	}
+
+	/**
+	 * @return the btnAnterior
+	 */
+	public JButton getBtnAnterior() {
+		return btnAnterior;
+	}
+
+	/**
+	 * @param btnAnterior the btnAnterior to set
+	 */
+	public void setBtnAnterior(JButton btnAnterior) {
+		this.btnAnterior = btnAnterior;
+	}
+
+	/**
+	 * @return the btnSiguiente
+	 */
+	public JButton getBtnSiguiente() {
+		return btnSiguiente;
+	}
+
+	/**
+	 * @param btnSiguiente the btnSiguiente to set
+	 */
+	public void setBtnSiguiente(JButton btnSiguiente) {
+		this.btnSiguiente = btnSiguiente;
+	}
+
+	/**
+	 * @return the rbtnGroup
+	 */
+	public ButtonGroup getRbtnGroup() {
+		return rbtnGroup;
+	}
+
+	/**
+	 * @param rbtnGroup the rbtnGroup to set
+	 */
+	public void setRbtnGroup(ButtonGroup rbtnGroup) {
+		this.rbtnGroup = rbtnGroup;
+	}
+
+	/**
+	 * @return the rbtnPresente
+	 */
+	public JRadioButton getRbtnPresente() {
+		return rbtnPresente;
+	}
+
+	/**
+	 * @param rbtnPresente the rbtnPresente to set
+	 */
+	public void setRbtnPresente(JRadioButton rbtnPresente) {
+		this.rbtnPresente = rbtnPresente;
+	}
+
+	/**
+	 * @return the rbtnAusente
+	 */
+	public JRadioButton getRbtnAusente() {
+		return rbtnAusente;
+	}
+
+	/**
+	 * @param rbtnAusente the rbtnAusente to set
+	 */
+	public void setRbtnAusente(JRadioButton rbtnAusente) {
+		this.rbtnAusente = rbtnAusente;
+	}
+
+	/**
+	 * @return the textPresenteTotal
+	 */
+	public JTextField getTextPresenteTotal() {
+		return textPresenteTotal;
+	}
+
+	/**
+	 * @param textPresenteTotal the textPresenteTotal to set
+	 */
+	public void setTextPresenteTotal(JTextField textPresenteTotal) {
+		this.textPresenteTotal = textPresenteTotal;
+	}
+
+	/**
+	 * @return the textAusenteTotal
+	 */
+	public JTextField getTextAusenteTotal() {
+		return textAusenteTotal;
+	}
+
+	/**
+	 * @param textAusenteTotal the textAusenteTotal to set
+	 */
+	public void setTextAusenteTotal(JTextField textAusenteTotal) {
+		this.textAusenteTotal = textAusenteTotal;
+	}
+
+	/**
+	 * @return the lblFechaCursadaSeleccionada
+	 */
+	public JLabel getLblFechaCursadaSeleccionada() {
+		return lblFechaCursadaSeleccionada;
+	}
+
+	/**
+	 * @param lblFechaCursadaSeleccionada the lblFechaCursadaSeleccionada to set
+	 */
+	public void setLblFechaCursadaSeleccionada(JLabel lblFechaCursadaSeleccionada) {
+		this.lblFechaCursadaSeleccionada = lblFechaCursadaSeleccionada;
+	}
 }

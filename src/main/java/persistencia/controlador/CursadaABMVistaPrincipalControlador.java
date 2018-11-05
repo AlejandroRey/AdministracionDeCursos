@@ -2,7 +2,6 @@ package persistencia.controlador;
 
 import java.awt.Color;
 import java.awt.event.MouseEvent;
-import java.time.LocalDateTime;
 
 import javax.swing.JPanel;
 
@@ -14,7 +13,6 @@ import presentacion.vista.AlumnosInscriptosPanel;
 import presentacion.vista.CalendarioBuilderPanel;
 import presentacion.vista.CursadaABMPanel;
 import presentacion.vista.CursadaABMVistaPrincipal;
-import presentacion.vista.TestFrame;
 
 public class CursadaABMVistaPrincipalControlador {
 	
@@ -31,6 +29,9 @@ public class CursadaABMVistaPrincipalControlador {
 	
 	private AlumnosInscriptosControlador alumnosInscriptosControlador;
 	private AlumnosInscriptosPanel alumnosInscriptos;	
+	
+	private AlumnosAsistenciaControlador alumnosAsistenciaControlador;
+	private AlumnosAsistenciaPanel alumnosAsistencia;
 	
 	public CursadaABMVistaPrincipalControlador(AdministracionDeCursos modelo, CursadaABMVistaPrincipal vista) {
 		super();
@@ -106,6 +107,11 @@ public class CursadaABMVistaPrincipalControlador {
 			}
 		});	
 	}	
+	
+
+	public void inicialiar() {
+		setSeleccionarCursadaVistaInicial();
+	}
 
 	private void btnHome_MousePressed(MouseEvent evt) {
 		resetVistas();
@@ -132,11 +138,13 @@ public class CursadaABMVistaPrincipalControlador {
 								  this.vista.getBtnInscriptos(),
 								  this.vista.getBtnPagos()});
 
-		TestFrame vistaMain = new TestFrame();
-		AlumnosAsistenciaPanel vista = vistaMain.getAlumnosAsistenciaPanel();
-		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
-		AlumnosAsistenciaControlador controlador = new AlumnosAsistenciaControlador(vista, modelo, cursadaDTO);
-		controlador.inicializar();		
+		if (alumnosAsistencia == null && cursadaDTO != null) {
+			alumnosAsistencia = new AlumnosAsistenciaPanel();
+			alumnosAsistenciaControlador = new AlumnosAsistenciaControlador(alumnosAsistencia, modelo, cursadaDTO);
+			alumnosAsistenciaControlador.inicializar();
+
+			this.vista.getMainPanel().add(alumnosAsistencia);
+		}
 	}
 
 	private void btnCalendario_MousePressed(MouseEvent evt) {
@@ -200,24 +208,7 @@ public class CursadaABMVistaPrincipalControlador {
 	}
 
 	private void btnSeleccionar_MousePressed(MouseEvent evt) {
-		setColor(this.vista.getBtnSeleccionar());
-		resetColor(new JPanel[] { this.vista.getBtnAgregar(), 
-								  this.vista.getBtnActualizar(), 
-								  this.vista.getBtnEliminar() });
-
-		if (cursadaABMControlador == null) {
-			cursadaABM = new CursadaABMPanel();
-			cursadaABMControlador = new CursadaABMControlador(cursadaABM, this, modelo);
-			cursadaABMControlador.inicializar();
-			cursadaABMControlador.setVisibleBtnSeleccionar();
-
-			this.vista.getMainPanel().add(cursadaABM);
-		} else {
-			cursadaABMControlador.setVisibleBtnSeleccionar();
-		}
-
-		this.vista.getMainPanel().revalidate();
-		this.vista.getMainPanel().repaint();	
+		setSeleccionarCursadaVistaInicial();	
 	}
 
 	private void btnAgregar_MousePressed(MouseEvent evt) {
@@ -236,6 +227,7 @@ public class CursadaABMVistaPrincipalControlador {
 			this.vista.getMainPanel().add(cursadaABM);
 		} else {			
 			cursadaABMControlador.setVisibleBtnAgregar();
+			cursadaABMControlador.inicializar();
 			cursadaABMControlador.setEstadoCurso();
 		}
 
@@ -258,6 +250,7 @@ public class CursadaABMVistaPrincipalControlador {
 			this.vista.getMainPanel().add(cursadaABM);
 		} else {
 			cursadaABMControlador.setVisibleBtnActualizar();
+			cursadaABMControlador.inicializar();
 		}
 
 		this.vista.getMainPanel().revalidate();
@@ -279,6 +272,7 @@ public class CursadaABMVistaPrincipalControlador {
 			this.vista.getMainPanel().add(cursadaABM);
 		} else {
 			cursadaABMControlador.setVisibleBtnEliminar();
+			cursadaABMControlador.inicializar();
 		}
 
 		this.vista.getMainPanel().revalidate();
@@ -306,6 +300,10 @@ public class CursadaABMVistaPrincipalControlador {
 			alumnosInscriptos = null;
 			alumnosInscriptosControlador = null;
 		}
+		if (alumnosAsistencia!=null) {
+			alumnosAsistencia = null;
+			alumnosAsistenciaControlador = null;
+		}
 		
 		this.vista.getMainPanel().removeAll();
 		
@@ -324,6 +322,28 @@ public class CursadaABMVistaPrincipalControlador {
 			pane[i].setBackground(Color.DARK_GRAY);
 
 		}
+	}	
+
+	private void setSeleccionarCursadaVistaInicial() {
+		setColor(this.vista.getBtnSeleccionar());
+		resetColor(new JPanel[] { this.vista.getBtnAgregar(), 
+								  this.vista.getBtnActualizar(), 
+								  this.vista.getBtnEliminar() });
+
+		if (cursadaABMControlador == null) {
+			cursadaABM = new CursadaABMPanel();
+			cursadaABMControlador = new CursadaABMControlador(cursadaABM, this, modelo);
+			cursadaABMControlador.inicializar();
+			cursadaABMControlador.setVisibleBtnSeleccionar();
+
+			this.vista.getMainPanel().add(cursadaABM);
+		} else {
+			cursadaABMControlador.setVisibleBtnSeleccionar();
+			cursadaABMControlador.inicializar();
+		}
+
+		this.vista.getMainPanel().revalidate();
+		this.vista.getMainPanel().repaint();
 	}
 
 	/**

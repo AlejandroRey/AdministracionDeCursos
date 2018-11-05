@@ -23,7 +23,8 @@ public class AlumnoModalControlador implements ActionListener {
 	private AlumnosInscriptosControlador alumnosInscriptosControlador;
 	private CursadaDTO cursadaDTO;
 
-	public AlumnoModalControlador(AdministracionDeCursos modelo, AlumnosInscriptosControlador alumnosInscriptosControlador) {
+	public AlumnoModalControlador(AdministracionDeCursos modelo, 
+								  AlumnosInscriptosControlador alumnosInscriptosControlador) {
 		super();
 		
 		this.modelo = modelo;
