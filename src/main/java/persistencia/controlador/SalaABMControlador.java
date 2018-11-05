@@ -1,4 +1,7 @@
 package persistencia.controlador;
+import herramientas.OptionPanel;
+import herramientas.Validator;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -23,6 +26,7 @@ public class SalaABMControlador implements ActionListener{
 	private List<SalaDisponibilidadDTO> fechasCursadasLista;
 	private SalaDTO currentSala;
 	private List<Disponibilidad> fechas;
+	private Validator validator;
 	
 	public SalaABMControlador(SalaABMPanel vista, AdministracionDeCursos modelo) {
 		this.salasLista = null;
@@ -31,6 +35,7 @@ public class SalaABMControlador implements ActionListener{
 		this.fechas = null;
 		this.vista = vista;
 		this.modelo = modelo;
+		this.validator = new Validator();
 		
 		this.vista.getBtnAgregar().addActionListener(this);
 		this.vista.getBtnActualizar().addActionListener(this);
@@ -140,53 +145,103 @@ public class SalaABMControlador implements ActionListener{
 	}
 
 	public void agregarSala() {
-		SalaDTO sala = new SalaDTO (0,
-				this.vista.getTxtNombre().getText(),
-				Integer.parseInt(this.vista.getTxtCantidadDeAlumnos().getText()),
-				Integer.parseInt(this.vista.getTxtCantidadDePc().getText()),
-				this.vista.getTxtAreaDescripcion().getText());
-		this.modelo.agregarSala(sala);
-		llenarTabla();
+		if(datosValidos()){
+			SalaDTO sala = new SalaDTO (0,
+					this.vista.getTxtNombre().getText(),
+					Integer.parseInt(this.vista.getTxtCantidadDeAlumnos().getText()),
+					Integer.parseInt(this.vista.getTxtCantidadDePc().getText()),
+					this.vista.getTxtAreaDescripcion().getText());
+			this.modelo.agregarSala(sala);
+			llenarTabla();
+		}
 	}
 
 	public void modificarSala() {
-		SalaDTO sala = new SalaDTO (
-				(Long.parseLong(this.vista.getTxtID().getText())),
-				this.vista.getTxtNombre().getText(),
-				Integer.parseInt(this.vista.getTxtCantidadDeAlumnos().getText()),
-				Integer.parseInt(this.vista.getTxtCantidadDePc().getText()),
-				this.vista.getTxtAreaDescripcion().getText());
-		this.modelo.actualizarSala(sala);
-		llenarTabla();
+		if(haySalaSeleccionada()){
+			if(datosValidos()){
+				SalaDTO sala = new SalaDTO (
+						Long.parseLong(this.vista.getTxtID().getText()),
+						this.vista.getTxtNombre().getText(),
+						Integer.parseInt(this.vista.getTxtCantidadDeAlumnos().getText()),
+						Integer.parseInt(this.vista.getTxtCantidadDePc().getText()),
+						this.vista.getTxtAreaDescripcion().getText());
+				this.modelo.actualizarSala(sala);
+				llenarTabla();
+			}
+		}
 	}
 
 	public void eliminarSala() {
-		SalaDTO sala = new SalaDTO (
-				Long.parseLong(this.vista.getTxtID().getText()),
-				this.vista.getTxtNombre().getText(),
-				Integer.parseInt(this.vista.getTxtCantidadDeAlumnos().getText()),
-				Integer.parseInt(this.vista.getTxtCantidadDePc().getText()),
-				this.vista.getTxtAreaDescripcion().getText());
-		this.modelo.borrarSala(sala);
-		llenarTabla();
+		if(haySalaSeleccionada()){
+			if(datosValidos()){
+				SalaDTO sala = new SalaDTO (
+						Long.parseLong(this.vista.getTxtID().getText()),
+						this.vista.getTxtNombre().getText(),
+						Integer.parseInt(this.vista.getTxtCantidadDeAlumnos().getText()),
+						Integer.parseInt(this.vista.getTxtCantidadDePc().getText()),
+						this.vista.getTxtAreaDescripcion().getText());
+				this.modelo.borrarSala(sala);
+				llenarTabla();
+			}
+		}
 	}
 	
 	private void openDisponibilidad() {
-		this.fechasCursadasLista = this.modelo.obtenerSalaDisponibilidad(currentSala);
-		System.out.println(currentSala.getIdSala());
-		HorariosFechaSala horarios = new HorariosFechaSala(fechasCursadasLista);
-		this.fechas = horarios.getDisponibilidades(); 
-		SalaDisponibilidadDialog dialog = new SalaDisponibilidadDialog();
-		SalaDisponibilidadControlador ctr = new SalaDisponibilidadControlador(dialog);
-		ctr.createHighlights(fechas);
-		ctr.inicializar();
+		if(haySalaSeleccionada()){
+			this.fechasCursadasLista = this.modelo.obtenerSalaDisponibilidad(currentSala);
+			System.out.println(currentSala.getIdSala());
+			HorariosFechaSala horarios = new HorariosFechaSala(fechasCursadasLista);
+			this.fechas = horarios.getDisponibilidades(); 
+			SalaDisponibilidadDialog dialog = new SalaDisponibilidadDialog();
+			SalaDisponibilidadControlador ctr = new SalaDisponibilidadControlador(dialog);
+			ctr.createHighlights(fechas);
+			ctr.inicializar();
+		}
 	}
 	
-	public boolean datosValidos() {
-		return false;
+	//*************************VALIDACIONES ******************************//		
+	private boolean haySalaSeleccionada() {
+		boolean salaSeleccionada = true;
+		String sala = this.vista.getTxtID().getText();
+		if(estaVacio(sala)){
+			OptionPanel.error("No hay ninguna sala seleccionada", "Seleccionar sala");
+			salaSeleccionada = false;
+		}
+		return salaSeleccionada;
+	}
+	
+	private boolean datosValidos() {
+		boolean camposValidos = true;
+		String nombre = this.vista.getTxtNombre().getText();
+		String cantidadDeAlumnos = this.vista.getTxtCantidadDeAlumnos().getText();
+		String cantidadDePc = this.vista.getTxtCantidadDePc().getText();
+		String descripcion = this.vista.getTxtAreaDescripcion().getText();
+
+		if(estaVacio(nombre)       || estaVacio(cantidadDeAlumnos)||
+				estaVacio(cantidadDePc) || estaVacio(descripcion)) {
+			OptionPanel.error("Faltan completar campos", "Campos vacios");
+			camposValidos = false;
+		}
+		else if(!validator.numeroValido(cantidadDeAlumnos)) {
+			OptionPanel.error("Numero invalido. La cantidad de alumnos no es correcta", "Error");
+			camposValidos = false;
+		}
+		else if(!validator.numeroValido(cantidadDePc)) {
+			OptionPanel.error("Numero invalido. La cantidad de Pc no es correcta", "Error");
+			camposValidos = false;
+		}
+		else {
+			camposValidos = true;
+		}
+		return camposValidos;
 	}
 
+	public boolean estaVacio(String valor) {
+		return valor.trim().equals("");
+	}
 	
+	//***************************************************************************//
+
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		if (event.getSource() == this.vista.getBtnAgregar()) {

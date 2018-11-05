@@ -56,7 +56,7 @@ public class SalaABMVistaPrincipalControlador {
 		} else {
 			salaABMControlador.setVisibleBtnAgregar();
 		}
-
+		this.vista.getMainPanel().revalidate();
 		this.vista.getMainPanel().repaint();
 	}
 
@@ -74,7 +74,7 @@ public class SalaABMVistaPrincipalControlador {
 		} else {
 			salaABMControlador.setVisibleBtnActualizar();
 		}
-
+		this.vista.getMainPanel().revalidate();
 		this.vista.getMainPanel().repaint();
 	}
 
@@ -92,7 +92,7 @@ public class SalaABMVistaPrincipalControlador {
 		} else {
 			salaABMControlador.setVisibleBtnEliminar();
 		}
-
+		this.vista.getMainPanel().revalidate();
 		this.vista.getMainPanel().repaint();
 	}
 	
@@ -102,7 +102,7 @@ public class SalaABMVistaPrincipalControlador {
 	
 	private void resetColor(JPanel[] pane) {
 		for (int i = 0; i < pane.length; i++) {
-			pane[i].setBackground(new Color(23, 35, 51));
+			pane[i].setBackground(new Color(47, 79, 79));
 		}
 	}
 }
