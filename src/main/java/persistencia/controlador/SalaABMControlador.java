@@ -116,21 +116,21 @@ public class SalaABMControlador implements ActionListener{
 	
 	public void setVisibleBtnActualizar() {
 		this.vista.getTableSalas().setEnabled(true);
-		clearTextInputsBox();
+		llenarTabla();
 		setBtnNotVisible();
 		this.vista.getBtnActualizar().setVisible(true);
 	}
 	
 	public void setVisibleBtnAgregar() {
 		this.vista.getTableSalas().setEnabled(false);
-		clearTextInputsBox();
+		llenarTabla();
 		setBtnNotVisible();
 		this.vista.getBtnAgregar().setVisible(true);
 	}
 	
 	public void setVisibleBtnEliminar() {
 		this.vista.getTableSalas().setEnabled(true);
-		clearTextInputsBox();
+		llenarTabla();
 		setBtnNotVisible();
 		this.vista.getBtnEliminar().setVisible(true);		
 	}
@@ -152,6 +152,7 @@ public class SalaABMControlador implements ActionListener{
 					Integer.parseInt(this.vista.getTxtCantidadDePc().getText()),
 					this.vista.getTxtAreaDescripcion().getText());
 			this.modelo.agregarSala(sala);
+			OptionPanel.mensaje("La sala ha sido agregada correctamente", "Sala");
 			llenarTabla();
 		}
 	}
@@ -159,14 +160,18 @@ public class SalaABMControlador implements ActionListener{
 	public void modificarSala() {
 		if(haySalaSeleccionada()){
 			if(datosValidos()){
-				SalaDTO sala = new SalaDTO (
-						Long.parseLong(this.vista.getTxtID().getText()),
-						this.vista.getTxtNombre().getText(),
-						Integer.parseInt(this.vista.getTxtCantidadDeAlumnos().getText()),
-						Integer.parseInt(this.vista.getTxtCantidadDePc().getText()),
-						this.vista.getTxtAreaDescripcion().getText());
-				this.modelo.actualizarSala(sala);
-				llenarTabla();
+				int actualizar = OptionPanel.confimarcion("Esta seguro que desea actualizar los datos de esta sala?", "Actualizar sala");
+				if(actualizar == 0){
+					SalaDTO sala = new SalaDTO (
+							Long.parseLong(this.vista.getTxtID().getText()),
+							this.vista.getTxtNombre().getText(),
+							Integer.parseInt(this.vista.getTxtCantidadDeAlumnos().getText()),
+							Integer.parseInt(this.vista.getTxtCantidadDePc().getText()),
+							this.vista.getTxtAreaDescripcion().getText());
+					this.modelo.actualizarSala(sala);
+					OptionPanel.mensaje("La sala ha sido modificada correctamente", "Sala");
+					llenarTabla();
+				}
 			}
 		}
 	}
@@ -174,14 +179,18 @@ public class SalaABMControlador implements ActionListener{
 	public void eliminarSala() {
 		if(haySalaSeleccionada()){
 			if(datosValidos()){
-				SalaDTO sala = new SalaDTO (
-						Long.parseLong(this.vista.getTxtID().getText()),
-						this.vista.getTxtNombre().getText(),
-						Integer.parseInt(this.vista.getTxtCantidadDeAlumnos().getText()),
-						Integer.parseInt(this.vista.getTxtCantidadDePc().getText()),
-						this.vista.getTxtAreaDescripcion().getText());
-				this.modelo.borrarSala(sala);
-				llenarTabla();
+				int eliminar = OptionPanel.confimarcion("Esta seguro que desea eliminar esta sala?", "Eliminar sala");
+				if(eliminar == 0){
+					SalaDTO sala = new SalaDTO (
+							Long.parseLong(this.vista.getTxtID().getText()),
+							this.vista.getTxtNombre().getText(),
+							Integer.parseInt(this.vista.getTxtCantidadDeAlumnos().getText()),
+							Integer.parseInt(this.vista.getTxtCantidadDePc().getText()),
+							this.vista.getTxtAreaDescripcion().getText());
+					this.modelo.borrarSala(sala);
+					OptionPanel.mensaje("La sala ha sido eliminada correctamente", "Sala");
+					llenarTabla();
+				}
 			}
 		}
 	}

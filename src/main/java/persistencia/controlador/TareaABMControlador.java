@@ -103,7 +103,7 @@ public class TareaABMControlador implements ActionListener{
 		DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
 		leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
 		this.vista.getTableAdministrativos().getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
-//		this.deshabilitarTablaAdministrativos();
+		this.deshabilitarTablaAdministrativos();
 	}
 
 	private void loadAdministrativosData() {
@@ -208,6 +208,7 @@ public class TareaABMControlador implements ActionListener{
 					"Pendiente",
 					StringToLocalDateTime(this.vista.getTxtFecha().getText()),null);
 			this.modelo.agregarTarea(tarea);
+			OptionPanel.mensaje("La tarea ha sido agregada correctamente", "Tarea");
 			generarTablas();
 		}
 	}
@@ -215,15 +216,19 @@ public class TareaABMControlador implements ActionListener{
 	public void modificarTarea() {
 		if(hayTareaSeleccionada()){
 			if(datosValidos()){
-				TareaDTO tarea = new TareaDTO(Long.parseLong(this.vista.getTxtID().getText()),
-						Long.parseLong(this.vista.getTxtIDResponsable().getText()),
-						this.vista.getTxtNombre().getText(),
-						this.vista.getTxtAreaDescripcion().getText(),
-						"Pendiente",
-						StringToLocalDateTime(this.vista.getTxtFecha().getText()),
-						null);
-				this.modelo.actualizarTarea(tarea);
-				generarTablas();
+				int actualizar = OptionPanel.confimarcion("Esta seguro que desea actualizar los datos de esta tarea?", "Actualizar tarea");
+				if(actualizar == 0){
+					TareaDTO tarea = new TareaDTO(Long.parseLong(this.vista.getTxtID().getText()),
+							Long.parseLong(this.vista.getTxtIDResponsable().getText()),
+							this.vista.getTxtNombre().getText(),
+							this.vista.getTxtAreaDescripcion().getText(),
+							this.vista.getTxtEstado().getText(),
+							StringToLocalDateTime(this.vista.getTxtFecha().getText()),
+							null);
+					this.modelo.actualizarTarea(tarea);
+					OptionPanel.mensaje("La tarea ha sido modificada correctamente", "Tarea");
+					generarTablas();
+				}
 			}
 		}
 	}
@@ -231,14 +236,18 @@ public class TareaABMControlador implements ActionListener{
 	public void eliminarTarea() {
 		if(hayTareaSeleccionada()){
 			if(datosValidos()){
-				TareaDTO tarea = new TareaDTO(Long.parseLong(this.vista.getTxtID().getText()),
-						Long.parseLong(this.vista.getTxtIDResponsable().getText()),
-						this.vista.getTxtNombre().getText(),
-						this.vista.getTxtAreaDescripcion().getText(),
-						"Pendiente",
-						StringToLocalDateTime(this.vista.getTxtFecha().getText()),null);
-				this.modelo.borrarTarea(tarea);
-				generarTablas();
+				int eliminar = OptionPanel.confimarcion("Esta seguro que desea eliminar esta tarea?", "Eliminar tarea");
+				if(eliminar == 0){
+					TareaDTO tarea = new TareaDTO(Long.parseLong(this.vista.getTxtID().getText()),
+							Long.parseLong(this.vista.getTxtIDResponsable().getText()),
+							this.vista.getTxtNombre().getText(),
+							this.vista.getTxtAreaDescripcion().getText(),
+							this.vista.getTxtEstado().getText(),
+							StringToLocalDateTime(this.vista.getTxtFecha().getText()),null);
+					this.modelo.borrarTarea(tarea);
+					OptionPanel.mensaje("La tarea ha sido eliminada correctamente", "Tarea");
+					generarTablas();
+				}
 			}
 		}
 	}
@@ -246,15 +255,19 @@ public class TareaABMControlador implements ActionListener{
 	private void cerrarTarea() {
 		if(hayTareaSeleccionada()){
 			if(datosValidos()){
-				TareaDTO tarea = new TareaDTO(Long.parseLong(this.vista.getTxtID().getText()),
-						Long.parseLong(this.vista.getTxtIDResponsable().getText()),
-						this.vista.getTxtNombre().getText(),
-						this.vista.getTxtAreaDescripcion().getText(),
-						"Realizada",
-						StringToLocalDateTime(this.vista.getTxtFecha().getText()),
-						null);
-				this.modelo.actualizarTarea(tarea);
-				generarTablas();
+				int cerrar = OptionPanel.confimarcion("Esta seguro que desea cerrar esta tarea?", "Cerrar tarea");
+				if(cerrar == 0){
+					TareaDTO tarea = new TareaDTO(Long.parseLong(this.vista.getTxtID().getText()),
+							Long.parseLong(this.vista.getTxtIDResponsable().getText()),
+							this.vista.getTxtNombre().getText(),
+							this.vista.getTxtAreaDescripcion().getText(),
+							"Realizada",
+							StringToLocalDateTime(this.vista.getTxtFecha().getText()),
+							null);
+					this.modelo.actualizarTarea(tarea);
+					OptionPanel.mensaje("La tarea ha sido cerrada correctamente", "Tarea");
+					generarTablas();
+				}
 			}
 		}
 	}
@@ -315,7 +328,6 @@ public class TareaABMControlador implements ActionListener{
 	private void clearTextInputsBoxAux() {
 		this.vista.getTxtID().setText("");
 		this.vista.getTxtIDResponsable().setText("");
-		this.deshabilitarTablaAdministrativos();
 	}
 	
 	public void clickSeleccionResponsable() {
