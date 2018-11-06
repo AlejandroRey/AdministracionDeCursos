@@ -6,6 +6,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import modelo.AdministracionDeCursos;
+import persistencia.controlador.AdministracionDeCursosControlador;
 import persistencia.controlador.LoginVistaControlador;
 //import dto.CursadaDTO;
 //import modelo.AdministracionDeCursos;
@@ -13,6 +14,7 @@ import persistencia.controlador.LoginVistaControlador;
 //import persistencia.controlador.AlumnosAsistenciaControlador;
 //import persistencia.controlador.VistaInicialControlador;
 import persistencia.dao.mysql.DAOSQLFactory;
+import presentacion.vista.AdministracionDeCursosVista;
 import presentacion.vista.LoginVista;
 //import persistencia.dao.mysql.DAOSQLFactory;
 //import presentacion.vista.AdministracionDeCursosVista;
@@ -35,10 +37,10 @@ public class Main {
 		} catch (UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		} finally {
-//			AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
-//			AdministracionDeCursosVista vista = new AdministracionDeCursosVista();
-//			AdministracionDeCursosControlador controlador = new AdministracionDeCursosControlador(vista, modelo);
-//			controlador.inicializar();
+			AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
+			AdministracionDeCursosVista vista = new AdministracionDeCursosVista();
+			AdministracionDeCursosControlador controlador = new AdministracionDeCursosControlador(modelo, vista);
+			controlador.inicializar();
 		}
 		
 //		String str = "2017-10-01 01:00:00";
@@ -71,15 +73,15 @@ public class Main {
 //		controlador.inicializar();
 //		vista.getFrame().revalidate();
 //		vista.getFrame().repaint();
-//
-//		
+////
+////		
 //		VistaInicial vista = new VistaInicial();
 //		VistaInicialControlador controlador = new VistaInicialControlador(vista);
 //		controlador.inicializar();
 		
-		LoginVista vista = new LoginVista();
-		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
-		LoginVistaControlador controlador = new LoginVistaControlador(vista, modelo);
-		controlador.inicializar();
+//		LoginVista vista = new LoginVista();
+//		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
+//		LoginVistaControlador controlador = new LoginVistaControlador(vista, modelo);
+//		controlador.inicializar();
 	}
 }
