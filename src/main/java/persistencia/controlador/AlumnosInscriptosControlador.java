@@ -27,6 +27,7 @@ public class AlumnosInscriptosControlador implements ActionListener {
 	private AlumnosInscriptosPanel vista;
 	private AdministracionDeCursos modelo;
 	private List<AlumnoInscriptoDTO> alumnosInscriptosLista;
+	
 	private CursadaDTO cursadaDTO;
 	
 	private AlumnoModalPanel alumnoModalPanel;
@@ -110,6 +111,17 @@ public class AlumnosInscriptosControlador implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
 		if (e.getSource() == this.vista.getBtnAgregar()) {
+			
+			int qtyInscriptos = alumnosInscriptosLista.size();
+			int vacantes =Integer.parseInt(cursadaDTO.getVacantes());
+			if ( qtyInscriptos >= vacantes) {
+				JOptionPane.showMessageDialog(null,
+					    "La cantidad de Inscriptos supera la cantidad de Vacantes!",
+					    "Inscripcion Alumnos:",
+					    JOptionPane.INFORMATION_MESSAGE,
+					    new ImageIcon("imagenes/warning_64.png"));
+			}
+			
 			if (alumnoModalPanel != null) {
 				alumnoModalPanel.dispose();
 				alumnoModalControlador = null;
