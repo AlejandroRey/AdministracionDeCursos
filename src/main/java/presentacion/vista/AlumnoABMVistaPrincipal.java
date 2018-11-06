@@ -62,8 +62,6 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 	private JLabel lblAlumnoActual;
 	private JPanel btnHomeII;
 	private JLabel lblHomeII;
-	private JButton btnNewButton;
-	private JButton btnNewButton_1;
 
 	/**
 	 * Create the panel.
@@ -90,6 +88,7 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		add(panelHistorial);
 		
 		btnHomeII = new JPanel();
+		btnHomeII.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnHomeII.setLayout(null);
 		btnHomeII.setBackground(new Color(23, 35, 51));
 		btnHomeII.setBounds(0, 0, 200, 64);
@@ -107,6 +106,8 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		panelHistorial.add(label);
 		
 		lblAlumnoActual = new JLabel("New label");
+		lblAlumnoActual.setForeground(Color.WHITE);
+		lblAlumnoActual.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblAlumnoActual.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAlumnoActual.setBounds(0, 112, 200, 100);
 		panelHistorial.add(lblAlumnoActual);
@@ -198,14 +199,6 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		add(mainPanel);
 		mainPanel.setLayout(null);
 		mainPanel.setBackground(UIManager.getColor("Panel.background"));
-		
-		btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(62, 221, 89, 23);
-		mainPanel.add(btnNewButton);
-		
-		btnNewButton_1 = new JButton("New button");
-		btnNewButton_1.setBounds(60, 275, 89, 23);
-		mainPanel.add(btnNewButton_1);
 	}
 
 	private void buildButtonPanel() {
@@ -555,34 +548,6 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 	 */
 	public void setBtnHomeII(JPanel btnHomeII) {
 		this.btnHomeII = btnHomeII;
-	}
-
-	/**
-	 * @return the btnNewButton
-	 */
-	public JButton getBtnNewButton() {
-		return btnNewButton;
-	}
-
-	/**
-	 * @param btnNewButton the btnNewButton to set
-	 */
-	public void setBtnNewButton(JButton btnNewButton) {
-		this.btnNewButton = btnNewButton;
-	}
-
-	/**
-	 * @return the btnNewButton_1
-	 */
-	public JButton getBtnNewButton_1() {
-		return btnNewButton_1;
-	}
-
-	/**
-	 * @param btnNewButton_1 the btnNewButton_1 to set
-	 */
-	public void setBtnNewButton_1(JButton btnNewButton_1) {
-		this.btnNewButton_1 = btnNewButton_1;
 	}
 
 	/**

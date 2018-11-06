@@ -10,7 +10,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
 @SuppressWarnings("serial")
-public class AlumnoHistorialNota extends JPanel {
+public class AlumnoHistorialNotaPanel extends JPanel {
 	
 	private JScrollPane spCursadas;
 	private DefaultTableModel modelCursadas;
@@ -26,7 +26,7 @@ public class AlumnoHistorialNota extends JPanel {
 	/**
 	 * Create the Panel.
 	 */
-	public AlumnoHistorialNota() {
+	public AlumnoHistorialNotaPanel() {
 		super();
 		
 		this.setBounds(0, 0, 960, 500);

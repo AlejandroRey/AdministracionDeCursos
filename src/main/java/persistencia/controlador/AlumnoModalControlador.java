@@ -33,7 +33,7 @@ public class AlumnoModalControlador implements ActionListener {
 		this.cursadaDTO = this.alumnosInscriptosControlador.getCursadaDTO();
 		
 		alumnoABM = new AlumnoABMPanel();		
-		alumnoABMControlador = new AlumnoABMControlador(alumnoABM, this.modelo);
+		alumnoABMControlador = new AlumnoABMControlador(alumnoABM, null,this.modelo);
 		alumnoABMControlador.inicializar();
 		alumnoABMControlador.setDisableTextFields();
 		alumnoABMControlador.setBtnNotVisible();

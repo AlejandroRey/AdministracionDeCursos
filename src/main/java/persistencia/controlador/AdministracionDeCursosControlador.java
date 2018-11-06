@@ -68,6 +68,7 @@ public class AdministracionDeCursosControlador implements ActionListener {
 			if (alumnoABM == null) {
 				alumnoABM = new AlumnoABMVistaPrincipal();
 				alumnoABMControlador = new AlumnoABMVistaPrincipalControlador(modelo, alumnoABM);
+				alumnoABMControlador.inicializar();
 
 				this.vista.getMainPanel().add(alumnoABM);
 			}

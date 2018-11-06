@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.DefaultListSelectionModel;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
@@ -19,12 +20,16 @@ public class AlumnoABMControlador implements ActionListener {
 	
 	private AlumnoABMPanel vista;
 	private AdministracionDeCursos modelo;
+	private AlumnoABMVistaPrincipalControlador alumnoABMVistaPrincipalControlador;
+	
 	private List<AlumnoDTO> alumnosLista;
 	
-	public AlumnoABMControlador(AlumnoABMPanel vista, AdministracionDeCursos modelo) {
+	public AlumnoABMControlador(AlumnoABMPanel alumnoABMPanel, AlumnoABMVistaPrincipalControlador alumnoABMVistaPrincipalControlador, AdministracionDeCursos modelo) {
 		
-		this.vista = vista;
+		this.vista = alumnoABMPanel;
 		this.modelo = modelo;
+		this.alumnoABMVistaPrincipalControlador = alumnoABMVistaPrincipalControlador;
+		
 		this.alumnosLista = null;
 		
 		this.vista.getBtnActualizar().addActionListener(this);
@@ -93,7 +98,33 @@ public class AlumnoABMControlador implements ActionListener {
 		} else if (e.getSource() == this.vista.getBtnEliminar()) {
 			eliminarAlumno();
 		} else if (e.getSource() == this.vista.getBtnSeleccionar()) {
+			seleccionarAlumno();
+		}
+	}
 
+	private void seleccionarAlumno() {
+		try {
+			AlumnoDTO alumnoDTO = new AlumnoDTO(Long.parseLong(this.vista.getTextIdAlumno().getText()),
+					   this.vista.getTextNombre().getText(),
+					   this.vista.getTextApellido().getText(),
+					   this.vista.getTextTelefono().getText(),
+					   this.vista.getTextEmail().getText());
+			
+			this.alumnoABMVistaPrincipalControlador.setAlumnoDTO(alumnoDTO);
+			this.alumnoABMVistaPrincipalControlador.setLabelAlumno();
+			this.alumnoABMVistaPrincipalControlador.setVisiblePanelHistorial();	
+			
+			this.alumnoABMVistaPrincipalControlador.getMainPanel().removeAll();
+			
+			this.alumnoABMVistaPrincipalControlador.clearMainPanel();
+			this.alumnoABMVistaPrincipalControlador.refreshVistas();
+		} catch (Exception e) {
+			// TODO: handle exception
+			JOptionPane.showMessageDialog(null,
+				    "Seleccione Alumno!",
+				    "Alumno",
+				    JOptionPane.INFORMATION_MESSAGE,
+				    new ImageIcon("imagenes/warning_64.png"));
 		}
 	}
 
