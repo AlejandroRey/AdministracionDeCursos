@@ -2,7 +2,6 @@ package persistencia.controlador;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Panel;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
@@ -12,7 +11,6 @@ import modelo.AdministracionDeCursos;
 import presentacion.vista.AlumnoABMPanel;
 import presentacion.vista.AlumnoABMVistaPrincipal;
 import presentacion.vista.AlumnoHistorialNotaPanel;
-import presentacion.vista.CursadaABMPanel;
 
 public class AlumnoABMVistaPrincipalControlador {
 
@@ -98,7 +96,7 @@ public class AlumnoABMVistaPrincipalControlador {
 	}
 
 	private void btnHomeI_MousePressed(MouseEvent evt) {
-		setVisiblePanelHistorial();
+		//setVisiblePanelHistorial();
 	}
 	
 	public void setVisiblePanelHistorial() {
@@ -210,7 +208,7 @@ public class AlumnoABMVistaPrincipalControlador {
 		
 		if (alumnoHistorialNota == null && alumnoDTO != null) {
 			alumnoHistorialNota = new AlumnoHistorialNotaPanel();
-			alumnoHistorialNotaControlador = new AlumnoHistorialNotaControlador(modelo, alumnoHistorialNota);
+			alumnoHistorialNotaControlador = new AlumnoHistorialNotaControlador(modelo, alumnoHistorialNota, alumnoDTO);
 			alumnoHistorialNotaControlador.inicializar();
 			
 			this.vista.getMainPanel().add(alumnoHistorialNota);

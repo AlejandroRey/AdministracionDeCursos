@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+import javax.swing.border.MatteBorder;
 
 @SuppressWarnings("serial")
 public class AlumnoABMVistaPrincipal extends JPanel {
@@ -68,6 +69,7 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 	 */
 	public AlumnoABMVistaPrincipal() {
 		super();
+		setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		this.setBounds(0, 0, 1366, 768);
 		this.setLayout(null);
 		

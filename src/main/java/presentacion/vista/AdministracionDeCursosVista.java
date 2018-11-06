@@ -10,6 +10,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.MatteBorder;
 
 public class AdministracionDeCursosVista {
 	
@@ -54,7 +55,7 @@ public class AdministracionDeCursosVista {
 		this.frame.setBounds(0, 0, 1366, 768);
 		this.frame.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.frame.setLayout( new FlowLayout() );
+		this.frame.getContentPane().setLayout( new FlowLayout() );
 		this.frame.setVisible( true );
 		
 		buildMenuBar();		
@@ -68,6 +69,7 @@ public class AdministracionDeCursosVista {
 		menuBar.setBackground(Color.DARK_GRAY);
 		
 		mainPanel = new JPanel();
+		mainPanel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		mainPanel.setBounds(0, 0, 1366, 768);
 		this.frame.setContentPane(mainPanel);
 		mainPanel.setLayout(null);

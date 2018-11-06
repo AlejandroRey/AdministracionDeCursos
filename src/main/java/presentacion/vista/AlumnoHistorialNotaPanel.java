@@ -8,6 +8,12 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.MatteBorder;
+import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class AlumnoHistorialNotaPanel extends JPanel {
@@ -15,13 +21,14 @@ public class AlumnoHistorialNotaPanel extends JPanel {
 	private JScrollPane spCursadas;
 	private DefaultTableModel modelCursadas;
 	private JTable tablaCursadas;
-	private String[] nombreColumnasCursadas = {"idFechaCursada", "idCursada", "idSala", "fechaInicio", "fechaFin", "Fecha", "Ini", "Fin","Pre", "Aus"};
+	private String[] nombreColumnasCursadas = {"idCurso", "idCursada", "idAlumno", "nombre", "apellido", "telefono", "email", "curso", "tema", "fecha"};
 	
 	private JScrollPane spEvaluaciones;
 	private DefaultTableModel modelEvaluaciones;
 	private JTable tablaEvaluaciones;
-	private String[] nombreColumnasEvaluaciones = {"idFechaCursada", "idCursada", "idSala", "fechaInicio", "fechaFin", "Fecha", "Ini", "Fin","Pre", "Aus"};
+	private String[] nombreColumnasEvaluaciones = {"idAlumno", "idEvaluacion", "idCursada", "idEvaluacionTipo", "parcial", "tema", "fecha", "nota"};
 	
+	private JLabel lblPromedio;
 	
 	/**
 	 * Create the Panel.
@@ -43,7 +50,7 @@ public class AlumnoHistorialNotaPanel extends JPanel {
 	private void inicializarTablaCursadas() {
 		
 		spCursadas = new JScrollPane();
-		spCursadas.setBounds(10, 90, 338, 379);
+		spCursadas.setBounds(10, 10, 500, 380);
 		add(spCursadas);
 		
 		modelCursadas = new DefaultTableModel(null, nombreColumnasCursadas);
@@ -66,7 +73,7 @@ public class AlumnoHistorialNotaPanel extends JPanel {
 	private void inicializartablaEvaluaciones() {
 
 		spEvaluaciones = new JScrollPane();
-		spEvaluaciones.setBounds(367, 90, 338, 379);
+		spEvaluaciones.setBounds(520, 10, 340, 289);
 		add(spEvaluaciones);
 
 		modelEvaluaciones = new DefaultTableModel(null, nombreColumnasEvaluaciones);
@@ -85,6 +92,143 @@ public class AlumnoHistorialNotaPanel extends JPanel {
 		tablaEvaluaciones.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 		// tblInstructores.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		spEvaluaciones.setViewportView(tablaEvaluaciones);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Promedio", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel.setBounds(520, 310, 340, 80);
+		add(panel);
+		panel.setLayout(null);
+		
+		lblPromedio = new JLabel("");
+		lblPromedio.setFont(new Font("Tahoma", Font.PLAIN, 28));
+		lblPromedio.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPromedio.setBounds(140, 13, 60, 60);
+		panel.add(lblPromedio);
 	}
 
+	/**
+	 * @return the spCursadas
+	 */
+	public JScrollPane getSpCursadas() {
+		return spCursadas;
+	}
+
+	/**
+	 * @param spCursadas the spCursadas to set
+	 */
+	public void setSpCursadas(JScrollPane spCursadas) {
+		this.spCursadas = spCursadas;
+	}
+
+	/**
+	 * @return the modelCursadas
+	 */
+	public DefaultTableModel getModelCursadas() {
+		return modelCursadas;
+	}
+
+	/**
+	 * @param modelCursadas the modelCursadas to set
+	 */
+	public void setModelCursadas(DefaultTableModel modelCursadas) {
+		this.modelCursadas = modelCursadas;
+	}
+
+	/**
+	 * @return the tablaCursadas
+	 */
+	public JTable getTablaCursadas() {
+		return tablaCursadas;
+	}
+
+	/**
+	 * @param tablaCursadas the tablaCursadas to set
+	 */
+	public void setTablaCursadas(JTable tablaCursadas) {
+		this.tablaCursadas = tablaCursadas;
+	}
+
+	/**
+	 * @return the nombreColumnasCursadas
+	 */
+	public String[] getNombreColumnasCursadas() {
+		return nombreColumnasCursadas;
+	}
+
+	/**
+	 * @param nombreColumnasCursadas the nombreColumnasCursadas to set
+	 */
+	public void setNombreColumnasCursadas(String[] nombreColumnasCursadas) {
+		this.nombreColumnasCursadas = nombreColumnasCursadas;
+	}
+
+	/**
+	 * @return the spEvaluaciones
+	 */
+	public JScrollPane getSpEvaluaciones() {
+		return spEvaluaciones;
+	}
+
+	/**
+	 * @param spEvaluaciones the spEvaluaciones to set
+	 */
+	public void setSpEvaluaciones(JScrollPane spEvaluaciones) {
+		this.spEvaluaciones = spEvaluaciones;
+	}
+
+	/**
+	 * @return the modelEvaluaciones
+	 */
+	public DefaultTableModel getModelEvaluaciones() {
+		return modelEvaluaciones;
+	}
+
+	/**
+	 * @param modelEvaluaciones the modelEvaluaciones to set
+	 */
+	public void setModelEvaluaciones(DefaultTableModel modelEvaluaciones) {
+		this.modelEvaluaciones = modelEvaluaciones;
+	}
+
+	/**
+	 * @return the tablaEvaluaciones
+	 */
+	public JTable getTablaEvaluaciones() {
+		return tablaEvaluaciones;
+	}
+
+	/**
+	 * @param tablaEvaluaciones the tablaEvaluaciones to set
+	 */
+	public void setTablaEvaluaciones(JTable tablaEvaluaciones) {
+		this.tablaEvaluaciones = tablaEvaluaciones;
+	}
+
+	/**
+	 * @return the nombreColumnasEvaluaciones
+	 */
+	public String[] getNombreColumnasEvaluaciones() {
+		return nombreColumnasEvaluaciones;
+	}
+
+	/**
+	 * @param nombreColumnasEvaluaciones the nombreColumnasEvaluaciones to set
+	 */
+	public void setNombreColumnasEvaluaciones(String[] nombreColumnasEvaluaciones) {
+		this.nombreColumnasEvaluaciones = nombreColumnasEvaluaciones;
+	}
+
+	/**
+	 * @return the lblPromedio
+	 */
+	public JLabel getLblPromedio() {
+		return lblPromedio;
+	}
+
+	/**
+	 * @param lblPromedio the lblPromedio to set
+	 */
+	public void setLblPromedio(JLabel lblPromedio) {
+		this.lblPromedio = lblPromedio;
+	}
 }
