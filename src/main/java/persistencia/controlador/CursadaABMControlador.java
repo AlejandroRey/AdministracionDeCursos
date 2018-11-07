@@ -245,14 +245,12 @@ public class CursadaABMControlador implements ActionListener {
 	}
 		
 	private String stringToLocalDateFormatter(LocalDateTime fecha) {
-		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		String formatDateTime = fecha.format(formatter);
 		return formatDateTime;
 	}
 
 	private LocalDateTime StringToLocalDateTime(String fecha) {
-		
 		String date = fecha + " 00:00:00";
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 		LocalDateTime dateTime = LocalDateTime.parse(date, format);

@@ -24,6 +24,7 @@ import dto.FeriadoDTO;
 import dto.InscriptoDTO;
 import dto.NotaDTO;
 import dto.SalaDTO;
+import dto.SalaDisponibilidadDTO;
 import dto.SalaDisponibleDTO;
 import dto.TareaDTO;
 import dto.UsuarioDTO;
@@ -43,6 +44,7 @@ import persistencia.dao.interfaz.UsuarioDAO;
 import persistencia.dao.interfaz.EmpresaDAO;
 import persistencia.dao.interfaz.SalaDAO;
 import persistencia.dao.interfaz.SalaDisponibleDAO;
+import persistencia.dao.interfaz.SalaDisponibilidadDAO;
 import persistencia.dao.interfaz.EstadoDeCursoDAO;
 import persistencia.dao.interfaz.FechaCursadaClaseDAO;
 import persistencia.dao.interfaz.FeriadoDAO;
@@ -74,6 +76,7 @@ public class AdministracionDeCursos {
 	private FechaCursadaClaseDAO fechaCursadaClase;
 	private TareaDAO tarea;
 	private SalaDisponibleDAO salaDisponible;
+	private SalaDisponibilidadDAO salaDisponibilidad;
 	private FeriadoDAO feriado;
 	private AsistenciaDAO asistencia;
 	private AlumnoAsistenciaQtyDAO alumnoAsistenciaQty;
@@ -102,6 +105,7 @@ public class AdministracionDeCursos {
 		this.fechaCursadaClase = metodo_persistencia.createFechaCursadaClaseDAO();
 		this.tarea = metodo_persistencia.createTareaDAO();
 		this.salaDisponible = metodo_persistencia.createSalaDisponibleDAO();
+		this.salaDisponibilidad = metodo_persistencia.createSalaDisponibilidadDAO();
 		this.feriado = metodo_persistencia.createFeriadoDAO();
 		this.asistencia = metodo_persistencia.createAsistenciaDAO();
 		this.alumnoAsistenciaQty = metodo_persistencia.createAlumnoAsistenciaQtyDAO();
@@ -362,6 +366,10 @@ public class AdministracionDeCursos {
 		return this.fechaCursadaClase.readAll(cursadaDTO);
 	}
 	
+	public List<FechaCursadaClaseDTO> obtenerFechaCursadaClase(SalaDTO salaDTO) {
+		return this.fechaCursadaClase.readAll(salaDTO);
+	}
+	
 	/* ****************************************************************
 	 *                         Tarea
 	 * ****************************************************************
@@ -391,7 +399,15 @@ public class AdministracionDeCursos {
 	}
 	
 	/* ****************************************************************
-	 *                         Feriados
+<<<<<<< HEAD
+	 *                         Sala Disponibilidad
+	 * ****************************************************************
+	 */
+	
+	public List<SalaDisponibilidadDTO> obtenerSalaDisponibilidad(SalaDTO salaDTO) {
+		return this.salaDisponibilidad.readAll(salaDTO);
+	}
+	/*                         Feriados
 	 * ****************************************************************
 	 */
 	public List<FeriadoDTO> obtenerFeriados(int year) {

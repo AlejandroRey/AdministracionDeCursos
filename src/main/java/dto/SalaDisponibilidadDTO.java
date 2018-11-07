@@ -1,6 +1,6 @@
 package dto;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 public class SalaDisponibilidadDTO {
 	
@@ -9,20 +9,16 @@ public class SalaDisponibilidadDTO {
 	private Long idCurso;
 	private String sala;
 	private String curso;
-	private String dia;
-	private LocalTime horaInicio;
-	private LocalTime horaFin;
+	private LocalDateTime horaInicio;
+	private LocalDateTime horaFin;
 	
-	public SalaDisponibilidadDTO(Long idSala, Long idCursada, Long idCurso,
-			String sala, String curso, String dia, LocalTime horaInicio,
-			LocalTime horaFin) {
+	public SalaDisponibilidadDTO(Long idSala, Long idCursada, Long idCurso, String sala, String curso, LocalDateTime horaInicio, LocalDateTime horaFin) {
 		super();
 		this.idSala = idSala;
 		this.idCursada = idCursada;
 		this.idCurso = idCurso;
 		this.sala = sala;
 		this.curso = curso;
-		this.dia = dia;
 		this.horaInicio = horaInicio;
 		this.horaFin = horaFin;
 	}
@@ -98,44 +94,30 @@ public class SalaDisponibilidadDTO {
 	}
 
 	/**
-	 * @return the dia
-	 */
-	public String getDia() {
-		return dia;
-	}
-
-	/**
-	 * @param dia the dia to set
-	 */
-	public void setDia(String dia) {
-		this.dia = dia;
-	}
-
-	/**
 	 * @return the horaInicio
 	 */
-	public LocalTime getHoraInicio() {
+	public LocalDateTime getHoraInicio() {
 		return horaInicio;
 	}
 
 	/**
 	 * @param horaInicio the horaInicio to set
 	 */
-	public void setHoraInicio(LocalTime horaInicio) {
+	public void setHoraInicio(LocalDateTime horaInicio) {
 		this.horaInicio = horaInicio;
 	}
 
 	/**
 	 * @return the horaFin
 	 */
-	public LocalTime getHoraFin() {
+	public LocalDateTime getHoraFin() {
 		return horaFin;
 	}
 
 	/**
 	 * @param horaFin the horaFin to set
 	 */
-	public void setHoraFin(LocalTime horaFin) {
+	public void setHoraFin(LocalDateTime horaFin) {
 		this.horaFin = horaFin;
 	}
 	

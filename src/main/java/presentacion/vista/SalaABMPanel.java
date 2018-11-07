@@ -14,7 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
@@ -24,6 +23,8 @@ import javax.swing.table.TableRowSorter;
 import java.awt.BorderLayout;
 
 import javax.swing.JTable;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class SalaABMPanel extends JPanel{
@@ -47,11 +48,7 @@ public class SalaABMPanel extends JPanel{
 	private JButton btnAgregar;
 	private JButton btnActualizar;
 	private JButton btnEliminar;
-	
-	private JTable tbSalaHorarios;
-	private DefaultTableModel modelSalasHs;
-	private TableRowSorter<TableModel> modeloOrdenadoSalaHs;
-	private String[] nombreColumnasSalaHs = {"Dia", "Hora inicio","Hora Fin"};
+	private JButton btnVerDisponibilidad;
 	
 	
 	public SalaABMPanel() {
@@ -75,39 +72,15 @@ public class SalaABMPanel extends JPanel{
 
 	private void inicializarPanelEditorSalas() {
 		panel = new JPanel();
-		panel.setBounds(27, 360, 706, 218);
+		panel.setBounds(10, 28, 405, 327);
 		panel.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Sala - Editor:", TitledBorder.LEADING, TitledBorder.TOP, null, UIManager.getColor("textText")));
 		panel.setLayout(null);
 		this.add(panel);
-		
-		JPanel panelSalaHorarios = new JPanel();
-		panelSalaHorarios.setLayout(null);
-		panelSalaHorarios.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Sala - Horarios:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panelSalaHorarios.setBounds(752, 28, 304, 465);
-		add(panelSalaHorarios);
-		
-		JScrollPane spSalaHorarios = new JScrollPane();
-		spSalaHorarios.setBounds(10, 37, 284, 417);
-		panelSalaHorarios.add(spSalaHorarios);
-		
-		modelSalasHs = new DefaultTableModel(null, nombreColumnasSalaHs){public boolean isCellEditable(int row, int column){return false;}};
-		tbSalaHorarios = new JTable(modelSalasHs){
-			@Override
-		       public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
-		           Component component = super.prepareRenderer(renderer, row, column);
-		           int rendererWidth = component.getPreferredSize().width;
-		           TableColumn tableColumn = getColumnModel().getColumn(column);
-		           tableColumn.setPreferredWidth(Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
-		           return component;
-		        }
-		};
-		tbSalaHorarios.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
-		spSalaHorarios.setViewportView(tbSalaHorarios);
 	}
 	
 	private void inicializarTablaSalas() {
 		spSalas = new JScrollPane();
-		spSalas.setBounds(27, 27, 706, 310);
+		spSalas.setBounds(440, 28, 615, 387);
 		this.add(spSalas);
 		
 		modelSalas = new DefaultTableModel(null, nombreColumnas){public boolean isCellEditable(int row, int column){return false;}};
@@ -128,7 +101,7 @@ public class SalaABMPanel extends JPanel{
 		tableSalas.setRowSorter(modeloOrdenado);
 
 		JSeparator separator = new JSeparator();
-		separator.setBounds(27, 348, 700, 1);
+		separator.setBounds(440, 426, 615, 10);
 		separator.setForeground(SystemColor.activeCaption);
 		separator.setBackground(SystemColor.activeCaption);
 		this.add(separator);
@@ -149,11 +122,11 @@ public class SalaABMPanel extends JPanel{
 		
 		JLabel lblId = new JLabel("ID:");
 		lblId.setVisible(false);
-		lblId.setBounds(10, 126, 46, 14);
+		lblId.setBounds(10, 262, 46, 14);
 		panel.add(lblId);
 				
 		JLabel lblDescripcion = new JLabel("Descripcion:");
-		lblDescripcion.setBounds(336, 30, 58, 14);
+		lblDescripcion.setBounds(10, 139, 92, 14);
 		panel.add(lblDescripcion);
 
 	}
@@ -161,53 +134,61 @@ public class SalaABMPanel extends JPanel{
 	private void inicializarTxts() {
 		
 		txtNombre = new JTextField();
-		txtNombre.setBounds(132, 27, 163, 20);
+		txtNombre.setBounds(132, 27, 251, 20);
 		panel.add(txtNombre);
 		txtNombre.setColumns(10);
 		
 		txtCantidadDePc = new JTextField();
-		txtCantidadDePc.setBounds(132, 63, 163, 20);
+		txtCantidadDePc.setBounds(132, 63, 251, 20);
 		panel.add(txtCantidadDePc);
 		txtCantidadDePc.setColumns(10);
 		
 		txtCantidadDeAlumnos = new JTextField();
 		txtCantidadDeAlumnos.setColumns(10);
-		txtCantidadDeAlumnos.setBounds(132, 95, 163, 20);
+		txtCantidadDeAlumnos.setBounds(132, 95, 251, 20);
 		panel.add(txtCantidadDeAlumnos);
 		
 		txtID = new JTextField();
 		txtID.setVisible(false);
 		txtID.setEnabled(false);
-		txtID.setBounds(132, 126, 86, 20);
+		txtID.setBounds(70, 259, 86, 20);
 		panel.add(txtID);
 		txtID.setColumns(10);
 		
 		panelDescripcion = new JPanel();
-		panelDescripcion.setBounds(404, 27, 292, 138);
+		panelDescripcion.setBounds(134, 142, 249, 106);
 		panelDescripcion.setLayout(new BorderLayout(0, 0));
 		panel.add(panelDescripcion);
 		
-		textAreaDescripcion = new JTextArea();
-		textAreaDescripcion.setLineWrap(true);
-		textAreaDescripcion.setWrapStyleWord(true);
-		
 		spDescripcion = new JScrollPane();
 		panelDescripcion.add(spDescripcion, BorderLayout.CENTER);
+		
+		textAreaDescripcion = new JTextArea();
 		spDescripcion.setViewportView(textAreaDescripcion);
+		textAreaDescripcion.setLineWrap(true);
+		textAreaDescripcion.setWrapStyleWord(true);
 	}
 
 	private void inicializarBtns() {
 		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(287, 180, 107, 23);
+		btnAgregar.setBounds(276, 258, 107, 23);
 		panel.add(btnAgregar);
 		
 		btnActualizar = new JButton("Actualizar");
-		btnActualizar.setBounds(287, 180, 107, 23);
+		btnActualizar.setBounds(276, 258, 107, 23);
 		panel.add(btnActualizar);
 		
 		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(287, 180, 107, 23);
+		btnEliminar.setBounds(276, 258, 107, 23);
 		panel.add(btnEliminar);
+		
+		btnVerDisponibilidad = new JButton("Ver Disponibilidad");
+		btnVerDisponibilidad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnVerDisponibilidad.setBounds(879, 447, 176, 31);
+		add(btnVerDisponibilidad);
 	}
 	
 	public JButton getBtnAgregar() {
@@ -236,6 +217,20 @@ public class SalaABMPanel extends JPanel{
 
 	public JTextField getTxtNombre() {
 		return txtNombre;
+	}
+	
+	/**
+	 * @return the btnVerDisponibilidad
+	 */
+	public JButton getBtnVerDisponibilidad() {
+		return btnVerDisponibilidad;
+	}
+
+	/**
+	 * @param btnVerDisponibilidad the btnVerDisponibilidad to set
+	 */
+	public void setBtnVerDisponibilidad(JButton btnVerDisponibilidad) {
+		this.btnVerDisponibilidad = btnVerDisponibilidad;
 	}
 
 	public void setTxtNombre(JTextField txtNombre) {
@@ -316,62 +311,5 @@ public class SalaABMPanel extends JPanel{
 	 */
 	public void setTxtID(JTextField txtID) {
 		this.txtID = txtID;
-	}
-
-	/**
-	 * @return the tbSalaHorarios
-	 */
-	public JTable getTbSalaHorarios() {
-		return tbSalaHorarios;
-	}
-
-	/**
-	 * @param tbSalaHorarios the tbSalaHorarios to set
-	 */
-	public void setTbSalaHorarios(JTable tbSalaHorarios) {
-		this.tbSalaHorarios = tbSalaHorarios;
-	}
-
-	/**
-	 * @return the modelSalasHs
-	 */
-	public DefaultTableModel getModelSalasHs() {
-		return modelSalasHs;
-	}
-
-	/**
-	 * @param modelSalasHs the modelSalasHs to set
-	 */
-	public void setModelSalasHs(DefaultTableModel modelSalasHs) {
-		this.modelSalasHs = modelSalasHs;
-	}
-
-	/**
-	 * @return the modeloOrdenadoSalaHs
-	 */
-	public TableRowSorter<TableModel> getModeloOrdenadoSalaHs() {
-		return modeloOrdenadoSalaHs;
-	}
-
-	/**
-	 * @param modeloOrdenadoSalaHs the modeloOrdenadoSalaHs to set
-	 */
-	public void setModeloOrdenadoSalaHs(
-			TableRowSorter<TableModel> modeloOrdenadoSalaHs) {
-		this.modeloOrdenadoSalaHs = modeloOrdenadoSalaHs;
-	}
-
-	/**
-	 * @return the nombreColumnasSalaHs
-	 */
-	public String[] getNombreColumnasSalaHs() {
-		return nombreColumnasSalaHs;
-	}
-
-	/**
-	 * @param nombreColumnasSalaHs the nombreColumnasSalaHs to set
-	 */
-	public void setNombreColumnasSalaHs(String[] nombreColumnasSalaHs) {
-		this.nombreColumnasSalaHs = nombreColumnasSalaHs;
 	}
 }

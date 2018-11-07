@@ -10,6 +10,7 @@ import java.util.List;
 
 import dto.CursadaDTO;
 import dto.FechaCursadaClaseDTO;
+import dto.SalaDTO;
 import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.FechaCursadaClaseDAO;
 
@@ -19,6 +20,7 @@ public class FechaCursadaClaseDAOSQL implements FechaCursadaClaseDAO {
 	private static final String delete = "DELETE FROM fechacursadaclase WHERE idFechaCursadaClase = ?";
 	private static final String update = "UPDATE fechacursadaclase SET idCursada = ?, idSala = ?, fechaInicio = ?, fechaFin = ?, estadoSala = ? WHERE idFechaCursadaClase = ?";
 	private static final String readall = "SELECT * FROM fechacursadaclase WHERE idCursada = ?";
+	private static final String readallBySala = "SELECT * FROM fechacursadaclase WHERE idSala = ?";
 
 	@Override
 	public boolean insert(FechaCursadaClaseDTO fechaCursadaClaseDTO) {
@@ -95,6 +97,33 @@ public class FechaCursadaClaseDAOSQL implements FechaCursadaClaseDAO {
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(readall);
 			statement.setLong(1, cursadaDTO.getIdCursada());
+			resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				fechasCursadasClases.add(new FechaCursadaClaseDTO(resultSet.getLong("idFechaCursadaClase"), 
+																  resultSet.getLong("idCursada"), 
+																  resultSet.getLong("idSala"), 
+																  resultSet.getTimestamp("fechaInicio").toLocalDateTime(), 
+																  resultSet.getTimestamp("fechaFin").toLocalDateTime(),
+																  resultSet.getInt("estadoSala")));
+				System.out.println("listo");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			conexion.cerrarConexion();
+		}
+		return fechasCursadasClases;
+	}
+	
+	@Override
+	public List<FechaCursadaClaseDTO> readAll(SalaDTO salaDTO) {
+		PreparedStatement statement;
+		ResultSet resultSet; // Guarda el resultado de la query
+		ArrayList<FechaCursadaClaseDTO> fechasCursadasClases = new ArrayList<FechaCursadaClaseDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(readallBySala);
+			statement.setLong(1, salaDTO.getIdSala());
 			resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				fechasCursadasClases.add(new FechaCursadaClaseDTO(resultSet.getLong("idFechaCursadaClase"), 

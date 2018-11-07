@@ -51,12 +51,11 @@ public class TareaABMVistaPrincipalControlador {
 			tareaABMControlador = new TareaABMControlador(tareaABM, modelo);
 			tareaABMControlador.inicializar();
 			tareaABMControlador.setVisibleBtnAgregar();
-
 			this.vista.getMainPanel().add(tareaABM);
 		} else {
 			tareaABMControlador.setVisibleBtnAgregar();
 		}
-
+		this.vista.getMainPanel().revalidate();
 		this.vista.getMainPanel().repaint();
 	}
 
@@ -69,12 +68,11 @@ public class TareaABMVistaPrincipalControlador {
 			tareaABMControlador = new TareaABMControlador(tareaABM, modelo);
 			tareaABMControlador.inicializar();
 			tareaABMControlador.setVisibleBtnActualizar();
-
 			this.vista.getMainPanel().add(tareaABM);
 		} else {
 			tareaABMControlador.setVisibleBtnActualizar();
 		}
-
+		this.vista.getMainPanel().revalidate();
 		this.vista.getMainPanel().repaint();
 	}
 
@@ -92,7 +90,7 @@ public class TareaABMVistaPrincipalControlador {
 		} else {
 			tareaABMControlador.setVisibleBtnEliminar();
 		}
-
+		this.vista.getMainPanel().revalidate();
 		this.vista.getMainPanel().repaint();
 	}
 	
@@ -102,7 +100,7 @@ public class TareaABMVistaPrincipalControlador {
 	
 	private void resetColor(JPanel[] pane) {
 		for (int i = 0; i < pane.length; i++) {
-			pane[i].setBackground(new Color(23, 35, 51));
+			pane[i].setBackground(new Color(47, 79, 79));
 		}
 	}
 

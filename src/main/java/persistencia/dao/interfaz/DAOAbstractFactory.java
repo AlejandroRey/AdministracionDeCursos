@@ -53,5 +53,4 @@ public interface DAOAbstractFactory {
 	public EvaluacionCursadaDAO createEvaluacionCursadaDAO();
 
 	public NotaDAO createNotaDAO();
-	
 }

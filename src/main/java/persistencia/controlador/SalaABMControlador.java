@@ -1,4 +1,7 @@
 package persistencia.controlador;
+import herramientas.OptionPanel;
+import herramientas.Validator;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -11,22 +14,33 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 import modelo.AdministracionDeCursos;
 import dto.SalaDTO;
+import dto.SalaDisponibilidadDTO;
 import presentacion.vista.SalaABMPanel;
+import presentacion.vista.SalaDisponibilidadDialog;
 
 public class SalaABMControlador implements ActionListener{
 
 	private SalaABMPanel vista;
 	private AdministracionDeCursos modelo;
 	private List<SalaDTO> salasLista;
+	private List<SalaDisponibilidadDTO> fechasCursadasLista;
+	private SalaDTO currentSala;
+	private List<DisponibilidadControlador> fechas;
+	private Validator validator;
 	
 	public SalaABMControlador(SalaABMPanel vista, AdministracionDeCursos modelo) {
 		this.salasLista = null;
+		this.fechasCursadasLista = null;
+		this.currentSala = null;
+		this.fechas = null;
 		this.vista = vista;
 		this.modelo = modelo;
+		this.validator = new Validator();
 		
 		this.vista.getBtnAgregar().addActionListener(this);
 		this.vista.getBtnActualizar().addActionListener(this);
 		this.vista.getBtnEliminar().addActionListener(this);
+		this.vista.getBtnVerDisponibilidad().addActionListener(this);
 	}
 	
 	public void inicializar() {
@@ -76,10 +90,21 @@ public class SalaABMControlador implements ActionListener{
 				this.vista.getTxtCantidadDeAlumnos().setText(cantidadAlumnos.toString());
 				this.vista.getTxtCantidadDePc().setText(cantidadPc.toString());
 				this.vista.getTxtAreaDescripcion().setText(descripcion.toString());
+				this.setCurrentSala();
 			}
 		} catch (Exception ex) {
 			System.out.println("Error: " + ex.getMessage());
 		}
+	}
+
+	private void setCurrentSala() {
+		SalaDTO sala = new SalaDTO (
+				Long.parseLong(this.vista.getTxtID().getText()),
+				this.vista.getTxtNombre().getText(),
+				Integer.parseInt(this.vista.getTxtCantidadDeAlumnos().getText()),
+				Integer.parseInt(this.vista.getTxtCantidadDePc().getText()),
+				this.vista.getTxtAreaDescripcion().getText());
+		this.currentSala = sala;
 	}
 
 	private void clearTextInputsBox() {
@@ -91,21 +116,21 @@ public class SalaABMControlador implements ActionListener{
 	
 	public void setVisibleBtnActualizar() {
 		this.vista.getTableSalas().setEnabled(true);
-		clearTextInputsBox();
+		llenarTabla();
 		setBtnNotVisible();
 		this.vista.getBtnActualizar().setVisible(true);
 	}
 	
 	public void setVisibleBtnAgregar() {
 		this.vista.getTableSalas().setEnabled(false);
-		clearTextInputsBox();
+		llenarTabla();
 		setBtnNotVisible();
 		this.vista.getBtnAgregar().setVisible(true);
 	}
 	
 	public void setVisibleBtnEliminar() {
 		this.vista.getTableSalas().setEnabled(true);
-		clearTextInputsBox();
+		llenarTabla();
 		setBtnNotVisible();
 		this.vista.getBtnEliminar().setVisible(true);		
 	}
@@ -120,41 +145,112 @@ public class SalaABMControlador implements ActionListener{
 	}
 
 	public void agregarSala() {
-		SalaDTO sala = new SalaDTO (0,
-				this.vista.getTxtNombre().getText(),
-				Integer.parseInt(this.vista.getTxtCantidadDeAlumnos().getText()),
-				Integer.parseInt(this.vista.getTxtCantidadDePc().getText()),
-				this.vista.getTxtAreaDescripcion().getText());
-		this.modelo.agregarSala(sala);
-		llenarTabla();
+		if(datosValidos()){
+			SalaDTO sala = new SalaDTO (0,
+					this.vista.getTxtNombre().getText(),
+					Integer.parseInt(this.vista.getTxtCantidadDeAlumnos().getText()),
+					Integer.parseInt(this.vista.getTxtCantidadDePc().getText()),
+					this.vista.getTxtAreaDescripcion().getText());
+			this.modelo.agregarSala(sala);
+			OptionPanel.mensaje("La sala ha sido agregada correctamente", "Sala");
+			llenarTabla();
+		}
 	}
 
 	public void modificarSala() {
-		SalaDTO sala = new SalaDTO (
-				(Long.parseLong(this.vista.getTxtID().getText())),
-				this.vista.getTxtNombre().getText(),
-				Integer.parseInt(this.vista.getTxtCantidadDeAlumnos().getText()),
-				Integer.parseInt(this.vista.getTxtCantidadDePc().getText()),
-				this.vista.getTxtAreaDescripcion().getText());
-		this.modelo.actualizarSala(sala);
-		llenarTabla();
+		if(haySalaSeleccionada()){
+			if(datosValidos()){
+				int actualizar = OptionPanel.confimarcion("Esta seguro que desea actualizar los datos de esta sala?", "Actualizar sala");
+				if(actualizar == 0){
+					SalaDTO sala = new SalaDTO (
+							Long.parseLong(this.vista.getTxtID().getText()),
+							this.vista.getTxtNombre().getText(),
+							Integer.parseInt(this.vista.getTxtCantidadDeAlumnos().getText()),
+							Integer.parseInt(this.vista.getTxtCantidadDePc().getText()),
+							this.vista.getTxtAreaDescripcion().getText());
+					this.modelo.actualizarSala(sala);
+					OptionPanel.mensaje("La sala ha sido modificada correctamente", "Sala");
+					llenarTabla();
+				}
+			}
+		}
 	}
 
 	public void eliminarSala() {
-		SalaDTO sala = new SalaDTO (
-				Long.parseLong(this.vista.getTxtID().getText()),
-				this.vista.getTxtNombre().getText(),
-				Integer.parseInt(this.vista.getTxtCantidadDeAlumnos().getText()),
-				Integer.parseInt(this.vista.getTxtCantidadDePc().getText()),
-				this.vista.getTxtAreaDescripcion().getText());
-		this.modelo.borrarSala(sala);
-		llenarTabla();
+		if(haySalaSeleccionada()){
+			if(datosValidos()){
+				int eliminar = OptionPanel.confimarcion("Esta seguro que desea eliminar esta sala?", "Eliminar sala");
+				if(eliminar == 0){
+					SalaDTO sala = new SalaDTO (
+							Long.parseLong(this.vista.getTxtID().getText()),
+							this.vista.getTxtNombre().getText(),
+							Integer.parseInt(this.vista.getTxtCantidadDeAlumnos().getText()),
+							Integer.parseInt(this.vista.getTxtCantidadDePc().getText()),
+							this.vista.getTxtAreaDescripcion().getText());
+					this.modelo.borrarSala(sala);
+					OptionPanel.mensaje("La sala ha sido eliminada correctamente", "Sala");
+					llenarTabla();
+				}
+			}
+		}
 	}
 	
-	public boolean datosValidos() {
-		return false;
+	private void openDisponibilidad() {
+		if(haySalaSeleccionada()){
+			this.fechasCursadasLista = this.modelo.obtenerSalaDisponibilidad(currentSala);
+			System.out.println(currentSala.getIdSala());
+			HorariosFechaSala horarios = new HorariosFechaSala(fechasCursadasLista);
+			this.fechas = horarios.getDisponibilidades(); 
+			SalaDisponibilidadDialog dialog = new SalaDisponibilidadDialog();
+			SalaDisponibilidadControlador ctr = new SalaDisponibilidadControlador(dialog);
+			ctr.createHighlights(fechas);
+			ctr.inicializar();
+		}
 	}
 	
+	//*************************VALIDACIONES ******************************//		
+	private boolean haySalaSeleccionada() {
+		boolean salaSeleccionada = true;
+		String sala = this.vista.getTxtID().getText();
+		if(estaVacio(sala)){
+			OptionPanel.error("No hay ninguna sala seleccionada", "Seleccionar sala");
+			salaSeleccionada = false;
+		}
+		return salaSeleccionada;
+	}
+	
+	private boolean datosValidos() {
+		boolean camposValidos = true;
+		String nombre = this.vista.getTxtNombre().getText();
+		String cantidadDeAlumnos = this.vista.getTxtCantidadDeAlumnos().getText();
+		String cantidadDePc = this.vista.getTxtCantidadDePc().getText();
+		String descripcion = this.vista.getTxtAreaDescripcion().getText();
+
+		if(estaVacio(nombre)       || estaVacio(cantidadDeAlumnos)||
+				estaVacio(cantidadDePc) || estaVacio(descripcion)) {
+			OptionPanel.error("Faltan completar campos", "Campos vacios");
+			camposValidos = false;
+		}
+		else if(!validator.numeroValido(cantidadDeAlumnos)) {
+			OptionPanel.error("Numero invalido. La cantidad de alumnos no es correcta", "Error");
+			camposValidos = false;
+		}
+		else if(!validator.numeroValido(cantidadDePc)) {
+			OptionPanel.error("Numero invalido. La cantidad de Pc no es correcta", "Error");
+			camposValidos = false;
+		}
+		else {
+			camposValidos = true;
+		}
+		return camposValidos;
+	}
+
+	public boolean estaVacio(String valor) {
+		return valor.trim().equals("");
+	}
+	
+	//***************************************************************************//
+
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		if (event.getSource() == this.vista.getBtnAgregar()) {
@@ -166,8 +262,11 @@ public class SalaABMControlador implements ActionListener{
 		else if (event.getSource() == this.vista.getBtnEliminar()) {
 			eliminarSala();
 		}
+		else if (event.getSource() == this.vista.getBtnVerDisponibilidad()) {
+			openDisponibilidad();
+		}
 	}
-	
+
 	@SuppressWarnings("serial")
 	public class ListSelectionModelCstm extends DefaultListSelectionModel {
 
@@ -182,6 +281,5 @@ public class SalaABMControlador implements ActionListener{
 	    @Override
 	    public void removeSelectionInterval(int index0, int index1) {
 	    }
-
 	}
 }
