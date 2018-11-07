@@ -36,11 +36,11 @@ public class UsuarioABMControlador implements ActionListener {
 	}
 
 	public void inicializar() {
-		setCategorias();
+		//setCategorias();
 		llenarTabla();
-		loadCategorias();
+		//loadCategorias();
 	}
-	
+	/*
 	private void setCategorias() {		
 		categoriaLista = modelo.obtenerCategorias();
 		for (CategoriaDTO categoriaFiltroDTO : categoriaLista) {
@@ -53,9 +53,10 @@ public class UsuarioABMControlador implements ActionListener {
 		for (CategoriaDTO categoriaFiltroDTO : categoriaLista) {
 			this.vista.getCbxCategoria().addItem(categoriaFiltroDTO);
 		}
-	}
+	}*/
 
 	private void llenarTabla() {
+		categoriaLista = modelo.obtenerCategorias();
 		this.vista.getModelUsuarios().setRowCount(0); // Para vaciar la tabla
 		this.vista.getModelUsuarios().setColumnCount(0);
 		this.vista.getModelUsuarios().setColumnIdentifiers(this.vista.getNombreColumnas());

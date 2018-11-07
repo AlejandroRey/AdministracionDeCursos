@@ -11,6 +11,7 @@ import dto.CategoriaDTO;
 import dto.CursadaDTO;
 import dto.CursoDTO;
 import dto.ClaseDTO;
+import dto.ContactoDTO;
 import dto.CursadaCompletaDTO;
 import dto.CursoTipoDTO;
 import dto.DiaCursadaClaseDTO;
@@ -36,6 +37,7 @@ import persistencia.dao.interfaz.AlumnoAsistenciaQtyDAO;
 import persistencia.dao.interfaz.CategoriaDAO;
 import persistencia.dao.interfaz.CursoDAO;
 import persistencia.dao.interfaz.ClaseDAO;
+import persistencia.dao.interfaz.ContactoDAO;
 import persistencia.dao.interfaz.CursadaCompletaDAO;
 import persistencia.dao.interfaz.CursoTipoDAO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
@@ -62,6 +64,7 @@ public class AdministracionDeCursos {
 	private AlumnoEventoDAO alumnoEvento;
 	private UsuarioDAO usuario;
 	private CategoriaDAO categoria;
+	private ContactoDAO contacto;
 	private CursoTipoDAO cursoTipo;
 	private CursoDAO curso;
 	private ClaseDAO clase;
@@ -91,6 +94,7 @@ public class AdministracionDeCursos {
 		this.alumnoEvento = metodo_persistencia.createAlumnoEventoDAO();
 		this.usuario = metodo_persistencia.createUsuarioDAO();		
 		this.categoria = metodo_persistencia.createCategoriaDAO();
+		this.contacto = metodo_persistencia.createContactoDAO();
 		this.cursoTipo = metodo_persistencia.createCursoTipoDAO();
 		this.curso = metodo_persistencia.createCursoDAO();
 		this.clase = metodo_persistencia.createClaseDAO();
@@ -174,6 +178,26 @@ public class AdministracionDeCursos {
 	public List<UsuarioDTO> obtenerUsuarios() {
 		return this.usuario.readAll();
 	}
+	
+	/* ****************************************************************
+	 *                         Contacto
+	 * ****************************************************************
+	 */
+	public void agregarContacto(ContactoDTO nuevoContacto) {
+		this.contacto.insert(nuevoContacto);
+	}
+
+	public void borrarContacto(ContactoDTO contacto_a_eliminar) {
+		this.contacto.delete(contacto_a_eliminar);
+	}
+	
+	public void actualizarContacto(ContactoDTO contacto_a_actualizar) {
+		this.contacto.update(contacto_a_actualizar);
+	}
+	
+	public List<ContactoDTO> obtenerContactos() {
+		return this.contacto.readAll();
+	}	
 	
 	/* ****************************************************************
 	 *                         Categoria

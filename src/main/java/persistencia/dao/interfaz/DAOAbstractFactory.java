@@ -4,6 +4,8 @@ public interface DAOAbstractFactory {
 	
 	public AlumnoDAO createAlumnoDAO();
 	
+	public ContactoDAO createContactoDAO();
+	
 	public UsuarioDAO createUsuarioDAO();
 
 	public CategoriaDAO createCategoriaDAO();

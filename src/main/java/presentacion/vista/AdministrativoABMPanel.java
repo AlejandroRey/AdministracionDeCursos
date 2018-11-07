@@ -26,7 +26,7 @@ import dto.CategoriaDTO;
 @SuppressWarnings("serial")
 public class AdministrativoABMPanel extends JPanel {
 	
-	private JComboBox<CategoriaDTO> cbxCategoriaFiltro;
+	//private JComboBox<CategoriaDTO> cbxCategoriaFiltro;
 	private JScrollPane spUsuarios;
 	private DefaultTableModel modelUsuarios;
 	private JTable tblUsuarios;
@@ -66,13 +66,13 @@ public class AdministrativoABMPanel extends JPanel {
 	}
 
 	private void inicializarTabla() {
-		JLabel lblFiltro = new JLabel("Filtro:");
-		lblFiltro.setBounds(4, 14, 46, 14);
-		this.add(lblFiltro);
+		//JLabel lblFiltro = new JLabel("Filtro:");
+		//lblFiltro.setBounds(4, 14, 46, 14);
+		//this.add(lblFiltro);
 		
-		cbxCategoriaFiltro = new JComboBox<>();
+		/*cbxCategoriaFiltro = new JComboBox<>();
 		cbxCategoriaFiltro.setBounds(48, 11, 141, 20);
-		this.add(cbxCategoriaFiltro);
+		this.add(cbxCategoriaFiltro);*/
 		
 		spUsuarios = new JScrollPane();
 		spUsuarios.setBounds(4, 53, 578, 339);
@@ -209,19 +209,20 @@ public class AdministrativoABMPanel extends JPanel {
 		this.add(separator);
 	}
 
+	
 	/**
 	 * @return the cbxCategoriaFiltro
 	 */
-	public JComboBox<CategoriaDTO> getCbxCategoriaFiltro() {
-		return cbxCategoriaFiltro;
-	}
+	//public JComboBox<CategoriaDTO> getCbxCategoriaFiltro() {
+	//	return cbxCategoriaFiltro;
+	//}
 
 	/**
 	 * @param cbxCategoriaFiltro the cbxCategoriaFiltro to set
 	 */
-	public void setCbxCategoriaFiltro(JComboBox<CategoriaDTO> cbxCategoriaFiltro) {
-		this.cbxCategoriaFiltro = cbxCategoriaFiltro;
-	}
+	//public void setCbxCategoriaFiltro(JComboBox<CategoriaDTO> cbxCategoriaFiltro) {
+	//	this.cbxCategoriaFiltro = cbxCategoriaFiltro;
+	//}
 
 	/**
 	 * @return the spUsuarios
