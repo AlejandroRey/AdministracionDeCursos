@@ -2,14 +2,12 @@ package presentacion.vista;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.SystemColor;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -29,7 +27,7 @@ public class CursadaABMPanel extends JPanel {
 	private JScrollPane spCursadas;
 	private DefaultTableModel modelCursadas;
 	private JTable tblCursadas;
-	private String[] nombreColumnas = {"idCursada", "idEmpresa", "idCurso", "idEstadoCurso", "Curso", "Empresa", "Ini Inscrip", "Fin Inscrip", "EstadoCurso", "Vacantes", "Ini Cursada", "DiasDeClase"};
+	private String[] nombreColumnas = {"idCursada", "idEmpresa", "idCurso", "idEstadoCurso", "idAdministrativo","Curso", "Empresa", "Ini Inscrip", "Fin Inscrip", "EstadoCurso", "Vacantes", "Ini Cursada", "DiasDeClase"};
 	
 
 	private JPanel panel;	
@@ -47,13 +45,19 @@ public class CursadaABMPanel extends JPanel {
 	
 	private JTextField textFechaInicioCursada;
 	private JTextField textDiasDeClase;
+	
+	private JTextField textAdministrativo;
+	private JButton btnAgregarAdministrativo;
+	private JTextField textidAdministrativo;
+	private JLabel lblIdadmin;
+	private JLabel lblAdmisitrativo;
 
 	/**
 	 * Create the frame.
 	 */
 	public CursadaABMPanel() {
 		super();
-		this.setBounds(0, 0, 985, 600);
+		this.setBounds(0, 0, 705, 640);
 		this.setLayout(null);
 		inicializar();
 	}
@@ -90,7 +94,7 @@ public class CursadaABMPanel extends JPanel {
 	private void inicializarEditor() {	
 		
 		panel = new JPanel();
-		panel.setBounds(10, 386, 681, 203);
+		panel.setBounds(10, 386, 681, 239);
 		panel.setBorder(new TitledBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Cursada", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), "Cursada:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel.setLayout(null);
 		this.add(panel);
@@ -173,31 +177,56 @@ public class CursadaABMPanel extends JPanel {
 		panel.add(textDiasDeClase);
 		
 		JLabel lblIdCursada = new JLabel("Id Cursada:");
-		lblIdCursada.setBounds(497, 91, 70, 14);
+		lblIdCursada.setBounds(497, 94, 70, 14);
 		panel.add(lblIdCursada);
 		
 		textIdCursada = new JTextField();
-		textIdCursada.setBounds(577, 88, 70, 20);
+		textIdCursada.setBounds(577, 91, 70, 20);
 		panel.add(textIdCursada);
 		textIdCursada.setVisible(false);
 		textIdCursada.setHorizontalAlignment(SwingConstants.LEFT);
 		textIdCursada.setColumns(10);
 		
 		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(173, 152, 333, 40);
+		btnAgregar.setBounds(173, 188, 333, 40);
 		panel.add(btnAgregar);
 		
 		btnActualizar = new JButton("Actualizar");
-		btnActualizar.setBounds(173, 152, 333, 40);
+		btnActualizar.setBounds(173, 188, 333, 40);
 		panel.add(btnActualizar);
 		
 		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(173, 152, 333, 40);
+		btnEliminar.setBounds(173, 188, 333, 40);
 		panel.add(btnEliminar);
 		
 		btnSeleccionar = new JButton("Seleccionar");
-		btnSeleccionar.setBounds(173, 152, 333, 40);
+		btnSeleccionar.setBounds(173, 188, 333, 40);
 		panel.add(btnSeleccionar);
+		
+		lblAdmisitrativo = new JLabel("Admisitrativo:");
+		lblAdmisitrativo.setBounds(12, 125, 70, 14);
+		panel.add(lblAdmisitrativo);
+		
+		textAdministrativo = new JTextField();
+		textAdministrativo.setHorizontalAlignment(SwingConstants.LEFT);
+		textAdministrativo.setColumns(10);
+		textAdministrativo.setBounds(82, 125, 141, 20);
+		panel.add(textAdministrativo);
+		
+		btnAgregarAdministrativo = new JButton("Agregar");
+		btnAgregarAdministrativo.setBounds(238, 125, 89, 23);
+		panel.add(btnAgregarAdministrativo);
+		
+		textidAdministrativo = new JTextField();
+		textidAdministrativo.setVisible(false);
+		textidAdministrativo.setBounds(577, 125, 70, 20);
+		panel.add(textidAdministrativo);
+		textidAdministrativo.setColumns(10);
+		
+		lblIdadmin = new JLabel("idAdmin:");
+		lblIdadmin.setVisible(false);
+		lblIdadmin.setBounds(497, 125, 70, 14);
+		panel.add(lblIdadmin);
 		lblIdCursada.setVisible(false);
 	}
 	
@@ -455,5 +484,74 @@ public class CursadaABMPanel extends JPanel {
 	public void setTextDiasDeClase(JTextField textDiasDeClase) {
 		this.textDiasDeClase = textDiasDeClase;
 	}
-	
+
+	/**
+	 * @return the textAdministrativo
+	 */
+	public JTextField getTextAdministrativo() {
+		return textAdministrativo;
+	}
+
+	/**
+	 * @param textAdministrativo the textAdministrativo to set
+	 */
+	public void setTextAdministrativo(JTextField textAdministrativo) {
+		this.textAdministrativo = textAdministrativo;
+	}
+
+	/**
+	 * @return the btnAgregarAdministrativo
+	 */
+	public JButton getBtnAgregarAdministrativo() {
+		return btnAgregarAdministrativo;
+	}
+
+	/**
+	 * @param btnAgregarAdministrativo the btnAgregarAdministrativo to set
+	 */
+	public void setBtnAgregarAdministrativo(JButton btnAgregarAdministrativo) {
+		this.btnAgregarAdministrativo = btnAgregarAdministrativo;
+	}
+
+	/**
+	 * @return the textidAdministrativo
+	 */
+	public JTextField getTextidAdministrativo() {
+		return textidAdministrativo;
+	}
+
+	/**
+	 * @param textidAdministrativo the textidAdministrativo to set
+	 */
+	public void setTextidAdministrativo(JTextField textidAdministrativo) {
+		this.textidAdministrativo = textidAdministrativo;
+	}
+
+	/**
+	 * @return the lblIdadmin
+	 */
+	public JLabel getLblIdadmin() {
+		return lblIdadmin;
+	}
+
+	/**
+	 * @param lblIdadmin the lblIdadmin to set
+	 */
+	public void setLblIdadmin(JLabel lblIdadmin) {
+		this.lblIdadmin = lblIdadmin;
+	}
+
+	/**
+	 * @return the lblAdmisitrativo
+	 */
+	public JLabel getLblAdmisitrativo() {
+		return lblAdmisitrativo;
+	}
+
+	/**
+	 * @param lblAdmisitrativo the lblAdmisitrativo to set
+	 */
+	public void setLblAdmisitrativo(JLabel lblAdmisitrativo) {
+		this.lblAdmisitrativo = lblAdmisitrativo;
+	}
 }

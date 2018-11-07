@@ -20,8 +20,10 @@ import dto.CursadaDTO;
 import dto.CursoDTO;
 import dto.EmpresaDTO;
 import dto.EstadoDeCursoDTO;
+import dto.UsuarioDTO;
 import modelo.AdministracionDeCursos;
 import presentacion.vista.CursadaABMPanel;
+import presentacion.vista.UsuarioModalPanel;
 
 public class CursadaABMControlador implements ActionListener {
 	
@@ -35,6 +37,9 @@ public class CursadaABMControlador implements ActionListener {
 	private List<CursoDTO> cursosLista;
 	private List<EstadoDeCursoDTO> estadosCurso;
 	
+	private UsuarioModalPanel usuarioModalPanel;
+	private UsuarioModalControlador usuarioModalControlador;
+	
 	public CursadaABMControlador(CursadaABMPanel vista, CursadaABMVistaPrincipalControlador vistaPrincipalControlador, AdministracionDeCursos modelo) {
 		super();
 		this.vista = vista;
@@ -45,6 +50,7 @@ public class CursadaABMControlador implements ActionListener {
 		this.vista.getBtnAgregar().addActionListener(this);
 		this.vista.getBtnActualizar().addActionListener(this);
 		this.vista.getBtnEliminar().addActionListener(this);
+		this.vista.getBtnAgregarAdministrativo().addActionListener(this);
 	}	
 	
 	public void inicializar() {
@@ -74,6 +80,7 @@ public class CursadaABMControlador implements ActionListener {
 							 cursadaCompletaDTO.getIdEmpresa(),
 					         cursadaCompletaDTO.getIdCurso(),
 					         cursadaCompletaDTO.getIdEstadoCurso(),
+					         cursadaCompletaDTO.getIdAdministrativo(),
 					         cursadaCompletaDTO.getCurso(),
 					         cursadaCompletaDTO.getEmpresa(),
 					         stringToLocalDateFormatter(cursadaCompletaDTO.getFechaInicioInscripcion()),
@@ -96,22 +103,32 @@ public class CursadaABMControlador implements ActionListener {
 		this.vista.getTblCursadas().getColumnModel().getColumn(2).setMaxWidth(0);			
 		this.vista.getTblCursadas().getColumnModel().getColumn(3).setWidth(0);
 		this.vista.getTblCursadas().getColumnModel().getColumn(3).setMinWidth(0);
-		this.vista.getTblCursadas().getColumnModel().getColumn(3).setMaxWidth(0);			
+		this.vista.getTblCursadas().getColumnModel().getColumn(3).setMaxWidth(0);	
+		this.vista.getTblCursadas().getColumnModel().getColumn(4).setWidth(0);
+		this.vista.getTblCursadas().getColumnModel().getColumn(4).setMinWidth(0);
+		this.vista.getTblCursadas().getColumnModel().getColumn(4).setMaxWidth(0);
 		
 		// Agrego listener para obtener los valores de la fila seleccionada
 		this.vista.getTblCursadas().setSelectionModel(new ListSelectionModelCstm());
 		this.vista.getTblCursadas().getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
 			try {
-				if (this.vista.getTblCursadas().getSelectedRow() >= 0) {					
+				if (this.vista.getTblCursadas().getSelectedRow() >= 0) {	
+//					"idCursada", "idEmpresa", "idCurso", "idEstadoCurso", "idAdministrativo","Curso", 
+//					"Empresa", "Ini Inscrip", "Fin Inscrip", "EstadoCurso", "Vacantes", "Ini Cursada", "DiasDeClase"};
+					
 					Object idCursada = this.vista.getTblCursadas().getValueAt(this.vista.getTblCursadas().getSelectedRow(), 0);
 					Object idEmpresa = this.vista.getTblCursadas().getValueAt(this.vista.getTblCursadas().getSelectedRow(), 1);
 					Object idCurso = this.vista.getTblCursadas().getValueAt(this.vista.getTblCursadas().getSelectedRow(), 2);
-					Object idEstadoCurso = this.vista.getTblCursadas().getValueAt(this.vista.getTblCursadas().getSelectedRow(), 3);					
-					Object fechaInicioInscripcion = this.vista.getTblCursadas().getValueAt(this.vista.getTblCursadas().getSelectedRow(), 6);
-					Object fechaFinInscripcion = this.vista.getTblCursadas().getValueAt(this.vista.getTblCursadas().getSelectedRow(), 7);
-					Object vacantes = this.vista.getTblCursadas().getValueAt(this.vista.getTblCursadas().getSelectedRow(), 9);
-					Object fechaInicioCursada = this.vista.getTblCursadas().getValueAt(this.vista.getTblCursadas().getSelectedRow(), 10);
-					Object diasDeClase = this.vista.getTblCursadas().getValueAt(this.vista.getTblCursadas().getSelectedRow(), 11);					
+					Object idEstadoCurso = this.vista.getTblCursadas().getValueAt(this.vista.getTblCursadas().getSelectedRow(), 3);
+					Object idAdministrativo = this.vista.getTblCursadas().getValueAt(this.vista.getTblCursadas().getSelectedRow(), 4);
+					Object curso = this.vista.getTblCursadas().getValueAt(this.vista.getTblCursadas().getSelectedRow(), 5);
+					Object empresa = this.vista.getTblCursadas().getValueAt(this.vista.getTblCursadas().getSelectedRow(), 6);
+					Object fechaInicioInscripcion = this.vista.getTblCursadas().getValueAt(this.vista.getTblCursadas().getSelectedRow(), 7);
+					Object fechaFinInscripcion = this.vista.getTblCursadas().getValueAt(this.vista.getTblCursadas().getSelectedRow(), 8);
+					Object esatdoCurso = this.vista.getTblCursadas().getValueAt(this.vista.getTblCursadas().getSelectedRow(), 9);
+					Object vacantes = this.vista.getTblCursadas().getValueAt(this.vista.getTblCursadas().getSelectedRow(), 10);
+					Object fechaInicioCursada = this.vista.getTblCursadas().getValueAt(this.vista.getTblCursadas().getSelectedRow(), 11);
+					Object diasDeClase = this.vista.getTblCursadas().getValueAt(this.vista.getTblCursadas().getSelectedRow(), 12);					
 					
 					this.vista.getCbxEmpresa().setSelectedItem(selectEmpresa(idEmpresa));
 					this.vista.getCbxCurso().setSelectedItem(selectCurso(idCurso));
@@ -122,6 +139,7 @@ public class CursadaABMControlador implements ActionListener {
 					this.vista.getTextFechaInicioCursada().setText(fechaInicioCursada.toString());
 					this.vista.getTextDiasDeClase().setText(diasDeClase.toString());
 					this.vista.getTextIdCursada().setText(idCursada.toString());
+					this.vista.getTextAdministrativo().setText(obtenerAdministrativo(Long.parseLong(idAdministrativo.toString())));
 					
 				}
 			} catch (Exception ex) {
@@ -134,6 +152,17 @@ public class CursadaABMControlador implements ActionListener {
 		this.vista.getTblCursadas().getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
 	}
 	
+	private String obtenerAdministrativo(long idUsuario) {
+		String strUsuario = "";
+		for (UsuarioDTO usuarioDTO : modelo.obtenerUsuarios()) {
+			if (idUsuario == usuarioDTO.getIdUsuario()) {
+				strUsuario = usuarioDTO.getNombre() + " " + usuarioDTO.getApellido();
+				return strUsuario;
+			}
+		}
+		return strUsuario;
+	}
+
 	private boolean controlarEstadoCursada(CursadaCompletaDTO cursadaCompletaDTO) {
 		LocalDate fechaActual = LocalDateTime.now().toLocalDate();
 		LocalDate fechaInicioInscripcion = cursadaCompletaDTO.getFechaInicioInscripcion().toLocalDate();
@@ -155,6 +184,7 @@ public class CursadaABMControlador implements ActionListener {
 				cursadaCompletaDTO.getIdEmpresa(), 
 				cursadaCompletaDTO.getIdCurso(), 
 				cursadaCompletaDTO.getIdEstadoCurso(), 
+				cursadaCompletaDTO.getIdAdministrativo(), 
 				cursadaCompletaDTO.getFechaInicioInscripcion(), 
 				cursadaCompletaDTO.getFechaFinInscripcion(), 
 				cursadaCompletaDTO.getVacantes(), 
@@ -165,7 +195,7 @@ public class CursadaABMControlador implements ActionListener {
             System.out.println("Periodo De Inscripcion Abierto");
             cursadaDTO.setIdEstadoCurso(1);
             modelo.actualizarCursada(cursadaDTO);
-        } else if (fechaActual.compareTo(fechaInicioCursada) >= 0 && fechaActual.compareTo(fechaInicioCursada) <= 2) {
+        } else if (fechaActual.compareTo(fechaInicioCursada) >= 0 && cursadaCompletaDTO.getIdEstadoCurso() != 3) {
         	System.out.println("Inicio laa Cursada!!!");
         	cursadaDTO.setIdEstadoCurso(2);
         	modelo.actualizarCursada(cursadaDTO);
@@ -184,6 +214,7 @@ public class CursadaABMControlador implements ActionListener {
 		this.vista.getTextFechaInicioCursada().setText("");
 		this.vista.getTextDiasDeClase().setText("");
 		this.vista.getTextIdCursada().setText("");
+		this.vista.getTextAdministrativo().setText("");
 	}
 
 	private void initComboBox() {
@@ -277,6 +308,7 @@ public class CursadaABMControlador implements ActionListener {
 											   empresa.getIdEmpresa(), 
 											   curso.getIdCurso(), 
 											   estadoDeCurso.getIdEstadoDeCurso(), 
+											   Long.parseLong(this.vista.getTextidAdministrativo().getText()),
 											   fechaInicioInscripcion, 
 											   fechaFinInscripcion, 
 											   this.vista.getTextVacantes().getText(), 
@@ -306,10 +338,11 @@ public class CursadaABMControlador implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		CursadaDTO cursadaDTO = getCursadaDTO();
-		String strCursadaDTO = cursadaDTOToString(cursadaDTO);
 		
 		if (e.getSource()== this.vista.getBtnSeleccionar() ) {
+			CursadaDTO cursadaDTO = getCursadaDTO();
+			String strCursadaDTO = cursadaDTOToString(cursadaDTO);
+			
 			this.vistaPrincipalControlador.getVista().getButtonPanel().setVisible(false);
 			this.vistaPrincipalControlador.getVista().getButtonPanelExtends().setVisible(true);
 			this.vistaPrincipalControlador.getVista().getTextAreaCursadaSeleccionada().setText(strCursadaDTO);
@@ -325,13 +358,34 @@ public class CursadaABMControlador implements ActionListener {
 		} else if (e.getSource() == this.vista.getBtnActualizar()) {
 			CursadaDTO cursadaActualizarDTO = getCursadaDTO();
 			modelo.actualizarCursada(cursadaActualizarDTO);
-			llenarTablaCursadas();
+			llenarTablaCursadas();			
 		} else if (e.getSource() == this.vista.getBtnEliminar()) {
 			CursadaDTO cursadaEliminarDTO = getCursadaDTO();
 			modelo.borrarCursada(cursadaEliminarDTO);
 			llenarTablaCursadas();
+		} else if (e.getSource() == this.vista.getBtnAgregarAdministrativo()) {
+			if (usuarioModalPanel != null) {
+				usuarioModalPanel = null;
+				usuarioModalControlador = null;
+			}
+
+			usuarioModalPanel = new UsuarioModalPanel();
+			usuarioModalControlador = new UsuarioModalControlador(modelo, this);
+			usuarioModalControlador.inicializar();
 		}
 		
+	}
+	
+	public void setAdminNoVisible() {
+		this.vista.getLblAdmisitrativo().setVisible(false);
+		this.vista.getTextAdministrativo().setVisible(false);
+		this.vista.getBtnAgregarAdministrativo().setVisible(false);
+	}
+	
+	public void setAdminVisible() {
+		this.vista.getLblAdmisitrativo().setVisible(true);
+		this.vista.getTextAdministrativo().setVisible(true);
+		this.vista.getBtnAgregarAdministrativo().setVisible(true);
 	}
 	
 	public void setVisibleBtnActualizar() {
@@ -402,6 +456,132 @@ public class CursadaABMControlador implements ActionListener {
 	    default void changedUpdate(DocumentEvent e) {
 	        update(e);
 	    }
+	}
+
+	/**
+	 * @return the vista
+	 */
+	public CursadaABMPanel getVista() {
+		return vista;
+	}
+
+	/**
+	 * @param vista the vista to set
+	 */
+	public void setVista(CursadaABMPanel vista) {
+		this.vista = vista;
+	}
+
+	/**
+	 * @return the vistaPrincipalControlador
+	 */
+	public CursadaABMVistaPrincipalControlador getVistaPrincipalControlador() {
+		return vistaPrincipalControlador;
+	}
+
+	/**
+	 * @param vistaPrincipalControlador the vistaPrincipalControlador to set
+	 */
+	public void setVistaPrincipalControlador(CursadaABMVistaPrincipalControlador vistaPrincipalControlador) {
+		this.vistaPrincipalControlador = vistaPrincipalControlador;
+	}
+
+	/**
+	 * @return the modelo
+	 */
+	public AdministracionDeCursos getModelo() {
+		return modelo;
+	}
+
+	/**
+	 * @param modelo the modelo to set
+	 */
+	public void setModelo(AdministracionDeCursos modelo) {
+		this.modelo = modelo;
+	}
+
+	/**
+	 * @return the cursadasLista
+	 */
+	public List<CursadaCompletaDTO> getCursadasLista() {
+		return cursadasLista;
+	}
+
+	/**
+	 * @param cursadasLista the cursadasLista to set
+	 */
+	public void setCursadasLista(List<CursadaCompletaDTO> cursadasLista) {
+		this.cursadasLista = cursadasLista;
+	}
+
+	/**
+	 * @return the empresasLista
+	 */
+	public List<EmpresaDTO> getEmpresasLista() {
+		return empresasLista;
+	}
+
+	/**
+	 * @param empresasLista the empresasLista to set
+	 */
+	public void setEmpresasLista(List<EmpresaDTO> empresasLista) {
+		this.empresasLista = empresasLista;
+	}
+
+	/**
+	 * @return the cursosLista
+	 */
+	public List<CursoDTO> getCursosLista() {
+		return cursosLista;
+	}
+
+	/**
+	 * @param cursosLista the cursosLista to set
+	 */
+	public void setCursosLista(List<CursoDTO> cursosLista) {
+		this.cursosLista = cursosLista;
+	}
+
+	/**
+	 * @return the estadosCurso
+	 */
+	public List<EstadoDeCursoDTO> getEstadosCurso() {
+		return estadosCurso;
+	}
+
+	/**
+	 * @param estadosCurso the estadosCurso to set
+	 */
+	public void setEstadosCurso(List<EstadoDeCursoDTO> estadosCurso) {
+		this.estadosCurso = estadosCurso;
+	}
+
+	/**
+	 * @return the usuarioModalPanel
+	 */
+	public UsuarioModalPanel getUsuarioModalPanel() {
+		return usuarioModalPanel;
+	}
+
+	/**
+	 * @param usuarioModalPanel the usuarioModalPanel to set
+	 */
+	public void setUsuarioModalPanel(UsuarioModalPanel usuarioModalPanel) {
+		this.usuarioModalPanel = usuarioModalPanel;
+	}
+
+	/**
+	 * @return the usuarioModalControlador
+	 */
+	public UsuarioModalControlador getUsuarioModalControlador() {
+		return usuarioModalControlador;
+	}
+
+	/**
+	 * @param usuarioModalControlador the usuarioModalControlador to set
+	 */
+	public void setUsuarioModalControlador(UsuarioModalControlador usuarioModalControlador) {
+		this.usuarioModalControlador = usuarioModalControlador;
 	}
 
 }

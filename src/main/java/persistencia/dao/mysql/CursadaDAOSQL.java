@@ -14,9 +14,9 @@ import persistencia.dao.interfaz.CursadaDAO;
 
 public class CursadaDAOSQL implements CursadaDAO{
 	
-	private static final String insert = "INSERT INTO cursada (idEmpresa, idCurso, idEstadoCurso, fechaInicioInscripcion, fechaFinInscripcion, vacantes, fechaInicioCursada, diasDeClase) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String insert = "INSERT INTO cursada (idEmpresa, idCurso, idEstadoCurso, idAdministrativo, fechaInicioInscripcion, fechaFinInscripcion, vacantes, fechaInicioCursada, diasDeClase) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String delete = "DELETE FROM cursada WHERE idCursada = ?";
-	private static final String update = "UPDATE cursada SET idEmpresa = ?, idCurso = ?, idEstadoCurso = ?, fechaInicioInscripcion = ?, fechaFinInscripcion = ?, vacantes = ?, fechaInicioCursada = ?, diasDeClase = ? WHERE idCursada = ?";
+	private static final String update = "UPDATE cursada SET idEmpresa = ?, idCurso = ?, idEstadoCurso = ?, idAdministrativo = ?, fechaInicioInscripcion = ?, fechaFinInscripcion = ?, vacantes = ?, fechaInicioCursada = ?, diasDeClase = ? WHERE idCursada = ?";
 	private static final String readall = "SELECT * FROM cursada";
 
 	@Override
@@ -29,11 +29,12 @@ public class CursadaDAOSQL implements CursadaDAO{
 			statement.setLong(1, cursada.getIdEmpresa());
 			statement.setLong(2, cursada.getIdCurso());
 			statement.setLong(3, cursada.getIdEstadoCurso());
-			statement.setTimestamp(4, convertToTimeStamp(cursada.getFechaInicioInscripcion()));
-			statement.setTimestamp(5, convertToTimeStamp(cursada.getFechaFinInscripcion()));
-			statement.setString(6, cursada.getVacantes());
-			statement.setTimestamp(7, convertToTimeStamp(cursada.getFechaInicioCursada()));
-			statement.setInt(8, cursada.getDiasDeClase());
+			statement.setLong(4, cursada.getIdAdministrativo());
+			statement.setTimestamp(5, convertToTimeStamp(cursada.getFechaInicioInscripcion()));
+			statement.setTimestamp(6, convertToTimeStamp(cursada.getFechaFinInscripcion()));
+			statement.setString(7, cursada.getVacantes());
+			statement.setTimestamp(8, convertToTimeStamp(cursada.getFechaInicioCursada()));
+			statement.setInt(9, cursada.getDiasDeClase());
 			
 			if (statement.executeUpdate() > 0) // True is successfully return
 				return true;
@@ -74,12 +75,13 @@ public class CursadaDAOSQL implements CursadaDAO{
 			statement.setLong(1, cursada.getIdEmpresa());
 			statement.setLong(2, cursada.getIdCurso());
 			statement.setLong(3, cursada.getIdEstadoCurso());
-			statement.setTimestamp(4, convertToTimeStamp(cursada.getFechaInicioInscripcion()));
-			statement.setTimestamp(5, convertToTimeStamp(cursada.getFechaFinInscripcion()));
-			statement.setString(6, cursada.getVacantes());
-			statement.setTimestamp(7, convertToTimeStamp(cursada.getFechaInicioCursada()));
-			statement.setInt(8, cursada.getDiasDeClase());
-			statement.setLong(9, cursada.getIdCursada());
+			statement.setLong(4, cursada.getIdAdministrativo());
+			statement.setTimestamp(5, convertToTimeStamp(cursada.getFechaInicioInscripcion()));
+			statement.setTimestamp(6, convertToTimeStamp(cursada.getFechaFinInscripcion()));
+			statement.setString(7, cursada.getVacantes());
+			statement.setTimestamp(8, convertToTimeStamp(cursada.getFechaInicioCursada()));
+			statement.setInt(9, cursada.getDiasDeClase());
+			statement.setLong(10, cursada.getIdCursada());
 			
 			if (statement.executeUpdate() > 0) // True is successfully return
 				return true;
@@ -108,6 +110,7 @@ public class CursadaDAOSQL implements CursadaDAO{
 											resultSet.getLong("idEmpresa"),
 											resultSet.getLong("idCurso"),
 											resultSet.getLong("idEstadoCurso"),
+											resultSet.getLong("idAdministrativo"),
 											fechaInicio,
 											fechaFin,
 											resultSet.getString("vacantes"),

@@ -8,13 +8,14 @@ public class CursadaDTO {
 	private long idEmpresa;
 	private long idCurso;
 	private long idEstadoCurso;
+	private long idAdministrativo;
 	private LocalDateTime fechaInicioInscripcion;
 	private LocalDateTime fechaFinInscripcion;
 	private String vacantes;
 	private LocalDateTime fechaInicioCursada;
 	private int diasDeClase;
 	
-	public CursadaDTO(long idCursada, long idEmpresa, long idCurso, long idEstadoCurso,
+	public CursadaDTO(long idCursada, long idEmpresa, long idCurso, long idEstadoCurso, long idAdministrativo,
 			LocalDateTime fechaInicioInscripcion, LocalDateTime fechaFinInscripcion, String vacantes,
 			LocalDateTime fechaInicioCursada, int diasDeClase) {
 		super();
@@ -22,6 +23,7 @@ public class CursadaDTO {
 		this.idEmpresa = idEmpresa;
 		this.idCurso = idCurso;
 		this.idEstadoCurso = idEstadoCurso;
+		this.idAdministrativo = idAdministrativo;
 		this.fechaInicioInscripcion = fechaInicioInscripcion;
 		this.fechaFinInscripcion = fechaFinInscripcion;
 		this.vacantes = vacantes;
@@ -83,6 +85,20 @@ public class CursadaDTO {
 	 */
 	public void setIdEstadoCurso(long idEstadoCurso) {
 		this.idEstadoCurso = idEstadoCurso;
+	}
+
+	/**
+	 * @return the idAdministrativo
+	 */
+	public long getIdAdministrativo() {
+		return idAdministrativo;
+	}
+
+	/**
+	 * @param idAdministrativo the idAdministrativo to set
+	 */
+	public void setIdAdministrativo(long idAdministrativo) {
+		this.idAdministrativo = idAdministrativo;
 	}
 
 	/**
@@ -160,10 +176,11 @@ public class CursadaDTO {
 	 */
 	@Override
 	public String toString() {
-		return "CursadaDTO [idCursada: " + idCursada + ", idEmpresa: " + idEmpresa + ", idCurso: " + idCurso
-				+ ", idEstadoCurso: " + idEstadoCurso + ", fechaInicioInscripcion: " + fechaInicioInscripcion
-				+ ", fechaFinInscripcion: " + fechaFinInscripcion + ", vacantes: " + vacantes + ", fechaInicioCursada: "
-				+ fechaInicioCursada + ", diasDeClase: " + diasDeClase + "]";
-	}
+		return "CursadaDTO [idCursada=" + idCursada + ", idEmpresa=" + idEmpresa + ", idCurso=" + idCurso
+				+ ", idEstadoCurso=" + idEstadoCurso + ", idAdministrativo=" + idAdministrativo
+				+ ", fechaInicioInscripcion=" + fechaInicioInscripcion + ", fechaFinInscripcion=" + fechaFinInscripcion
+				+ ", vacantes=" + vacantes + ", fechaInicioCursada=" + fechaInicioCursada + ", diasDeClase="
+				+ diasDeClase + "]";
+	}	
 	
 }
