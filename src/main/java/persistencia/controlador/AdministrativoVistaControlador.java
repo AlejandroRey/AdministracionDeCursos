@@ -10,11 +10,13 @@ import persistencia.dao.mysql.DAOSQLFactory;
 import presentacion.vista.AdministracionDeCursosVista;
 import presentacion.vista.AdministrativoVista;
 import presentacion.vista.AlumnoABMVistaPrincipal;
+import presentacion.vista.ContactoVistaPrincipal;
 import presentacion.vista.CursadaABMVistaPrincipal;
 import presentacion.vista.CursoABMVistaPrincipal;
 import presentacion.vista.LoginVista;
 import presentacion.vista.SalaABMVistaPrincipal;
 import presentacion.vista.TareaABMVistaPrincipal;
+import presentacion.vista.UsuarionABMVistaPrincipal;
 import presentacion.vista.VistaInicial;
 
 public class AdministrativoVistaControlador implements ActionListener {
@@ -35,6 +37,10 @@ public class AdministrativoVistaControlador implements ActionListener {
 	private SalaABMVistaPrincipalControlador salaABMControlador;
 	private VistaInicial vistaInicial;
 	private VistaInicialControlador vistaInicialControlador;
+	private ContactoVistaPrincipal contactoABM;
+	private ContactoABMVistaPrincipalControlador contactoABMControlador;
+	private UsuarionABMVistaPrincipal instructorABM;
+	private UsuarioABMVistaPrincipalControlador instructorABMControlador;
 	
 	public AdministrativoVistaControlador(AdministrativoVista vista) {
 		super();
@@ -86,7 +92,18 @@ public class AdministrativoVistaControlador implements ActionListener {
 			controlador.inicializar();
 		}
 		if (e.getSource() == this.vista.getBtnContactos()) {
-		
+			this.vista.getFrmAdministrativo().dispose();
+			modelo = new AdministracionDeCursos(new DAOSQLFactory());
+			administracionVista = new AdministracionDeCursosVista();
+			controlador = new AdministracionDeCursosControlador(modelo, administracionVista);
+			controlador.inicializar();
+			
+			if (contactoABM == null) {
+				contactoABM = new ContactoVistaPrincipal();
+				contactoABMControlador = new ContactoABMVistaPrincipalControlador(modelo, contactoABM);
+				
+				this.administracionVista.getMainPanel().add(contactoABM);
+			}	
 		}
 		if (e.getSource() == this.vista.getBtnCursadas()) {
 			this.vista.getFrmAdministrativo().dispose();
@@ -123,7 +140,18 @@ public class AdministrativoVistaControlador implements ActionListener {
 			JOptionPane.showMessageDialog(null, "Esta función todavía no está desarrollada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 		}
 		if (e.getSource() == this.vista.getBtnInstructores()) {
+			this.vista.getFrmAdministrativo().dispose();
+			modelo = new AdministracionDeCursos(new DAOSQLFactory());
+			administracionVista = new AdministracionDeCursosVista();
+			controlador = new AdministracionDeCursosControlador(modelo, administracionVista);
+			controlador.inicializar();
 			
+			if (instructorABM == null) {
+				instructorABM = new UsuarionABMVistaPrincipal();
+				instructorABMControlador = new UsuarioABMVistaPrincipalControlador(modelo, instructorABM);
+				
+				this.administracionVista.getMainPanel().add(instructorABM);
+			}
 		}
 		if (e.getSource() == this.vista.getBtnNotificaciones()) {
 			JOptionPane.showMessageDialog(null, "Esta función todavía no está desarrollada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);

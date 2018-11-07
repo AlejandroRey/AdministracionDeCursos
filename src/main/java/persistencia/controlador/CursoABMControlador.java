@@ -11,6 +11,7 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import dto.ContactoDTO;
 import dto.CursoDTO;
 import dto.CursoTipoDTO;
 import modelo.AdministracionDeCursos;
@@ -23,16 +24,20 @@ public class CursoABMControlador implements ActionListener {
 	
 	private List<CursoDTO> cursosLista;
 	private List<CursoTipoDTO> cursoTipoLista;
+	
+	private List<ContactoDTO> contactosLista;
 
 	public CursoABMControlador(CursoABMPanel vista, AdministracionDeCursos modelo) {
 		this.vista = vista;
 		this.modelo = modelo;
 		this.cursosLista = null;
+		this.contactosLista = null;
 		
 		this.vista.getBtnActualizar().addActionListener(this);
 		this.vista.getBtnAgregar().addActionListener(this);
 		this.vista.getBtnEliminar().addActionListener(this);
 		this.vista.getBtnSeleccionar().addActionListener(this);
+		this.vista.getBtnConsultarInteresados().addActionListener(this);
 	}
 
 	public void inicializar() {
@@ -49,11 +54,37 @@ public class CursoABMControlador implements ActionListener {
 			this.vista.getCbxCursoTipo().addItem(cursoTipoDTO);
 		}
 	}
+	
+	private void vaciarTablaInteresados() {
+		this.vista.getModelInteresados().setRowCount(0); // Para vaciar la tabla
+		this.vista.getModelInteresados().setColumnCount(0);
+		this.vista.getModelInteresados().setColumnIdentifiers(this.vista.getNombreColumnasInteresados());
+		
+		/*this.vista.getTableInteresados().getColumnModel().getColumn(0).setWidth(0);
+		this.vista.getTableInteresados().getColumnModel().getColumn(0).setMinWidth(0);
+		this.vista.getTableInteresados().getColumnModel().getColumn(0).setMaxWidth(0);
+		this.vista.getTableInteresados().getColumnModel().getColumn(1).setWidth(0);
+		this.vista.getTableInteresados().getColumnModel().getColumn(1).setMinWidth(0);
+		this.vista.getTableInteresados().getColumnModel().getColumn(1).setMaxWidth(0);*/
+	}
+	
+	private void llenarTablaInteresados() {
+		this.contactosLista = modelo.obtenerContactos();
+		for (ContactoDTO contactoDTO : contactosLista) {
+			Object[] fila = {contactoDTO.getNombre(), contactoDTO.getApellido(), 
+					contactoDTO.getEmail(), contactoDTO.getFechaCreacion()};
+			if (contactoDTO.getIdCurso() == Long.parseLong(this.vista.getTextIdCurso().getText())) {
+				this.vista.getModelInteresados().addRow(fila);
+			}
+		}
+	}
 
 	private void llenarTabla() {
 		this.vista.getModelCursos().setRowCount(0); // Para vaciar la tabla
 		this.vista.getModelCursos().setColumnCount(0);
 		this.vista.getModelCursos().setColumnIdentifiers(this.vista.getNombreColumnas());
+		vaciarTablaInteresados();
+		
 		clearTextInputsBox();
 
 		this.cursosLista = modelo.obtenerCursos();
@@ -98,6 +129,7 @@ public class CursoABMControlador implements ActionListener {
 					this.vista.getTextNombre().setText(nombre.toString());
 					this.vista.getTextTema().setText(tema.toString());
 					this.vista.getTextAreaTemario().setText(temario.toString());
+					vaciarTablaInteresados();
 				}
 			} catch (Exception ex) {
 				System.out.println("Error: " + ex.getMessage());
@@ -129,7 +161,9 @@ public class CursoABMControlador implements ActionListener {
 		} else if (e.getSource() == this.vista.getBtnEliminar()) {
 			eliminarCurso();
 		} else if (e.getSource() == this.vista.getBtnSeleccionar()) {
-
+			llenarTabla();
+		} else if (e.getSource() == this.vista.getBtnConsultarInteresados()) {
+			llenarTablaInteresados();
 		}
 	}
 
@@ -221,6 +255,7 @@ public class CursoABMControlador implements ActionListener {
 		this.vista.getTextNombre().setText("");
 		this.vista.getTextTema().setText("");
 		this.vista.getTextAreaTemario().setText("");
+		vaciarTablaInteresados();
 	}
 	
 	public void setVisibleBtnActualizar() {
@@ -248,7 +283,8 @@ public class CursoABMControlador implements ActionListener {
 		this.vista.getTblCursos().setEnabled(true);
 		clearTextInputsBox();
 		setBtnNotVisible();
-		this.vista.getBtnSeleccionar().setVisible(true);		
+		this.vista.getBtnSeleccionar().setVisible(true);
+		this.vista.getBtnConsultarInteresados().setVisible(true);
 	}
 	
 	public void setBtnNotVisible() {
@@ -256,6 +292,7 @@ public class CursoABMControlador implements ActionListener {
 		this.vista.getBtnAgregar().setVisible(false);
 		this.vista.getBtnEliminar().setVisible(false);
 		this.vista.getBtnSeleccionar().setVisible(false);
+		this.vista.getBtnConsultarInteresados().setVisible(false);
 	}
 
 	@SuppressWarnings("serial")

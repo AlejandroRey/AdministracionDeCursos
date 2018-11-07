@@ -9,6 +9,7 @@ import modelo.AdministracionDeCursos;
 import persistencia.dao.mysql.DAOSQLFactory;
 import presentacion.vista.AdministracionDeCursosVista;
 import presentacion.vista.AlumnoABMVistaPrincipal;
+import presentacion.vista.ContactoVistaPrincipal;
 import presentacion.vista.CursadaABMVistaPrincipal;
 import presentacion.vista.CursoABMVistaPrincipal;
 import presentacion.vista.LoginVista;
@@ -20,6 +21,9 @@ public class AdministracionDeCursosControlador implements ActionListener {
 	
 	private AdministracionDeCursos modelo;
 	private AdministracionDeCursosVista vista;
+	
+	private ContactoVistaPrincipal contactoABM;
+	private ContactoABMVistaPrincipalControlador contactoABMControlador;
 	
 	private AlumnoABMVistaPrincipal alumnoABM;
 	private AlumnoABMVistaPrincipalControlador alumnoABMControlador;
@@ -52,6 +56,7 @@ public class AdministracionDeCursosControlador implements ActionListener {
 		this.vista.getMenuItemSalaVer().addActionListener(this);
 		this.vista.getMenuItemLogin().addActionListener(this);
 		this.vista.getMenuItemLogout().addActionListener(this);
+		this.vista.getMenuItemContactoVer().addActionListener(this);
 	}
 	
 
@@ -71,6 +76,14 @@ public class AdministracionDeCursosControlador implements ActionListener {
 
 				this.vista.getMainPanel().add(alumnoABM);
 			}
+		}
+		if (e.getSource() == this.vista.getMenuItemContactoVer()) {
+			if (contactoABM == null) {
+				contactoABM = new ContactoVistaPrincipal();
+				contactoABMControlador = new ContactoABMVistaPrincipalControlador(modelo, contactoABM);
+				
+				this.vista.getMainPanel().add(contactoABM);
+			}	
 		} else if (e.getSource()== this.vista.getMenuItemUsuarioVer()) {
 			if (usuarioABM == null) {
 				usuarioABM = new UsuarionABMVistaPrincipal();
@@ -151,10 +164,13 @@ public class AdministracionDeCursosControlador implements ActionListener {
 			salaABM = null;
 			salaABMControlador = null;
 		}
+		if (contactoABMControlador != null) {
+			contactoABM = null;
+			contactoABMControlador = null;
+		}
 		
 		this.vista.getMainPanel().removeAll();
 		this.vista.getMainPanel().repaint();
 		this.vista.getFrame().repaint();
 	}
-
 }

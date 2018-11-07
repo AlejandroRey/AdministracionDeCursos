@@ -28,9 +28,13 @@ import javax.swing.JTextArea;
 public class CursoABMPanel extends JPanel {
 
 	private JScrollPane spCursos;
+	private JScrollPane spInteresados;
 	private DefaultTableModel modelCursos;
+	private DefaultTableModel modelInteresados;
 	private JTable tblCursos;
+	private JTable tableInteresados;
 	private String[] nombreColumnas = {"idCurso","idCursoTipo", "Tipo", "Nombre", "Tema", "Temario"};
+	private String[] nombreColumnasInteresados = {"Nombre", "Apellido", "Email", "Fecha"};
 	
 	private JPanel panel;
 	
@@ -45,13 +49,14 @@ public class CursoABMPanel extends JPanel {
 	private JButton btnSeleccionar;
 	
 	private JTextArea textAreaTemario;
+	private JButton btnConsultarInteresados;
 
 	/**
 	 * Create the Panel.
 	 */
 	public CursoABMPanel() {
 		super();
-		this.setBounds(0, 0, 900, 500);
+		this.setBounds(0, 0, 900, 670);
 		this.setLayout(null);
 		inicializar();
 	}
@@ -82,7 +87,26 @@ public class CursoABMPanel extends JPanel {
 		    };
 		tblCursos.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 		//tblInstructores.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);		
-		spCursos.setViewportView(tblCursos);		
+		spCursos.setViewportView(tblCursos);
+		
+		spInteresados = new JScrollPane();
+		spInteresados.setBounds(4, 492, 500, 164);
+		this.add(spInteresados);
+		
+		modelInteresados = new DefaultTableModel(null, nombreColumnasInteresados);
+		tableInteresados = new JTable(modelInteresados){
+		    @Override
+		       public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+		           Component component = super.prepareRenderer(renderer, row, column);
+		           int rendererWidth = component.getPreferredSize().width;
+		           TableColumn tableColumn = getColumnModel().getColumn(column);
+		           tableColumn.setPreferredWidth(Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
+		           return component;
+		        }
+		    };
+		tableInteresados.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+		//tblInstructores.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);		
+		spInteresados.setViewportView(tableInteresados);
 	}
 
 	private void inicializarEditor() {		
@@ -148,6 +172,10 @@ public class CursoABMPanel extends JPanel {
 		btnSeleccionar.setBounds(207, 114, 89, 23);
 		panel.add(btnSeleccionar);
 		
+		btnConsultarInteresados = new JButton("Consultar interesados");
+		btnConsultarInteresados.setBounds(334, 114, 141, 23);
+		panel.add(btnConsultarInteresados);
+		
 		JSeparator separator = new JSeparator();
 		separator.setForeground(SystemColor.activeCaption);
 		separator.setBackground(SystemColor.activeCaption);
@@ -168,6 +196,13 @@ public class CursoABMPanel extends JPanel {
 	    scrollTextArea.setVerticalScrollBarPolicy ( ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS );
 	    
 	    panelTemario.add(scrollTextArea);
+	    
+	    /*spInteresados = new JScrollPane();
+	    spInteresados.setBounds(4, 492, 500, 194);
+	    add(spInteresados);
+	    
+	    tableInteresados = new JTable();
+	    spInteresados.setViewportView(tableInteresados);*/
 	}
 
 	/**
@@ -365,5 +400,44 @@ public class CursoABMPanel extends JPanel {
 	public void setTextAreaTemario(JTextArea textAreaTemario) {
 		this.textAreaTemario = textAreaTemario;
 	}
-	
+
+	public JScrollPane getSpInteresados() {
+		return spInteresados;
+	}
+
+	public void setSpInteresados(JScrollPane spInteresados) {
+		this.spInteresados = spInteresados;
+	}
+
+	public DefaultTableModel getModelInteresados() {
+		return modelInteresados;
+	}
+
+	public void setModelInteresados(DefaultTableModel modelInteresados) {
+		this.modelInteresados = modelInteresados;
+	}
+
+	public JTable getTableInteresados() {
+		return tableInteresados;
+	}
+
+	public void setTableInteresados(JTable tableInteresados) {
+		this.tableInteresados = tableInteresados;
+	}
+
+	public String[] getNombreColumnasInteresados() {
+		return nombreColumnasInteresados;
+	}
+
+	public void setNombreColumnasInteresados(String[] nombreColumnasInteresados) {
+		this.nombreColumnasInteresados = nombreColumnasInteresados;
+	}
+
+	public JButton getBtnConsultarInteresados() {
+		return btnConsultarInteresados;
+	}
+
+	public void setBtnConsultarInteresados(JButton btnConsultarInteresados) {
+		this.btnConsultarInteresados = btnConsultarInteresados;
+	}
 }

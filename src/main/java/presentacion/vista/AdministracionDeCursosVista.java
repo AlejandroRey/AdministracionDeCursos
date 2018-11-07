@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
+//import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class AdministracionDeCursosVista {
@@ -19,6 +19,9 @@ public class AdministracionDeCursosVista {
 	
 	private JMenu menuAlumno;
 	private JMenuItem menuItemAlumnoVer;
+	
+	private JMenu menuContacto;
+	private JMenuItem menuItemContactoVer;
 	
 	private JMenu menuCursada;
 	private JMenuItem menuItemCursadaVer;
@@ -79,6 +82,7 @@ public class AdministracionDeCursosVista {
 		buildMenuUsuario();
 		buildMenuTarea();
 		buildMenuSala();
+		buildMenuContacto();
 	}
 
 	private void buildMenuAlumno() {
@@ -90,6 +94,16 @@ public class AdministracionDeCursosVista {
 		
 		menuItemAlumnoVer = new JMenuItem("Ver Alumno");
 		menuAlumno.add(menuItemAlumnoVer);
+	}
+	
+	private void buildMenuContacto() {
+		menuContacto = new JMenu("Contacto");
+		menuContacto.setMnemonic(KeyEvent.VK_A);
+		menuContacto.getAccessibleContext().setAccessibleDescription("");
+		menuBar.add(menuContacto);
+		
+		menuItemContactoVer = new JMenuItem("Ver Contacto");
+		menuContacto.add(menuItemContactoVer);
 	}
 	
 	private void buildMenuCurso() {
@@ -410,6 +424,22 @@ public class AdministracionDeCursosVista {
 	 */
 	public void setMenuItemSalaVer(JMenuItem menuItemSalaVer) {
 		this.menuItemSalaVer = menuItemSalaVer;
+	}
+
+	public JMenu getMenuContacto() {
+		return menuContacto;
+	}
+
+	public void setMenuContacto(JMenu menuContacto) {
+		this.menuContacto = menuContacto;
+	}
+
+	public JMenuItem getMenuItemContactoVer() {
+		return menuItemContactoVer;
+	}
+
+	public void setMenuItemContactoVer(JMenuItem menuItemContactoVer) {
+		this.menuItemContactoVer = menuItemContactoVer;
 	}
 
 }
