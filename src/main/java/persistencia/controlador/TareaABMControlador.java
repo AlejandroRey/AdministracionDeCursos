@@ -243,7 +243,8 @@ public class TareaABMControlador implements ActionListener{
 							this.vista.getTxtNombre().getText(),
 							this.vista.getTxtAreaDescripcion().getText(),
 							this.vista.getTxtEstado().getText(),
-							StringToLocalDateTime(this.vista.getTxtFecha().getText()),null);
+							StringToLocalDateTime(this.vista.getTxtFecha().getText()),
+							null);
 					this.modelo.borrarTarea(tarea);
 					OptionPanel.mensaje("La tarea ha sido eliminada correctamente", "Tarea");
 					generarTablas();
@@ -263,7 +264,7 @@ public class TareaABMControlador implements ActionListener{
 							this.vista.getTxtAreaDescripcion().getText(),
 							"Realizada",
 							StringToLocalDateTime(this.vista.getTxtFecha().getText()),
-							null);
+							LocalDateTime.now());
 					this.modelo.actualizarTarea(tarea);
 					OptionPanel.mensaje("La tarea ha sido cerrada correctamente", "Tarea");
 					generarTablas();
@@ -322,6 +323,7 @@ public class TareaABMControlador implements ActionListener{
 		this.vista.getTxtResponsable().setText("");
 		this.vista.getTxtAreaDescripcion().setText("");
 		this.vista.getTxtFecha().setText("");
+		this.vista.getTxtEstado().setText("");
 		this.clearTextInputsBoxAux();
 	}
 
