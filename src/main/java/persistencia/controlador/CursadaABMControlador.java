@@ -2,6 +2,7 @@ package persistencia.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -9,6 +10,8 @@ import java.util.List;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -60,6 +63,11 @@ public class CursadaABMControlador implements ActionListener {
 		this.vista.getModelCursadas().setColumnIdentifiers(this.vista.getNombreColumnas());
 		clearTextBoxPanelCursadas();
 
+		this.cursadasLista = modelo.obtenerCursadasCompletas();
+		for (CursadaCompletaDTO cursadaCompletaDTO : cursadasLista) {
+			controlarEstadoCursada(cursadaCompletaDTO);
+		}
+		
 		this.cursadasLista = modelo.obtenerCursadasCompletas();
 		for (CursadaCompletaDTO cursadaCompletaDTO : cursadasLista) {
 			Object[] fila = {cursadaCompletaDTO.getIdCursada(),
@@ -126,6 +134,46 @@ public class CursadaABMControlador implements ActionListener {
 		this.vista.getTblCursadas().getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
 	}
 	
+	private boolean controlarEstadoCursada(CursadaCompletaDTO cursadaCompletaDTO) {
+		LocalDate fechaActual = LocalDateTime.now().toLocalDate();
+		LocalDate fechaInicioInscripcion = cursadaCompletaDTO.getFechaInicioInscripcion().toLocalDate();
+		LocalDate fechaFinInscripcion = cursadaCompletaDTO.getFechaFinInscripcion().toLocalDate();
+		LocalDate fechaInicioCursada = cursadaCompletaDTO.getFechaInicioCursada().toLocalDate();
+		
+		System.out.println(fechaActual);
+		System.out.println(fechaInicioInscripcion);
+		System.out.println(fechaFinInscripcion);
+		System.out.println(fechaInicioCursada);
+		
+		System.out.println("Dif1 = " + fechaActual.compareTo(fechaInicioInscripcion));
+		System.out.println("Dif2 = " + fechaActual.compareTo(fechaFinInscripcion));
+		
+		System.out.println("Dif3 = " + fechaActual.compareTo(fechaInicioCursada));
+		System.out.println("Dif4 = " + fechaActual.compareTo(fechaInicioCursada));
+		
+		CursadaDTO cursadaDTO = new CursadaDTO(cursadaCompletaDTO.getIdCursada(), 
+				cursadaCompletaDTO.getIdEmpresa(), 
+				cursadaCompletaDTO.getIdCurso(), 
+				cursadaCompletaDTO.getIdEstadoCurso(), 
+				cursadaCompletaDTO.getFechaInicioInscripcion(), 
+				cursadaCompletaDTO.getFechaFinInscripcion(), 
+				cursadaCompletaDTO.getVacantes(), 
+				cursadaCompletaDTO.getFechaInicioCursada(), 
+				cursadaCompletaDTO.getDiasDeClase());
+		
+        if (fechaActual.compareTo(fechaInicioInscripcion) >= 0 && fechaActual.compareTo(fechaFinInscripcion) <= 0) {
+            System.out.println("Periodo De Inscripcion Abierto");
+            cursadaDTO.setIdEstadoCurso(1);
+            modelo.actualizarCursada(cursadaDTO);
+        } else if (fechaActual.compareTo(fechaInicioCursada) >= 0 && fechaActual.compareTo(fechaInicioCursada) <= 2) {
+        	System.out.println("Inicio laa Cursada!!!");
+        	cursadaDTO.setIdEstadoCurso(2);
+        	modelo.actualizarCursada(cursadaDTO);
+        }		
+		
+		return false;
+	}
+
 	private void clearTextBoxPanelCursadas() {
 		this.vista.getCbxEmpresa().setSelectedItem(new EmpresaDTO(0, "", "", ""));
 		this.vista.getCbxCurso().setSelectedItem(new CursoDTO(0, 0, "", "", ""));
@@ -339,5 +387,23 @@ public class CursadaABMControlador implements ActionListener {
 		}
 
 	}	
+	
+	@FunctionalInterface
+	public interface SimpleDocumentListener extends DocumentListener {
+	    void update(DocumentEvent e);
+
+	    @Override
+	    default void insertUpdate(DocumentEvent e) {
+	        update(e);
+	    }
+	    @Override
+	    default void removeUpdate(DocumentEvent e) {
+	        update(e);
+	    }
+	    @Override
+	    default void changedUpdate(DocumentEvent e) {
+	        update(e);
+	    }
+	}
 
 }

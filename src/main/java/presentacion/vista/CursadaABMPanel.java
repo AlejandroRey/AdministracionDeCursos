@@ -47,14 +47,13 @@ public class CursadaABMPanel extends JPanel {
 	
 	private JTextField textFechaInicioCursada;
 	private JTextField textDiasDeClase;
-	private JSeparator separatorCursada;
 
 	/**
 	 * Create the frame.
 	 */
 	public CursadaABMPanel() {
 		super();
-		this.setBounds(0, 0, 946, 422);
+		this.setBounds(0, 0, 985, 600);
 		this.setLayout(null);
 		inicializar();
 	}
@@ -69,7 +68,7 @@ public class CursadaABMPanel extends JPanel {
 	private void inicializarTabla() {
 		
 		spCursadas = new JScrollPane();
-		spCursadas.setBounds(256, 17, 681, 384);
+		spCursadas.setBounds(10, 11, 681, 364);
 		this.add(spCursadas);
 		
 		modelCursadas = new DefaultTableModel(null, nombreColumnas);
@@ -91,127 +90,115 @@ public class CursadaABMPanel extends JPanel {
 	private void inicializarEditor() {	
 		
 		panel = new JPanel();
-		panel.setBounds(10, 10, 244, 393);
+		panel.setBounds(10, 386, 681, 203);
 		panel.setBorder(new TitledBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Cursada", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), "Cursada:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel.setLayout(null);
 		this.add(panel);
 		
 		JLabel lblCurso = new JLabel("Curso:");
-		lblCurso.setBounds(12, 60, 53, 14);
+		lblCurso.setBounds(12, 21, 53, 14);
 		panel.add(lblCurso);
 		
 		JLabel lblEmpresa = new JLabel("Empresa:");
-		lblEmpresa.setBounds(12, 22, 70, 14);
+		lblEmpresa.setBounds(12, 57, 70, 14);
 		panel.add(lblEmpresa);
 		
 		cbxEmpresa = new JComboBox<>();
-		cbxEmpresa.setBounds(82, 22, 141, 20);
+		cbxEmpresa.setBounds(82, 57, 141, 20);
 		panel.add(cbxEmpresa);
 		
-		JLabel lblInicioCursada = new JLabel("Inicio");
-		lblInicioCursada.setBounds(12, 278, 70, 14);
+		JLabel lblInicioCursada = new JLabel("Inicio Cursada");
+		lblInicioCursada.setBounds(244, 91, 101, 14);
 		panel.add(lblInicioCursada);
 		
 		JLabel lblEstado = new JLabel("Estado:");
-		lblEstado.setBounds(12, 95, 53, 14);
+		lblEstado.setBounds(12, 91, 53, 14);
 		panel.add(lblEstado);
 		
-		JLabel lblFechaInicio = new JLabel("Inicio Insc:");
-		lblFechaInicio.setBounds(12, 159, 70, 14);
+		JLabel lblFechaInicio = new JLabel("Inicio Inscripcion:");
+		lblFechaInicio.setBounds(244, 21, 101, 14);
 		panel.add(lblFechaInicio);
 		
 		textFechaInicioInsc = new JTextField();
 		textFechaInicioInsc.setHorizontalAlignment(SwingConstants.LEFT);
 		textFechaInicioInsc.setColumns(10);
-		textFechaInicioInsc.setBounds(82, 159, 141, 20);
+		textFechaInicioInsc.setBounds(345, 22, 110, 20);
 		panel.add(textFechaInicioInsc);
 		
-		JLabel lblFechaFin = new JLabel("Fin Insc:");
-		lblFechaFin.setBounds(12, 194, 70, 14);
+		JLabel lblFechaFin = new JLabel("Fin Inscripcion:");
+		lblFechaFin.setBounds(244, 57, 101, 14);
 		panel.add(lblFechaFin);
 		
 		textFechaFinInsc = new JTextField();
 		textFechaFinInsc.setHorizontalAlignment(SwingConstants.LEFT);
 		textFechaFinInsc.setColumns(10);
-		textFechaFinInsc.setBounds(82, 194, 141, 20);
+		textFechaFinInsc.setBounds(345, 57, 110, 20);
 		panel.add(textFechaFinInsc);	
 		
 		
 		///
 		JLabel lblVacantes = new JLabel("Vacantes:");
-		lblVacantes.setBounds(12, 235, 70, 14);
+		lblVacantes.setBounds(497, 57, 70, 14);
 		panel.add(lblVacantes);
 		
 		textVacantes = new JTextField();
 		textVacantes.setHorizontalAlignment(SwingConstants.LEFT);
 		textVacantes.setColumns(10);
-		textVacantes.setBounds(82, 232, 70, 20);
+		textVacantes.setBounds(577, 54, 70, 20);
 		panel.add(textVacantes);
 		
 		cbxCurso = new JComboBox<CursoDTO>();
-		cbxCurso.setBounds(82, 60, 141, 20);
+		cbxCurso.setBounds(82, 21, 141, 20);
 		panel.add(cbxCurso);
 		
 		cbxEstado = new JComboBox<EstadoDeCursoDTO>();
 		cbxEstado.setEnabled(false);
-		cbxEstado.setBounds(82, 95, 141, 20);
+		cbxEstado.setBounds(82, 91, 141, 20);
 		panel.add(cbxEstado);
-		
-		JLabel lblIdCursada = new JLabel("Id Cursada:");
-		lblIdCursada.setVisible(false);
-		lblIdCursada.setBounds(12, 364, 70, 14);
-		panel.add(lblIdCursada);
-		
-		textIdCursada = new JTextField();
-		textIdCursada.setVisible(false);
-		textIdCursada.setHorizontalAlignment(SwingConstants.LEFT);
-		textIdCursada.setColumns(10);
-		textIdCursada.setBounds(82, 364, 70, 20);
-		panel.add(textIdCursada);
 		
 		textFechaInicioCursada = new JTextField();
 		textFechaInicioCursada.setHorizontalAlignment(SwingConstants.LEFT);
 		textFechaInicioCursada.setColumns(10);
-		textFechaInicioCursada.setBounds(82, 278, 141, 20);
+		textFechaInicioCursada.setBounds(345, 91, 110, 20);
 		panel.add(textFechaInicioCursada);
 		
 		JLabel lblDiasDeClase = new JLabel("Clases");
-		lblDiasDeClase.setBounds(12, 313, 89, 14);
+		lblDiasDeClase.setBounds(497, 21, 70, 14);
 		panel.add(lblDiasDeClase);
 		
 		textDiasDeClase = new JTextField();
 		textDiasDeClase.setHorizontalAlignment(SwingConstants.LEFT);
 		textDiasDeClase.setColumns(10);
-		textDiasDeClase.setBounds(82, 313, 70, 20);
+		textDiasDeClase.setBounds(577, 21, 70, 20);
 		panel.add(textDiasDeClase);
 		
+		JLabel lblIdCursada = new JLabel("Id Cursada:");
+		lblIdCursada.setBounds(497, 91, 70, 14);
+		panel.add(lblIdCursada);
+		
+		textIdCursada = new JTextField();
+		textIdCursada.setBounds(577, 88, 70, 20);
+		panel.add(textIdCursada);
+		textIdCursada.setVisible(false);
+		textIdCursada.setHorizontalAlignment(SwingConstants.LEFT);
+		textIdCursada.setColumns(10);
+		
 		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(50, 344, 150, 40);
+		btnAgregar.setBounds(173, 152, 333, 40);
 		panel.add(btnAgregar);
 		
 		btnActualizar = new JButton("Actualizar");
-		btnActualizar.setBounds(50, 344, 150, 40);
+		btnActualizar.setBounds(173, 152, 333, 40);
 		panel.add(btnActualizar);
 		
 		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(50, 344, 150, 40);
+		btnEliminar.setBounds(173, 152, 333, 40);
 		panel.add(btnEliminar);
 		
 		btnSeleccionar = new JButton("Seleccionar");
-		btnSeleccionar.setBounds(50, 344, 150, 40);
+		btnSeleccionar.setBounds(173, 152, 333, 40);
 		panel.add(btnSeleccionar);
-		
-		separatorCursada = new JSeparator();
-		separatorCursada.setBounds(12, 133, 220, 1);
-		panel.add(separatorCursada);
-		separatorCursada.setForeground(SystemColor.activeCaption);
-		separatorCursada.setBackground(SystemColor.activeCaption);
-		
-		JSeparator separator = new JSeparator();
-		separator.setForeground(SystemColor.activeCaption);
-		separator.setBackground(SystemColor.activeCaption);
-		separator.setBounds(12, 266, 220, 1);
-		panel.add(separator);
+		lblIdCursada.setVisible(false);
 	}
 	
 	private void inicializarBotones() {
@@ -468,18 +455,5 @@ public class CursadaABMPanel extends JPanel {
 	public void setTextDiasDeClase(JTextField textDiasDeClase) {
 		this.textDiasDeClase = textDiasDeClase;
 	}
-
-	/**
-	 * @return the separatorCursada
-	 */
-	public JSeparator getSeparatorCursada() {
-		return separatorCursada;
-	}
-
-	/**
-	 * @param separatorCursada the separatorCursada to set
-	 */
-	public void setSeparatorCursada(JSeparator separatorCursada) {
-		this.separatorCursada = separatorCursada;
-	}
+	
 }
