@@ -120,10 +120,7 @@ public class AlumnosEvaluacionesControlador implements ActionListener {
 																	    + evaluacionActualDTO.getTipoParcial() 
 																	    + System.lineSeparator());	
 						this.vista.getLblEvaluacionSeleccionadaFecha().setText(localDateFormatterFecha(evaluacionActualDTO.getFecha()));
-						
-						if (evaluacionActualDTO != null) {
-							llenarTablaAlumnosInscriptos();
-						}						
+						llenarTablaAlumnosInscriptos();						
 					}
 				} catch (Exception ex) {
 					System.out.println("Error Tabla Evaluacion: " + ex.getMessage());
@@ -196,7 +193,7 @@ public class AlumnosEvaluacionesControlador implements ActionListener {
 			this.vista.getTablaAlumnos().setSelectionModel(new ListSelectionModelCstm());
 			this.vista.getTablaAlumnos().getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
 				try {
-					if (evaluacionActualDTO != null && this.vista.getTablaAlumnos().getSelectedRow() >= 0) {	
+					if (this.vista.getTablaAlumnos().getSelectedRow() >= 0) {	
 						this.vista.getLblAlumnoSeleccionado().setText("");
 						Object idAlumno = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 0);
 						Object idCursada = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 1);
@@ -230,13 +227,8 @@ public class AlumnosEvaluacionesControlador implements ActionListener {
 						} else {
 							this.vista.getPanelNota().setVisible(true);
 						}					
-					} else {
-						JOptionPane.showMessageDialog(null,
-							    "Seleccione la Evaluacion que desea actualizar Notas!",
-							    "Evaluacion",
-							    JOptionPane.INFORMATION_MESSAGE,
-							    new ImageIcon("imagenes/warning_64.png"));
 					}
+					
 				} catch (Exception ex) {
 					System.out.println("Error: " + ex.getMessage());
 				}
@@ -366,7 +358,7 @@ public class AlumnosEvaluacionesControlador implements ActionListener {
 				llenarTablaAlumnosInscriptos();
 			} catch (Exception ex) {
 				JOptionPane.showMessageDialog(null,
-					    "No se pudo actualizar la Nota del Alumno!",
+					    "No se pudo actualizar la Nota del Alumno!" + System.lineSeparator() + "Seleccione Evaluacion o Agregue Nota",
 					    "Nota Alumno",
 					    JOptionPane.INFORMATION_MESSAGE,
 					    new ImageIcon("imagenes/warning_64.png"));
