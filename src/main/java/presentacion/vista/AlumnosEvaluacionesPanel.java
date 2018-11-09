@@ -34,7 +34,7 @@ public class AlumnosEvaluacionesPanel extends JPanel {
 	private JLabel lblAlumnoSeleccionado;
 	private JScrollPane spAlumnos;
 	private DefaultTableModel modelAlumnos;
-	private String[] nombreColumnasAlumnos = {"idAlumno", "idCursada", "Nombre", "Apellido", "Telefono", "Email", "Fecha", "Estado", "Nota", "Estado"};
+	private String[] nombreColumnasAlumnos = {"idAlumno", "idCursada", "Nombre", "Apellido", "Telefono", "Email", "Fecha", "Estado", "Nota"};
 	private JTable tablaAlumnos;	
 	
 	private JPanel panelNota;
@@ -156,7 +156,7 @@ public class AlumnosEvaluacionesPanel extends JPanel {
 			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
 					boolean hasFocus, int row, int col) {
 				super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
-				boolean status = (boolean) table.getModel().getValueAt(row, 9);
+				boolean status = (boolean) table.getModel().getValueAt(row, 7);
 				if (status == false) {
 					setBackground(Color.RED);
 					setForeground(Color.WHITE);
@@ -177,7 +177,7 @@ public class AlumnosEvaluacionesPanel extends JPanel {
 
 		panelNota = new JPanel();
 		panelNota.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Nota", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelNota.setBounds(331, 439, 326, 50);
+		panelNota.setBounds(331, 439, 326, 104);
 		add(panelNota);
 		panelNota.setLayout(null);
 		
@@ -187,10 +187,10 @@ public class AlumnosEvaluacionesPanel extends JPanel {
 		textNota.setColumns(10);
 		
 		btnActualizarNota = new JButton("Actualizar Nota");
-		btnActualizarNota.setBounds(331, 500, 326, 35);
+		btnActualizarNota.setBounds(10, 61, 306, 35);
+		panelNota.add(btnActualizarNota);
 		btnActualizarNota.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnActualizarNota.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		add(btnActualizarNota);
 		
 		btnActualizarEvaluacion = new JButton("Actualizar");
 		btnActualizarEvaluacion.setBounds(10, 554, 311, 35);

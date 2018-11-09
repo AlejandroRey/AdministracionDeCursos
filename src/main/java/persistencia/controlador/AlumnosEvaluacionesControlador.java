@@ -120,7 +120,10 @@ public class AlumnosEvaluacionesControlador implements ActionListener {
 																	    + evaluacionActualDTO.getTipoParcial() 
 																	    + System.lineSeparator());	
 						this.vista.getLblEvaluacionSeleccionadaFecha().setText(localDateFormatterFecha(evaluacionActualDTO.getFecha()));
-						llenarTablaAlumnosInscriptos();
+						
+						if (evaluacionActualDTO != null) {
+							llenarTablaAlumnosInscriptos();
+						}						
 					}
 				} catch (Exception ex) {
 					System.out.println("Error Tabla Evaluacion: " + ex.getMessage());
@@ -137,22 +140,6 @@ public class AlumnosEvaluacionesControlador implements ActionListener {
 				    JOptionPane.INFORMATION_MESSAGE,
 				    new ImageIcon("imagenes/warning_64.png"));
 		}
-	}
-
-	private void clearComponents() {
-
-		evaluacionesCursadaLista.clear();
-		alumnosInscriptosLista.clear();
-		this.vista.getLblAlumnoSeleccionado().setText("");
-		this.vista.getLblEvaluacionSeleccionada().setText("");	
-		this.vista.getTextNota().setText("");
-	}
-	
-	private void clearAfterUpdateNota() {
-		alumnoActualDTO = null;
-		alumnosInscriptosLista.clear();
-		this.vista.getLblAlumnoSeleccionado().setText("");
-		this.vista.getTextNota().setText("");
 	}
 
 	public void llenarTablaAlumnosInscriptos() {
@@ -176,9 +163,8 @@ public class AlumnosEvaluacionesControlador implements ActionListener {
 								 alumnoInscriptoDTO.getTelefono(),
 								 alumnoInscriptoDTO.getEmail(),
 								 localDateTimeToStringFormatter(alumnoInscriptoDTO.getFecha()),
-								 "N/A",
-								 getNotaAlumno(alumnoInscriptoDTO.getIdAlumno()),
-								 getEstadoInscripcionAlumno(alumnoInscriptoDTO.getIdAlumno())};						 
+								 alumnoInscriptoDTO.isEstado(),
+								 getNotaAlumno(alumnoInscriptoDTO.getIdAlumno())};						 
 				this.vista.getModelAlumnos().addRow(fila);
 			}
 
@@ -204,16 +190,13 @@ public class AlumnosEvaluacionesControlador implements ActionListener {
 			this.vista.getTablaAlumnos().getColumnModel().getColumn(7).setWidth(0);
 			this.vista.getTablaAlumnos().getColumnModel().getColumn(7).setMinWidth(0);
 			this.vista.getTablaAlumnos().getColumnModel().getColumn(7).setMaxWidth(0);
-			this.vista.getTablaAlumnos().getColumnModel().getColumn(9).setWidth(0);
-			this.vista.getTablaAlumnos().getColumnModel().getColumn(9).setMinWidth(0);
-			this.vista.getTablaAlumnos().getColumnModel().getColumn(9).setMaxWidth(0);
 			
 			//{"idAlumno", "idCursada", "Nombre", "Apellido", "Telefono", "Email", "Fecha", "Estado", "Nota"};
 			// Agrego listener para obtener los valores de la fila seleccionada
 			this.vista.getTablaAlumnos().setSelectionModel(new ListSelectionModelCstm());
 			this.vista.getTablaAlumnos().getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
 				try {
-					if (this.vista.getTablaAlumnos().getSelectedRow() >= 0) {	
+					if (evaluacionActualDTO != null && this.vista.getTablaAlumnos().getSelectedRow() >= 0) {	
 						this.vista.getLblAlumnoSeleccionado().setText("");
 						Object idAlumno = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 0);
 						Object idCursada = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 1);
@@ -222,7 +205,7 @@ public class AlumnosEvaluacionesControlador implements ActionListener {
 						Object telefono = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 4);
 						Object email = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 5);
 						Object fecha = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 6);
-						Object estado = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 7);
+						Object estadoInscripto = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 7);
 						Object nota = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 8);
 						
 						this.alumnoActualDTO = new AlumnoInscriptoDTO(Long.parseLong(idAlumno.toString()), 
@@ -232,10 +215,27 @@ public class AlumnosEvaluacionesControlador implements ActionListener {
 																	  telefono.toString(), 
 																	  email.toString(), 
 																	  LocalDateTime.now(), 
-																	  Boolean.parseBoolean(estado.toString()));
+																	  Boolean.parseBoolean(estadoInscripto.toString()));
 						this.notaActual = nota.toString();
-						this.vista.getTextNota().setText(this.notaActual);
+						if (!this.notaActual.equals("N/A")) {
+							this.vista.getTextNota().setText(this.notaActual);
+						}else {
+							this.vista.getTextNota().setText("");
+						}
+						
 						this.vista.getLblAlumnoSeleccionado().setText(this.alumnoActualDTO.getNombre() + " " + this.alumnoActualDTO.getApellido());
+						
+						if (!alumnoActualDTO.isEstado()) {
+							this.vista.getPanelNota().setVisible(false);
+						} else {
+							this.vista.getPanelNota().setVisible(true);
+						}					
+					} else {
+						JOptionPane.showMessageDialog(null,
+							    "Seleccione la Evaluacion que desea actualizar Notas!",
+							    "Evaluacion",
+							    JOptionPane.INFORMATION_MESSAGE,
+							    new ImageIcon("imagenes/warning_64.png"));
 					}
 				} catch (Exception ex) {
 					System.out.println("Error: " + ex.getMessage());
@@ -252,6 +252,22 @@ public class AlumnosEvaluacionesControlador implements ActionListener {
 				    JOptionPane.INFORMATION_MESSAGE,
 				    new ImageIcon("imagenes/warning_64.png"));
 		}
+	}	
+
+	private void clearComponents() {
+
+		evaluacionesCursadaLista.clear();
+		alumnosInscriptosLista.clear();
+		this.vista.getLblAlumnoSeleccionado().setText("");
+		this.vista.getLblEvaluacionSeleccionada().setText("");	
+		this.vista.getTextNota().setText("");
+	}
+	
+	private void clearAfterUpdateNota() {
+		alumnoActualDTO = null;
+		alumnosInscriptosLista.clear();
+		this.vista.getLblAlumnoSeleccionado().setText("");
+		this.vista.getTextNota().setText("");
 	}
 	
 	private boolean getEstadoInscripcionAlumno(long idAlumno) {
