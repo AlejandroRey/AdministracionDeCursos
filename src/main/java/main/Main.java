@@ -28,7 +28,7 @@ import presentacion.vista.LoginVista;
 public class Main {
 
 	public static void main(String[] args) {
-
+//
 		try {
 			UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
 		} catch (ClassNotFoundException e) {
@@ -40,13 +40,13 @@ public class Main {
 		} catch (UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		} finally {
-			AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
-			AdministracionDeCursosVista vista = new AdministracionDeCursosVista();
-			AdministracionDeCursosControlador controlador = new AdministracionDeCursosControlador(modelo, vista);
-			controlador.inicializar();
-			vista.getFrame().revalidate();
-			vista.getFrame().repaint();
-		}
+//			AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
+//			AdministracionDeCursosVista vista = new AdministracionDeCursosVista();
+//			AdministracionDeCursosControlador controlador = new AdministracionDeCursosControlador(modelo, vista);
+//			controlador.inicializar();
+//			vista.getFrame().revalidate();
+//			vista.getFrame().repaint();
+//		}
 		
 //		String str = "2017-10-01 01:00:00";
 //		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -72,21 +72,21 @@ public class Main {
 //			System.out.println(salaDisponibleDTO.toString());
 //		}
 
-		AlumnoHistorialCursadasDAOSQL mySql = new AlumnoHistorialCursadasDAOSQL();
-		AlumnoDTO alumnoDTO = new AlumnoDTO(1, "", "", "", "");
-		
-		for (AlumnoHistorialCursadaDTO	alumno : mySql.readAllCursada(alumnoDTO)) {
-			System.out.println(alumno.toString());
-		}
-		
-		for (AlumnoHistorialNotaDTO	nota : mySql.readAllNota(1, 1)) {
-			System.out.println(nota.toString());
-		}
+//		AlumnoHistorialCursadasDAOSQL mySql = new AlumnoHistorialCursadasDAOSQL();
+//		AlumnoDTO alumnoDTO = new AlumnoDTO(1, "", "", "", "");
+//		
+//		for (AlumnoHistorialCursadaDTO	alumno : mySql.readAllCursada(alumnoDTO)) {
+//			System.out.println(alumno.toString());
+//		}
+//		
+//		for (AlumnoHistorialNotaDTO	nota : mySql.readAllNota(1, 1)) {
+//			System.out.println(nota.toString());
+//		}
 
-//		LoginVista vista = new LoginVista();
-//		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
-//		LoginVistaControlador controlador = new LoginVistaControlador(vista, modelo);
-//		controlador.inicializar();
-
+		LoginVista vista = new LoginVista();
+		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
+		LoginVistaControlador controlador = new LoginVistaControlador(vista, modelo);
+		controlador.inicializar();
+		}
 	}
 }
