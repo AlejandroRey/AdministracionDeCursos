@@ -13,6 +13,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
@@ -33,7 +34,7 @@ public class AlumnosEvaluacionesPanel extends JPanel {
 	private JLabel lblAlumnoSeleccionado;
 	private JScrollPane spAlumnos;
 	private DefaultTableModel modelAlumnos;
-	private String[] nombreColumnasAlumnos = {"idAlumno", "idCursada", "Nombre", "Apellido", "Telefono", "Email", "Fecha", "Estado", "Nota"};
+	private String[] nombreColumnasAlumnos = {"idAlumno", "idCursada", "Nombre", "Apellido", "Telefono", "Email", "Fecha", "Estado", "Nota", "Estado"};
 	private JTable tablaAlumnos;	
 	
 	private JPanel panelNota;
@@ -150,6 +151,23 @@ public class AlumnosEvaluacionesPanel extends JPanel {
 		        }
 		    };
 		
+		tablaAlumnos.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+			@Override
+			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+					boolean hasFocus, int row, int col) {
+				super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+				boolean status = (boolean) table.getModel().getValueAt(row, 9);
+				if (status == false) {
+					setBackground(Color.RED);
+					setForeground(Color.WHITE);
+				} else {
+					setBackground(table.getBackground());
+					setForeground(table.getForeground());
+				}
+				return this;
+			}
+		});
+		    
 		tablaAlumnos.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 		//tblInstructores.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);		
 		spAlumnos.setViewportView(tablaAlumnos);			

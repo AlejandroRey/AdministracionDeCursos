@@ -217,11 +217,11 @@ public class CursadaABMPanel extends JPanel {
 		btnAgregarAdministrativo.setBounds(238, 125, 89, 23);
 		panel.add(btnAgregarAdministrativo);
 		
-		textidAdministrativo = new JTextField();
-		textidAdministrativo.setVisible(false);
+		textidAdministrativo = new JTextField();		
 		textidAdministrativo.setBounds(577, 125, 70, 20);
 		panel.add(textidAdministrativo);
 		textidAdministrativo.setColumns(10);
+		textidAdministrativo.setVisible(true);
 		
 		lblIdadmin = new JLabel("idAdmin:");
 		lblIdadmin.setVisible(false);

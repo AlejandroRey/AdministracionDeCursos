@@ -511,6 +511,7 @@ public class CalendarBuilderControlador implements ActionListener {
 				if (size > 0 && loopValue == size) {
 					fechaCursadaClaseDTO.setIdSala(1);
 				}
+				System.out.println("Fecha Cursada: -------------"+fechaCursadaClaseDTO);
 				modelo.agregarFechaCursadaClase(fechaCursadaClaseDTO);
 			}
 			

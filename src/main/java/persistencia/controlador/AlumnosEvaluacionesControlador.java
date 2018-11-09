@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import dto.AlumnoInscriptoDTO;
 import dto.CursadaDTO;
 import dto.EvaluacionDTO;
+import dto.InscriptoDTO;
 import dto.NotaDTO;
 import modelo.AdministracionDeCursos;
 import presentacion.vista.AlumnosEvaluacionesPanel;
@@ -176,7 +177,8 @@ public class AlumnosEvaluacionesControlador implements ActionListener {
 								 alumnoInscriptoDTO.getEmail(),
 								 localDateTimeToStringFormatter(alumnoInscriptoDTO.getFecha()),
 								 "N/A",
-								 getNotaAlumno(alumnoInscriptoDTO.getIdAlumno())};						 
+								 getNotaAlumno(alumnoInscriptoDTO.getIdAlumno()),
+								 getEstadoInscripcionAlumno(alumnoInscriptoDTO.getIdAlumno())};						 
 				this.vista.getModelAlumnos().addRow(fila);
 			}
 
@@ -202,6 +204,9 @@ public class AlumnosEvaluacionesControlador implements ActionListener {
 			this.vista.getTablaAlumnos().getColumnModel().getColumn(7).setWidth(0);
 			this.vista.getTablaAlumnos().getColumnModel().getColumn(7).setMinWidth(0);
 			this.vista.getTablaAlumnos().getColumnModel().getColumn(7).setMaxWidth(0);
+			this.vista.getTablaAlumnos().getColumnModel().getColumn(9).setWidth(0);
+			this.vista.getTablaAlumnos().getColumnModel().getColumn(9).setMinWidth(0);
+			this.vista.getTablaAlumnos().getColumnModel().getColumn(9).setMaxWidth(0);
 			
 			//{"idAlumno", "idCursada", "Nombre", "Apellido", "Telefono", "Email", "Fecha", "Estado", "Nota"};
 			// Agrego listener para obtener los valores de la fila seleccionada
@@ -249,6 +254,15 @@ public class AlumnosEvaluacionesControlador implements ActionListener {
 		}
 	}
 	
+	private boolean getEstadoInscripcionAlumno(long idAlumno) {
+		for (InscriptoDTO alumnoInscriptoDTO : modelo.obtenerInscriptos()) {
+			if (alumnoInscriptoDTO.getIdAlumno() == idAlumno) {
+				return alumnoInscriptoDTO.isEstado();
+			}
+		}
+		return false;
+	}
+
 	private String getNotaAlumno(long idAlumno) {
 		if (notasEvaluacionActual.size() > 0) {
 			for (NotaDTO notaDTO : notasEvaluacionActual) {

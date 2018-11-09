@@ -38,9 +38,7 @@ public class AlumnosAsistenciaControlador implements ActionListener {
 	
 	private CursadaDTO cursadaDTO;
 	private FechaCursadaClaseDTO currentFechaCursadaClaseDTO;
-	private AsistenciaDTO asistenciaChangeDTO;
-	private AlumnoInscriptoDTO alumnoInscriptoDTO;
-	private int indexAlumno = -1;	
+	private AsistenciaDTO asistenciaChangeDTO;	
 
 	public AlumnosAsistenciaControlador(AlumnosAsistenciaPanel vista, AdministracionDeCursos modelo, CursadaDTO cursadaDTO) {
 		super();
@@ -51,9 +49,6 @@ public class AlumnosAsistenciaControlador implements ActionListener {
 		this.vista.setVisible(false);
 		this.vista.getBtnAgregar().addActionListener(this);
 		this.vista.getBtnEliminar().addActionListener(this);
-		
-		this.vista.getBtnAnterior().addActionListener(this);
-		this.vista.getBtnSiguiente().addActionListener(this);
 		
 		this.vista.getRbtnPresente().addActionListener(this);
 		this.vista.getRbtnAusente().addActionListener(this);
@@ -180,7 +175,7 @@ public class AlumnosAsistenciaControlador implements ActionListener {
 					this.vista.getLblFechaCursadaSeleccionada().setText(fechaInicio.toString());
 				}
 			} catch (Exception ex) {
-				System.out.println("Error: " + ex.getMessage());
+				//System.out.println("Error: " + ex.getMessage());
 			}
 		});
 
@@ -229,7 +224,8 @@ public class AlumnosAsistenciaControlador implements ActionListener {
 							 localDateTimeFormatterFecha(alumnoInscriptoDTO.getFecha()),
 							 getTipoDeAsistencia(alumnoAsistenciaDTO.getTipoAsistencia()),
 							 getAlumnoAsistenciaPresenteFechaCursada(alumnoInscriptoDTO.getIdAlumno()),
-							 getAlumnoAsistenciaAusenteFechaCursada(alumnoInscriptoDTO.getIdAlumno())};
+							 getAlumnoAsistenciaAusenteFechaCursada(alumnoInscriptoDTO.getIdAlumno()),
+							 alumnoInscriptoDTO.isEstado()};
 					this.vista.getModelAlumnos().addRow(fila);
 				}				
 			}
@@ -248,6 +244,9 @@ public class AlumnosAsistenciaControlador implements ActionListener {
 		this.vista.getTblAlumnos().getColumnModel().getColumn(5).setWidth(0);
 		this.vista.getTblAlumnos().getColumnModel().getColumn(5).setMinWidth(0);
 		this.vista.getTblAlumnos().getColumnModel().getColumn(5).setMaxWidth(0);
+		this.vista.getTblAlumnos().getColumnModel().getColumn(10).setWidth(0);
+		this.vista.getTblAlumnos().getColumnModel().getColumn(10).setMinWidth(0);
+		this.vista.getTblAlumnos().getColumnModel().getColumn(10).setMaxWidth(0);
 		
 		// Agrego listener para obtener los valores de la fila seleccionada
 		this.vista.getTblAlumnos().setSelectionModel(new ListSelectionModelCstm());
@@ -264,6 +263,7 @@ public class AlumnosAsistenciaControlador implements ActionListener {
 					Object presente = this.vista.getTblAlumnos().getValueAt(this.vista.getTblAlumnos().getSelectedRow(), 7);
 					Object qtyPresente = this.vista.getTblAlumnos().getValueAt(this.vista.getTblAlumnos().getSelectedRow(), 8);
 					Object qtyAusente = this.vista.getTblAlumnos().getValueAt(this.vista.getTblAlumnos().getSelectedRow(), 9);
+					Object inscriptoEstado = this.vista.getTblAlumnos().getValueAt(this.vista.getTblAlumnos().getSelectedRow(), 10);
 					
 					this.vista.getTextIdAlumno().setText(idAlumno.toString());
 					this.vista.getTextIdCursada().setText(idFechaCursada.toString());
@@ -277,7 +277,7 @@ public class AlumnosAsistenciaControlador implements ActionListener {
 					
 					int presenteInt = -1;
 					if (presente.toString().equals("Sin Asignar")) {
-						System.out.println("SIN ASIGNAR........");
+						//System.out.println("SIN ASIGNAR........");
 						this.vista.getRbtnGroup().clearSelection();
 						presenteInt = -1;
 					} else if (presente.toString().equals("Ausente")) {
@@ -292,9 +292,18 @@ public class AlumnosAsistenciaControlador implements ActionListener {
 							                             Long.parseLong(idFechaCursada.toString()), 
 							                             presenteInt, 
 							                             "");
+					//System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
+					
+					boolean status = Boolean.parseBoolean(inscriptoEstado.toString());
+					if (status == false) {
+						this.vista.getPanelAlumnoDTO().setVisible(false);
+					}else {
+						this.vista.getPanelAlumnoDTO().setVisible(true);
+					}
+					
 				}
 			} catch (Exception ex) {
-				System.out.println("Error: " + ex.getMessage());
+				//System.out.println("Error: " + ex.getMessage());
 			}
 		});
 
@@ -306,7 +315,7 @@ public class AlumnosAsistenciaControlador implements ActionListener {
 	private int getAlumnoAsistenciaAusenteFechaCursada(long idAlumno) {
 		int qty = 0;
 		for (AlumnoAsistenciaQtyDTO alumnoAsistenciaQtyDTO : alumnosAsistenciasList) {
-			System.out.println("IDALUMNO"+alumnoAsistenciaQtyDTO);
+			//System.out.println("IDALUMNO"+alumnoAsistenciaQtyDTO);
 			if (alumnoAsistenciaQtyDTO.getIdAlumno() == idAlumno) {
 				qty = alumnoAsistenciaQtyDTO.getAusente();
 			}else if (alumnoAsistenciaQtyDTO.getIdAlumno() == 0) {
@@ -319,7 +328,7 @@ public class AlumnosAsistenciaControlador implements ActionListener {
 	private int getAlumnoAsistenciaPresenteFechaCursada(long idAlumno) {
 		int qty = 0;
 		for (AlumnoAsistenciaQtyDTO alumnoAsistenciaQtyDTO : alumnosAsistenciasList) {
-			System.out.println("IDALUMNO"+alumnoAsistenciaQtyDTO);
+			//System.out.println("IDALUMNO"+alumnoAsistenciaQtyDTO);
 			if (alumnoAsistenciaQtyDTO.getIdAlumno() == idAlumno) {
 				qty = alumnoAsistenciaQtyDTO.getPresente();
 			} else if (alumnoAsistenciaQtyDTO.getIdAlumno() == 0) {
@@ -365,42 +374,8 @@ public class AlumnosAsistenciaControlador implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		if (e.getSource() == this.vista.getBtnAnterior()) {
-			indexAlumno--;
-			if (indexAlumno > -1 && indexAlumno <= alumnosInscriptosList.size()) {
-				alumnoInscriptoDTO = alumnosInscriptosList.get(indexAlumno);
-				
-				this.vista.getTextIdAlumno().setText(Long.toString(alumnoInscriptoDTO.getIdAlumno()));
-				this.vista.getTextIdCursada().setText(Long.toString(alumnoInscriptoDTO.getIdCursada()));
-				this.vista.getTextNombre().setText(alumnoInscriptoDTO.getNombre());
-				this.vista.getTextApellido().setText(alumnoInscriptoDTO.getApellido());
-				this.vista.getTextTelefono().setText(alumnoInscriptoDTO.getTelefono());
-				this.vista.getTextEmail().setText(alumnoInscriptoDTO.getEmail());
-				this.vista.getTextFecha().setText(localDateTimeFormatter(alumnoInscriptoDTO.getFecha()));
-				
-				System.out.println(alumnoInscriptoDTO.toString());
-			}else {
-				indexAlumno = 0;
-			}
-		} else if (e.getSource() == this.vista.getBtnSiguiente()) {
-			indexAlumno++;
-			if (indexAlumno < alumnosInscriptosList.size()) {
-				alumnoInscriptoDTO = alumnosInscriptosList.get(indexAlumno);
-				
-				this.vista.getTextIdAlumno().setText(Long.toString(alumnoInscriptoDTO.getIdAlumno()));
-				this.vista.getTextIdCursada().setText(Long.toString(alumnoInscriptoDTO.getIdCursada()));
-				this.vista.getTextNombre().setText(alumnoInscriptoDTO.getNombre());
-				this.vista.getTextApellido().setText(alumnoInscriptoDTO.getApellido());
-				this.vista.getTextTelefono().setText(alumnoInscriptoDTO.getTelefono());
-				this.vista.getTextEmail().setText(alumnoInscriptoDTO.getEmail());
-				this.vista.getTextFecha().setText(localDateTimeFormatter(alumnoInscriptoDTO.getFecha()));
-				
-				System.out.println(alumnoInscriptoDTO.toString());
-			}else {
-				indexAlumno = alumnosInscriptosList.size()-1;
-			}
-		} else if (e.getSource() == this.vista.getRbtnPresente()) {
-			System.out.println("PRESENTE");
+		if (e.getSource() == this.vista.getRbtnPresente()) {
+			//System.out.println("PRESENTE");
 			asistenciaChangeDTO.setTipoAsistencia(1);
 			modelo.actualizarAsistencia(asistenciaChangeDTO);
 			clearTextInputsBox();
@@ -410,7 +385,7 @@ public class AlumnosAsistenciaControlador implements ActionListener {
 			llenarTablaAsistenciaAlumnos();
 			setCountAlumnoAsistenciaQty();
 		} else if (e.getSource() == this.vista.getRbtnAusente()) {
-			System.out.println("AUSENTE");
+			//System.out.println("AUSENTE");
 			asistenciaChangeDTO.setTipoAsistencia(0);
 			modelo.actualizarAsistencia(asistenciaChangeDTO);
 			clearTextInputsBox();

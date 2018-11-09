@@ -2,7 +2,6 @@ package presentacion.vista;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Cursor;
 import java.awt.Font;
 
 import javax.swing.ButtonGroup;
@@ -16,6 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
@@ -31,7 +31,7 @@ public class AlumnosAsistenciaPanel extends JPanel {
 	private JScrollPane spAlumnos;
 	private DefaultTableModel modelAlumnos;
 	private JTable tblAlumnos;
-	private String[] nombreColumnas = {"idAlumno", "idCursada", "Nombre", "Apellido", "Telefono", "Email", "Fecha Insc", "Asistencia", "Pres", "Aus"};
+	private String[] nombreColumnas = {"idAlumno", "idCursada", "Nombre", "Apellido", "Telefono", "Email", "Fecha Insc", "Asistencia", "Pres", "Aus", "estado"};
 	
 	
 	private JPanel panelAlumnoDTO;	
@@ -50,9 +50,6 @@ public class AlumnosAsistenciaPanel extends JPanel {
 	private JButton btnAgregar;
 	private JButton btnEliminar;
 	
-	private JButton btnAnterior;
-	private JButton btnSiguiente;
-	
 	private ButtonGroup rbtnGroup;;
 	private JRadioButton rbtnPresente;
 	private JRadioButton rbtnAusente;
@@ -65,7 +62,7 @@ public class AlumnosAsistenciaPanel extends JPanel {
 	 */
 	public AlumnosAsistenciaPanel() {
 		super();
-		this.setBounds(0, 0, 960, 500);
+		this.setBounds(0, 0, 1000, 500);
 		this.setLayout(null);
 		inicializar();
 	}
@@ -85,10 +82,10 @@ public class AlumnosAsistenciaPanel extends JPanel {
 
 		rbtnPresente = new JRadioButton("Presente", false);
 		rbtnPresente.setSize(100, 20);
-		rbtnPresente.setLocation(21, 274);
+		rbtnPresente.setLocation(21, 308);
 		rbtnAusente = new JRadioButton("Ausente", false);
 		rbtnAusente.setSize(100, 20);
-		rbtnAusente.setLocation(21, 297);
+		rbtnAusente.setLocation(139, 308);
 
 		rbtnGroup.add(rbtnPresente);
 		rbtnGroup.add(rbtnAusente);
@@ -123,7 +120,7 @@ public class AlumnosAsistenciaPanel extends JPanel {
 	private void inicializarTablaAlumnosInscriptos() {
 		
 		spAlumnos = new JScrollPane();
-		spAlumnos.setBounds(270, 90, 420, 379);
+		spAlumnos.setBounds(270, 90, 460, 379);
 		this.add(spAlumnos);
 		
 		modelAlumnos = new DefaultTableModel(null, nombreColumnas);
@@ -160,6 +157,24 @@ public class AlumnosAsistenciaPanel extends JPanel {
 //                }
 //            }
 		};
+		
+		tblAlumnos.setDefaultRenderer(Object.class, new DefaultTableCellRenderer(){
+		    @Override
+		    public Component getTableCellRendererComponent(JTable table,
+		            Object value, boolean isSelected, boolean hasFocus, int row, int col) {
+		        super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+		        boolean status = (boolean)table.getModel().getValueAt(row, 10);
+		        if (status == false) {
+		            setBackground(Color.RED);
+		            setForeground(Color.WHITE);
+		        } else {
+		            setBackground(table.getBackground());
+		            setForeground(table.getForeground());
+		        }       
+		        return this;
+		    }   
+		});
+		
 		tblAlumnos.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 		//tblInstructores.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);		
 		spAlumnos.setViewportView(tblAlumnos);		
@@ -169,7 +184,7 @@ public class AlumnosAsistenciaPanel extends JPanel {
 		
 		panelAlumnoDTO = new JPanel();
 		panelAlumnoDTO.setVisible(true);
-		panelAlumnoDTO.setBounds(700, 81, 250, 388);
+		panelAlumnoDTO.setBounds(740, 83, 250, 387);
 		panelAlumnoDTO.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Alumno Seleccionado:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panelAlumnoDTO.setLayout(null);
 		this.add(panelAlumnoDTO);
@@ -270,16 +285,6 @@ public class AlumnosAsistenciaPanel extends JPanel {
 		JLabel lblAusente = new JLabel("Ausente:");
 		lblAusente.setBounds(21, 229, 60, 14);
 		panelAlumnoDTO.add(lblAusente);
-		
-		btnAnterior = new JButton("Anterior");
-		btnAnterior.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		btnAnterior.setBounds(10, 354, 89, 23);
-		panelAlumnoDTO.add(btnAnterior);
-		
-		btnSiguiente = new JButton("Siguiente");
-		btnSiguiente.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		btnSiguiente.setBounds(150, 354, 89, 23);
-		panelAlumnoDTO.add(btnSiguiente);
 	}
 
 	private void inicializarPanelButtons() {
@@ -326,7 +331,7 @@ public class AlumnosAsistenciaPanel extends JPanel {
 		textPresenteTotal.setColumns(10);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(270, 11, 420, 69);
+		panel.setBounds(270, 11, 460, 69);
 		add(panel);
 		panel.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Fecha Seleccionada:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setLayout(null);
@@ -633,34 +638,6 @@ public class AlumnosAsistenciaPanel extends JPanel {
 	}
 
 	/**
-	 * @return the btnAnterior
-	 */
-	public JButton getBtnAnterior() {
-		return btnAnterior;
-	}
-
-	/**
-	 * @param btnAnterior the btnAnterior to set
-	 */
-	public void setBtnAnterior(JButton btnAnterior) {
-		this.btnAnterior = btnAnterior;
-	}
-
-	/**
-	 * @return the btnSiguiente
-	 */
-	public JButton getBtnSiguiente() {
-		return btnSiguiente;
-	}
-
-	/**
-	 * @param btnSiguiente the btnSiguiente to set
-	 */
-	public void setBtnSiguiente(JButton btnSiguiente) {
-		this.btnSiguiente = btnSiguiente;
-	}
-
-	/**
 	 * @return the rbtnGroup
 	 */
 	public ButtonGroup getRbtnGroup() {
@@ -743,4 +720,5 @@ public class AlumnosAsistenciaPanel extends JPanel {
 	public void setLblFechaCursadaSeleccionada(JLabel lblFechaCursadaSeleccionada) {
 		this.lblFechaCursadaSeleccionada = lblFechaCursadaSeleccionada;
 	}
+	
 }
