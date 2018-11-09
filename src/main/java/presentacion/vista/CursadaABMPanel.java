@@ -2,6 +2,7 @@ package presentacion.vista;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -188,18 +189,22 @@ public class CursadaABMPanel extends JPanel {
 		textIdCursada.setColumns(10);
 		
 		btnAgregar = new JButton("Agregar");
+		btnAgregar.setCursor(new Cursor(Cursor.HAND_CURSOR));		
 		btnAgregar.setBounds(173, 188, 333, 40);
 		panel.add(btnAgregar);
 		
 		btnActualizar = new JButton("Actualizar");
+		btnActualizar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnActualizar.setBounds(173, 188, 333, 40);
 		panel.add(btnActualizar);
 		
 		btnEliminar = new JButton("Eliminar");
+		btnEliminar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnEliminar.setBounds(173, 188, 333, 40);
 		panel.add(btnEliminar);
 		
 		btnSeleccionar = new JButton("Seleccionar");
+		btnSeleccionar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnSeleccionar.setBounds(173, 188, 333, 40);
 		panel.add(btnSeleccionar);
 		
@@ -217,11 +222,11 @@ public class CursadaABMPanel extends JPanel {
 		btnAgregarAdministrativo.setBounds(238, 125, 89, 23);
 		panel.add(btnAgregarAdministrativo);
 		
-		textidAdministrativo = new JTextField();
-		textidAdministrativo.setVisible(false);
+		textidAdministrativo = new JTextField();		
 		textidAdministrativo.setBounds(577, 125, 70, 20);
 		panel.add(textidAdministrativo);
 		textidAdministrativo.setColumns(10);
+		textidAdministrativo.setVisible(false);
 		
 		lblIdadmin = new JLabel("idAdmin:");
 		lblIdadmin.setVisible(false);

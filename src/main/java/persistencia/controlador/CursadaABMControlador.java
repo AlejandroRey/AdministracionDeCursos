@@ -140,6 +140,7 @@ public class CursadaABMControlador implements ActionListener {
 					this.vista.getTextDiasDeClase().setText(diasDeClase.toString());
 					this.vista.getTextIdCursada().setText(idCursada.toString());
 					this.vista.getTextAdministrativo().setText(obtenerAdministrativo(Long.parseLong(idAdministrativo.toString())));
+					this.vista.getTextidAdministrativo().setText(idAdministrativo.toString());
 					
 				}
 			} catch (Exception ex) {

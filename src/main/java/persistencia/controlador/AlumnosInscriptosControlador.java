@@ -43,6 +43,7 @@ public class AlumnosInscriptosControlador implements ActionListener {
 		this.alumnosInscriptosLista = null;
 		this.vista.getBtnAgregar().addActionListener(this);
 		this.vista.getBtnEliminar().addActionListener(this);
+		this.vista.getBtnDarDeAlta().addActionListener(this);
 	}
 
 	public void inicializar() {
@@ -57,16 +58,15 @@ public class AlumnosInscriptosControlador implements ActionListener {
 
 		this.alumnosInscriptosLista = modelo.obtenerAlumnosInscriptos(cursadaDTO);
 		for (AlumnoInscriptoDTO alumnoInscriptoDTO : alumnosInscriptosLista) {
-			if (alumnoInscriptoDTO.isEstado()) {
-				Object[] fila = {alumnoInscriptoDTO.getIdAlumno(),
-						 alumnoInscriptoDTO.getIdCursada(),
-						 alumnoInscriptoDTO.getNombre(), 
-						 alumnoInscriptoDTO.getApellido(),
-						 alumnoInscriptoDTO.getTelefono(),
-						 alumnoInscriptoDTO.getEmail(),
-						 stringToLocalDateFormatter(alumnoInscriptoDTO.getFecha())};
-				this.vista.getModelAlumnos().addRow(fila);
-			}
+			Object[] fila = {alumnoInscriptoDTO.getIdAlumno(),
+					 alumnoInscriptoDTO.getIdCursada(),
+					 alumnoInscriptoDTO.getNombre(), 
+					 alumnoInscriptoDTO.getApellido(),
+					 alumnoInscriptoDTO.getTelefono(),
+					 alumnoInscriptoDTO.getEmail(),
+					 stringToLocalDateFormatter(alumnoInscriptoDTO.getFecha()),
+					 alumnoInscriptoDTO.isEstado()};						
+			this.vista.getModelAlumnos().addRow(fila);
 		}
 		// Oculto los id del Objeto
 		this.vista.getTblAlumnos().getColumnModel().getColumn(0).setWidth(0);
@@ -75,6 +75,9 @@ public class AlumnosInscriptosControlador implements ActionListener {
 		this.vista.getTblAlumnos().getColumnModel().getColumn(1).setWidth(0);
 		this.vista.getTblAlumnos().getColumnModel().getColumn(1).setMinWidth(0);
 		this.vista.getTblAlumnos().getColumnModel().getColumn(1).setMaxWidth(0);
+		this.vista.getTblAlumnos().getColumnModel().getColumn(7).setWidth(0);
+		this.vista.getTblAlumnos().getColumnModel().getColumn(7).setMinWidth(0);
+		this.vista.getTblAlumnos().getColumnModel().getColumn(7).setMaxWidth(0);
 		
 		// Agrego listener para obtener los valores de la fila seleccionada
 		this.vista.getTblAlumnos().setSelectionModel(new ListSelectionModelCstm());
@@ -139,11 +142,26 @@ public class AlumnosInscriptosControlador implements ActionListener {
 				llenarTabla();
 			} catch (Exception ex) {
 				JOptionPane.showMessageDialog(null,
-					    "Seleccione Alumno a Eliminar!",
+					    "Seleccione Alumno a dar de Baja!",
 					    "Error:",
 					    JOptionPane.INFORMATION_MESSAGE,
 					    new ImageIcon("imagenes/warning_64.png"));
 			}
+		} else if (e.getSource() == this.vista.getBtnDarDeAlta()) {
+			try {
+				InscriptoDTO inscriptoDTO = new InscriptoDTO(Long.parseLong(this.vista.getTextIdAlumno().getText().toString()), 
+															 Long.parseLong(this.vista.getTextIdCursada().getText().toString()), 
+															 LocalDateTime.now(),
+															 true);
+				modelo.actualizarInscripto(inscriptoDTO);
+				llenarTabla();
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(null,
+					    "Seleccione Alumno a dar de Alta!",
+					    "Error:",
+					    JOptionPane.INFORMATION_MESSAGE,
+					    new ImageIcon("imagenes/warning_64.png"));
+			}	
 		}
 	}
 
