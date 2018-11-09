@@ -203,10 +203,13 @@ public class TareaABMControlador implements ActionListener{
 		if(datosValidos()){
 			TareaDTO tarea = new TareaDTO(0,
 					Long.parseLong(this.vista.getTxtIDResponsable().getText()),
+					Long.parseLong(null),
 					this.vista.getTxtNombre().getText(),
 					this.vista.getTxtAreaDescripcion().getText(),
 					"Pendiente",
-					StringToLocalDateTime(this.vista.getTxtFecha().getText()),null);
+					LocalDateTime.now(),
+					StringToLocalDateTime(this.vista.getTxtFecha().getText()),
+					null);
 			this.modelo.agregarTarea(tarea);
 			OptionPanel.mensaje("La tarea ha sido agregada correctamente", "Tarea");
 			generarTablas();
@@ -220,9 +223,11 @@ public class TareaABMControlador implements ActionListener{
 				if(actualizar == 0){
 					TareaDTO tarea = new TareaDTO(Long.parseLong(this.vista.getTxtID().getText()),
 							Long.parseLong(this.vista.getTxtIDResponsable().getText()),
+							Long.parseLong(null),
 							this.vista.getTxtNombre().getText(),
 							this.vista.getTxtAreaDescripcion().getText(),
 							this.vista.getTxtEstado().getText(),
+							LocalDateTime.now(),
 							StringToLocalDateTime(this.vista.getTxtFecha().getText()),
 							null);
 					this.modelo.actualizarTarea(tarea);
@@ -240,9 +245,11 @@ public class TareaABMControlador implements ActionListener{
 				if(eliminar == 0){
 					TareaDTO tarea = new TareaDTO(Long.parseLong(this.vista.getTxtID().getText()),
 							Long.parseLong(this.vista.getTxtIDResponsable().getText()),
+							Long.parseLong(null),
 							this.vista.getTxtNombre().getText(),
 							this.vista.getTxtAreaDescripcion().getText(),
 							this.vista.getTxtEstado().getText(),
+							LocalDateTime.now(),
 							StringToLocalDateTime(this.vista.getTxtFecha().getText()),
 							null);
 					this.modelo.borrarTarea(tarea);
@@ -260,9 +267,11 @@ public class TareaABMControlador implements ActionListener{
 				if(cerrar == 0){
 					TareaDTO tarea = new TareaDTO(Long.parseLong(this.vista.getTxtID().getText()),
 							Long.parseLong(this.vista.getTxtIDResponsable().getText()),
+							Long.parseLong(null),
 							this.vista.getTxtNombre().getText(),
 							this.vista.getTxtAreaDescripcion().getText(),
 							"Realizada",
+							LocalDateTime.now(),
 							StringToLocalDateTime(this.vista.getTxtFecha().getText()),
 							LocalDateTime.now());
 					this.modelo.actualizarTarea(tarea);

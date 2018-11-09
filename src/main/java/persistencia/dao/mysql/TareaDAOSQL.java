@@ -13,9 +13,9 @@ import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.TareaDAO;
 
 public class TareaDAOSQL implements TareaDAO{
-	private static final String insert = "INSERT INTO tarea (idAdministrativo, nombre, descripcion, estado, fechaCreacion, fechaCierre) VALUES (?, ?, ?, ?, ?, ?)";
+	private static final String insert = "INSERT INTO tarea (idAdministrativo, ,idAlumno, nombre, descripcion, estado, fechaCreacion, fechaRealizar, fechaCierre) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String delete = "DELETE FROM tarea WHERE idTarea = ?";
-	private static final String update = "UPDATE tarea SET idAdministrativo = ?, nombre = ?, descripcion = ?, estado = ?, fechaCreacion = ?, fechaCierre = ? WHERE idTarea = ?";
+	private static final String update = "UPDATE tarea SET idAdministrativo = ?, idAlumno = ?, nombre = ?, descripcion = ?, estado = ?, fechaCreacion = ?, fechaRealizar = ?, fechaCierre = ? WHERE idTarea = ?";
 	private static final String readall = "SELECT * FROM tarea";
 
 	@Override
@@ -25,11 +25,13 @@ public class TareaDAOSQL implements TareaDAO{
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(insert);
 			statement.setLong(1, tarea.getIdUsuario());
-			statement.setString(2, tarea.getNombre());
-			statement.setString(3, tarea.getDescripcion());
-			statement.setString(4, tarea.getEstado());
-			statement.setTimestamp(5, convertToTimeStamp(tarea.getFechaCreacion()));
-			statement.setTimestamp(6, convertToTimeStamp(tarea.getFechaCierre()));
+			statement.setLong(2, tarea.getIdAlumno());
+			statement.setString(3, tarea.getNombre());
+			statement.setString(4, tarea.getDescripcion());
+			statement.setString(5, tarea.getEstado());
+			statement.setTimestamp(6, convertToTimeStamp(tarea.getFechaCreacion()));
+			statement.setTimestamp(7, convertToTimeStamp(tarea.getFechaRealizar()));
+			statement.setTimestamp(8, convertToTimeStamp(tarea.getFechaCierre()));
 			if (statement.executeUpdate() > 0) // True is successfully return
 				return true;
 		} catch (SQLException e) {
@@ -66,12 +68,14 @@ public class TareaDAOSQL implements TareaDAO{
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(update);			
 			statement.setLong(1, tarea.getIdUsuario());
-			statement.setString(2, tarea.getNombre());
-			statement.setString(3, tarea.getDescripcion());
-			statement.setString(4, tarea.getEstado());
-			statement.setTimestamp(5, convertToTimeStamp(tarea.getFechaCreacion()));
-			statement.setTimestamp(6, convertToTimeStamp(tarea.getFechaCierre()));
-			statement.setLong(7, tarea.getIdTarea());
+			statement.setLong(2, tarea.getIdAlumno());
+			statement.setString(3, tarea.getNombre());
+			statement.setString(4, tarea.getDescripcion());
+			statement.setString(5, tarea.getEstado());
+			statement.setTimestamp(6, convertToTimeStamp(tarea.getFechaCreacion()));
+			statement.setTimestamp(7, convertToTimeStamp(tarea.getFechaRealizar()));
+			statement.setTimestamp(8, convertToTimeStamp(tarea.getFechaCierre()));
+			statement.setLong(9, tarea.getIdTarea());
 			if (statement.executeUpdate() > 0) // True is successfully return
 				return true;
 		} catch (SQLException e) {
@@ -93,13 +97,16 @@ public class TareaDAOSQL implements TareaDAO{
 			resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				LocalDateTime fechaCreacion = resultSet.getTimestamp("fechaCreacion").toLocalDateTime();
+				LocalDateTime fechaRealizar = resultSet.getTimestamp("fechaRealizar").toLocalDateTime();
 				LocalDateTime fechaCierre = convertToLocalDateTime(resultSet.getTimestamp("fechaCierre"));
 				tareas.add(new TareaDTO(resultSet.getLong("idTarea"), 
 											resultSet.getLong("idAdministrativo"),
+											resultSet.getLong("idAlumno"),
 											resultSet.getString("nombre"), 
 											resultSet.getString("descripcion"),
 											resultSet.getString("estado"),
 											fechaCreacion,
+											fechaRealizar,
 											fechaCierre));
 			}
 		} catch (SQLException e) {
