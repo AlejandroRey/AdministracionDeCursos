@@ -4,14 +4,13 @@ import java.util.List;
 
 import dto.AlumnoAsistenciaQtyDTO;
 import dto.AlumnoDTO;
-import dto.AlumnoEventoDTO;
+import dto.ContactoDTO;
 import dto.AlumnoInscriptoDTO;
 import dto.AsistenciaDTO;
 import dto.CategoriaDTO;
 import dto.CursadaDTO;
 import dto.CursoDTO;
 import dto.ClaseDTO;
-import dto.ContactoDTO;
 import dto.CursadaCompletaDTO;
 import dto.CursoTipoDTO;
 import dto.DiaCursadaClaseDTO;
@@ -30,7 +29,6 @@ import dto.SalaDisponibleDTO;
 import dto.TareaDTO;
 import dto.UsuarioDTO;
 import persistencia.dao.interfaz.AlumnoDAO;
-import persistencia.dao.interfaz.AlumnoEventoDAO;
 import persistencia.dao.interfaz.AlumnoInscriptoDAO;
 import persistencia.dao.interfaz.AsistenciaDAO;
 import persistencia.dao.interfaz.AlumnoAsistenciaQtyDAO;
@@ -61,7 +59,6 @@ import persistencia.dao.interfaz.NotaDAO;
 public class AdministracionDeCursos {
 
 	private AlumnoDAO alumno;
-	private AlumnoEventoDAO alumnoEvento;
 	private UsuarioDAO usuario;
 	private CategoriaDAO categoria;
 	private ContactoDAO contacto;
@@ -91,7 +88,6 @@ public class AdministracionDeCursos {
 	public AdministracionDeCursos(DAOAbstractFactory metodo_persistencia) {
 		
 		this.alumno = metodo_persistencia.createAlumnoDAO();
-		this.alumnoEvento = metodo_persistencia.createAlumnoEventoDAO();
 		this.usuario = metodo_persistencia.createUsuarioDAO();		
 		this.categoria = metodo_persistencia.createCategoriaDAO();
 		this.contacto = metodo_persistencia.createContactoDAO();
@@ -138,27 +134,7 @@ public class AdministracionDeCursos {
 	public List<AlumnoDTO> obtenerAlumnos() {
 		return this.alumno.readAll();
 	}
-	
-	/* ****************************************************************
-	 *                         AlumnoEvento
-	 * ****************************************************************
-	 */
-	public void agregarAlumnoEvento(AlumnoEventoDTO nuevoAlumnoEvento) {
-		this.alumnoEvento.insert(nuevoAlumnoEvento);
-	}
 
-	public void borrarAlumno(AlumnoEventoDTO alumnoEvento_a_eliminar) {
-		this.alumnoEvento.delete(alumnoEvento_a_eliminar);
-	}
-	
-	public void actualizarAlumnoEvento(AlumnoEventoDTO alumnoEvento_a_actualizar) {
-		this.alumnoEvento.update(alumnoEvento_a_actualizar);
-	}
-	
-	public List<AlumnoEventoDTO> obtenerAlumnoEventos() {
-		return this.alumnoEvento.readAll();
-	}
-	
 	/* ****************************************************************
 	 *                         Usuario
 	 * ****************************************************************

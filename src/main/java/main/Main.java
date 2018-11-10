@@ -86,7 +86,7 @@ public class Main {
 		LoginVista vista = new LoginVista();
 		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
 		LoginVistaControlador controlador = new LoginVistaControlador(vista, modelo);
-		controlador.inicializar();
+		controlador.inicializar(); 
 		}
 	}
 }

@@ -1,7 +1,5 @@
 package presentacion.vista;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
@@ -20,33 +18,11 @@ public class LoginVista {
 	private JLabel lblContrasenia;
 	private JButton btnIniciarSesion;
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					LoginVista window = new LoginVista();
-					window.loginFrame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
 	public LoginVista() {
 		initialize();
 		cargarContenido();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		loginFrame = new JFrame();
 		loginFrame.setTitle("Bienvenido al sistema");

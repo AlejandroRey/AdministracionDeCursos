@@ -447,10 +447,10 @@ DROP TABLE IF EXISTS `instructorcursada`;
 CREATE TABLE `instructorcursada` (
   `idCursada` int(11) NOT NULL,
   `idUsuario` int(11) NOT NULL,
-  KEY `fk_instructores_cursada1_idx` (`idCursada`),
+  KEY `fk_instructorcursada_cursada1_idx` (`idCursada`),
   KEY `fk_instructorcursada_usuario1_idx` (`idUsuario`),
   CONSTRAINT `fk_instructorcursada_usuario1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_instructores_cursada1` FOREIGN KEY (`idCursada`) REFERENCES `cursada` (`idCursada`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_instructorcursada_cursada1` FOREIGN KEY (`idCursada`) REFERENCES `cursada` (`idCursada`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

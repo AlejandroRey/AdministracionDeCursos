@@ -84,24 +84,24 @@ public class ContactoABMControlador implements ActionListener {
 		}
 
 		this.contactosLista = modelo.obtenerContactos();
-		for (ContactoDTO contactoDTO : contactosLista) {
-			Object[] fila = {contactoDTO.getIdContacto(),
-							 getCursoString(contactoDTO.getIdCurso()),
-							 contactoDTO.getIdAlumno(),
-							 contactoDTO.getNombre(), 
-							 contactoDTO.getApellido(),
-							 contactoDTO.getDescripcion(),
-							 contactoDTO.getTelefono(),
-							 contactoDTO.getEmail(),
-							 stringToLocalDateFormatter(contactoDTO.getFechaCreacion()),
-							stringToLocalDateFormatter(contactoDTO.getFechaAccion())};
-			this.vista.getModelContactos().addRow(fila);
-			//filtro para obterner solo los instructores
-			//if (contactoDTO.getIdCategoria() == 3) {
-				//this.vista.getModelContactos().addRow(fila);
-			//}
-		}
-		// Oculto los id del Objeto
+//		for (ContactoDTO contactoDTO : contactosLista) {
+//			Object[] fila = {contactoDTO.getIdContacto(),
+//							 getCursoString(contactoDTO.getIdCurso()),
+//							 contactoDTO.getIdAlumno(),
+//							 contactoDTO.getNombre(), 
+//							 contactoDTO.getApellido(),
+//							 contactoDTO.getDescripcion(),
+//							 contactoDTO.getTelefono(),
+//							 contactoDTO.getEmail(),
+//							 stringToLocalDateFormatter(contactoDTO.getFechaCreacion()),
+//							stringToLocalDateFormatter(contactoDTO.getFechaAccion())};
+//			this.vista.getModelContactos().addRow(fila);
+//			//filtro para obterner solo los instructores
+//			//if (contactoDTO.getIdCategoria() == 3) {
+//				//this.vista.getModelContactos().addRow(fila);
+//			//}
+//		}
+//		// Oculto los id del Objeto
 		this.vista.getTblContactos().getColumnModel().getColumn(0).setWidth(0);
 		this.vista.getTblContactos().getColumnModel().getColumn(0).setMinWidth(0);
 		this.vista.getTblContactos().getColumnModel().getColumn(0).setMaxWidth(0);
@@ -189,19 +189,19 @@ public class ContactoABMControlador implements ActionListener {
 					this.vista.getApellidoField().getText(),
 					this.vista.getTelefonoField().getText(),
 					this.vista.getEmailField().getText());
-			ContactoDTO contacto = new ContactoDTO(Long.parseLong(idContacto.toString()),
-					   curso.getIdCurso(),
-					   Long.parseLong(idAlumno.toString()),
-					   this.vista.getNombreField().getText(),
-					   this.vista.getApellidoField().getText(),
-					   this.vista.getDescripcionField().getText(),
-					   this.vista.getTelefonoField().getText(),
-					   this.vista.getEmailField().getText(),
-					   StringToLocalDateTime(this.vista.getFechaInteraccionField().getText()),
-					   StringToLocalDateTime(this.vista.getProximoContactoField().getText()));
-			this.modelo.actualizarAlumno(alumno);
-			this.modelo.actualizarContacto(contacto);
-			llenarTabla();
+//			ContactoDTO contacto = new ContactoDTO(Long.parseLong(idContacto.toString()),
+//					   curso.getIdCurso(),
+//					   Long.parseLong(idAlumno.toString()),
+//					   this.vista.getNombreField().getText(),
+//					   this.vista.getApellidoField().getText(),
+//					   this.vista.getDescripcionField().getText(),
+//					   this.vista.getTelefonoField().getText(),
+//					   this.vista.getEmailField().getText(),
+//					   StringToLocalDateTime(this.vista.getFechaInteraccionField().getText()),
+//					   StringToLocalDateTime(this.vista.getProximoContactoField().getText()));
+//			this.modelo.actualizarAlumno(alumno);
+//			this.modelo.actualizarContacto(contacto);
+//			llenarTabla();
 		} else {
         	JOptionPane.showMessageDialog(null, "Seleccione Curso Tipo correctamente!", "Informacion: " + "Curso Tipo", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -214,22 +214,22 @@ public class ContactoABMControlador implements ActionListener {
         if (curso.getIdCurso() > 0) {
         	int dialogResult = JOptionPane.showConfirmDialog(null, "Se va a eliminar el contacto seleccionado", "Confirma eliminar registro?", JOptionPane.YES_NO_OPTION);
 	        if (dialogResult == JOptionPane.YES_OPTION) {
-	            try {
-	        		ContactoDTO contacto = new ContactoDTO(Long.parseLong(idContacto.toString()),
-							   curso.getIdCurso(),
-							   Long.parseLong(idAlumno.toString()),
-							   this.vista.getNombreField().getText(),
-							   this.vista.getApellidoField().getText(),
-							   this.vista.getDescripcionField().getText(),
-							   this.vista.getTelefonoField().getText(),
-							   this.vista.getEmailField().getText(),
-							   StringToLocalDateTime(this.vista.getFechaInteraccionField().getText()),
-							   StringToLocalDateTime(this.vista.getProximoContactoField().getText()));
-					this.modelo.borrarContacto(contacto);
+//	            try {
+//	        		ContactoDTO contacto = new ContactoDTO(Long.parseLong(idContacto.toString()),
+//							   curso.getIdCurso(),
+//							   Long.parseLong(idAlumno.toString()),
+//							   this.vista.getNombreField().getText(),
+//							   this.vista.getApellidoField().getText(),
+//							   this.vista.getDescripcionField().getText(),
+//							   this.vista.getTelefonoField().getText(),
+//							   this.vista.getEmailField().getText(),
+//							   StringToLocalDateTime(this.vista.getFechaInteraccionField().getText()),
+//							   StringToLocalDateTime(this.vista.getProximoContactoField().getText()));
+//					this.modelo.borrarContacto(contacto);
 					llenarTabla();
-	            } catch (Exception ex) {
-	                System.out.println(ex.getMessage());
-	            }
+//	            } catch (Exception ex) {
+//	                System.out.println(ex.getMessage());
+//	            }
 	        }
         } else {
         	JOptionPane.showMessageDialog(null, "Seleccione Curso Tipo correctamente!", "Informacion: " + "Curso Tipo", JOptionPane.INFORMATION_MESSAGE);
@@ -245,19 +245,19 @@ public class ContactoABMControlador implements ActionListener {
 				this.vista.getApellidoField().getText(),
 				this.vista.getTelefonoField().getText(),
 				this.vista.getEmailField().getText());
-			ContactoDTO contacto = new ContactoDTO(Long.valueOf(0),
-						curso.getIdCurso(),
-						alumno.getIdAlumno(),
-					   this.vista.getNombreField().getText(),
-					   this.vista.getApellidoField().getText(),
-					   this.vista.getDescripcionField().getText(),
-					   this.vista.getTelefonoField().getText(),
-					   this.vista.getEmailField().getText(),
-					   StringToLocalDateTime(this.vista.getFechaInteraccionField().getText()),
-					   StringToLocalDateTime(this.vista.getProximoContactoField().getText()));		
-			this.modelo.agregarContacto(contacto);
-			this.modelo.agregarAlumno(alumno);
-			llenarTabla();
+//			ContactoDTO contacto = new ContactoDTO(Long.valueOf(0),
+//						curso.getIdCurso(),
+//						alumno.getIdAlumno(),
+//					   this.vista.getNombreField().getText(),
+//					   this.vista.getApellidoField().getText(),
+//					   this.vista.getDescripcionField().getText(),
+//					   this.vista.getTelefonoField().getText(),
+//					   this.vista.getEmailField().getText(),
+//					   StringToLocalDateTime(this.vista.getFechaInteraccionField().getText()),
+//					   StringToLocalDateTime(this.vista.getProximoContactoField().getText()));		
+//			this.modelo.agregarContacto(contacto);
+//			this.modelo.agregarAlumno(alumno);
+//			llenarTabla();
 		//} else {
 		//	JOptionPane.showMessageDialog(null, "Seleccione Curso Tipo correctamente!", "Informacion: " + "Curso Tipo", JOptionPane.INFORMATION_MESSAGE);
 		//}
@@ -272,18 +272,18 @@ public class ContactoABMControlador implements ActionListener {
 				this.vista.getApellidoField().getText(),
 				this.vista.getTelefonoField().getText(),
 				this.vista.getEmailField().getText());
-		ContactoDTO contacto = new ContactoDTO(Long.valueOf(0),
-				curso.getIdCurso(),
-				alumno.getIdAlumno(),
-			   this.vista.getNombreField().getText(),
-			   this.vista.getApellidoField().getText(),
-			   this.vista.getDescripcionField().getText(),
-			   this.vista.getTelefonoField().getText(),
-			   this.vista.getEmailField().getText(),
-			   StringToLocalDateTime(this.vista.getFechaInteraccionField().getText()),
-			   StringToLocalDateTime(this.vista.getProximoContactoField().getText()));		
-		this.modelo.agregarContacto(contacto);
-		this.modelo.agregarAlumno(alumno);
+//		ContactoDTO contacto = new ContactoDTO(Long.valueOf(0),
+//				curso.getIdCurso(),
+//				alumno.getIdAlumno(),
+//			   this.vista.getNombreField().getText(),
+//			   this.vista.getApellidoField().getText(),
+//			   this.vista.getDescripcionField().getText(),
+//			   this.vista.getTelefonoField().getText(),
+//			   this.vista.getEmailField().getText(),
+//			   StringToLocalDateTime(this.vista.getFechaInteraccionField().getText()),
+//			   StringToLocalDateTime(this.vista.getProximoContactoField().getText()));		
+//		this.modelo.agregarContacto(contacto);
+//		this.modelo.agregarAlumno(alumno);
 		llenarTabla();
 		administracionVista = new AdministracionDeCursosVista();
 		administracionControlador = new AdministracionDeCursosControlador(modelo, administracionVista);
