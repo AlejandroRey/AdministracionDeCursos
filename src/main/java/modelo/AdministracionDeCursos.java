@@ -24,6 +24,7 @@ import dto.FechaCursadaClaseDTO;
 import dto.FeriadoDTO;
 import dto.InscriptoDTO;
 import dto.NotaDTO;
+import dto.RecadoDTO;
 import dto.SalaDTO;
 import dto.SalaDisponibilidadDTO;
 import dto.SalaDisponibleDTO;
@@ -57,6 +58,7 @@ import persistencia.dao.interfaz.EvaluacionDAO;
 import persistencia.dao.interfaz.EvaluacionTipoDAO;
 import persistencia.dao.interfaz.EvaluacionCursadaDAO;
 import persistencia.dao.interfaz.NotaDAO;
+import persistencia.dao.interfaz.RecadoDAO;
 
 public class AdministracionDeCursos {
 
@@ -87,6 +89,7 @@ public class AdministracionDeCursos {
 	private EvaluacionTipoDAO evaluacionTipoDAO;
 	private EvaluacionCursadaDAO evaluacionCursadaDAO;
 	private NotaDAO notaDAO;
+	private RecadoDAO recadoDAO;
 
 	public AdministracionDeCursos(DAOAbstractFactory metodo_persistencia) {
 		
@@ -516,6 +519,26 @@ public class AdministracionDeCursos {
 
 	public List<NotaDTO> obtenerNotas(EvaluacionDTO evaluacionDTO) {
 		return this.notaDAO.readAll(evaluacionDTO);
+	}
+	
+	/* ****************************************************************
+	 *                         Recado
+	 * ****************************************************************
+	 */
+	public void agregarRecado(RecadoDTO nuevoRecado) {
+		this.recadoDAO.insert(nuevoRecado);
+	}
+
+	public void borrarRecado(RecadoDTO recado_a_eliminar) {
+		this.recadoDAO.delete(recado_a_eliminar);
+	}
+	
+	public void actualizarRecado(RecadoDTO recado_a_actualizar) {
+		this.recadoDAO.update(recado_a_actualizar);
+	}
+	
+	public List<RecadoDTO> obtenerRecados() {
+		return this.recadoDAO.readAll();
 	}
 	
 }

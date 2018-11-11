@@ -1,6 +1,6 @@
 package dto;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 public class RecadoDTO {
 
@@ -9,11 +9,11 @@ public class RecadoDTO {
 	private long idUsuarioPara;
 	private String asunto;
 	private String mensaje;
-	private LocalDateTime fechaHoraEnvio;
+	private Timestamp fechaHoraEnvio;
 	private boolean visto;
 	
 	public RecadoDTO(long idRecado, long idUsuarioDe, long idUsuarioPara, String asunto, String mensaje,
-			LocalDateTime fechaHoraEnvio, boolean visto) {
+			Timestamp fechaHoraEnvio, boolean visto) {
 		super();
 		this.idRecado = idRecado;
 		this.idUsuarioDe = idUsuarioDe;
@@ -54,10 +54,10 @@ public class RecadoDTO {
 	public void setMensaje(String mensaje) {
 		this.mensaje = mensaje;
 	}
-	public LocalDateTime getFechaHoraEnvio() {
+	public Timestamp getFechaHoraEnvio() {
 		return fechaHoraEnvio;
 	}
-	public void setFechaHoraEnvio(LocalDateTime fechaHoraEnvio) {
+	public void setFechaHoraEnvio(Timestamp fechaHoraEnvio) {
 		this.fechaHoraEnvio = fechaHoraEnvio;
 	}
 	public boolean isVisto() {
