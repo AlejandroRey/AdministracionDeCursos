@@ -11,9 +11,10 @@ public class RecadoDTO {
 	private String mensaje;
 	private Timestamp fechaHoraEnvio;
 	private boolean visto;
+	private boolean eliminado;
 	
 	public RecadoDTO(long idRecado, long idUsuarioDe, long idUsuarioPara, String asunto, String mensaje,
-			Timestamp fechaHoraEnvio, boolean visto) {
+			Timestamp fechaHoraEnvio, boolean visto, boolean eliminado) {
 		super();
 		this.idRecado = idRecado;
 		this.idUsuarioDe = idUsuarioDe;
@@ -22,6 +23,7 @@ public class RecadoDTO {
 		this.mensaje = mensaje;
 		this.fechaHoraEnvio = fechaHoraEnvio;
 		this.visto = visto;
+		this.eliminado = eliminado;
 	}
 	
 	public long getIdRecado() {
@@ -65,6 +67,13 @@ public class RecadoDTO {
 	}
 	public void setVisto(boolean visto) {
 		this.visto = visto;
+	}
+	
+	public boolean isEliminado() {
+		return eliminado;
+	}
+	public void setEliminado(boolean eliminado) {
+		this.eliminado = eliminado;
 	}
 		
 }

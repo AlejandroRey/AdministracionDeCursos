@@ -12,9 +12,9 @@ import persistencia.dao.interfaz.RecadoDAO;
 
 public class RecadoDAOSQL implements RecadoDAO {
 
-	private static final String insert = "INSERT INTO recado (idUsuarioDe, idUsuarioPara, asunto, mensaje, visto) VALUES (?, ?, ?, ?, ?)";
+	private static final String insert = "INSERT INTO recado (idUsuarioDe, idUsuarioPara, asunto, mensaje, visto, eliminado) VALUES (?, ?, ?, ?, ?, ?)";
 	private static final String delete = "DELETE FROM recado WHERE idRecado = ?";
-	private static final String update = "UPDATE recado SET idUsuarioDe = ?, idUsuarioPara = ?, asunto = ?, mensaje = ?, visto = ?  WHERE idRecado = ?";
+	private static final String update = "UPDATE recado SET idUsuarioDe = ?, idUsuarioPara = ?, asunto = ?, mensaje = ?, visto = ?, eliminado = ?  WHERE idRecado = ?";
 	private static final String readall = "SELECT * FROM recado";
 
 	@Override
@@ -28,6 +28,7 @@ public class RecadoDAOSQL implements RecadoDAO {
 			statement.setString(3, recado.getAsunto());
 			statement.setString(4, recado.getMensaje());
 			statement.setBoolean(5, recado.isVisto());
+			statement.setBoolean(6, recado.isEliminado());
 			if (statement.executeUpdate() > 0) // True is successfully return
 				return true;
 		} catch (SQLException e) {
@@ -68,8 +69,8 @@ public class RecadoDAOSQL implements RecadoDAO {
 			statement.setString(3, recado_a_actualizar.getAsunto());
 			statement.setString(4, recado_a_actualizar.getMensaje());
 			statement.setBoolean(5, recado_a_actualizar.isVisto());
-			statement.setLong(5, recado_a_actualizar.getIdRecado());
-			;
+			statement.setBoolean(6, recado_a_actualizar.isEliminado());
+			statement.setLong(7, recado_a_actualizar.getIdRecado());
 			if (statement.executeUpdate() > 0) // True is successfully return
 				return true;
 		} catch (SQLException e) {
@@ -97,7 +98,8 @@ public class RecadoDAOSQL implements RecadoDAO {
 								resultSet.getString("asunto"),
 								resultSet.getString("mensaje"),
 								resultSet.getTimestamp("horaFechaEnviado"),
-								resultSet.getBoolean("visto")));
+								resultSet.getBoolean("visto"),
+								resultSet.getBoolean("eliminado")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
