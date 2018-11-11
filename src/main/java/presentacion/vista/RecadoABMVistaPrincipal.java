@@ -21,8 +21,11 @@ private JPanel mainPanel;
 	private JLabel lblIconoPrincipal;
 	
 	private JPanel btnRecibidos;
+	private JPanel btnNuevo;
 	private JLabel lblTitleBtn1;
+	private JLabel lblTitleBtn3;
 	private JLabel lblIconBtn1;
+	private JLabel lblIconBtn3;
 	
 	private JPanel btnEnviados;
 	private JLabel lblTitleBtn2;
@@ -65,40 +68,17 @@ private JPanel mainPanel;
 		buttonPanel.setLayout(null);
 		buttonPanel.setBackground(new Color(47, 79, 79));
 		
+		buildButtonEnviar();
 		buildButtonRecibidos();
-		buildButtonEnviados();
 		buildButtonEliminados();
 	}
-
-	private void buildButtonRecibidos() {
-		
-		btnRecibidos = new JPanel();
-		btnRecibidos.setLayout(null);
-		btnRecibidos.setBackground(new Color(47, 79, 79));
-		btnRecibidos.setBounds(0, 219, 200, 50);
-		buttonPanel.add(btnRecibidos);
-		btnRecibidos.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		btnRecibidos.setLayout(null);
-		
-		lblIconBtn1 = new JLabel("New label");
-		lblIconBtn1.setIcon(new ImageIcon("imagenes/read.png"));
-		lblIconBtn1.setBounds(10, 11, 32, 32);
-		btnRecibidos.add(lblIconBtn1);
-		
-		lblTitleBtn1 = new JLabel("Recibidos");
-		lblTitleBtn1.setForeground(Color.WHITE);
-		lblTitleBtn1.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblTitleBtn1.setEnabled(true);
-		lblTitleBtn1.setBounds(74, 25, 116, 14);
-		btnRecibidos.add(lblTitleBtn1);		
-	}
 	
-	private void buildButtonEnviados() {
+	private void buildButtonRecibidos() {
 
 		btnEnviados = new JPanel();
 		btnEnviados.setLayout(null);
 		btnEnviados.setBackground(new Color(47, 79, 79));
-		btnEnviados.setBounds(0, 269, 200, 50);
+		btnEnviados.setBounds(0, 319, 200, 50);
 		buttonPanel.add(btnEnviados);
 		btnEnviados.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnEnviados.setLayout(null);
@@ -115,14 +95,36 @@ private JPanel mainPanel;
 		lblTitleBtn2.setBounds(74, 25, 116, 14);
 		btnEnviados.add(lblTitleBtn2);
 	}
-	
 
+	private void buildButtonEnviar() {
+		
+		btnNuevo = new JPanel();
+		btnNuevo.setLayout(null);
+		btnNuevo.setBackground(new Color(47, 79, 79));
+		btnNuevo.setBounds(0, 219, 200, 50);
+		buttonPanel.add(btnNuevo);
+		btnNuevo.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		btnNuevo.setLayout(null);
+		
+		lblIconBtn3 = new JLabel("New label");
+		lblIconBtn3.setIcon(new ImageIcon("imagenes/read.png"));
+		lblIconBtn3.setBounds(10, 11, 32, 32);
+		btnNuevo.add(lblIconBtn3);
+		
+		lblTitleBtn3 = new JLabel("Nuevo");
+		lblTitleBtn3.setForeground(Color.WHITE);
+		lblTitleBtn3.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblTitleBtn3.setEnabled(true);
+		lblTitleBtn3.setBounds(74, 25, 116, 14);
+		btnNuevo.add(lblTitleBtn3);		
+	}
+	
 	private void buildButtonEliminados() {
 		
 		btnEliminados = new JPanel();
 		btnEliminados.setLayout(null);
 		btnEliminados.setBackground(new Color(47, 79, 79));
-		btnEliminados.setBounds(0, 317, 200, 50);
+		btnEliminados.setBounds(0, 371, 200, 50);
 		buttonPanel.add(btnEliminados);
 		btnEliminados.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnEliminados.setLayout(null);
@@ -154,6 +156,26 @@ private JPanel mainPanel;
 		lblIconoPrincipal.setIcon(new ImageIcon("imagenes/curso.png"));
 		lblIconoPrincipal.setBounds(49, 94, 100, 100);
 		buttonPanel.add(lblIconoPrincipal);
+		
+		btnRecibidos = new JPanel();
+		btnRecibidos.setBounds(0, 268, 200, 50);
+		buttonPanel.add(btnRecibidos);
+		btnRecibidos.setLayout(null);
+		btnRecibidos.setBackground(new Color(47, 79, 79));
+		btnRecibidos.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		btnRecibidos.setLayout(null);
+		
+		lblIconBtn1 = new JLabel("New label");
+		lblIconBtn1.setIcon(new ImageIcon("imagenes/read.png"));
+		lblIconBtn1.setBounds(10, 11, 32, 32);
+		btnRecibidos.add(lblIconBtn1);
+		
+		lblTitleBtn1 = new JLabel("Recibidos");
+		lblTitleBtn1.setForeground(Color.WHITE);
+		lblTitleBtn1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblTitleBtn1.setEnabled(true);
+		lblTitleBtn1.setBounds(74, 25, 116, 14);
+		btnRecibidos.add(lblTitleBtn1);		
 	}
 
 	/**
@@ -280,6 +302,22 @@ private JPanel mainPanel;
 	 */
 	public void setBtnEliminar(JPanel btnEliminar) {
 		this.btnEliminados = btnEliminar;
+	}
+	
+	public JLabel getLblTitleBtn3() {
+		return lblTitleBtn3;
+	}
+
+	public void setLblTitleBtn3(JLabel lblTitleBtn3) {
+		this.lblTitleBtn3 = lblTitleBtn3;
+	}
+
+	public JLabel getLblIconBtn3() {
+		return lblIconBtn3;
+	}
+
+	public void setLblIconBtn3(JLabel lblIconBtn3) {
+		this.lblIconBtn3 = lblIconBtn3;
 	}
 
 	/**
