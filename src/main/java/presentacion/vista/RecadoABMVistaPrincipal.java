@@ -65,12 +65,12 @@ private JPanel mainPanel;
 		buttonPanel.setLayout(null);
 		buttonPanel.setBackground(new Color(47, 79, 79));
 		
-		buildButtonVer();
-		buildButtonAgregar();
-		buildButtonEliminar();
+		buildButtonRecibidos();
+		buildButtonEnviados();
+		buildButtonEliminados();
 	}
 
-	private void buildButtonVer() {
+	private void buildButtonRecibidos() {
 		
 		btnRecibidos = new JPanel();
 		btnRecibidos.setLayout(null);
@@ -93,7 +93,7 @@ private JPanel mainPanel;
 		btnRecibidos.add(lblTitleBtn1);		
 	}
 	
-	private void buildButtonAgregar() {
+	private void buildButtonEnviados() {
 
 		btnEnviados = new JPanel();
 		btnEnviados.setLayout(null);
@@ -117,7 +117,7 @@ private JPanel mainPanel;
 	}
 	
 
-	private void buildButtonEliminar() {
+	private void buildButtonEliminados() {
 		
 		btnEliminados = new JPanel();
 		btnEliminados.setLayout(null);
