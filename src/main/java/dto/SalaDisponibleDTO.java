@@ -4,20 +4,36 @@ import java.time.LocalDateTime;
 
 public class SalaDisponibleDTO {
 	
+	private long idFechaCursadaClase;
 	private long idSala;
 	private int estadoSala;
 	private LocalDateTime dispDesde;
 	private LocalDateTime dispHasta;
 	private String estado;
 	
-	public SalaDisponibleDTO(long idSala, int estadoSala, LocalDateTime dispDesde, LocalDateTime dispHasta,
-			String estado) {
+	public SalaDisponibleDTO(long idFechaCursadaClase, long idSala, int estadoSala, LocalDateTime dispDesde,
+			LocalDateTime dispHasta, String estado) {
 		super();
+		this.idFechaCursadaClase = idFechaCursadaClase;
 		this.idSala = idSala;
 		this.estadoSala = estadoSala;
 		this.dispDesde = dispDesde;
 		this.dispHasta = dispHasta;
 		this.estado = estado;
+	}
+
+	/**
+	 * @return the idFechaCursadaClase
+	 */
+	public long getIdFechaCursadaClase() {
+		return idFechaCursadaClase;
+	}
+
+	/**
+	 * @param idFechaCursadaClase the idFechaCursadaClase to set
+	 */
+	public void setIdFechaCursadaClase(long idFechaCursadaClase) {
+		this.idFechaCursadaClase = idFechaCursadaClase;
 	}
 
 	/**
@@ -95,8 +111,8 @@ public class SalaDisponibleDTO {
 	 */
 	@Override
 	public String toString() {
-		return "SalaDisponibleDTO [idSala: " + idSala + ", estadoSala: " + estadoSala + ", dispDesde: " + dispDesde
-				+ ", dispHasta: " + dispHasta + ", estado: " + estado + "]";
+		return "SalaDisponibleDTO [idFechaCursadaClase: " + idFechaCursadaClase + ", idSala: " + idSala + ", estadoSala: "
+				+ estadoSala + ", dispDesde: " + dispDesde + ", dispHasta: " + dispHasta + ", estado: " + estado + "]";
 	}	
 	
 }

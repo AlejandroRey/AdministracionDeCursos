@@ -51,7 +51,8 @@ public class CalendarBuilderControlador implements ActionListener {
 	private List<FeriadoDTO> feriadosList;
 	
 	private List<SalaDTO> salasList;
-	private List<SalaDisponibleDTO> salasDisponiblesList;	
+	private List<SalaDisponibleDTO> salasDisponiblesList;
+	private List<SalaDisponibleDTO> salasDsiponiblesReasignarList;
 
 	public CalendarBuilderControlador(CursadaDTO cursadaDTO, CalendarioBuilderPanel vista, AdministracionDeCursos modelo) {
 		super();
@@ -61,6 +62,7 @@ public class CalendarBuilderControlador implements ActionListener {
 
 		this.fechasDeCursadaList = new ArrayList<FechaCursadaClaseDTO>();
 		this.salasDisponiblesList = new ArrayList<SalaDisponibleDTO>();
+		this.salasDsiponiblesReasignarList = new ArrayList<SalaDisponibleDTO>();
 		
 		this.vista.getBtnSeleccionar().addActionListener(this);
 		this.vista.getBtnEliminar().addActionListener(this);
@@ -183,19 +185,19 @@ public class CalendarBuilderControlador implements ActionListener {
 					
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");	
 					SalaDTO salaDTO = (SalaDTO) sala;
-					////System.out.println("SalaDTO: "+salaDTO.getIdSala());
+					//////System.out.println("SalaDTO: "+salaDTO.getIdSala());
 					diaDeCursadaDTO = new DiaCursadaClaseDTO(Long.parseLong(idCursada.toString()),
 																Integer.parseInt(numeroDia.toString()),
 																nombreDia.toString(), 
 																LocalTime.parse(horaInicio.toString(), formatter),
 																LocalTime.parse(horaFin.toString(), formatter),
 																salaDTO.getIdSala());
-					////System.out.println(diaDeCursadaDTO.toString());
+					//////System.out.println(diaDeCursadaDTO.toString());
 					this.vista.revalidate();
 					this.vista.repaint();
 				}
 			} catch (Exception ex) {
-				////System.out.println("Error: " + ex.getMessage());
+				//////System.out.println("Error: " + ex.getMessage());
 			}
 		});
 
@@ -277,7 +279,7 @@ public class CalendarBuilderControlador implements ActionListener {
 					llenarTablaSalasDisponibles();
 				}
 			} catch (Exception ex) {
-				////System.out.println("Error: " + ex.getMessage());
+				//////System.out.println("Error: " + ex.getMessage());
 			}
 		});
 
@@ -355,7 +357,7 @@ public class CalendarBuilderControlador implements ActionListener {
 					this.vista.getTextSalaNombre().setText(nombreSala.toString());
 				}
 			} catch (Exception ex) {
-				////System.out.println("Error: " + ex.getMessage());
+				//////System.out.println("Error: " + ex.getMessage());
 			}
 		});
 
@@ -437,7 +439,7 @@ public class CalendarBuilderControlador implements ActionListener {
 
 			for (FechaCursadaClaseDTO fechaCursadaClaseDTO : fechasDeCursadaList) {
 				modelo.borrarFechaCursadaClase(fechaCursadaClaseDTO);
-				System.out.println("BORRAR:"+fechaCursadaClaseDTO.toString());
+				//System.out.println("BORRAR:"+fechaCursadaClaseDTO.toString());
 			}				
 			fechasDeCursadaList.clear();
 			
@@ -483,35 +485,48 @@ public class CalendarBuilderControlador implements ActionListener {
 							salasDisponiblesList.add(salaDisponibleDTO);
 						}					
 					}
-				}
-				
+				}				
 				
 				int size = salasDisponiblesList.size();
 				int loopValue = 0;
-				for (SalaDisponibleDTO salaDTO : salasDisponiblesList) {
-					//System.out.println("SALAALALALALALAL----->>>>>>>>>>: "+salaDTO);
-				}
-				for (SalaDisponibleDTO salaDisponibleDTO : salasDisponiblesList) {
-					//System.out.println("Loop: Estado SALA " + salaDisponibleDTO.getEstadoSala());
-					if (salaDisponibleDTO.getEstadoSala() != 1 
-						&& salaDisponibleDTO.getIdSala() == fechaCursadaClaseDTO.getIdSala()) {
-						if (salaDisponibleDTO.getEstadoSala() == 3) {
-							fechaCursadaClaseDTO.setEstadoSala(3);
-						} else if (salaDisponibleDTO.getEstadoSala() == 2) {
-							fechaCursadaClaseDTO.setEstadoSala(3);
-						} else if (salaDisponibleDTO.getEstadoSala() == 0) {
-							fechaCursadaClaseDTO.setEstadoSala(2);
-						}
-						//System.out.println("BREAK " + salaDisponibleDTO.getEstado() + "" + getSalaDTO(salaDisponibleDTO.getIdSala()));
-						break;
+				for (SalaDisponibleDTO salaDisponibleDTO : salasDisponiblesList) {					
+					if (salaDisponibleDTO.getIdSala() == fechaCursadaClaseDTO.getIdSala()) {
+						if (salaDisponibleDTO.getEstadoSala() == 0 ) {
+							fechaCursadaClaseDTO.setEstadoSala(1);
+						} else {
+							fechaCursadaClaseDTO.setIdSala(1);
+							salasDsiponiblesReasignarList.add(salaDisponibleDTO);
+							System.out.println("LOOP ESTADO SALA " 
+									 + " Id Sala: " + salaDisponibleDTO.getIdSala()
+									 + " Estado Sala:" + salaDisponibleDTO.getEstadoSala() 
+									 + " idFechaCursada: " + salaDisponibleDTO.getIdFechaCursadaClase()
+									 + " DISP DESDE: " + salaDisponibleDTO.getDispDesde()
+									 + " DISP HASTA: " + salaDisponibleDTO.getDispHasta());
+						}					
 					}
+					
+//					if (salaDisponibleDTO.getEstadoSala() != 1 
+//						&& salaDisponibleDTO.getIdSala() == fechaCursadaClaseDTO.getIdSala()) {
+//						if (salaDisponibleDTO.getEstadoSala() == 3) {
+//							fechaCursadaClaseDTO.setEstadoSala(3);
+//						} else if (salaDisponibleDTO.getEstadoSala() == 2) {
+//							fechaCursadaClaseDTO.setEstadoSala(3);
+//						} else if (salaDisponibleDTO.getEstadoSala() == 0) {
+//							fechaCursadaClaseDTO.setEstadoSala(2);
+//						}
+//						break;
+//					}
 					loopValue += 1;
 				}
+				
+				for (SalaDisponibleDTO SalaDisponibleDTO : salasDsiponiblesReasignarList) {
+					System.out.println("Salas a Reasignar: " + SalaDisponibleDTO.toString());
+				}
+				
 				salasDisponiblesList.clear();
 				if (size > 0 && loopValue == size) {
-					fechaCursadaClaseDTO.setIdSala(1);
+					//fechaCursadaClaseDTO.setIdSala(1);
 				}
-				System.out.println("Fecha Cursada: -------------"+fechaCursadaClaseDTO);
 				modelo.agregarFechaCursadaClase(fechaCursadaClaseDTO);
 			}
 			
@@ -562,7 +577,7 @@ public class CalendarBuilderControlador implements ActionListener {
 	private String getDiaDelaSemana(LocalDate date) {
 	    Locale spanishLocale = new Locale("es", "ES");
 	    String dateInSpanish = date.format(DateTimeFormatter.ofPattern("EEEE",spanishLocale));
-	    //////System.out.println("En Espanol: "+dateInSpanish);
+	    ////////System.out.println("En Espanol: "+dateInSpanish);
 	    return dateInSpanish;
 	}
 	

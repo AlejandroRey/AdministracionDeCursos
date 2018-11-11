@@ -58,6 +58,13 @@ public class CalendarioBuilderPanel extends JPanel {
 	private String[] nombreColumnasSalas = {"idSala", "Sala", "Desde", "Hasta", "Estado"};
 	private JButton btnAsignarSala;
 	
+	private JPanel panelSalasEnConflicto;
+	private JTable tablaSalasEnConflicto;
+	private JScrollPane spSalasEnConflicto;
+	private DefaultTableModel modelSalasEnConflicto;
+	private String[] nombreColumnasSalasEnConflicto = {"idFechaCursadaClase", "idSala", "Sala", "Desde", "Hasta", "Estado"};
+	private JButton btnReasignarSalasEnConflicto;
+	
 	private JTextField textSalaDia;
 	private JLabel lblFechaIni;
 	private JTextField textSalaFechaInicio;
@@ -72,7 +79,7 @@ public class CalendarioBuilderPanel extends JPanel {
 	
 	public CalendarioBuilderPanel() {
 		super();
-		this.setBounds(0, 0, 1127, 650);
+		this.setBounds(0, 0, 1127, 750);
 		this.setLayout(null);
 		
 		initialize();
@@ -87,6 +94,8 @@ public class CalendarioBuilderPanel extends JPanel {
 		buildTablaDiasDeCursadaGenerados();
 		buildPanelSalasDisponibles();
 		buildTablaSalas();
+		buildPanelSalasEnConflicto();
+		buildTablaSalasEnConflicto();
 	}
 	
 	private void buildFechaDeInicio() {
@@ -236,6 +245,41 @@ public class CalendarioBuilderPanel extends JPanel {
 		panelSalas.setBorder(new TitledBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), "Salas Disponibles", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panelSalas.setBounds(700, 11, 390, 516);
 		add(panelSalas);
+	}
+	
+	private void buildPanelSalasEnConflicto() {
+		
+		panelSalasEnConflicto = new JPanel();
+		panelSalasEnConflicto.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Fechas de Salas en Conflicto", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelSalasEnConflicto.setBounds(700, 549, 390, 173);
+		add(panelSalasEnConflicto);
+		panelSalasEnConflicto.setLayout(null);
+	}
+	
+	private void buildTablaSalasEnConflicto() {	
+		
+		spSalasEnConflicto = new JScrollPane();
+		spSalasEnConflicto.setBounds(10, 23, 370, 97);
+		panelSalasEnConflicto.add(spSalasEnConflicto);
+		
+		modelSalasEnConflicto = new DefaultTableModel(null, nombreColumnasSalasEnConflicto);
+		tablaSalasEnConflicto = new JTable(modelSalasEnConflicto){
+		    @Override
+		       public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+		           Component component = super.prepareRenderer(renderer, row, column);
+		           int rendererWidth = component.getPreferredSize().width;
+		           TableColumn tableColumn = getColumnModel().getColumn(column);
+		           tableColumn.setPreferredWidth(Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
+		           return component;
+		        }
+		    };
+		tablaSalasEnConflicto.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+		//tablaFechasDeCursada.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);		
+		spSalasEnConflicto.setViewportView(tablaSalasEnConflicto);
+		
+		btnReasignarSalasEnConflicto = new JButton("Reasignar Salas en Conflicto");
+		btnReasignarSalasEnConflicto.setBounds(10, 121, 370, 41);
+		panelSalasEnConflicto.add(btnReasignarSalasEnConflicto);		
 	}
 	
 	private void buildTablaSalas() {
@@ -773,6 +817,5 @@ public class CalendarioBuilderPanel extends JPanel {
 	public void setTextSalaIdFechaCursada(JTextField textSalaIdFechaCursada) {
 		this.textSalaIdFechaCursada = textSalaIdFechaCursada;
 	}
-
 }
 
