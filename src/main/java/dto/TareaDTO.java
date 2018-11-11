@@ -6,20 +6,24 @@ public class TareaDTO {
 
 	private long idTarea;
 	private long idUsuario;
+	private long idAlumno;
 	private String nombre;
 	private String descripcion;
 	private String estado;
 	private LocalDateTime fechaCreacion;
+	private LocalDateTime fechaRealizar;
 	private LocalDateTime fechaCierre;
 
-	public TareaDTO(long idTarea, long idUsuario, String nombre, String descripcion, String estado, LocalDateTime fechaCreacion, LocalDateTime fechaCierre) {
+	public TareaDTO(long idTarea, long idUsuario, long idAlumno, String nombre, String descripcion, String estado, LocalDateTime fechaCreacion, LocalDateTime fechaRealizar, LocalDateTime fechaCierre) {
 		super();
 		this.idTarea = idTarea;
 		this.idUsuario = idUsuario;
+		this.idAlumno = idAlumno;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.estado = estado;
 		this.fechaCreacion = fechaCreacion;
+		this.fechaRealizar = fechaRealizar;
 		this.fechaCierre = fechaCierre;
 	}
 
@@ -119,5 +123,33 @@ public class TareaDTO {
 	 */
 	public void setFechaCierre(LocalDateTime fechaCierre) {
 		this.fechaCierre = fechaCierre;
+	}
+
+	/**
+	 * @return the idAlumno
+	 */
+	public long getIdAlumno() {
+		return idAlumno;
+	}
+
+	/**
+	 * @param idAlumno the idAlumno to set
+	 */
+	public void setIdAlumno(long idAlumno) {
+		this.idAlumno = idAlumno;
+	}
+
+	/**
+	 * @return the fechaRealizar
+	 */
+	public LocalDateTime getFechaRealizar() {
+		return fechaRealizar;
+	}
+
+	/**
+	 * @param fechaRealizar the fechaRealizar to set
+	 */
+	public void setFechaRealizar(LocalDateTime fechaRealizar) {
+		this.fechaRealizar = fechaRealizar;
 	}
 }
