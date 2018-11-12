@@ -17,4 +17,6 @@ public interface FechaCursadaClaseDAO {
 	public List<FechaCursadaClaseDTO> readAll(CursadaDTO cursadaDTO);
 	
 	public List<FechaCursadaClaseDTO> readAll(SalaDTO salaDTO);
+
+	public FechaCursadaClaseDTO getFechaCursadaClase(long idFechaCursadaClase);
 }

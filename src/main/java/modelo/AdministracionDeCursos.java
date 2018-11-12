@@ -394,6 +394,10 @@ public class AdministracionDeCursos {
 		return this.fechaCursadaClase.readAll(salaDTO);
 	}
 	
+	public FechaCursadaClaseDTO obtenerFechaCursadaClase(long idFechaCursadaClase) {
+		return this.fechaCursadaClase.getFechaCursadaClase(idFechaCursadaClase);
+	}
+	
 	/* ****************************************************************
 	 *                         Tarea
 	 * ****************************************************************

@@ -2,6 +2,7 @@ package presentacion.vista;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -57,6 +58,7 @@ public class CalendarioBuilderPanel extends JPanel {
 	private DefaultTableModel modelSalas;
 	private String[] nombreColumnasSalas = {"idSala", "Sala", "Desde", "Hasta", "Estado"};
 	private JButton btnAsignarSala;
+	private JButton btnCancelar;
 	
 	private JPanel panelSalasEnConflicto;
 	private JTable tablaSalasEnConflicto;
@@ -245,13 +247,14 @@ public class CalendarioBuilderPanel extends JPanel {
 		panelSalas.setBorder(new TitledBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), "Salas Disponibles", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panelSalas.setBounds(700, 11, 390, 516);
 		add(panelSalas);
+		panelSalas.setVisible(false);
 	}
 	
 	private void buildPanelSalasEnConflicto() {
 		
 		panelSalasEnConflicto = new JPanel();
-		panelSalasEnConflicto.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Fechas de Salas en Conflicto", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelSalasEnConflicto.setBounds(700, 549, 390, 173);
+		panelSalasEnConflicto.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Salas en Conflicto", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panelSalasEnConflicto.setBounds(700, 11, 390, 516);
 		add(panelSalasEnConflicto);
 		panelSalasEnConflicto.setLayout(null);
 	}
@@ -259,7 +262,7 @@ public class CalendarioBuilderPanel extends JPanel {
 	private void buildTablaSalasEnConflicto() {	
 		
 		spSalasEnConflicto = new JScrollPane();
-		spSalasEnConflicto.setBounds(10, 23, 370, 97);
+		spSalasEnConflicto.setBounds(10, 23, 370, 389);
 		panelSalasEnConflicto.add(spSalasEnConflicto);
 		
 		modelSalasEnConflicto = new DefaultTableModel(null, nombreColumnasSalasEnConflicto);
@@ -278,8 +281,14 @@ public class CalendarioBuilderPanel extends JPanel {
 		spSalasEnConflicto.setViewportView(tablaSalasEnConflicto);
 		
 		btnReasignarSalasEnConflicto = new JButton("Reasignar Salas en Conflicto");
-		btnReasignarSalasEnConflicto.setBounds(10, 121, 370, 41);
+		btnReasignarSalasEnConflicto.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		btnReasignarSalasEnConflicto.setBounds(10, 464, 370, 41);
 		panelSalasEnConflicto.add(btnReasignarSalasEnConflicto);		
+		
+		btnCancelar = new JButton("Cancelar Reasignacion");
+		btnCancelar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		btnCancelar.setBounds(10, 423, 370, 41);
+		panelSalasEnConflicto.add(btnCancelar);
 	}
 	
 	private void buildTablaSalas() {
@@ -816,6 +825,104 @@ public class CalendarioBuilderPanel extends JPanel {
 	 */
 	public void setTextSalaIdFechaCursada(JTextField textSalaIdFechaCursada) {
 		this.textSalaIdFechaCursada = textSalaIdFechaCursada;
+	}
+
+	/**
+	 * @return the btnCancelar
+	 */
+	public JButton getBtnCancelar() {
+		return btnCancelar;
+	}
+
+	/**
+	 * @param btnCancelar the btnCancelar to set
+	 */
+	public void setBtnCancelar(JButton btnCancelar) {
+		this.btnCancelar = btnCancelar;
+	}
+
+	/**
+	 * @return the panelSalasEnConflicto
+	 */
+	public JPanel getPanelSalasEnConflicto() {
+		return panelSalasEnConflicto;
+	}
+
+	/**
+	 * @param panelSalasEnConflicto the panelSalasEnConflicto to set
+	 */
+	public void setPanelSalasEnConflicto(JPanel panelSalasEnConflicto) {
+		this.panelSalasEnConflicto = panelSalasEnConflicto;
+	}
+
+	/**
+	 * @return the tablaSalasEnConflicto
+	 */
+	public JTable getTablaSalasEnConflicto() {
+		return tablaSalasEnConflicto;
+	}
+
+	/**
+	 * @param tablaSalasEnConflicto the tablaSalasEnConflicto to set
+	 */
+	public void setTablaSalasEnConflicto(JTable tablaSalasEnConflicto) {
+		this.tablaSalasEnConflicto = tablaSalasEnConflicto;
+	}
+
+	/**
+	 * @return the spSalasEnConflicto
+	 */
+	public JScrollPane getSpSalasEnConflicto() {
+		return spSalasEnConflicto;
+	}
+
+	/**
+	 * @param spSalasEnConflicto the spSalasEnConflicto to set
+	 */
+	public void setSpSalasEnConflicto(JScrollPane spSalasEnConflicto) {
+		this.spSalasEnConflicto = spSalasEnConflicto;
+	}
+
+	/**
+	 * @return the modelSalasEnConflicto
+	 */
+	public DefaultTableModel getModelSalasEnConflicto() {
+		return modelSalasEnConflicto;
+	}
+
+	/**
+	 * @param modelSalasEnConflicto the modelSalasEnConflicto to set
+	 */
+	public void setModelSalasEnConflicto(DefaultTableModel modelSalasEnConflicto) {
+		this.modelSalasEnConflicto = modelSalasEnConflicto;
+	}
+
+	/**
+	 * @return the nombreColumnasSalasEnConflicto
+	 */
+	public String[] getNombreColumnasSalasEnConflicto() {
+		return nombreColumnasSalasEnConflicto;
+	}
+
+	/**
+	 * @param nombreColumnasSalasEnConflicto the nombreColumnasSalasEnConflicto to set
+	 */
+	public void setNombreColumnasSalasEnConflicto(String[] nombreColumnasSalasEnConflicto) {
+		this.nombreColumnasSalasEnConflicto = nombreColumnasSalasEnConflicto;
+	}
+
+	/**
+	 * @return the btnReasignarSalasEnConflicto
+	 */
+	public JButton getBtnReasignarSalasEnConflicto() {
+		return btnReasignarSalasEnConflicto;
+	}
+
+	/**
+	 * @param btnReasignarSalasEnConflicto the btnReasignarSalasEnConflicto to set
+	 */
+	public void setBtnReasignarSalasEnConflicto(JButton btnReasignarSalasEnConflicto) {
+		this.btnReasignarSalasEnConflicto = btnReasignarSalasEnConflicto;
 	}
 }
 
