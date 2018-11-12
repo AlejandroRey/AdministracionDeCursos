@@ -81,6 +81,10 @@ public class RecadoEnviarPanel extends JPanel{
 		txtPara.setColumns(10);
 		txtPara.setBounds(98, 26, 141, 20);
 		panel.add(txtPara);
+		
+		JButton btnB = new JButton("B");
+		btnB.setBounds(252, 26, 41, 22);
+		panel.add(btnB);
 				
 		JPanel panelMensaje = new JPanel();
 		panelMensaje.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Mensaje", TitledBorder.LEADING, TitledBorder.TOP, null, UIManager.getColor("textText")));
@@ -98,11 +102,11 @@ public class RecadoEnviarPanel extends JPanel{
 	    panelMensaje.add(scrollTextArea);
 	    
 	    btnCancelar = new JButton("Cancelar");
-	    btnCancelar.setBounds(15, 670, 89, 23);
+	    btnCancelar.setBounds(15, 667, 96, 23);
 	    add(btnCancelar);
 	    
 	    btnEnviar = new JButton("Enviar");
-	    btnEnviar.setBounds(306, 670, 89, 23);
+	    btnEnviar.setBounds(294, 667, 96, 23);
 	    add(btnEnviar);
 	    
 	}
@@ -170,5 +174,4 @@ public class RecadoEnviarPanel extends JPanel{
 	public void setFrmBienvenidoAlSistema(Object frmBienvenidoAlSistema) {
 		this.frmBienvenidoAlSistema = frmBienvenidoAlSistema;
 	}
-
 }
