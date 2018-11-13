@@ -14,6 +14,7 @@ import presentacion.vista.ContactoVistaPrincipal;
 import presentacion.vista.CursadaABMVistaPrincipal;
 import presentacion.vista.CursoABMVistaPrincipal;
 import presentacion.vista.LoginVista;
+import presentacion.vista.RecadoABMVistaPrincipal;
 import presentacion.vista.SalaABMVistaPrincipal;
 import presentacion.vista.TareaABMVistaPrincipal;
 import presentacion.vista.UsuarionABMVistaPrincipal;
@@ -24,6 +25,8 @@ public class AdministrativoVistaControlador implements ActionListener {
 	private AdministrativoVista vista;
 	private AdministracionDeCursos modelo;
 	private AdministracionDeCursosVista administracionVista;
+	private RecadoABMVistaPrincipal recadoABMVistaPrincipal;
+	private RecadoABMVistaPrincipalControlador recadoABMControlador;
 	private AdministracionDeCursosControlador controlador;
 	private AlumnoABMVistaPrincipal alumnoABM;
 	private AlumnoABMVistaPrincipalControlador alumnoABMControlador;
@@ -157,7 +160,20 @@ public class AdministrativoVistaControlador implements ActionListener {
 			JOptionPane.showMessageDialog(null, "Esta función todavía no está desarrollada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 		}
 		if (e.getSource() == this.vista.getBtnRecados()) {
-			JOptionPane.showMessageDialog(null, "Esta función todavía no está desarrollada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+			//TODO AGREGAR RECADO
+			this.vista.getFrmAdministrativo().dispose();
+			modelo = new AdministracionDeCursos(new DAOSQLFactory());
+			administracionVista = new AdministracionDeCursosVista();
+			controlador = new AdministracionDeCursosControlador(modelo, administracionVista);
+			controlador.inicializar();
+			
+			if (recadoABMVistaPrincipal == null) {
+				recadoABMVistaPrincipal = new RecadoABMVistaPrincipal();
+				recadoABMControlador = new RecadoABMVistaPrincipalControlador(modelo, recadoABMVistaPrincipal);
+				
+				this.administracionVista.getMainPanel().add(recadoABMVistaPrincipal);
+			}
+			//JOptionPane.showMessageDialog(null, "Esta función todavía no está desarrollada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 		}
 		if (e.getSource() == this.vista.getBtnSalas()) {
 			this.vista.getFrmAdministrativo().dispose();

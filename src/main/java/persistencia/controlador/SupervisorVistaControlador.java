@@ -7,8 +7,10 @@ import javax.swing.JOptionPane;
 
 import modelo.AdministracionDeCursos;
 import persistencia.dao.mysql.DAOSQLFactory;
+import presentacion.vista.AdministracionDeCursosVista;
 import presentacion.vista.AdministrativoABMVistaPrincipal;
 import presentacion.vista.LoginVista;
+import presentacion.vista.RecadoABMVistaPrincipal;
 import presentacion.vista.SupervisorAdministracionVista;
 import presentacion.vista.SupervisorVista;
 
@@ -58,6 +60,7 @@ public class SupervisorVistaControlador implements ActionListener {
 		}
 		if (e.getSource() == this.vista.getBtnRecados()) {
 			JOptionPane.showMessageDialog(null, "Esta función todavía no fue desarrollada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+			//TODO AGREGAR RECADO
 		}
 		if (e.getSource() == this.vista.getBtnAdministrativos()) {
 			this.vista.getFrmSupervisor().dispose();
