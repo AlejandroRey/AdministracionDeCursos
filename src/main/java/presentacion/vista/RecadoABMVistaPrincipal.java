@@ -8,14 +8,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
+import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
-public class RecadoABMVistaPrincipal extends JPanel{
+public class RecadoABMVistaPrincipal extends JPanel {
 
-private JPanel mainPanel;
-	
+	private JPanel mainPanel;
 	private JPanel buttonPanel;	
-	
 	private JLabel lblHome;
 	private JLabel lblRecado;
 	private JLabel lblIconoPrincipal;
@@ -34,7 +33,11 @@ private JPanel mainPanel;
 	private JPanel btnEliminados;
 	private JLabel lblIconBtn4; 
 	private JLabel lblTitleBtn4;	
-
+	
+	/**
+	 * Create the application.
+	 */
+	
 	/**
 	 * Create the panel.
 	 */
@@ -42,7 +45,6 @@ private JPanel mainPanel;
 		super();
 		this.setBounds(0, 0, 1366, 768);
 		this.setLayout(null);
-		
 		initialize();
 	}
 
@@ -143,18 +145,20 @@ private JPanel mainPanel;
 		
 		lblHome = new JLabel("New label");
 		lblHome.setIcon(new ImageIcon("imagenes/home.png"));
-		lblHome.setBounds(82, 5, 48, 48);
+		lblHome.setBounds(74, 16, 48, 48);
 		buttonPanel.add(lblHome);	
 		
-		lblRecado = new JLabel("Recado");
+		lblRecado = new JLabel("Recados");
+		lblRecado.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRecado.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblRecado.setForeground(Color.WHITE);
-		lblRecado.setBounds(76, 57, 48, 26);
+		lblRecado.setBounds(49, 57, 85, 26);
 		buttonPanel.add(lblRecado);
 		
 		lblIconoPrincipal = new JLabel("New label");
+		lblIconoPrincipal.setHorizontalAlignment(SwingConstants.CENTER);
 		lblIconoPrincipal.setIcon(new ImageIcon("imagenes/curso.png"));
-		lblIconoPrincipal.setBounds(49, 94, 100, 100);
+		lblIconoPrincipal.setBounds(38, 88, 125, 100);
 		buttonPanel.add(lblIconoPrincipal);
 		
 		btnRecibidos = new JPanel();
@@ -176,6 +180,16 @@ private JPanel mainPanel;
 		lblTitleBtn1.setEnabled(true);
 		lblTitleBtn1.setBounds(74, 25, 116, 14);
 		btnRecibidos.add(lblTitleBtn1);		
+	}
+	
+	
+
+	public JPanel getBtnNuevo() {
+		return btnNuevo;
+	}
+
+	public void setBtnNuevo(JPanel btnNuevo) {
+		this.btnNuevo = btnNuevo;
 	}
 
 	/**
@@ -209,7 +223,7 @@ private JPanel mainPanel;
 	/**
 	 * @return the btnSeleccionar
 	 */
-	public JPanel getBtnSeleccionar() {
+	public JPanel getBtnRecibidos() {
 		return btnRecibidos;
 	}
 
@@ -251,7 +265,7 @@ private JPanel mainPanel;
 	/**
 	 * @return the btnAgregar
 	 */
-	public JPanel getBtnAgregar() {
+	public JPanel getBtnEnviados() {
 		return btnEnviados;
 	}
 
@@ -293,7 +307,7 @@ private JPanel mainPanel;
 	/**
 	 * @return the btnEliminar
 	 */
-	public JPanel getBtnEliminar() {
+	public JPanel getBtnEliminados() {
 		return btnEliminados;
 	}
 

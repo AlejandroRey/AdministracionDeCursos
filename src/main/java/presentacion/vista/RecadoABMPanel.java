@@ -23,7 +23,7 @@ public class RecadoABMPanel extends JPanel{
 
 	private JScrollPane spRecados;
 	private DefaultTableModel modelRecados;
-	private JTable tblCursos;
+	private JTable tblRecados;
 	private String[] nombreColumnas = {"idRecado","idUsuarioDe", "idUsuarioPara", "asunto", "Mensaje", "Enviado", "Visto", "Eliminado"};
 	private JButton btnEliminar_1;
 	private JButton btnVer;
@@ -34,7 +34,7 @@ public class RecadoABMPanel extends JPanel{
 	 */
 	public RecadoABMPanel(String titulo) {
 		super();
-		this.setBounds(0, 0, 534, 427);
+		this.setBounds(0, 0, 534, 408);
 		this.setLayout(null);
 		inicializar(titulo);
 	}
@@ -53,7 +53,7 @@ public class RecadoABMPanel extends JPanel{
 		this.add(spRecados);
 		
 		modelRecados = new DefaultTableModel(null, nombreColumnas);
-		tblCursos = new JTable(modelRecados){
+		tblRecados = new JTable(modelRecados){
 		    @Override
 		       public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
 		           Component component = super.prepareRenderer(renderer, row, column);
@@ -63,9 +63,8 @@ public class RecadoABMPanel extends JPanel{
 		           return component;
 		        }
 		    };
-		tblCursos.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
-		//tblInstructores.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);		
-		spRecados.setViewportView(tblCursos);
+		tblRecados.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);	
+		spRecados.setViewportView(tblRecados);
 	}
 
 	private void inicializarEditor(String titulo) {
@@ -73,11 +72,11 @@ public class RecadoABMPanel extends JPanel{
 		JSeparator separator = new JSeparator();
 		separator.setForeground(SystemColor.activeCaption);
 		separator.setBackground(SystemColor.activeCaption);
-		separator.setBounds(15, 365, 500, 1);
+		separator.setBounds(15, 354, 500, 1);
 		this.add(separator);
 		
 		btnEliminar_1 = new JButton("Eliminar");
-		btnEliminar_1.setBounds(400, 382, 115, 29);
+		btnEliminar_1.setBounds(400, 365, 115, 29);
 		add(btnEliminar_1);
 		
 		btnVer = new JButton("Ver");
@@ -85,7 +84,7 @@ public class RecadoABMPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnVer.setBounds(15, 382, 115, 29);
+		btnVer.setBounds(15, 365, 115, 29);
 		add(btnVer);
 		
 		lblTitulo = new JLabel(titulo);
@@ -96,60 +95,61 @@ public class RecadoABMPanel extends JPanel{
 		
 	}
 
-	/**
-	 * @return the spCursos
-	 */
-	public JScrollPane getSpCursos() {
+	public JScrollPane getSpRecados() {
 		return spRecados;
 	}
 
-	/**
-	 * @param spCursos the spCursos to set
-	 */
-	public void setSpCursos(JScrollPane spCursos) {
-		this.spRecados = spCursos;
+	public void setSpRecados(JScrollPane spRecados) {
+		this.spRecados = spRecados;
 	}
 
-	/**
-	 * @return the modelCursos
-	 */
-	public DefaultTableModel getModelCursos() {
+	public DefaultTableModel getModelRecados() {
 		return modelRecados;
 	}
 
-	/**
-	 * @param modelCursos the modelCursos to set
-	 */
-	public void setModelCursos(DefaultTableModel modelCursos) {
-		this.modelRecados = modelCursos;
+	public void setModelRecados(DefaultTableModel modelRecados) {
+		this.modelRecados = modelRecados;
 	}
 
-	/**
-	 * @return the tblCursos
-	 */
-	public JTable getTblCursos() {
-		return tblCursos;
+	public JTable getTblRecados() {
+		return tblRecados;
 	}
 
-	/**
-	 * @param tblCursos the tblCursos to set
-	 */
-	public void setTblCursos(JTable tblCursos) {
-		this.tblCursos = tblCursos;
+	public void setTblRecados(JTable tblRecados) {
+		this.tblRecados = tblRecados;
 	}
 
-	/**
-	 * @return the nombreColumnas
-	 */
 	public String[] getNombreColumnas() {
 		return nombreColumnas;
 	}
 
-	/**
-	 * @param nombreColumnas the nombreColumnas to set
-	 */
 	public void setNombreColumnas(String[] nombreColumnas) {
 		this.nombreColumnas = nombreColumnas;
-	}	
+	}
+
+	public JButton getBtnEliminar() {
+		return btnEliminar_1;
+	}
+
+	public void setBtnEliminar(JButton btnEliminar_1) {
+		this.btnEliminar_1 = btnEliminar_1;
+	}
+
+	public JButton getBtnVer() {
+		return btnVer;
+	}
+
+	public void setBtnVer(JButton btnVer) {
+		this.btnVer = btnVer;
+	}
+
+	public JLabel getLblTitulo() {
+		return lblTitulo;
+	}
+
+	public void setLblTitulo(JLabel lblTitulo) {
+		this.lblTitulo = lblTitulo;
+	}
+	
 	
 }

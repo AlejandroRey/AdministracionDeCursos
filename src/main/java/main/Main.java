@@ -9,6 +9,7 @@ import dto.AlumnoHistorialNotaDTO;
 import modelo.AdministracionDeCursos;
 import persistencia.controlador.AdministracionDeCursosControlador;
 import persistencia.controlador.LoginVistaControlador;
+import persistencia.controlador.RecadoABMVistaPrincipalControlador;
 //import dto.CursadaDTO;
 //import modelo.AdministracionDeCursos;
 //import persistencia.controlador.AdministracionDeCursosControlador;
@@ -18,6 +19,9 @@ import persistencia.dao.mysql.AlumnoHistorialCursadasDAOSQL;
 import persistencia.dao.mysql.DAOSQLFactory;
 import presentacion.vista.AdministracionDeCursosVista;
 import presentacion.vista.LoginVista;
+import presentacion.vista.RecadoABMPanel;
+import presentacion.vista.RecadoABMVistaPrincipal;
+import presentacion.vista.RecadoEnviarPanel;
 //import persistencia.dao.mysql.DAOSQLFactory;
 //import presentacion.vista.AdministracionDeCursosVista;
 //import presentacion.vista.AlumnosAsistenciaPanel;
@@ -28,7 +32,7 @@ import presentacion.vista.LoginVista;
 public class Main {
 
 	public static void main(String[] args) {
-//
+
 		try {
 			UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
 		} catch (ClassNotFoundException e) {
@@ -82,11 +86,18 @@ public class Main {
 //		for (AlumnoHistorialNotaDTO	nota : mySql.readAllNota(1, 1)) {
 //			System.out.println(nota.toString());
 //		}
-
+//
 		LoginVista vista = new LoginVista();
 		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
 		LoginVistaControlador controlador = new LoginVistaControlador(vista, modelo);
 		controlador.inicializar();
+
+//			
+//		RecadoABMVistaPrincipal vista = new RecadoABMVistaPrincipal();
+//		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
+//		RecadoABMControlador controlador = new RecadoABMControlador(vista, modelo);
+
 		}
+			
 	}
 }

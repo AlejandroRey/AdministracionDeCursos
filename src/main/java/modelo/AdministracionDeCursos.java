@@ -120,6 +120,7 @@ public class AdministracionDeCursos {
 		this.evaluacionTipoDAO = metodo_persistencia.createEvaluacionTipoDAO();
 		this.evaluacionCursadaDAO = metodo_persistencia.createEvaluacionCursadaDAO();
 		this.notaDAO = metodo_persistencia.createNotaDAO();
+		this.recadoDAO = metodo_persistencia.createRecadoDAO();
 	}
 	
 	/* ****************************************************************

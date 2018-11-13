@@ -93,11 +93,11 @@ public class RecadoDAOSQL implements RecadoDAO {
 			while (resultSet.next()) {
 				recados.add(new RecadoDTO(
 								resultSet.getLong("idRecado"), 
-								resultSet.getLong("idRecadoDe"),
-								resultSet.getLong("idRecadoPara"), 
+								resultSet.getLong("idUsuarioDe"),
+								resultSet.getLong("idUsuarioPara"), 
 								resultSet.getString("asunto"),
 								resultSet.getString("mensaje"),
-								resultSet.getTimestamp("horaFechaEnviado"),
+								resultSet.getTimestamp("fechaHoraEnvio"),
 								resultSet.getBoolean("visto"),
 								resultSet.getBoolean("eliminado")));
 			}
