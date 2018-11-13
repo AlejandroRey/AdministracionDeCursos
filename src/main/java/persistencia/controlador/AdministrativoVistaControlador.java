@@ -160,7 +160,7 @@ public class AdministrativoVistaControlador implements ActionListener {
 			JOptionPane.showMessageDialog(null, "Esta función todavía no está desarrollada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 		}
 		if (e.getSource() == this.vista.getBtnRecados()) {
-			//TODO
+			//TODO AGREGAR RECADO
 			this.vista.getFrmAdministrativo().dispose();
 			modelo = new AdministracionDeCursos(new DAOSQLFactory());
 			administracionVista = new AdministracionDeCursosVista();

@@ -27,6 +27,8 @@ public class RecadoABMPanel extends JPanel{
 	private String[] nombreColumnas = {"idRecado","idUsuarioDe", "idUsuarioPara", "asunto", "Mensaje", "Enviado", "Visto", "Eliminado"};
 	private JButton btnEliminar_1;
 	private JButton btnVer;
+	private JButton btnRestaurar;
+	
 	private JLabel lblTitulo;
 
 	/**
@@ -76,7 +78,7 @@ public class RecadoABMPanel extends JPanel{
 		add(separator);
 		
 		btnEliminar_1 = new JButton("Eliminar");
-		btnEliminar_1.setBounds(15, 663, 115, 29);
+		btnEliminar_1.setBounds(15, 657, 115, 35);
 		add(btnEliminar_1);
 		
 		btnVer = new JButton("Ver");
@@ -84,7 +86,7 @@ public class RecadoABMPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnVer.setBounds(612, 663, 115, 29);
+		btnVer.setBounds(612, 657, 115, 35);
 		add(btnVer);
 		
 		lblTitulo = new JLabel(titulo);
@@ -92,6 +94,10 @@ public class RecadoABMPanel extends JPanel{
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setBounds(289, 13, 148, 20);
 		add(lblTitulo);
+
+		btnRestaurar = new JButton("Restaurar");
+		btnRestaurar.setBounds(465, 657, 115, 35);
+		add(btnRestaurar);
 		
 	}
 
@@ -151,5 +157,15 @@ public class RecadoABMPanel extends JPanel{
 		this.lblTitulo = lblTitulo;
 	}
 	
+	public JButton getBtnRestaurar() {
+		return btnRestaurar;
+	}
+
+	public void setBtnRestaurar(JButton btnRestaurar) {
+		this.btnRestaurar = btnRestaurar;
+	}
 	
+	public void setBtnRestaurarVisible(boolean visible) {
+		this.btnRestaurar.setVisible(visible);
+	}
 }

@@ -82,6 +82,7 @@ public class RecadoABMVistaPrincipalControlador {
 		clearMainPanel();
 		if (recadoABMPanelRecibidos == null) {
 			recadoABMPanelRecibidos = new RecadoABMPanel("Recibidos");
+			recadoABMPanelRecibidos.setBtnRestaurarVisible(false);
 			recadoABMPanelRecibidosControlador = new RecadoABMPanelControlador(modelo, recadoABMPanelRecibidos,
 					"Recibidos");
 			recadoABMPanelRecibidosControlador.inicializar();
@@ -120,6 +121,7 @@ public class RecadoABMVistaPrincipalControlador {
 		clearMainPanel();
 		if (recadoABMPanelEnviados == null) {
 			recadoABMPanelEnviados = new RecadoABMPanel("Enviados");
+			recadoABMPanelEnviados.setBtnRestaurarVisible(false);
 			recadoABMPanelEnviadosControlador = new RecadoABMPanelControlador(modelo, recadoABMPanelEnviados,
 					"Enviados");
 			recadoABMPanelEnviadosControlador.inicializar();

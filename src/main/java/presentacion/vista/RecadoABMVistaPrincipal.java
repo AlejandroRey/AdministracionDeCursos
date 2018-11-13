@@ -86,7 +86,7 @@ public class RecadoABMVistaPrincipal extends JPanel {
 		btnEnviados.setLayout(null);
 		
 		lblIconBtn2 = new JLabel("New label");
-		lblIconBtn2.setIcon(new ImageIcon("imagenes/create.png"));
+		lblIconBtn2.setIcon(new ImageIcon("imagenes/read.png"));
 		lblIconBtn2.setBounds(10, 11, 32, 32);
 		btnEnviados.add(lblIconBtn2);
 
@@ -109,7 +109,7 @@ public class RecadoABMVistaPrincipal extends JPanel {
 		btnNuevo.setLayout(null);
 		
 		lblIconBtn3 = new JLabel("New label");
-		lblIconBtn3.setIcon(new ImageIcon("imagenes/read.png"));
+		lblIconBtn3.setIcon(new ImageIcon("imagenes/create.png"));
 		lblIconBtn3.setBounds(10, 11, 32, 32);
 		btnNuevo.add(lblIconBtn3);
 		
@@ -146,7 +146,7 @@ public class RecadoABMVistaPrincipal extends JPanel {
 		lblHome = new JLabel("New label");
 		lblHome.setIcon(new ImageIcon("imagenes/home.png"));
 		lblHome.setBounds(74, 16, 48, 48);
-		buttonPanel.add(lblHome);	
+		buttonPanel.add(lblHome);
 		
 		lblRecado = new JLabel("Recados");
 		lblRecado.setHorizontalAlignment(SwingConstants.CENTER);
