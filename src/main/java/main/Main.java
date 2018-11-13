@@ -4,10 +4,8 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import modelo.AdministracionDeCursos;
-import persistencia.controlador.AdministracionDeCursosControlador;
 import persistencia.controlador.LoginVistaControlador;
 import persistencia.dao.mysql.DAOSQLFactory;
-import presentacion.vista.AdministracionDeCursosVista;
 import presentacion.vista.LoginVista;
 
 
