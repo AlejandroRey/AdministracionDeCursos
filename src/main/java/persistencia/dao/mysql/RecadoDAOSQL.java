@@ -16,7 +16,10 @@ public class RecadoDAOSQL implements RecadoDAO {
 	private static final String delete = "DELETE FROM recado WHERE idRecado = ?";
 	private static final String update = "UPDATE recado SET idUsuarioDe = ?, idUsuarioPara = ?, asunto = ?, mensaje = ?, visto = ?, eliminado = ?  WHERE idRecado = ?";
 	private static final String readall = "SELECT * FROM recado";
-
+	private static final String readallenviados = "SELECT * FROM recado WHERE idUsuarioDe = ? AND eliminado = 0 ORDER BY fechaHoraEnvio DESC";
+	private static final String readallrecibidos = "SELECT * FROM recado WHERE idUsuarioPara = ? AND eliminado = 0 ORDER BY fechaHoraEnvio DESC";
+	private static final String readalleliminados = "SELECT * FROM recado WHERE eliminado = 1 ORDER BY fechaHoraEnvio DESC";
+	
 	@Override
 	public boolean insert(RecadoDTO recado) {
 		PreparedStatement statement;
@@ -89,6 +92,92 @@ public class RecadoDAOSQL implements RecadoDAO {
 		Conexion conexion = Conexion.getConexion();
 		try {
 			statement = conexion.getSQLConexion().prepareStatement(readall);
+			resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				recados.add(new RecadoDTO(
+								resultSet.getLong("idRecado"), 
+								resultSet.getLong("idUsuarioDe"),
+								resultSet.getLong("idUsuarioPara"), 
+								resultSet.getString("asunto"),
+								resultSet.getString("mensaje"),
+								resultSet.getTimestamp("fechaHoraEnvio"),
+								resultSet.getBoolean("visto"),
+								resultSet.getBoolean("eliminado")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			conexion.cerrarConexion();
+		}
+		return recados;
+	}
+
+	@Override
+	public List<RecadoDTO> readAllEnviados(long idUsuarioDe) {
+		PreparedStatement statement;
+		ResultSet resultSet; // Guarda el resultado de la query
+		ArrayList<RecadoDTO> recados = new ArrayList<RecadoDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(readallenviados);
+			statement.setLong(1, idUsuarioDe);
+			resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				recados.add(new RecadoDTO(
+								resultSet.getLong("idRecado"), 
+								resultSet.getLong("idUsuarioDe"),
+								resultSet.getLong("idUsuarioPara"), 
+								resultSet.getString("asunto"),
+								resultSet.getString("mensaje"),
+								resultSet.getTimestamp("fechaHoraEnvio"),
+								resultSet.getBoolean("visto"),
+								resultSet.getBoolean("eliminado")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			conexion.cerrarConexion();
+		}
+		return recados;
+	}
+
+	@Override
+	public List<RecadoDTO> readAllRecibidos(long idUsuarioPara) {
+		PreparedStatement statement;
+		ResultSet resultSet; // Guarda el resultado de la query
+		ArrayList<RecadoDTO> recados = new ArrayList<RecadoDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(readallrecibidos);
+			statement.setLong(1, idUsuarioPara);
+			resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				recados.add(new RecadoDTO(
+								resultSet.getLong("idRecado"), 
+								resultSet.getLong("idUsuarioDe"),
+								resultSet.getLong("idUsuarioPara"), 
+								resultSet.getString("asunto"),
+								resultSet.getString("mensaje"),
+								resultSet.getTimestamp("fechaHoraEnvio"),
+								resultSet.getBoolean("visto"),
+								resultSet.getBoolean("eliminado")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			conexion.cerrarConexion();
+		}
+		return recados;
+	}
+
+	@Override
+	public List<RecadoDTO> readAllEliminados() {
+		PreparedStatement statement;
+		ResultSet resultSet; // Guarda el resultado de la query
+		ArrayList<RecadoDTO> recados = new ArrayList<RecadoDTO>();
+		Conexion conexion = Conexion.getConexion();
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(readalleliminados);
 			resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				recados.add(new RecadoDTO(

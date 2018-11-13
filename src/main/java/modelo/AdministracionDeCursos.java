@@ -542,4 +542,16 @@ public class AdministracionDeCursos {
 		return this.recadoDAO.readAll();
 	}
 	
+	public List<RecadoDTO> obtenerRecadosEnviados(long idUsuarioDe){
+		return this.recadoDAO.readAllEnviados(idUsuarioDe);
+	}
+	
+	public List<RecadoDTO> obtenerRecadosRecibidos(long idUsuarioPara){
+		return this.recadoDAO.readAllRecibidos(idUsuarioPara);
+	}
+	
+	public List<RecadoDTO> obtenerRecadosEliminados(){
+		return this.recadoDAO.readAllEliminados();
+	}
+	
 }

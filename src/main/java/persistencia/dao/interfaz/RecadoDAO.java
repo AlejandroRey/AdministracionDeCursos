@@ -13,5 +13,11 @@ public interface RecadoDAO {
 	public boolean update(RecadoDTO recado_a_actualizar);
 
 	public List<RecadoDTO> readAll();
+
+	public List<RecadoDTO> readAllEnviados(long idUsuarioDe);
+	
+	public List<RecadoDTO> readAllRecibidos(long idUsuarioPara);
+	
+	public List<RecadoDTO> readAllEliminados();
 	
 }

@@ -62,11 +62,9 @@ public class RecadoABMVistaPrincipalControlador {
 		resetColor(new JPanel[] { this.vista.getBtnEliminados(), this.vista.getBtnRecibidos(),
 				this.vista.getBtnEnviados() });
 		clearMainPanel();
-		// colocar controlador del recadoenviarpanel
 		if (recadoEnviarPanelControlador == null) {
 			recadoEnviarPanel = new RecadoEnviarPanel();
 			recadoEnviarPanelControlador = new RecadoEnviarPanelControlador(modelo, recadoEnviarPanel);
-			recadoEnviarPanelControlador.inicializar();
 			recadoEnviarPanelControlador.limpiarInputs();
 			this.vista.getMainPanel().add(recadoEnviarPanel);
 		} else {
@@ -82,7 +80,6 @@ public class RecadoABMVistaPrincipalControlador {
 		resetColor(
 				new JPanel[] { this.vista.getBtnEliminados(), this.vista.getBtnNuevo(), this.vista.getBtnEnviados() });
 		clearMainPanel();
-		// colocar controlador del recadoenviarpanel
 		if (recadoABMPanelRecibidos == null) {
 			recadoABMPanelRecibidos = new RecadoABMPanel("Recibidos");
 			recadoABMPanelRecibidosControlador = new RecadoABMPanelControlador(modelo, recadoABMPanelRecibidos,
@@ -102,7 +99,6 @@ public class RecadoABMVistaPrincipalControlador {
 		resetColor(
 				new JPanel[] { this.vista.getBtnEnviados(), this.vista.getBtnNuevo(), this.vista.getBtnRecibidos() });
 		clearMainPanel();
-		// colocar controlador del recadoenviarpanel
 		if (recadoABMPanelEliminados == null) {
 			recadoABMPanelEliminados = new RecadoABMPanel("Eliminados");
 			recadoABMPanelEliminadosControlador = new RecadoABMPanelControlador(modelo, recadoABMPanelEliminados,
@@ -122,7 +118,6 @@ public class RecadoABMVistaPrincipalControlador {
 		resetColor(
 				new JPanel[] { this.vista.getBtnEliminados(), this.vista.getBtnNuevo(), this.vista.getBtnRecibidos() });
 		clearMainPanel();
-		// colocar controlador del recadoenviarpanel
 		if (recadoABMPanelEnviados == null) {
 			recadoABMPanelEnviados = new RecadoABMPanel("Enviados");
 			recadoABMPanelEnviadosControlador = new RecadoABMPanelControlador(modelo, recadoABMPanelEnviados,
@@ -144,7 +139,6 @@ public class RecadoABMVistaPrincipalControlador {
 	private void resetColor(JPanel[] pane) {
 		for (int i = 0; i < pane.length; i++) {
 			pane[i].setBackground(new Color(47, 79, 79));
-
 		}
 	}
 

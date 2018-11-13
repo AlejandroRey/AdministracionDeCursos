@@ -34,7 +34,7 @@ public class RecadoABMPanel extends JPanel{
 	 */
 	public RecadoABMPanel(String titulo) {
 		super();
-		this.setBounds(0, 0, 534, 408);
+		this.setBounds(0, 0, 742, 591);
 		this.setLayout(null);
 		inicializar(titulo);
 	}
@@ -49,7 +49,7 @@ public class RecadoABMPanel extends JPanel{
 	private void inicializarTabla() {
 		
 		spRecados = new JScrollPane();
-		spRecados.setBounds(15, 49, 500, 300);
+		spRecados.setBounds(15, 49, 712, 464);
 		this.add(spRecados);
 		
 		modelRecados = new DefaultTableModel(null, nombreColumnas);
@@ -72,11 +72,11 @@ public class RecadoABMPanel extends JPanel{
 		JSeparator separator = new JSeparator();
 		separator.setForeground(SystemColor.activeCaption);
 		separator.setBackground(SystemColor.activeCaption);
-		separator.setBounds(15, 354, 500, 1);
+		separator.setBounds(15, 529, 712, 1);
 		this.add(separator);
 		
 		btnEliminar_1 = new JButton("Eliminar");
-		btnEliminar_1.setBounds(400, 365, 115, 29);
+		btnEliminar_1.setBounds(27, 546, 115, 29);
 		add(btnEliminar_1);
 		
 		btnVer = new JButton("Ver");
@@ -84,13 +84,13 @@ public class RecadoABMPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnVer.setBounds(15, 365, 115, 29);
+		btnVer.setBounds(612, 546, 115, 29);
 		add(btnVer);
 		
 		lblTitulo = new JLabel(titulo);
 		lblTitulo.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitulo.setBounds(171, 13, 148, 20);
+		lblTitulo.setBounds(289, 13, 148, 20);
 		add(lblTitulo);
 		
 	}

@@ -24,6 +24,7 @@ public class RecadoEnviarPanel extends JPanel{
 	
 	private JButton btnEnviar;
 	private JButton btnCancelar;
+	private JButton btnB;
 	
 	private JTextArea textAreaMensaje;
 	private JTextField txtPara;
@@ -82,7 +83,7 @@ public class RecadoEnviarPanel extends JPanel{
 		txtPara.setBounds(98, 26, 141, 20);
 		panel.add(txtPara);
 		
-		JButton btnB = new JButton("B");
+		btnB = new JButton("B");
 		btnB.setBounds(252, 26, 41, 22);
 		panel.add(btnB);
 				
@@ -101,7 +102,7 @@ public class RecadoEnviarPanel extends JPanel{
 	    
 	    panelMensaje.add(scrollTextArea);
 	    
-	    btnCancelar = new JButton("Cancelar");
+	    btnCancelar = new JButton("Nuevo");
 	    btnCancelar.setBounds(15, 667, 96, 23);
 	    add(btnCancelar);
 	    
@@ -109,6 +110,14 @@ public class RecadoEnviarPanel extends JPanel{
 	    btnEnviar.setBounds(294, 667, 96, 23);
 	    add(btnEnviar);
 	    
+	}
+
+	public JButton getBtnB() {
+		return btnB;
+	}
+
+	public void setBtnB(JButton btnB) {
+		this.btnB = btnB;
 	}
 
 	public JPanel getPanel() {
