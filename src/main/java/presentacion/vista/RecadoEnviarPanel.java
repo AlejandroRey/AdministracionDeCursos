@@ -35,7 +35,7 @@ public class RecadoEnviarPanel extends JPanel{
 	 */
 	public RecadoEnviarPanel() {
 		super();
-		this.setBounds(0, 0, 405, 706);
+		this.setBounds(0, 0, 733, 708);
 		this.setLayout(null);
 		inicializar();
 	}
@@ -47,17 +47,17 @@ public class RecadoEnviarPanel extends JPanel{
 	private void inicializarEditor() {		
 		panel = new JPanel();
 		panel.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Nuevo Recado", TitledBorder.LEADING, TitledBorder.TOP, null, UIManager.getColor("textText")));
-		panel.setBounds(15, 16, 380, 151);
+		panel.setBounds(15, 16, 703, 151);
 		this.add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblIdRecado = new JLabel("id Recado:");
 		lblIdRecado.setVisible(false);
-		lblIdRecado.setBounds(21, 123, 70, 14);
+		lblIdRecado.setBounds(21, 123, 94, 14);
 		panel.add(lblIdRecado);
 		
 		textIdRecado = new JTextField();
-		textIdRecado.setBounds(96, 120, 36, 17);
+		textIdRecado.setBounds(119, 121, 36, 17);
 		textIdRecado.setVisible(false);
 		textIdRecado.setEnabled(false);
 		panel.add(textIdRecado);
@@ -70,7 +70,7 @@ public class RecadoEnviarPanel extends JPanel{
 		textAsunto = new JTextField();
 		textAsunto.setHorizontalAlignment(SwingConstants.LEFT);
 		textAsunto.setColumns(10);
-		textAsunto.setBounds(98, 73, 141, 20);
+		textAsunto.setBounds(98, 73, 522, 20);
 		panel.add(textAsunto);	
 		
 		JLabel lblPara = new JLabel("Para:");
@@ -80,16 +80,16 @@ public class RecadoEnviarPanel extends JPanel{
 		txtPara = new JTextField();
 		txtPara.setHorizontalAlignment(SwingConstants.LEFT);
 		txtPara.setColumns(10);
-		txtPara.setBounds(98, 26, 141, 20);
+		txtPara.setBounds(98, 26, 522, 20);
 		panel.add(txtPara);
 		
 		btnB = new JButton("B");
-		btnB.setBounds(252, 26, 41, 22);
+		btnB.setBounds(635, 28, 41, 22);
 		panel.add(btnB);
 				
 		JPanel panelMensaje = new JPanel();
 		panelMensaje.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Mensaje", TitledBorder.LEADING, TitledBorder.TOP, null, UIManager.getColor("textText")));
-		panelMensaje.setBounds(14, 177, 380, 477);
+		panelMensaje.setBounds(14, 177, 704, 477);
 		add(panelMensaje);
 		panelMensaje.setLayout(null);
 		
@@ -97,7 +97,7 @@ public class RecadoEnviarPanel extends JPanel{
 		textAreaMensaje.setBounds(1, 1, 378, 476);
 		
 	    JScrollPane scrollTextArea = new JScrollPane ( textAreaMensaje );
-	    scrollTextArea.setBounds(10, 21, 360, 445);
+	    scrollTextArea.setBounds(10, 21, 679, 445);
 	    scrollTextArea.setVerticalScrollBarPolicy ( ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS );
 	    
 	    panelMensaje.add(scrollTextArea);
@@ -107,7 +107,7 @@ public class RecadoEnviarPanel extends JPanel{
 	    add(btnCancelar);
 	    
 	    btnEnviar = new JButton("Enviar");
-	    btnEnviar.setBounds(294, 667, 96, 23);
+	    btnEnviar.setBounds(622, 667, 96, 23);
 	    add(btnEnviar);
 	    
 	}

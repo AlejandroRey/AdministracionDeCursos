@@ -3,30 +3,10 @@ package main;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import dto.AlumnoDTO;
-import dto.AlumnoHistorialCursadaDTO;
-import dto.AlumnoHistorialNotaDTO;
 import modelo.AdministracionDeCursos;
-import persistencia.controlador.AdministracionDeCursosControlador;
 import persistencia.controlador.LoginVistaControlador;
-import persistencia.controlador.RecadoABMVistaPrincipalControlador;
-//import dto.CursadaDTO;
-//import modelo.AdministracionDeCursos;
-//import persistencia.controlador.AdministracionDeCursosControlador;
-//import persistencia.controlador.AlumnosAsistenciaControlador;
-//import persistencia.controlador.VistaInicialControlador;
-import persistencia.dao.mysql.AlumnoHistorialCursadasDAOSQL;
 import persistencia.dao.mysql.DAOSQLFactory;
-import presentacion.vista.AdministracionDeCursosVista;
 import presentacion.vista.LoginVista;
-import presentacion.vista.RecadoABMPanel;
-import presentacion.vista.RecadoABMVistaPrincipal;
-import presentacion.vista.RecadoEnviarPanel;
-//import persistencia.dao.mysql.DAOSQLFactory;
-//import presentacion.vista.AdministracionDeCursosVista;
-//import presentacion.vista.AlumnosAsistenciaPanel;
-//import presentacion.vista.TestFrame;
-//import presentacion.vista.VistaInicial;
 
 
 public class Main {
@@ -91,11 +71,6 @@ public class Main {
 		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
 		LoginVistaControlador controlador = new LoginVistaControlador(vista, modelo);
 		controlador.inicializar();
-
-//			
-//		RecadoABMVistaPrincipal vista = new RecadoABMVistaPrincipal();
-//		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
-//		RecadoABMControlador controlador = new RecadoABMControlador(vista, modelo);
 
 		}
 			

@@ -34,7 +34,7 @@ public class RecadoABMPanel extends JPanel{
 	 */
 	public RecadoABMPanel(String titulo) {
 		super();
-		this.setBounds(0, 0, 742, 591);
+		this.setBounds(0, 0, 742, 708);
 		this.setLayout(null);
 		inicializar(titulo);
 	}
@@ -49,7 +49,7 @@ public class RecadoABMPanel extends JPanel{
 	private void inicializarTabla() {
 		
 		spRecados = new JScrollPane();
-		spRecados.setBounds(15, 49, 712, 464);
+		spRecados.setBounds(15, 49, 712, 581);
 		this.add(spRecados);
 		
 		modelRecados = new DefaultTableModel(null, nombreColumnas);
@@ -70,13 +70,13 @@ public class RecadoABMPanel extends JPanel{
 	private void inicializarEditor(String titulo) {
 		
 		JSeparator separator = new JSeparator();
-		separator.setForeground(SystemColor.activeCaption);
-		separator.setBackground(SystemColor.activeCaption);
-		separator.setBounds(15, 529, 712, 1);
-		this.add(separator);
+		separator.setForeground(SystemColor.darkGray);
+		separator.setBackground(SystemColor.DARK_GRAY);
+		separator.setBounds(15, 646, 712, 1);
+		add(separator);
 		
 		btnEliminar_1 = new JButton("Eliminar");
-		btnEliminar_1.setBounds(27, 546, 115, 29);
+		btnEliminar_1.setBounds(15, 663, 115, 29);
 		add(btnEliminar_1);
 		
 		btnVer = new JButton("Ver");
@@ -84,7 +84,7 @@ public class RecadoABMPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnVer.setBounds(612, 546, 115, 29);
+		btnVer.setBounds(612, 663, 115, 29);
 		add(btnVer);
 		
 		lblTitulo = new JLabel(titulo);
