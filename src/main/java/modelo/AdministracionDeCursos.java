@@ -304,12 +304,15 @@ public class AdministracionDeCursos {
 	}
 	
 	public void actualizarCursada(CursadaDTO cursada_a_actualizar) {
-		System.out.println("MODELO");
 		this.cursada.update(cursada_a_actualizar);
 	}
 	
 	public List<CursadaDTO> obtenerCursadas() {
 		return this.cursada.readAll();
+	}
+	
+	public CursadaDTO obtenerCursadasPorId(long idCursada) {
+		return this.cursada.readAllById(idCursada);
 	}
 	
 	/* ****************************************************************

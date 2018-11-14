@@ -70,9 +70,9 @@ public class CursadaABMControlador implements ActionListener {
 		clearTextBoxPanelCursadas();
 
 		this.cursadasLista = modelo.obtenerCursadasCompletas();
-		for (CursadaCompletaDTO cursadaCompletaDTO : cursadasLista) {
-			controlarEstadoCursada(cursadaCompletaDTO);
-		}
+//		for (CursadaCompletaDTO cursadaCompletaDTO : cursadasLista) {
+//			controlarEstadoCursada(cursadaCompletaDTO);
+//		}
 		
 		this.cursadasLista = modelo.obtenerCursadasCompletas();
 		for (CursadaCompletaDTO cursadaCompletaDTO : cursadasLista) {

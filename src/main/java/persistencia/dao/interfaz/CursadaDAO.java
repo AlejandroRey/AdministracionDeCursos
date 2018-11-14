@@ -13,4 +13,6 @@ public interface CursadaDAO {
 	public boolean update(CursadaDTO cursada_a_actualizar);
 
 	public List<CursadaDTO> readAll();
+
+	public CursadaDTO readAllById(long idCursada);
 }
