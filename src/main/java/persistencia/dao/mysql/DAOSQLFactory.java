@@ -23,6 +23,7 @@ import persistencia.dao.interfaz.FechaCursadaClaseDAO;
 import persistencia.dao.interfaz.FeriadoDAO;
 import persistencia.dao.interfaz.InscriptoDAO;
 import persistencia.dao.interfaz.NotaDAO;
+import persistencia.dao.interfaz.RecadoDAO;
 import persistencia.dao.interfaz.SalaDAO;
 import persistencia.dao.interfaz.SalaDisponibilidadDAO;
 import persistencia.dao.interfaz.SalaDisponibleDAO;
@@ -185,5 +186,10 @@ public class DAOSQLFactory implements DAOAbstractFactory {
 		return new NotaDAOSQL();
 	}
 	
+	@Override
+	public RecadoDAO createRecadoDAO() {
+		// TODO Auto-generated method stub
+		return new RecadoDAOSQL();
+	}
 	
 }
