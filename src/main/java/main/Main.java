@@ -5,8 +5,10 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import modelo.AdministracionDeCursos;
 import persistencia.controlador.LoginVistaControlador;
+import persistencia.controlador.AdministracionDeCursosControlador;
 import persistencia.dao.mysql.DAOSQLFactory;
 import presentacion.vista.LoginVista;
+import presentacion.vista.AdministracionDeCursosVista;
 
 
 public class Main {
@@ -71,8 +73,6 @@ public class Main {
 		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
 		LoginVistaControlador controlador = new LoginVistaControlador(vista, modelo);
 		controlador.inicializar();
-
 		}
-
 	}
 }

@@ -465,12 +465,24 @@ public class CalendarBuilderControlador implements ActionListener {
 				modelo.actualizarFechaCursadaClase(fechaCursadaClaseDTO);
 			}
 		} else if (e.getSource() == this.vista.getBtnReasignarSalasEnConflicto()) {
+			int contador = 0;
 			for (SalaDisponibleDTO salaDisponibleDTO : salasDsiponiblesReasignarList) {
 				FechaCursadaClaseDTO fechaCursadaClaseDTO = modelo.obtenerFechaCursadaClase(salaDisponibleDTO.getIdFechaCursadaClase());
-				System.out.println("FECHA A ACTUALIZAR: "+ fechaCursadaClaseDTO.toString());
-				fechaCursadaClaseDTO.setIdSala(1);
-				fechaCursadaClaseDTO.setEstadoSala(0);
-				modelo.actualizarFechaCursadaClase(fechaCursadaClaseDTO);
+				CursadaDTO cursadaDTO = modelo.obtenerCursadasPorId(fechaCursadaClaseDTO.getIdCursada());
+				if (cursadaDTO.getIdEstadoCurso() != 2) {
+					fechaCursadaClaseDTO.setIdSala(1);
+					fechaCursadaClaseDTO.setEstadoSala(0);
+					modelo.actualizarFechaCursadaClase(fechaCursadaClaseDTO);
+				} else {
+					contador = contador + 1;
+				}
+			}
+			if (contador > 0) {
+				JOptionPane.showMessageDialog(null,
+					    "Se encontraron " + contador + " Salas con el Estado de Curso INICIADO " + System.lineSeparator() + " por lo que no fue posible reasignar la SALA!!!!",
+					    "Dias de Cursadas",
+					    JOptionPane.INFORMATION_MESSAGE,
+					    new ImageIcon("imagenes/warning_64.png"));
 			}
 			salasDsiponiblesReasignarList.clear();
 			llenarTablasSalasEnConflicto();
@@ -484,6 +496,7 @@ public class CalendarBuilderControlador implements ActionListener {
 	private void buildCalendarioFechaDeCursada() {
 
 		salasDsiponiblesReasignarList.clear();
+		llenarTablasSalasEnConflicto();
 		diasDeCursadaList.clear();
 		diasDeCursadaList = modelo.obtenerDiaCursadaClase(cursadaDTO);
 		llenarTablaDiasDeCursada();

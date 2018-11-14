@@ -18,6 +18,7 @@ public class CursadaDAOSQL implements CursadaDAO{
 	private static final String delete = "DELETE FROM cursada WHERE idCursada = ?";
 	private static final String update = "UPDATE cursada SET idEmpresa = ?, idCurso = ?, idEstadoCurso = ?, idAdministrativo = ?, fechaInicioInscripcion = ?, fechaFinInscripcion = ?, vacantes = ?, fechaInicioCursada = ?, diasDeClase = ? WHERE idCursada = ?";
 	private static final String readall = "SELECT * FROM cursada";
+	private static final String readallByIdCursada = "SELECT * FROM cursada WHERE idCursada = ?";
 
 	@Override
 	public boolean insert(CursadaDTO cursada) {
@@ -123,6 +124,41 @@ public class CursadaDAOSQL implements CursadaDAO{
 			conexion.cerrarConexion();
 		}
 		return cursadas;
+	}
+	
+
+	@Override
+	public CursadaDTO readAllById(long idCursada) {
+		
+		PreparedStatement statement;
+		ResultSet resultSet; // Guarda el resultado de la query
+		CursadaDTO cursadaDTO = null;
+		Conexion conexion = Conexion.getConexion();
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(readallByIdCursada);
+			statement.setLong(1, idCursada);
+			resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				LocalDateTime fechaInicio = resultSet.getTimestamp("fechaInicioInscripcion").toLocalDateTime();
+				LocalDateTime fechaFin = resultSet.getTimestamp("fechaFinInscripcion").toLocalDateTime();
+				LocalDateTime fechaInicicioCursada = resultSet.getTimestamp("fechaInicioCursada").toLocalDateTime();
+				cursadaDTO = new CursadaDTO(resultSet.getLong("idCursada"),
+											resultSet.getLong("idEmpresa"),
+											resultSet.getLong("idCurso"),
+											resultSet.getLong("idEstadoCurso"),
+											resultSet.getLong("idAdministrativo"),
+											fechaInicio,
+											fechaFin,
+											resultSet.getString("vacantes"),
+											fechaInicicioCursada,
+											resultSet.getInt("diasDeClase"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			conexion.cerrarConexion();
+		}
+		return cursadaDTO;
 	}
 
 	public Timestamp convertToTimeStamp(LocalDateTime ldt) {
