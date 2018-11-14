@@ -5,10 +5,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import modelo.AdministracionDeCursos;
 import persistencia.controlador.AdministracionDeCursosControlador;
-import persistencia.controlador.LoginVistaControlador;
 import persistencia.dao.mysql.DAOSQLFactory;
 import presentacion.vista.AdministracionDeCursosVista;
-import presentacion.vista.LoginVista;
 
 
 public class Main {
@@ -26,13 +24,13 @@ public class Main {
 		} catch (UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		} finally {
-//			AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
-//			AdministracionDeCursosVista vista = new AdministracionDeCursosVista();
-//			AdministracionDeCursosControlador controlador = new AdministracionDeCursosControlador(modelo, vista);
-//			controlador.inicializar();
-//			vista.getFrame().revalidate();
-//			vista.getFrame().repaint();
-//		}
+			AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
+			AdministracionDeCursosVista vista = new AdministracionDeCursosVista();
+			AdministracionDeCursosControlador controlador = new AdministracionDeCursosControlador(modelo, vista);
+			controlador.inicializar();
+			vista.getFrame().revalidate();
+			vista.getFrame().repaint();
+		}
 		
 //		String str = "2017-10-01 01:00:00";
 //		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -69,12 +67,10 @@ public class Main {
 //			System.out.println(nota.toString());
 //		}
 //
-		LoginVista vista = new LoginVista();
-		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
-		LoginVistaControlador controlador = new LoginVistaControlador(vista, modelo);
-		controlador.inicializar();
-
-		}
+//		LoginVista vista = new LoginVista();
+//		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
+//		LoginVistaControlador controlador = new LoginVistaControlador(vista, modelo);
+//		controlador.inicializar();
 
 	}
 }
