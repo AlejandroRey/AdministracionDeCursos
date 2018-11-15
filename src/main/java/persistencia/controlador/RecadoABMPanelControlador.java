@@ -47,7 +47,7 @@ public class RecadoABMPanelControlador implements ActionListener {
 		// TODO Cambiar id -- SE OBTIENEN LOS ENVIADOS DEL idUsuarioDe = 1
 		this.recadosLista = modelo.obtenerRecadosEnviados(1);
 		for (RecadoDTO recadoDTO : recadosLista) {
-			Object[] fila = { recadoDTO.getIdRecado(), recadoDTO.getIdUsuarioDe(), recadoDTO.getIdUsuarioPara(),
+			Object[] fila = { recadoDTO.getIdRecado(), recadoDTO.getIdUsuarioDe(), getNombreDeUsuario(recadoDTO.getIdUsuarioPara()),
 					recadoDTO.getAsunto(), recadoDTO.getMensaje(), recadoDTO.getFechaHoraEnvio(), recadoDTO.isVisto(),
 					recadoDTO.isEliminado() };
 			this.vista.getModelRecados().addRow(fila);
@@ -64,7 +64,7 @@ public class RecadoABMPanelControlador implements ActionListener {
 		// TODO Cambiar id -- SE OBTIENEN LOS ENVIADOS DEL idUsuarioPara = 1
 		this.recadosLista = modelo.obtenerRecadosRecibidos(1);
 		for (RecadoDTO recadoDTO : recadosLista) {
-			Object[] fila = { recadoDTO.getIdRecado(), recadoDTO.getIdUsuarioDe(), recadoDTO.getIdUsuarioPara(),
+			Object[] fila = { recadoDTO.getIdRecado(), getNombreDeUsuario(recadoDTO.getIdUsuarioDe()), recadoDTO.getIdUsuarioPara(),
 					recadoDTO.getAsunto(), recadoDTO.getMensaje(), recadoDTO.getFechaHoraEnvio(), recadoDTO.isVisto(),
 					recadoDTO.isEliminado() };
 			this.vista.getModelRecados().addRow(fila);
@@ -80,7 +80,7 @@ public class RecadoABMPanelControlador implements ActionListener {
 		instanciarTabla();
 		this.recadosLista = modelo.obtenerRecadosEliminados();
 		for (RecadoDTO recadoDTO : recadosLista) {
-			Object[] fila = { recadoDTO.getIdRecado(), recadoDTO.getIdUsuarioDe(), recadoDTO.getIdUsuarioPara(),
+			Object[] fila = { recadoDTO.getIdRecado(), getNombreDeUsuario(recadoDTO.getIdUsuarioDe()), getNombreDeUsuario(recadoDTO.getIdUsuarioPara()),
 					recadoDTO.getAsunto(), recadoDTO.getMensaje(), recadoDTO.getFechaHoraEnvio(), recadoDTO.isVisto(),
 					recadoDTO.isEliminado() };
 			this.vista.getModelRecados().addRow(fila);
@@ -116,18 +116,23 @@ public class RecadoABMPanelControlador implements ActionListener {
 		this.vista.getTblRecados().getColumnModel().getColumn(0).setWidth(0);
 		this.vista.getTblRecados().getColumnModel().getColumn(0).setMinWidth(0);
 		this.vista.getTblRecados().getColumnModel().getColumn(0).setMaxWidth(0);
-		this.vista.getTblRecados().getColumnModel().getColumn(1).setWidth(0);
-		this.vista.getTblRecados().getColumnModel().getColumn(1).setMinWidth(0);
-		this.vista.getTblRecados().getColumnModel().getColumn(1).setMaxWidth(0);
-		this.vista.getTblRecados().getColumnModel().getColumn(2).setWidth(0);
-		this.vista.getTblRecados().getColumnModel().getColumn(2).setMinWidth(0);
-		this.vista.getTblRecados().getColumnModel().getColumn(2).setMaxWidth(0);
 		this.vista.getTblRecados().getColumnModel().getColumn(6).setWidth(0);
 		this.vista.getTblRecados().getColumnModel().getColumn(6).setMinWidth(0);
 		this.vista.getTblRecados().getColumnModel().getColumn(6).setMaxWidth(0);
 		this.vista.getTblRecados().getColumnModel().getColumn(7).setWidth(0);
 		this.vista.getTblRecados().getColumnModel().getColumn(7).setMinWidth(0);
 		this.vista.getTblRecados().getColumnModel().getColumn(7).setMaxWidth(0);
+		if (this.tipo.equals("Enviados")) {		
+			this.vista.getTblRecados().getColumnModel().getColumn(1).setWidth(0);
+			this.vista.getTblRecados().getColumnModel().getColumn(1).setMinWidth(0);
+			this.vista.getTblRecados().getColumnModel().getColumn(1).setMaxWidth(0);
+		} else if (this.tipo.equals("Recibidos")) {
+			this.vista.getTblRecados().getColumnModel().getColumn(2).setWidth(0);
+			this.vista.getTblRecados().getColumnModel().getColumn(2).setMinWidth(0);
+			this.vista.getTblRecados().getColumnModel().getColumn(2).setMaxWidth(0);			
+		} else if (this.tipo.equals("Eliminados")) {
+			
+		}
 	}
 
 	private void marcarComoEliminado() {
@@ -150,9 +155,16 @@ public class RecadoABMPanelControlador implements ActionListener {
 				if (JOptionPane.showConfirmDialog(null, "Desea eliminar el recado seleccionado?", "Recado",
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
 					try {
-						this.modelo
-								.actualizarRecado(new RecadoDTO(Long.parseLong(idRecado), Long.parseLong(idUsuarioDe),
-										Long.parseLong(idUsuarioPara), asunto, mensaje, enviado, visto, true));
+						if (this.tipo.equals("Enviados")) {
+							this.modelo
+							.actualizarRecado(new RecadoDTO(Long.parseLong(idRecado), Long.parseLong(idUsuarioDe),
+									getIdUsuario(idUsuarioPara), asunto, mensaje, enviado, visto, true));
+						} else if (this.tipo.equals("Recibidos")) {
+							this.modelo
+							.actualizarRecado(new RecadoDTO(Long.parseLong(idRecado), getIdUsuario(idUsuarioDe),
+									Long.parseLong(idUsuarioPara), asunto, mensaje, enviado, visto, true));
+						}
+						
 						if (this.tipo.equals("Enviados")) {
 							llenarTabladeEnviados();
 						} else if (this.tipo.equals("Recibidos")) {
@@ -192,8 +204,8 @@ public class RecadoABMPanelControlador implements ActionListener {
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
 					try {
 						this.modelo
-								.actualizarRecado(new RecadoDTO(Long.parseLong(idRecado), Long.parseLong(idUsuarioDe),
-										Long.parseLong(idUsuarioPara), asunto, mensaje, enviado, visto, false));
+								.actualizarRecado(new RecadoDTO(Long.parseLong(idRecado), getIdUsuario(idUsuarioDe),
+										getIdUsuario(idUsuarioPara), asunto, mensaje, enviado, visto, false));
 						llenarTabladeEliminados();
 					} catch (Exception ex) {
 						System.out.println("NO SE PUDO RESTAURAR: " + ex);
@@ -233,20 +245,78 @@ public class RecadoABMPanelControlador implements ActionListener {
 	}
 
 	public void mostrarRecadoSeleccionado() {
-		// TODO
 		try {
 			if (this.vista.getTblRecados().getSelectedRow() >= 0) {
 				try {
-					RecadoVistaPanel recadoVista = new RecadoVistaPanel(
-							getNombreDeUsuario((long) this.vista.getTblRecados()
-									.getValueAt(this.vista.getTblRecados().getSelectedRow(), 1)),
-							getNombreDeUsuario((long) this.vista.getTblRecados()
-									.getValueAt(this.vista.getTblRecados().getSelectedRow(), 2)),
-							this.vista.getTblRecados().getValueAt(this.vista.getTblRecados().getSelectedRow(), 3)
-									.toString(),
-							this.vista.getTblRecados().getValueAt(this.vista.getTblRecados().getSelectedRow(), 4)
-									.toString());
-					recadoVista.iniciliazar();
+					//Mostrar recado
+					if (this.tipo.equals("Recibidos")) {
+						RecadoVistaPanel recadoVista = new RecadoVistaPanel(
+								(String) this.vista.getTblRecados()
+										.getValueAt(this.vista.getTblRecados().getSelectedRow(), 1),
+								getNombreDeUsuario((long) this.vista.getTblRecados()
+										.getValueAt(this.vista.getTblRecados().getSelectedRow(), 2)),
+								this.vista.getTblRecados().getValueAt(this.vista.getTblRecados().getSelectedRow(), 3)
+										.toString(),
+								this.vista.getTblRecados().getValueAt(this.vista.getTblRecados().getSelectedRow(), 4)
+										.toString());
+						recadoVista.iniciliazar();
+					} else if (this.tipo.equals("Enviados")) {
+						RecadoVistaPanel recadoVista = new RecadoVistaPanel(
+								getNombreDeUsuario((long) this.vista.getTblRecados()
+										.getValueAt(this.vista.getTblRecados().getSelectedRow(), 1)),
+								(String) this.vista.getTblRecados()
+										.getValueAt(this.vista.getTblRecados().getSelectedRow(), 2),
+								this.vista.getTblRecados().getValueAt(this.vista.getTblRecados().getSelectedRow(), 3)
+										.toString(),
+								this.vista.getTblRecados().getValueAt(this.vista.getTblRecados().getSelectedRow(), 4)
+										.toString());
+						recadoVista.iniciliazar();
+					} else if (this.tipo.equals("Eliminados")) {
+						RecadoVistaPanel recadoVista = new RecadoVistaPanel(
+								(String) this.vista.getTblRecados()
+										.getValueAt(this.vista.getTblRecados().getSelectedRow(), 1),
+								(String) this.vista.getTblRecados()
+										.getValueAt(this.vista.getTblRecados().getSelectedRow(), 2),
+								this.vista.getTblRecados().getValueAt(this.vista.getTblRecados().getSelectedRow(), 3)
+										.toString(),
+								this.vista.getTblRecados().getValueAt(this.vista.getTblRecados().getSelectedRow(), 4)
+										.toString());
+						recadoVista.iniciliazar();
+					}
+					//Marcar recado como visto
+					String idRecado = this.vista.getTblRecados()
+							.getValueAt(this.vista.getTblRecados().getSelectedRow(), 0).toString();
+					String idUsuarioDe = this.vista.getTblRecados()
+							.getValueAt(this.vista.getTblRecados().getSelectedRow(), 1).toString();
+					String idUsuarioPara = this.vista.getTblRecados()
+							.getValueAt(this.vista.getTblRecados().getSelectedRow(), 2).toString();
+					String asunto = this.vista.getTblRecados()
+							.getValueAt(this.vista.getTblRecados().getSelectedRow(), 3).toString();
+					String mensaje = this.vista.getTblRecados()
+							.getValueAt(this.vista.getTblRecados().getSelectedRow(), 4).toString();
+					Timestamp enviado = (Timestamp) this.vista.getTblRecados()
+							.getValueAt(this.vista.getTblRecados().getSelectedRow(), 5);
+					boolean eliminado = (boolean) this.vista.getTblRecados()
+							.getValueAt(this.vista.getTblRecados().getSelectedRow(), 7);
+					if (this.tipo.equals("Enviados")) {
+						this.modelo
+						.actualizarRecado(new RecadoDTO(Long.parseLong(idRecado), Long.parseLong(idUsuarioDe),
+								getIdUsuario(idUsuarioPara), asunto, mensaje, enviado, true, eliminado));
+					} else if (this.tipo.equals("Recibidos")) {
+						this.modelo
+						.actualizarRecado(new RecadoDTO(Long.parseLong(idRecado), getIdUsuario(idUsuarioDe),
+								Long.parseLong(idUsuarioPara), asunto, mensaje, enviado, true, eliminado));
+					} else if (this.tipo.equals("Eliminados")) {
+						this.modelo.actualizarRecado(new RecadoDTO(Long.parseLong(idRecado), getIdUsuario(idUsuarioDe),
+								getIdUsuario(idUsuarioPara), asunto, mensaje, enviado, true, eliminado));
+					}					
+					if (this.tipo.equals("Enviados")) {
+						llenarTabladeEnviados();
+					} else if (this.tipo.equals("Recibidos")) {
+						llenarTabladeRecibidos();
+					} else if (this.tipo.equals("Eliminados")) {
+						llenarTabladeEliminados();
+					}
 				} catch (Exception ex) {
 					System.out.println("NO SE PUDO MOSTAR RECADO MARCADO: " + ex);
 				}
@@ -268,6 +338,17 @@ public class RecadoABMPanelControlador implements ActionListener {
 			}
 		}
 		return usuario;
+	}
+	
+	private long getIdUsuario(String nombreDeUsuario) {
+		this.usuariosLista = modelo.obtenerUsuarios();
+		long idUsuario = 0;
+		for (UsuarioDTO usuarioDTO : this.usuariosLista) {
+			if (usuarioDTO.getUsuario().equals(nombreDeUsuario)) {
+				idUsuario = usuarioDTO.getIdUsuario();
+			}
+		}
+		return idUsuario;
 	}
 
 }

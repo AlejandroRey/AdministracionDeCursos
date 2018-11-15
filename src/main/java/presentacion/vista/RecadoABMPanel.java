@@ -24,7 +24,7 @@ public class RecadoABMPanel extends JPanel{
 	private JScrollPane spRecados;
 	private DefaultTableModel modelRecados;
 	private JTable tblRecados;
-	private String[] nombreColumnas = {"idRecado","idUsuarioDe", "idUsuarioPara", "asunto", "Mensaje", "Enviado", "Visto", "Eliminado"};
+	private String[] nombreColumnas = {"idRecado","De", "Para", "Asunto", "Mensaje", "Enviado", "Visto", "Eliminado"};
 	private JButton btnEliminar_1;
 	private JButton btnVer;
 	private JButton btnRestaurar;
@@ -58,13 +58,21 @@ public class RecadoABMPanel extends JPanel{
 		tblRecados = new JTable(modelRecados){
 		    @Override
 		       public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
-		           Component component = super.prepareRenderer(renderer, row, column);
+		           Component component = super.prepareRenderer(renderer, row, column);	
+		           boolean status = (boolean) getValueAt(row, 6);
+	                if (!status) {
+	                	component.setFont(new Font("Tahoma", Font.BOLD, 14));
+	                } else {
+	                	component.setBackground(super.getBackground());
+	                	component.setForeground(super.getForeground());
+	                }
 		           int rendererWidth = component.getPreferredSize().width;
 		           TableColumn tableColumn = getColumnModel().getColumn(column);
 		           tableColumn.setPreferredWidth(Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
 		           return component;
 		        }
 		    };
+		tblRecados.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tblRecados.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);	
 		spRecados.setViewportView(tblRecados);
 	}
