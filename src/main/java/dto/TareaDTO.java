@@ -128,7 +128,7 @@ public class TareaDTO {
 	/**
 	 * @return the idAlumno
 	 */
-	public long getIdAlumno() {
+	public Long getIdAlumno() {
 		return idAlumno;
 	}
 

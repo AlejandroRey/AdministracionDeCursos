@@ -4,6 +4,7 @@ import java.util.List;
 
 import dto.AlumnoAsistenciaQtyDTO;
 import dto.AlumnoDTO;
+import dto.ContactoCompletoDTO;
 import dto.ContactoDTO;
 import dto.AlumnoInscriptoDTO;
 import dto.AsistenciaDTO;
@@ -36,6 +37,7 @@ import persistencia.dao.interfaz.CategoriaDAO;
 import persistencia.dao.interfaz.CursoDAO;
 import persistencia.dao.interfaz.ClaseDAO;
 import persistencia.dao.interfaz.ContactoDAO;
+import persistencia.dao.interfaz.ContactoCompletoDAO;
 import persistencia.dao.interfaz.CursadaCompletaDAO;
 import persistencia.dao.interfaz.CursoTipoDAO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
@@ -84,6 +86,7 @@ public class AdministracionDeCursos {
 	private EvaluacionTipoDAO evaluacionTipoDAO;
 	private EvaluacionCursadaDAO evaluacionCursadaDAO;
 	private NotaDAO notaDAO;
+	private ContactoCompletoDAO contactoCompleto;
 
 	public AdministracionDeCursos(DAOAbstractFactory metodo_persistencia) {
 		
@@ -91,6 +94,7 @@ public class AdministracionDeCursos {
 		this.usuario = metodo_persistencia.createUsuarioDAO();		
 		this.categoria = metodo_persistencia.createCategoriaDAO();
 		this.contacto = metodo_persistencia.createContactoDAO();
+		this.contactoCompleto = metodo_persistencia.createContactoCompletoDAO();
 		this.cursoTipo = metodo_persistencia.createCursoTipoDAO();
 		this.curso = metodo_persistencia.createCursoDAO();
 		this.clase = metodo_persistencia.createClaseDAO();
@@ -174,6 +178,10 @@ public class AdministracionDeCursos {
 	public List<ContactoDTO> obtenerContactos() {
 		return this.contacto.readAll();
 	}	
+	
+	public List<ContactoCompletoDTO> obtenerContactosCompletos() {
+		return this.contactoCompleto.readAll();
+	}
 	
 	/* ****************************************************************
 	 *                         Categoria
@@ -493,5 +501,5 @@ public class AdministracionDeCursos {
 	public List<NotaDTO> obtenerNotas(EvaluacionDTO evaluacionDTO) {
 		return this.notaDAO.readAll(evaluacionDTO);
 	}
-	
+
 }

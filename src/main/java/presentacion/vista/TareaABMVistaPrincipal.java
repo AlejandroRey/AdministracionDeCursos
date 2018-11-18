@@ -6,7 +6,6 @@ import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
 
 
 @SuppressWarnings("serial")
@@ -51,7 +50,7 @@ public class TareaABMVistaPrincipal extends JPanel {
 		mainPanel.setBounds(200, 0, 1162, 736);
 		add(mainPanel);
 		mainPanel.setLayout(null);
-		mainPanel.setBackground(UIManager.getColor("Panel.background"));	
+		mainPanel.setBackground(new Color(41, 57, 80));	
 	}
 
 	private void buildButtonPanel() {

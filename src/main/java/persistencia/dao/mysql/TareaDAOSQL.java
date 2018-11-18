@@ -13,9 +13,11 @@ import persistencia.conexion.Conexion;
 import persistencia.dao.interfaz.TareaDAO;
 
 public class TareaDAOSQL implements TareaDAO{
-	private static final String insert = "INSERT INTO tarea (idAdministrativo, ,idAlumno, nombre, descripcion, estado, fechaCreacion, fechaRealizar, fechaCierre) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String insert = "INSERT INTO tarea (idAdministrativo, idAlumno, nombre, descripcion, estado, fechaCreacion, fechaRealizar, fechaCierre) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String insertNoAlumno = "INSERT INTO tarea (idAdministrativo, nombre, descripcion, estado, fechaCreacion, fechaRealizar, fechaCierre) VALUES (?, ?, ?, ?, ?, ?, ?)";
 	private static final String delete = "DELETE FROM tarea WHERE idTarea = ?";
 	private static final String update = "UPDATE tarea SET idAdministrativo = ?, idAlumno = ?, nombre = ?, descripcion = ?, estado = ?, fechaCreacion = ?, fechaRealizar = ?, fechaCierre = ? WHERE idTarea = ?";
+	private static final String updateNoAlumno = "UPDATE tarea SET idAdministrativo = ?, nombre = ?, descripcion = ?, estado = ?, fechaCreacion = ?, fechaRealizar = ?, fechaCierre = ? WHERE idTarea = ?";
 	private static final String readall = "SELECT * FROM tarea";
 
 	@Override
@@ -23,15 +25,26 @@ public class TareaDAOSQL implements TareaDAO{
 		PreparedStatement statement;
 		Conexion conexion = Conexion.getConexion();
 		try {
-			statement = conexion.getSQLConexion().prepareStatement(insert);
-			statement.setLong(1, tarea.getIdUsuario());
-			statement.setLong(2, tarea.getIdAlumno());
-			statement.setString(3, tarea.getNombre());
-			statement.setString(4, tarea.getDescripcion());
-			statement.setString(5, tarea.getEstado());
-			statement.setTimestamp(6, convertToTimeStamp(tarea.getFechaCreacion()));
-			statement.setTimestamp(7, convertToTimeStamp(tarea.getFechaRealizar()));
-			statement.setTimestamp(8, convertToTimeStamp(tarea.getFechaCierre()));
+			if(tarea.getIdAlumno() != 0){
+				statement = conexion.getSQLConexion().prepareStatement(insert);
+				statement.setLong(1, tarea.getIdUsuario());
+				statement.setLong(2, tarea.getIdAlumno());
+				statement.setString(3, tarea.getNombre());
+				statement.setString(4, tarea.getDescripcion());
+				statement.setString(5, tarea.getEstado());
+				statement.setTimestamp(6, convertToTimeStamp(tarea.getFechaCreacion()));
+				statement.setTimestamp(7, convertToTimeStamp(tarea.getFechaRealizar()));
+				statement.setTimestamp(8, convertToTimeStamp(tarea.getFechaCierre()));
+			} else {
+				statement = conexion.getSQLConexion().prepareStatement(insertNoAlumno);
+				statement.setLong(1, tarea.getIdUsuario());
+				statement.setString(2, tarea.getNombre());
+				statement.setString(3, tarea.getDescripcion());
+				statement.setString(4, tarea.getEstado());
+				statement.setTimestamp(5, convertToTimeStamp(tarea.getFechaCreacion()));
+				statement.setTimestamp(6, convertToTimeStamp(tarea.getFechaRealizar()));
+				statement.setTimestamp(7, convertToTimeStamp(tarea.getFechaCierre()));
+			}
 			if (statement.executeUpdate() > 0) // True is successfully return
 				return true;
 		} catch (SQLException e) {
@@ -66,9 +79,10 @@ public class TareaDAOSQL implements TareaDAO{
 		PreparedStatement statement;
 		Conexion conexion = Conexion.getConexion();
 		try {
+			if(tarea.getIdAlumno() != 0){
 			statement = conexion.getSQLConexion().prepareStatement(update);			
-			statement.setLong(1, tarea.getIdUsuario());
-			statement.setLong(2, tarea.getIdAlumno());
+			statement.setString(1, Long.toString(tarea.getIdUsuario()));
+			statement.setLong(2, getID(tarea.getIdAlumno()));
 			statement.setString(3, tarea.getNombre());
 			statement.setString(4, tarea.getDescripcion());
 			statement.setString(5, tarea.getEstado());
@@ -76,6 +90,17 @@ public class TareaDAOSQL implements TareaDAO{
 			statement.setTimestamp(7, convertToTimeStamp(tarea.getFechaRealizar()));
 			statement.setTimestamp(8, convertToTimeStamp(tarea.getFechaCierre()));
 			statement.setLong(9, tarea.getIdTarea());
+		} else {
+			statement = conexion.getSQLConexion().prepareStatement(updateNoAlumno);
+			statement.setString(1, Long.toString(tarea.getIdUsuario()));
+			statement.setString(2, tarea.getNombre());
+			statement.setString(3, tarea.getDescripcion());
+			statement.setString(4, tarea.getEstado());
+			statement.setTimestamp(5, convertToTimeStamp(tarea.getFechaCreacion()));
+			statement.setTimestamp(6, convertToTimeStamp(tarea.getFechaRealizar()));
+			statement.setTimestamp(7, convertToTimeStamp(tarea.getFechaCierre()));
+			statement.setLong(8, tarea.getIdTarea());
+		}
 			if (statement.executeUpdate() > 0) // True is successfully return
 				return true;
 		} catch (SQLException e) {
@@ -124,5 +149,14 @@ public class TareaDAOSQL implements TareaDAO{
 	public LocalDateTime convertToLocalDateTime(Timestamp ts) {
 		return ts != null ? ts.toLocalDateTime() : null;
 	}
+	
+	public Long getID(Long id) {
+		return id!= null ? id : null;
+	}
+	
 
+	public static void main (String[] args) {
+		Long l = null;
+		System.out.println(l);
+	}
 }

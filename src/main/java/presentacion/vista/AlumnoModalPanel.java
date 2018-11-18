@@ -37,5 +37,4 @@ public class AlumnoModalPanel extends JDialog {
 		setModal(true);
 		setVisible(true);
 	}
-
 }

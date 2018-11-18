@@ -25,6 +25,7 @@ import java.awt.BorderLayout;
 import javax.swing.JTable;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.Cursor;
 
 @SuppressWarnings("serial")
 public class TareaABMPanel extends JPanel {
@@ -33,7 +34,7 @@ public class TareaABMPanel extends JPanel {
 	private JTable tableTareas;
 	private DefaultTableModel modelTareas;
 	private TableRowSorter<TableModel> modeloOrdenado;
-	private String[] nombreColumnas = {"ID", "Tarea", "Descripcion", "Estado", "Responsable" , "ID Reponsable", "Fecha de Creacion", "Fecha de cierre"};
+	private String[] nombreColumnas = {"ID", "Tarea", "Descripcion", "Estado", "Responsable" , "ID Reponsable", "Fecha de Creacion", "Fecha de cierre", "IDAlumno"};
 	
 	private JScrollPane spAdministrativos;
 	private JTable tableAdministrativos;
@@ -61,9 +62,11 @@ public class TareaABMPanel extends JPanel {
 	private JButton btnMarcarComoRealizada;
 	private JComboBox<String> cboxTareas;
 	private JComboBox<String> cboxEstado;
+	private JTextField txtIDAlumno;
 	
 	public TareaABMPanel() {
 		super();
+		setBackground(new Color(41, 57, 80));
 		inicializarTareaABMPanel();
 	}
 
@@ -85,14 +88,17 @@ public class TareaABMPanel extends JPanel {
 
 	private void inicializarPanelEditorTareas() {
 		panelEditor = new JPanel();
+		panelEditor.setForeground(new Color(255, 255, 255));
+		panelEditor.setBackground(new Color(41, 57, 80));
 		panelEditor.setBounds(27, 390, 706, 278);
-		panelEditor.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Tarea - Editor:", TitledBorder.LEADING, TitledBorder.TOP, null, UIManager.getColor("textText")));
+		panelEditor.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Tarea - Editor:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(255, 255, 255)));
 		panelEditor.setLayout(null);
 		this.add(panelEditor);
 	}
 	
 	private void inicializarPanelAdministrativos() {
 		spAdministrativos = new JScrollPane();
+		spAdministrativos.getViewport().setBackground(new Color(41, 57, 80));
 		spAdministrativos.setBounds(758, 27, 396, 641);
 		spAdministrativos.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Administrativos:", TitledBorder.LEADING, TitledBorder.TOP, null, UIManager.getColor("textText")));
 		this.add(spAdministrativos);
@@ -108,6 +114,8 @@ public class TareaABMPanel extends JPanel {
 		           return component;
 		        }
 		};
+		tableAdministrativos.setOpaque(false);
+		tableAdministrativos.getTableHeader().setBackground(new Color(255, 255, 255));
 		tableAdministrativos.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 		spAdministrativos.setViewportView(tableAdministrativos);
 		
@@ -117,11 +125,13 @@ public class TareaABMPanel extends JPanel {
 
 	private void inicializarCbox() {
 		cboxTareas = new JComboBox<>();
+		cboxTareas.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		cboxTareas.setModel(new DefaultComboBoxModel<String>(new String[] {"Todas", "Mis tareas"}));
 		cboxTareas.setBounds(27, 34, 100, 20);
 		add(cboxTareas);
 		
 		cboxEstado = new JComboBox<>();
+		cboxEstado.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		cboxEstado.setModel(new DefaultComboBoxModel<String>(new String[] {"Todas", "Pendientes", "Realizadas"}));
 		cboxEstado.setBounds(633, 34, 100, 20);
 		add(cboxEstado);
@@ -129,6 +139,7 @@ public class TareaABMPanel extends JPanel {
 
 	private void inicializarTablaTareas() {
 		spTareas = new JScrollPane();
+		spTareas.getViewport().setBackground(new Color(41, 57, 80));
 		spTareas.setBounds(27, 65, 706, 302);
 		this.add(spTareas);
 		
@@ -143,6 +154,8 @@ public class TareaABMPanel extends JPanel {
 		           return component;
 		        }
 		};
+		tableTareas.setOpaque(false);
+		tableTareas.getTableHeader().setBackground(new Color(255, 255, 255));
 		tableTareas.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 		spTareas.setViewportView(tableTareas);
 		
@@ -158,22 +171,27 @@ public class TareaABMPanel extends JPanel {
 
 	private void inicializarLbls() {
 		JLabel lblNombre = new JLabel("Nombre:");
+		lblNombre.setForeground(new Color(255, 255, 255));
 		lblNombre.setBounds(10, 30, 58, 14);
 		panelEditor.add(lblNombre);
 		
 		JLabel lblFecha = new JLabel("Fecha:");
+		lblFecha.setForeground(new Color(255, 255, 255));
 		lblFecha.setBounds(10, 59, 46, 14);
 		panelEditor.add(lblFecha);
 		
 		JLabel lblDescripcion = new JLabel("Descripcion:");
+		lblDescripcion.setForeground(new Color(255, 255, 255));
 		lblDescripcion.setBounds(10, 115, 98, 14);
 		panelEditor.add(lblDescripcion);
 		
 		JLabel lblResponsable = new JLabel("Responsable:");
+		lblResponsable.setForeground(new Color(255, 255, 255));
 		lblResponsable.setBounds(382, 30, 91, 14);
 		panelEditor.add(lblResponsable);
 		
 		JLabel lblEstado = new JLabel("Estado:");
+		lblEstado.setForeground(new Color(255, 255, 255));
 		lblEstado.setBounds(10, 87, 46, 14);
 		panelEditor.add(lblEstado);
 		
@@ -244,10 +262,12 @@ public class TareaABMPanel extends JPanel {
 
 	private void inicializarBtns() {
 		btnSeleccionarResponsable = new JButton("Seleccionar Responsable");
+		btnSeleccionarResponsable.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSeleccionarResponsable.setBounds(493, 55, 171, 23);
 		panelEditor.add(btnSeleccionarResponsable);
 		
 		btnAgregar = new JButton("Agregar");
+		btnAgregar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAgregar.setBounds(589, 241, 107, 23);
 		panelEditor.add(btnAgregar);
 		
@@ -260,8 +280,17 @@ public class TareaABMPanel extends JPanel {
 		panelEditor.add(btnEliminar);
 		
 		btnMarcarComoRealizada = new JButton("Marcar como realizada");
+		btnMarcarComoRealizada.setFocusPainted(false);
+		btnMarcarComoRealizada.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnMarcarComoRealizada.setBounds(430, 241, 139, 23);
 		panelEditor.add(btnMarcarComoRealizada);
+		
+		txtIDAlumno = new JTextField();
+		txtIDAlumno.setEditable(false);
+		txtIDAlumno.setEnabled(false);
+		txtIDAlumno.setBounds(448, 115, 46, 20);
+		panelEditor.add(txtIDAlumno);
+		txtIDAlumno.setColumns(10);
 	}
 	
 	public JButton getBtnAgregar() {
@@ -525,5 +554,19 @@ public class TareaABMPanel extends JPanel {
 	 */
 	public void setCboxEstado(JComboBox<String> cboxEstado) {
 		this.cboxEstado = cboxEstado;
+	}
+
+	/**
+	 * @return the txtIDAlumno
+	 */
+	public JTextField getTxtIDAlumno() {
+		return txtIDAlumno;
+	}
+
+	/**
+	 * @param txtIDAlumno the txtIDAlumno to set
+	 */
+	public void setTxtIDAlumno(JTextField txtIDAlumno) {
+		this.txtIDAlumno = txtIDAlumno;
 	}
 }

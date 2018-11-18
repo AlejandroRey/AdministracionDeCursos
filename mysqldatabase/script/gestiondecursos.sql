@@ -64,17 +64,20 @@ CREATE TABLE `contacto` (
   `idAlumno` int(11) NOT NULL,
   `idAdministrativo` int(11) NOT NULL,
   `idCurso` int(11) NOT NULL,
+  `idTarea` int(11) DEFAULT NULL,
   `descripcion` varchar(255) NOT NULL,
   `fechaContactar` datetime NOT NULL,
   `fechaCreacion` datetime NOT NULL,
   `estado` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`idContacto`),
   KEY `fk_contacto_alumno1_idx` (`idAlumno`),
-  KEY `fk_contacto_administrativo1_idx` (`idUsuario`),
+  KEY `fk_contacto_administrativo1_idx` (`idAdministrativo`),
   KEY `fk_contacto_curso1_idx` (`idCurso`),
+  KEY `fk_contacto_tarea1_idx` (`idTarea`),
   CONSTRAINT `fk_contacto_alumno1` FOREIGN KEY (`idAlumno`) REFERENCES `alumno` (`idAlumno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_contacto_curso1` FOREIGN KEY (`idCurso`) REFERENCES `curso` (`idCurso`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_contacto_administrativo1` FOREIGN KEY (`idAdministrativo`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_contacto_administrativo1` FOREIGN KEY (`idAdministrativo`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+   CONSTRAINT `fk_contacto_tarea1` FOREIGN KEY (`idTarea`) REFERENCES `tarea` (`idTarea`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

@@ -8,6 +8,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.MatteBorder;
 
 @SuppressWarnings("serial")
 public class ContactoVistaPrincipal extends JPanel {
@@ -56,13 +60,14 @@ private JPanel mainPanel;
 		mainPanel.setBounds(200, 0, 1162, 736);
 		add(mainPanel);
 		mainPanel.setLayout(null);
-		mainPanel.setBackground(UIManager.getColor("Panel.background"));	
+		mainPanel.setBackground(new Color(0, 0, 0));	
 	}
 
 	private void buildButtonPanel() {
 		
 		buttonPanel = new JPanel();
-		buttonPanel.setBounds(0, 0, 200, 736);
+		buttonPanel.setBorder(new MatteBorder(0, 0, 0, 1, (Color) new Color(245, 245, 245)));
+		buttonPanel.setBounds(0, 0, 201, 736);
 		add(buttonPanel);
 		buttonPanel.setLayout(null);
 		buttonPanel.setBackground(new Color(0, 0, 0));
@@ -76,6 +81,7 @@ private JPanel mainPanel;
 	private void buildButtonVer() {
 		
 		btnSeleccionar = new JPanel();
+		btnSeleccionar.setBorder(new MatteBorder(1, 0, 1, 0, (Color) new Color(245, 245, 245)));
 		btnSeleccionar.setLayout(null);
 		btnSeleccionar.setBackground(new Color(0, 0, 0));
 		btnSeleccionar.setBounds(0, 209, 200, 50);
@@ -99,6 +105,7 @@ private JPanel mainPanel;
 	private void buildButtonAgregar() {
 
 		btnAgregar = new JPanel();
+		btnAgregar.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(245, 245, 245)));
 		btnAgregar.setLayout(null);
 		btnAgregar.setBackground(new Color(0, 0, 0));
 		btnAgregar.setBounds(0, 259, 200, 50);
@@ -122,6 +129,7 @@ private JPanel mainPanel;
 	private void buildButtonActualizar() {
 		
 		btnActualizar = new JPanel();
+		btnActualizar.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(245, 245, 245)));
 		btnActualizar.setLayout(null);
 		btnActualizar.setBackground(new Color(0, 0, 0));
 		btnActualizar.setBounds(0, 309, 200, 50);
@@ -145,6 +153,7 @@ private JPanel mainPanel;
 	private void buildButtonEliminar() {
 		
 		btnEliminar = new JPanel();
+		btnEliminar.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(245, 245, 245)));
 		btnEliminar.setLayout(null);
 		btnEliminar.setBackground(new Color(0, 0, 0));
 		btnEliminar.setBounds(0, 358, 200, 50);

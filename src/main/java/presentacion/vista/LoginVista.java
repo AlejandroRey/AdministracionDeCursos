@@ -20,7 +20,6 @@ public class LoginVista {
 	
 	public LoginVista() {
 		initialize();
-		cargarContenido();
 	}
 
 	private void initialize() {
@@ -28,7 +27,9 @@ public class LoginVista {
 		loginFrame.setTitle("Bienvenido al sistema");
 		loginFrame.setBounds(100, 100, 450, 208);
 		loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		loginFrame.setLocationRelativeTo(null);
 		loginFrame.getContentPane().setLayout(null);
+		cargarContenido();
 		loginFrame.setVisible(true);
 	}
 	

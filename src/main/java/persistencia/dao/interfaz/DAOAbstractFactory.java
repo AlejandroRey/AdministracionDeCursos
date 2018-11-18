@@ -6,6 +6,8 @@ public interface DAOAbstractFactory {
 	
 	public ContactoDAO createContactoDAO();
 	
+	public ContactoCompletoDAO createContactoCompletoDAO();
+	
 	public UsuarioDAO createUsuarioDAO();
 
 	public CategoriaDAO createCategoriaDAO();

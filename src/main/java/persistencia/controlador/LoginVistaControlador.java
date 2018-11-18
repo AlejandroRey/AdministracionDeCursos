@@ -71,12 +71,6 @@ public class LoginVistaControlador implements ActionListener {
 						encontrado = true;
 					}
 				}
-				//System.out.println(count);
-				//System.out.println(usuarioDTO.getUsuario());
-				//System.out.println(usuarioDTO.getPassword());
-				//System.out.println("El usuario ingresado es: " + this.vista.getUsuarioField());
-				//System.out.println("La contraseña ingresada es:" + this.vista.getContraseniaField());
-				//count++;	
 			}
 			if (encontrado==false) {
 				JOptionPane.showMessageDialog(null, "Los datos son inválidos", "No es posible iniciar sesión", JOptionPane.ERROR_MESSAGE);
