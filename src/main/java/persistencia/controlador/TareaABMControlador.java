@@ -20,6 +20,8 @@ import modelo.AdministracionDeCursos;
 import dto.CategoriaDTO;
 import dto.TareaDTO;
 import dto.UsuarioDTO;
+import presentacion.vista.ContactoABMPanel;
+import presentacion.vista.ContactoTareaDialog;
 import presentacion.vista.TareaABMPanel;
 
 public class TareaABMControlador implements ActionListener{
@@ -31,6 +33,9 @@ public class TareaABMControlador implements ActionListener{
 	private List<CategoriaDTO> categoriasLista;
 	private UsuarioDTO currentAdministrativo;
 	private Validator validator;
+	private ContactoABMPanel panelContacto;
+	private ContactoTareaDialog dialog;
+	private TareaContactoControlador ctr;
 	
 	public TareaABMControlador(TareaABMPanel vista, AdministracionDeCursos modelo) {
 		this.administrativosLista = null;
@@ -38,6 +43,10 @@ public class TareaABMControlador implements ActionListener{
 		this.vista = vista;
 		this.modelo = modelo;
 		this.currentAdministrativo = null;
+		this.panelContacto = null;
+		this.dialog = null;
+		this.ctr = null;
+		
 		this.validator = new Validator();
 		this.vista.getBtnAgregar().addActionListener(this);
 		this.vista.getBtnActualizar().addActionListener(this);
@@ -57,9 +66,7 @@ public class TareaABMControlador implements ActionListener{
 		clearTextInputsBox();
 		this.tareasLista = modelo.obtenerTareas();
 		loadDataRowsTbTareas();
-		// Oculto los id del Objeto
 		ocultarColumnasTbTareas();
-		// Agrego listener para obtener los valores de la fila seleccionada
 		this.vista.getTableTareas().setSelectionModel(new ListSelectionModelCstm());
 		this.vista.getTableTareas().getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {seleccionarFila();});
 		DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
@@ -94,9 +101,7 @@ public class TareaABMControlador implements ActionListener{
 		clearTextInputsBox();
 		loadAdministrativosData();
 		loadDataRowsTbAdministrativos();
-		// Oculto los id del Objeto
 		ocultarColumnasTbAdministrativos();
-//		// Agrego listener para obtener los valores de la fila seleccionada
 		this.vista.getTableAdministrativos().setSelectionModel(new ListSelectionModelCstm());
 		this.vista.getTableAdministrativos().getSelectionModel()
 					                        .addListSelectionListener((ListSelectionEvent event) -> {seleccionarFilaAdministrativos();});
@@ -263,23 +268,32 @@ public class TareaABMControlador implements ActionListener{
 	
 	private void cerrarTarea() {
 		if(hayTareaSeleccionada()){
-			if(datosValidos()){
-				int cerrar = OptionPanel.confimarcion("Esta seguro que desea cerrar esta tarea?", "Cerrar tarea");
-				if(cerrar == 0){
+//			if(datosValidos()){
+//				int cerrar = OptionPanel.confimarcion("Esta seguro que desea cerrar esta tarea?", "Cerrar tarea");
+//				if(cerrar == 0){
 					TareaDTO tarea = new TareaDTO(Long.parseLong(this.vista.getTxtID().getText()),
 							Long.parseLong(this.vista.getTxtIDResponsable().getText()),
-							Long.parseLong(null),
+							Long.parseLong(this.vista.getTxtIDAlumno().getText()),
 							this.vista.getTxtNombre().getText(),
 							this.vista.getTxtAreaDescripcion().getText(),
 							"Realizada",
 							LocalDateTime.now(),
 							StringToLocalDateTime(this.vista.getTxtFecha().getText(),"00:00:00"),
 							LocalDateTime.now());
-					this.modelo.actualizarTarea(tarea);
-					OptionPanel.mensaje("La tarea ha sido cerrada correctamente", "Tarea");
-					generarTablas();
-				}
-			}
+//					this.modelo.actualizarTarea(tarea);
+//					OptionPanel.mensaje("La tarea ha sido cerrada correctamente", "Tarea");
+//					generarTablas();
+//				}
+//			}
+			panelContacto = new ContactoABMPanel();
+			dialog = new ContactoTareaDialog();
+			dialog.setContactoTareaPanel(panelContacto);
+			dialog.setContactoTareaPanel(panelContacto);
+			dialog.setSize(1100, 700);
+			ctr = new TareaContactoControlador(dialog, modelo,this);
+			ctr.setTarea(tarea);
+			ctr.inicializar();
+
 		}
 	}
 

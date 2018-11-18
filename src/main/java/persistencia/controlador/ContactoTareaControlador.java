@@ -40,7 +40,7 @@ public class ContactoTareaControlador implements ActionListener{
 		this.administrativosLista = null;
 		this.categoriasLista = null;
 		this.dialog = vista;
-		this.vista = dialog.getContactoAlumnoPanel();
+		this.vista = (TareaABMPanel) dialog.getContactoTareaPanel();
 		this.modelo = modelo;
 		this.contacto = null;
 		this.currentAdministrativo = null;

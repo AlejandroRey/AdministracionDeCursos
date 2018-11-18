@@ -333,7 +333,7 @@ public class ContactoABMControlador implements ActionListener {
 			if(generarTarea == 0) {
 				panelTarea = new TareaABMPanel();
 				dialog = new ContactoTareaDialog();
-				dialog.setContactoAlumnoPanel(panelTarea);
+				dialog.setContactoTareaPanel(panelTarea);
 				ctr = new ContactoTareaControlador(dialog, modelo,this);
 				ctr.setContacto(contacto);
 				ctr.inicializar();
