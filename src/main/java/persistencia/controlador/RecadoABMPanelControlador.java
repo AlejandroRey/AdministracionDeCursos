@@ -46,9 +46,8 @@ public class RecadoABMPanelControlador implements ActionListener {
 
 	private void llenarTabladeEnviados() {
 		instanciarTabla();
-		// TODO Cambiar id -- SE OBTIENEN LOS ENVIADOS DEL idUsuarioDe = 1
-		
-		this.recadosLista = modelo.obtenerRecadosEnviados(1);
+		// TODO Cambiar id -- SE OBTIENEN LOS ENVIADOS DEL idUsuarioDe = 1		
+		this.recadosLista = modelo.obtenerRecadosEnviados(modelo.getUsuarioLogueado().getIdUsuario());
 		for (RecadoDTO recadoDTO : recadosLista) {
 			Object[] fila = { recadoDTO.getIdRecado(), recadoDTO.getIdUsuarioDe(),
 					getNombreDeUsuario(recadoDTO.getIdUsuarioPara()), recadoDTO.getAsunto(), recadoDTO.getMensaje(),

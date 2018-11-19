@@ -35,7 +35,6 @@ public class RecadoEnviarPanelControlador implements ActionListener {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				// TODO Auto-generated method stub
-
 			}
 
 			@Override
@@ -101,7 +100,7 @@ public class RecadoEnviarPanelControlador implements ActionListener {
 							JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0) {
 						if (validarUsuario(this.vista.getTxtPara().getText())) {
 							// TODO agregar el id del usuario o nombre del logueado -- 3er parametro
-							RecadoDTO recado = new RecadoDTO(0, 1, getIdUsuarioPara(this.vista.getTxtPara().getText()),
+							RecadoDTO recado = new RecadoDTO(0, modelo.getUsuarioLogueado().getIdUsuario(), getIdUsuarioPara(this.vista.getTxtPara().getText()),
 									this.vista.getTextAsunto().getText(), this.vista.getTextAreaMensaje().getText(),
 									null, true, false);
 							this.modelo.agregarRecado(recado);
@@ -116,7 +115,7 @@ public class RecadoEnviarPanelControlador implements ActionListener {
 				} else {
 					if (validarUsuario(this.vista.getTxtPara().getText())) {
 						// TODO agregar el id del usuario o nombre del logueado -- 3er parametro
-						RecadoDTO recado = new RecadoDTO(0, 1, getIdUsuarioPara(this.vista.getTxtPara().getText()),
+						RecadoDTO recado = new RecadoDTO(0, modelo.getUsuarioLogueado().getIdUsuario(), getIdUsuarioPara(this.vista.getTxtPara().getText()),
 								this.vista.getTextAsunto().getText(), this.vista.getTextAreaMensaje().getText(), null,
 								true, false);
 						this.modelo.agregarRecado(recado);
