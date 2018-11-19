@@ -6,6 +6,8 @@ import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 
 import modelo.AdministracionDeCursos;
+import presentacion.vista.AdministracionDeCursosVista;
+import presentacion.vista.AdministrativoVista;
 import presentacion.vista.ContactoABMPanel;
 import presentacion.vista.ContactoVistaPrincipal;
 
@@ -15,11 +17,15 @@ public class ContactoABMVistaPrincipalControlador {
 	
 	private ContactoABMControlador contactoABMControlador;
 	private ContactoABMPanel contactoABM;
+	private AdministrativoVista administrativoVista;
+	private AdministrativoVistaControlador administrativoVistaControlador;
+	private AdministracionDeCursosVista administracionVista;
 	
-	public ContactoABMVistaPrincipalControlador(AdministracionDeCursos modelo, ContactoVistaPrincipal vista) {
+	public ContactoABMVistaPrincipalControlador(AdministracionDeCursos modelo, ContactoVistaPrincipal vista, AdministracionDeCursosVista administracionVista) {
 		super();
 		this.modelo = modelo;
 		this.vista = vista;
+		this.administracionVista = administracionVista;
 		
 		this.vista.getBtnSeleccionar().addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -45,8 +51,22 @@ public class ContactoABMVistaPrincipalControlador {
 			}
 		});
 		
+		this.vista.getLblHome().addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mousePressed(java.awt.event.MouseEvent evt) {
+				btnHome_MousePressed(evt);
+			}
+		});
+		
 	}
 
+	private void btnHome_MousePressed(MouseEvent evt) {
+		this.administracionVista.getFrame().dispose();
+		administrativoVista = new AdministrativoVista();
+		administrativoVistaControlador = new AdministrativoVistaControlador(administrativoVista,
+				modelo);
+		administrativoVistaControlador.inicializar();
+	}
+	
 	private void btnSeleccionar_MousePressed(MouseEvent evt) {
 		setColor(this.vista.getBtnSeleccionar());
 		setColor(this.vista.getMainPanel());

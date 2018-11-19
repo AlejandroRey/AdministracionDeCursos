@@ -55,6 +55,7 @@ public class SupervisorVista {
 		frmSupervisor = new JFrame();
 		frmSupervisor.setTitle("Supervisor");
 		frmSupervisor.setBounds(100, 100, 449, 259);
+		frmSupervisor.setLocationRelativeTo(null);
 		frmSupervisor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmSupervisor.getContentPane().setLayout(null);
 		frmSupervisor.setVisible(true);

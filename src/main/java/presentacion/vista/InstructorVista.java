@@ -52,6 +52,7 @@ public class InstructorVista {
 		frmInstructor = new JFrame();
 		frmInstructor.setTitle("Instructor");
 		frmInstructor.setBounds(100, 100, 450, 279);
+		frmInstructor.setLocationRelativeTo(null);
 		frmInstructor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmInstructor.getContentPane().setLayout(null);
 		frmInstructor.setVisible(true);

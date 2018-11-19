@@ -147,8 +147,6 @@ public class RecadoABMVistaPrincipalControlador {
 	}
 
 	public void btnHome_MousePressed(MouseEvent evt) {
-//		this.vista.getMainPanel().setVisible(false);
-		System.out.println("click");
 		this.administracionVista.getFrame().dispose();
 		administrativoVista = new AdministrativoVista();
 		administrativoVistaControlador = new AdministrativoVistaControlador(administrativoVista,

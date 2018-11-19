@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
+import javax.swing.WindowConstants;
 
 public class UsuarioCambioContraseñaVista {
 
@@ -26,6 +27,7 @@ public class UsuarioCambioContraseñaVista {
 		cambioContraseñaFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		cambioContraseñaFrame.setLocationRelativeTo(null);
 		cambioContraseñaFrame.getContentPane().setLayout(null);
+		cambioContraseñaFrame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 		cargarContenido();
 		cambioContraseñaFrame.setVisible(true);
 	}

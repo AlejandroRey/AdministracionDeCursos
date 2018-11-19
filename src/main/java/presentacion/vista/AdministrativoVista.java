@@ -58,6 +58,7 @@ public class AdministrativoVista {
 		frmAdministrativo = new JFrame();
 		frmAdministrativo.setTitle("Administrativo");
 		frmAdministrativo.setBounds(100, 100, 525, 372);
+		frmAdministrativo.setLocationRelativeTo(null);
 		frmAdministrativo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmAdministrativo.getContentPane().setLayout(null);
 		frmAdministrativo.setVisible(true);

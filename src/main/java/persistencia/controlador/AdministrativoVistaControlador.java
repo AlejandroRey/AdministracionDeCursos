@@ -107,7 +107,7 @@ public class AdministrativoVistaControlador implements ActionListener {
 			
 			if (contactoABM == null) {
 				contactoABM = new ContactoVistaPrincipal();
-				contactoABMControlador = new ContactoABMVistaPrincipalControlador(modelo, contactoABM);
+				contactoABMControlador = new ContactoABMVistaPrincipalControlador(modelo, contactoABM, administracionVista);
 				
 				this.administracionVista.getMainPanel().add(contactoABM);
 			}	
@@ -126,6 +126,7 @@ public class AdministrativoVistaControlador implements ActionListener {
 			}
 		}
 		if (e.getSource() == this.vista.getBtnCursos()) {
+			// TODO
 			this.vista.getFrmAdministrativo().dispose();
 			administracionVista = new AdministracionDeCursosVista();
 			controlador = new AdministracionDeCursosControlador(modelo, administracionVista);
@@ -133,7 +134,7 @@ public class AdministrativoVistaControlador implements ActionListener {
 			
 			if (cursoABM == null) {
 				cursoABM = new CursoABMVistaPrincipal();
-				cursoABMControlador = new CursoABMVistaPrincipalControlador(modelo , cursoABM);
+				cursoABMControlador = new CursoABMVistaPrincipalControlador(modelo , cursoABM,administracionVista);
 				
 				this.administracionVista.getMainPanel().add(cursoABM);
 			}

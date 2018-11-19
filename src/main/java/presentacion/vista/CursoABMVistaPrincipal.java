@@ -393,4 +393,12 @@ public class CursoABMVistaPrincipal extends JPanel {
 		this.lblIconoPrincipal = lblIconoPrincipal;
 	}
 
+	public JLabel getLblHome() {
+		return lblHome;
+	}
+
+	public void setLblHome(JLabel lblHome) {
+		this.lblHome = lblHome;
+	}
+
 }

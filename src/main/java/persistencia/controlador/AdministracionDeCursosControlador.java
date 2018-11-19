@@ -81,7 +81,7 @@ public class AdministracionDeCursosControlador implements ActionListener {
 		if (e.getSource() == this.vista.getMenuItemContactoVer()) {
 			if (contactoABM == null) {
 				contactoABM = new ContactoVistaPrincipal();
-				contactoABMControlador = new ContactoABMVistaPrincipalControlador(modelo, contactoABM);
+				contactoABMControlador = new ContactoABMVistaPrincipalControlador(modelo, contactoABM, vista);
 				
 				this.vista.getMainPanel().add(contactoABM);
 			}	
@@ -95,7 +95,7 @@ public class AdministracionDeCursosControlador implements ActionListener {
 		} else if (e.getSource()== this.vista.getMenuItemCursoVer()) {
 			if (cursoABM == null) {
 				cursoABM = new CursoABMVistaPrincipal();
-				cursoABMControlador = new CursoABMVistaPrincipalControlador(modelo , cursoABM);
+				cursoABMControlador = new CursoABMVistaPrincipalControlador(modelo , cursoABM, vista);
 				
 				this.vista.getMainPanel().add(cursoABM);
 			}			

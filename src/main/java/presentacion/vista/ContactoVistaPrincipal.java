@@ -399,4 +399,14 @@ private JPanel mainPanel;
 	public void setLblIconoPrincipal(JLabel lblIconoPrincipal) {
 		this.lblIconoPrincipal = lblIconoPrincipal;
 	}
+
+	public JLabel getLblHome() {
+		return lblHome;
+	}
+
+	public void setLblHome(JLabel lblHome) {
+		this.lblHome = lblHome;
+	}
+	
+	
 }
