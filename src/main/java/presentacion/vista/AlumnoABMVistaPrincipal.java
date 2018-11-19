@@ -56,11 +56,17 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 	
 	private JPanel btnContactos;
 	private JLabel lblTitleBtn8;
-	private JLabel lblContactos;	
+	private JLabel lblContactos;
+	
+	private JPanel btnTareas;
+	private JLabel lblTitleBtn9;
+	private JLabel lblTareas;
+	
 	private JPanel btnHomeI;
 	private JPanel panelHistorial;
 	private JLabel label;
 	private JLabel lblAlumnoActual;
+	
 	private JPanel btnHomeII;
 	private JLabel lblHomeII;
 
@@ -115,7 +121,7 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		panelHistorial.add(lblAlumnoActual);
 		
 		panelBtnHistorialAlumno = new JPanel();
-		panelBtnHistorialAlumno.setBounds(0, 240, 200, 203);
+		panelBtnHistorialAlumno.setBounds(0, 240, 200, 251);
 		panelHistorial.add(panelBtnHistorialAlumno);
 		panelBtnHistorialAlumno.setLayout(null);
 		panelBtnHistorialAlumno.setBackground(new Color(23, 35, 51));
@@ -195,6 +201,25 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		lblContactos.setEnabled(true);
 		lblContactos.setBounds(74, 25, 116, 14);
 		btnContactos.add(lblContactos);
+		
+		btnTareas = new JPanel();
+		btnTareas.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		btnTareas.setLayout(null);
+		btnTareas.setBackground(new Color(23, 35, 51));
+		btnTareas.setBounds(0, 202, 200, 50);
+		panelBtnHistorialAlumno.add(btnTareas);
+		
+		lblTitleBtn9 = new JLabel("New label");
+		lblTitleBtn9.setIcon(new ImageIcon("imagenes/history_32.png"));
+		lblTitleBtn9.setBounds(10, 11, 32, 32);
+		btnTareas.add(lblTitleBtn9);
+		
+		lblTareas = new JLabel("Tareas");
+		lblTareas.setForeground(Color.WHITE);
+		lblTareas.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblTareas.setEnabled(true);
+		lblTareas.setBounds(74, 25, 116, 14);
+		btnTareas.add(lblTareas);
 
 		mainPanel = new JPanel();
 		mainPanel.setBounds(200, 0, 1162, 736);
@@ -564,5 +589,42 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 	 */
 	public void setLblAlumnoActual(JLabel lblAlumnoActual) {
 		this.lblAlumnoActual = lblAlumnoActual;
+	}
+	
+	/**
+	 * @return the btnTareas
+	 */
+	public JPanel getBtnTareas() {
+		return btnTareas;
+	}
+ 	/**
+	 * @param btnTareas the btnTareas to set
+	 */
+	public void setBtnTareas(JPanel btnTareas) {
+		this.btnTareas = btnTareas;
+	}
+ 	/**
+	 * @return the lblTitleBtn9
+	 */
+	public JLabel getLblTitleBtn9() {
+		return lblTitleBtn9;
+	}
+ 	/**
+	 * @param lblTitleBtn9 the lblTitleBtn9 to set
+	 */
+	public void setLblTitleBtn9(JLabel lblTitleBtn9) {
+		this.lblTitleBtn9 = lblTitleBtn9;
+	}
+ 	/**
+	 * @return the lblTareas
+	 */
+	public JLabel getLblTareas() {
+		return lblTareas;
+	}
+ 	/**
+	 * @param lblTareas the lblTareas to set
+	 */
+	public void setLblTareas(JLabel lblTareas) {
+		this.lblTareas = lblTareas;
 	}
 }

@@ -10,7 +10,9 @@ import dto.AlumnoDTO;
 import modelo.AdministracionDeCursos;
 import presentacion.vista.AlumnoABMPanel;
 import presentacion.vista.AlumnoABMVistaPrincipal;
+import presentacion.vista.AlumnoContactoPanel;
 import presentacion.vista.AlumnoHistorialNotaPanel;
+import presentacion.vista.AlumnoTareaPanel;
 
 public class AlumnoABMVistaPrincipalControlador {
 
@@ -22,6 +24,12 @@ public class AlumnoABMVistaPrincipalControlador {
 	
 	private AlumnoHistorialNotaControlador alumnoHistorialNotaControlador;
 	private AlumnoHistorialNotaPanel alumnoHistorialNota;
+	
+	private AlumnoTareaControlador alumnoTareaControlador;
+	private AlumnoTareaPanel alumnoTarea;
+	
+	private AlumnoContactoControlador alumnoContactoControlador;
+	private AlumnoContactoPanel alumnoContacto;
 	
 	private AlumnoDTO alumnoDTO;
 
@@ -75,6 +83,12 @@ public class AlumnoABMVistaPrincipalControlador {
 		this.vista.getBtnContactos().addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mousePressed(java.awt.event.MouseEvent evt) {
 				btnContactos_MousePressed(evt);
+			}
+		});
+		
+		this.vista.getBtnTareas().addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mousePressed(java.awt.event.MouseEvent evt) {
+				btnTareas_MousePressed(evt);
 			}
 		});
 		
@@ -194,7 +208,7 @@ public class AlumnoABMVistaPrincipalControlador {
 		} else {
 			alumnoABMControlador.setVisibleBtnEliminar();
 		}
-
+		this.vista.getMainPanel().revalidate();
 		this.vista.getMainPanel().repaint();
 	}
 	
@@ -202,7 +216,8 @@ public class AlumnoABMVistaPrincipalControlador {
 		setColor(this.vista.getBtnNotas());
 		resetColor(new JPanel[] { this.vista.getBtnAsistencias(),
 								  this.vista.getBtnPagos(), 
-								  this.vista.getBtnContactos()});
+								  this.vista.getBtnContactos(),
+								  this.vista.getBtnTareas()});
 		
 		clearMainPanel();
 		
@@ -221,8 +236,8 @@ public class AlumnoABMVistaPrincipalControlador {
 		setColor(this.vista.getBtnAsistencias());
 		resetColor(new JPanel[] { this.vista.getBtnNotas(),
 								  this.vista.getBtnPagos(), 
-								  this.vista.getBtnContactos()});
-		
+								  this.vista.getBtnContactos(),
+								  this.vista.getBtnTareas()});		
 		clearMainPanel();
 		refreshVistas();
 	}
@@ -231,19 +246,47 @@ public class AlumnoABMVistaPrincipalControlador {
 		setColor(this.vista.getBtnPagos());
 		resetColor(new JPanel[] { this.vista.getBtnNotas(),
 								  this.vista.getBtnAsistencias(),
-								  this.vista.getBtnContactos()});
-		
+								  this.vista.getBtnContactos(),
+								  this.vista.getBtnTareas()});		
 		clearMainPanel();
 		refreshVistas();		
 	}
 	
 	private void btnContactos_MousePressed(MouseEvent evt) {
+		clearMainPanel();
 		setColor(this.vista.getBtnContactos());
 		resetColor(new JPanel[] { this.vista.getBtnNotas(),
 								  this.vista.getBtnAsistencias(), 
-								  this.vista.getBtnPagos()});
+								  this.vista.getBtnPagos(),
+								  this.vista.getBtnTareas()});
+		if (alumnoContacto == null && alumnoDTO != null) {
+			alumnoContacto = new AlumnoContactoPanel();
+			alumnoContactoControlador = new AlumnoContactoControlador( alumnoContacto, modelo, alumnoDTO);
+			alumnoContactoControlador.inicializar();
+			
+			this.vista.getMainPanel().add(alumnoContacto);
+		}
 		
+		refreshVistas();
+	}
+	
+	private void btnTareas_MousePressed(MouseEvent evt) {
 		clearMainPanel();
+		
+		setColor(this.vista.getBtnTareas());
+		resetColor(new JPanel[] { this.vista.getBtnNotas(),
+								  this.vista.getBtnAsistencias(), 
+								  this.vista.getBtnPagos(),
+								  this.vista.getBtnContactos()});
+		
+		if (alumnoTarea == null && alumnoDTO != null) {
+			alumnoTarea = new AlumnoTareaPanel();
+			alumnoTareaControlador = new AlumnoTareaControlador( modelo, alumnoTarea, alumnoDTO);
+			alumnoTareaControlador.inicializar();
+			
+			this.vista.getMainPanel().add(alumnoTarea);
+		}
+		
 		refreshVistas();
 	}
 	
@@ -289,6 +332,14 @@ public class AlumnoABMVistaPrincipalControlador {
 		if (alumnoHistorialNota != null) {
 			alumnoHistorialNotaControlador = null;
 			alumnoHistorialNota = null;
+		}
+		if (alumnoTarea != null) {
+			alumnoTareaControlador = null;
+			alumnoTarea = null;
+		}
+		if (alumnoContacto != null) {
+			alumnoContactoControlador = null;
+			alumnoContacto = null;
 		}
 
 		this.vista.getMainPanel().removeAll();
