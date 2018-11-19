@@ -3,7 +3,7 @@ package dto;
 public class ContactoCompletoDTO {
 	
 	private ContactoDTO contacto;
-	private AlumnoDTO alumno;
+	private AlumnoDTO alumno;//
 	private String curso;
 	private String nombreAdministrativo;
 	private String apellidoAdministrativo;
