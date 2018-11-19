@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+import dto.UsuarioDTO;
 import modelo.AdministracionDeCursos;
 import persistencia.dao.mysql.DAOSQLFactory;
 import presentacion.vista.AdministracionDeCursosVista;
@@ -14,6 +15,7 @@ import presentacion.vista.ContactoVistaPrincipal;
 import presentacion.vista.CursadaABMVistaPrincipal;
 import presentacion.vista.CursoABMVistaPrincipal;
 import presentacion.vista.LoginVista;
+import presentacion.vista.NotificacionPanel;
 import presentacion.vista.SalaABMVistaPrincipal;
 import presentacion.vista.TareaABMVistaPrincipal;
 import presentacion.vista.UsuarionABMVistaPrincipal;
@@ -41,6 +43,8 @@ public class AdministrativoVistaControlador implements ActionListener {
 	private ContactoABMVistaPrincipalControlador contactoABMControlador;
 	private UsuarionABMVistaPrincipal instructorABM;
 	private UsuarioABMVistaPrincipalControlador instructorABMControlador;
+	private NotificacionPanel notificacionVista;
+	private NotificacionControlador notificacionControlador;
 	
 	public AdministrativoVistaControlador(AdministrativoVista vista) {
 		super();
@@ -154,7 +158,19 @@ public class AdministrativoVistaControlador implements ActionListener {
 			}
 		}
 		if (e.getSource() == this.vista.getBtnNotificaciones()) {
-			JOptionPane.showMessageDialog(null, "Esta función todavía no está desarrollada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+			this.vista.getFrmAdministrativo().dispose();
+			modelo = new AdministracionDeCursos(new DAOSQLFactory());
+			administracionVista = new AdministracionDeCursosVista();
+			controlador = new AdministracionDeCursosControlador(modelo, administracionVista);
+			controlador.inicializar();
+			UsuarioDTO usuario = new UsuarioDTO(3, 2, "Pablo", "Drink", "+549 11 7755 9932", "frerfsdscvsdc@gmail.com", "pablo", "admin");
+			
+			if(notificacionVista == null) {
+				notificacionVista = new NotificacionPanel();
+				administracionVista.getMainPanel().add(notificacionVista);
+				notificacionControlador = new NotificacionControlador(modelo, notificacionVista, administracionVista, controlador);
+				notificacionControlador.inicializar();
+			}
 		}
 		if (e.getSource() == this.vista.getBtnRecados()) {
 			JOptionPane.showMessageDialog(null, "Esta función todavía no está desarrollada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);

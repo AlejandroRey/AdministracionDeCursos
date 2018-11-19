@@ -24,6 +24,7 @@ import dto.FechaCursadaClaseDTO;
 import dto.FeriadoDTO;
 import dto.InscriptoDTO;
 import dto.NotaDTO;
+import dto.NotificacionDTO;
 import dto.SalaDTO;
 import dto.SalaDisponibilidadDTO;
 import dto.SalaDisponibleDTO;
@@ -57,6 +58,7 @@ import persistencia.dao.interfaz.EvaluacionDAO;
 import persistencia.dao.interfaz.EvaluacionTipoDAO;
 import persistencia.dao.interfaz.EvaluacionCursadaDAO;
 import persistencia.dao.interfaz.NotaDAO;
+import persistencia.dao.interfaz.NotificacionDAO;
 
 public class AdministracionDeCursos {
 
@@ -87,6 +89,7 @@ public class AdministracionDeCursos {
 	private EvaluacionTipoDAO evaluacionTipoDAO;
 	private EvaluacionCursadaDAO evaluacionCursadaDAO;
 	private NotaDAO notaDAO;
+	private NotificacionDAO notificacion;
 
 	public AdministracionDeCursos(DAOAbstractFactory metodo_persistencia) {
 		
@@ -117,6 +120,7 @@ public class AdministracionDeCursos {
 		this.evaluacionTipoDAO = metodo_persistencia.createEvaluacionTipoDAO();
 		this.evaluacionCursadaDAO = metodo_persistencia.createEvaluacionCursadaDAO();
 		this.notaDAO = metodo_persistencia.createNotaDAO();
+		this.notificacion = metodo_persistencia.createNotificacionDAO();
 	}
 	
 	/* ****************************************************************
@@ -137,6 +141,26 @@ public class AdministracionDeCursos {
 	
 	public List<AlumnoDTO> obtenerAlumnos() {
 		return this.alumno.readAll();
+	}
+	
+	/* ****************************************************************
+	 *                         Notificacion
+	 * ****************************************************************
+	 */
+	public void agregarNotificacion(NotificacionDTO nuevaNotificacion) {
+		this.notificacion.insert(nuevaNotificacion);
+	}
+
+	public void borrarNotificacion(NotificacionDTO notificacion_a_eliminar) {
+		this.notificacion.delete(notificacion_a_eliminar);
+	}
+	
+	public void actualizarNotificacion(NotificacionDTO notificacion_a_actualizar) {
+		this.notificacion.update(notificacion_a_actualizar);
+	}
+	
+	public List<NotificacionDTO> obtenerNotificaciones() {
+		return this.notificacion.readAll();
 	}
 	
 	/* ****************************************************************

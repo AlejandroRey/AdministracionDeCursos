@@ -40,12 +40,16 @@ public class Main {
 		} catch (UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		} finally {
+			LoginVista vista = new LoginVista();
 			AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
-			AdministracionDeCursosVista vista = new AdministracionDeCursosVista();
-			AdministracionDeCursosControlador controlador = new AdministracionDeCursosControlador(modelo, vista);
+			LoginVistaControlador controlador = new LoginVistaControlador(vista, modelo);
 			controlador.inicializar();
-			vista.getFrame().revalidate();
-			vista.getFrame().repaint();
+			//AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
+			//AdministracionDeCursosVista vista = new AdministracionDeCursosVista();
+			//AdministracionDeCursosControlador controlador = new AdministracionDeCursosControlador(modelo, vista);
+			//controlador.inicializar();
+			//vista.getFrame().revalidate();
+			//vista.getFrame().repaint();
 		}
 		
 //		String str = "2017-10-01 01:00:00";
@@ -72,21 +76,15 @@ public class Main {
 //			System.out.println(salaDisponibleDTO.toString());
 //		}
 
-		AlumnoHistorialCursadasDAOSQL mySql = new AlumnoHistorialCursadasDAOSQL();
-		AlumnoDTO alumnoDTO = new AlumnoDTO(1, "", "", "", "");
+//		AlumnoHistorialCursadasDAOSQL mySql = new AlumnoHistorialCursadasDAOSQL();
+//		AlumnoDTO alumnoDTO = new AlumnoDTO(1, "", "", "", "");
 		
-		for (AlumnoHistorialCursadaDTO	alumno : mySql.readAllCursada(alumnoDTO)) {
-			System.out.println(alumno.toString());
-		}
+//		for (AlumnoHistorialCursadaDTO	alumno : mySql.readAllCursada(alumnoDTO)) {
+//			System.out.println(alumno.toString());
+//		}
 		
-		for (AlumnoHistorialNotaDTO	nota : mySql.readAllNota(1, 1)) {
-			System.out.println(nota.toString());
-		}
-
-//		LoginVista vista = new LoginVista();
-//		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
-//		LoginVistaControlador controlador = new LoginVistaControlador(vista, modelo);
-//		controlador.inicializar();
-
+//		for (AlumnoHistorialNotaDTO	nota : mySql.readAllNota(1, 1)) {
+//			System.out.println(nota.toString());
+//		}
 	}
 }

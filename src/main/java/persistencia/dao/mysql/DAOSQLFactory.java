@@ -23,6 +23,7 @@ import persistencia.dao.interfaz.FechaCursadaClaseDAO;
 import persistencia.dao.interfaz.FeriadoDAO;
 import persistencia.dao.interfaz.InscriptoDAO;
 import persistencia.dao.interfaz.NotaDAO;
+import persistencia.dao.interfaz.NotificacionDAO;
 import persistencia.dao.interfaz.SalaDAO;
 import persistencia.dao.interfaz.SalaDisponibilidadDAO;
 import persistencia.dao.interfaz.SalaDisponibleDAO;
@@ -34,6 +35,11 @@ public class DAOSQLFactory implements DAOAbstractFactory {
 	@Override
 	public ContactoDAO createContactoDAO() {
 		return new ContactoDAOSQL();
+	}
+	
+	@Override
+	public NotificacionDAO createNotificacionDAO() {
+		return new NotificacionDAOSQL();
 	}
 	
 	@Override

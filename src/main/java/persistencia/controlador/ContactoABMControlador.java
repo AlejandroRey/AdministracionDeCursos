@@ -366,7 +366,7 @@ public class ContactoABMControlador implements ActionListener {
 		return formatDateTime;
 	}
 	
-private LocalDateTime StringToLocalDateTime(String fecha) {
+	private LocalDateTime StringToLocalDateTime(String fecha) {
 		
 		String date = fecha + " 00:00:00";
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
