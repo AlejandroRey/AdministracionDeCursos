@@ -156,6 +156,7 @@ public class ContactoTareaControlador implements ActionListener{
 	private void ocultarColumnasTbTareas() {
 		ocultarColumnaTbTareas(0);
 		ocultarColumnaTbTareas(5);
+		ocultarColumnaTbTareas(8);
 	}
 	
 	private void ocultarColumnaTbTareas(int column) {

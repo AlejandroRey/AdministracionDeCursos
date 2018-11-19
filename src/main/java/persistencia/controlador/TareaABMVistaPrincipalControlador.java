@@ -1,5 +1,6 @@
 package persistencia.controlador;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 
@@ -88,7 +89,7 @@ public class TareaABMVistaPrincipalControlador {
 			tareaABMControlador = new TareaABMControlador(tareaABM, modelo);
 			tareaABMControlador.inicializar();
 			tareaABMControlador.setVisibleBtnActualizar();
-			this.vista.getMainPanel().add(tareaABM);
+			this.vista.getMainPanel().add(tareaABM,BorderLayout.CENTER);
 		} else {
 			tareaABMControlador.setVisibleBtnActualizar();
 		}
@@ -120,7 +121,7 @@ public class TareaABMVistaPrincipalControlador {
 	
 	private void resetColor(JPanel[] pane) {
 		for (int i = 0; i < pane.length; i++) {
-			pane[i].setBackground(new Color(47, 79, 79));
+			pane[i].setBackground(new Color(23, 35, 51));
 		}
 	}
 

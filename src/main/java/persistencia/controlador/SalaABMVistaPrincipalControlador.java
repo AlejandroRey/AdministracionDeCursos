@@ -1,5 +1,6 @@
 package persistencia.controlador;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 
@@ -64,7 +65,7 @@ public class SalaABMVistaPrincipalControlador {
 
 	private void btnAgregar_MousePressed(MouseEvent evt) {
 		setColor(this.vista.getBtnAgregar());
-		setColor(this.vista.getMainPanel());
+//		setColor(this.vista.getMainPanel());
 		resetColor(new JPanel[] {this.vista.getBtnActualizar(), this.vista.getBtnEliminar() });
 
 		if (salaABMControlador == null) {
@@ -83,7 +84,7 @@ public class SalaABMVistaPrincipalControlador {
 
 	private void btnActualizar_MousePressed(MouseEvent evt) {
 		setColor(this.vista.getBtnActualizar());
-		setColor(this.vista.getMainPanel());
+//		setColor(this.vista.getMainPanel());
 		resetColor(new JPanel[] {this.vista.getBtnAgregar(), this.vista.getBtnEliminar() });
 
 		if (salaABMControlador == null) {
@@ -102,7 +103,7 @@ public class SalaABMVistaPrincipalControlador {
 
 	private void btnEliminar_MousePressed(MouseEvent evt) {
 		setColor(this.vista.getBtnEliminar());
-		setColor(this.vista.getMainPanel());
+//		setColor(this.vista.getMainPanel());
 		resetColor(new JPanel[] {this.vista.getBtnActualizar(), this.vista.getBtnAgregar() });
 
 		if (salaABMControlador == null) {

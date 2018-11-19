@@ -69,7 +69,7 @@ public class ContactoABMVistaPrincipalControlador {
 	
 	private void btnSeleccionar_MousePressed(MouseEvent evt) {
 		setColor(this.vista.getBtnSeleccionar());
-		setColor(this.vista.getMainPanel());
+//		setColor(this.vista.getMainPanel());
 		resetColor(new JPanel[] { this.vista.getBtnAgregar(), this.vista.getBtnActualizar(), this.vista.getBtnEliminar() });
 
 		if (contactoABMControlador == null) {
@@ -88,7 +88,7 @@ public class ContactoABMVistaPrincipalControlador {
 
 	private void btnAgregar_MousePressed(MouseEvent evt) {		
 		setColor(this.vista.getBtnAgregar());
-		setColor(this.vista.getMainPanel());
+//		setColor(this.vista.getMainPanel());
 		resetColor(new JPanel[] { this.vista.getBtnSeleccionar(), this.vista.getBtnActualizar(), this.vista.getBtnEliminar() });
 
 		if (contactoABMControlador == null) {
@@ -107,7 +107,7 @@ public class ContactoABMVistaPrincipalControlador {
 
 	private void btnActualizar_MousePressed(MouseEvent evt) {
 		setColor(this.vista.getBtnActualizar());
-		setColor(this.vista.getMainPanel());
+//		setColor(this.vista.getMainPanel());
 		resetColor(new JPanel[] { this.vista.getBtnSeleccionar(), this.vista.getBtnAgregar(), this.vista.getBtnEliminar() });
 
 		if (contactoABMControlador == null) {
@@ -126,7 +126,7 @@ public class ContactoABMVistaPrincipalControlador {
 
 	private void btnEliminar_MousePressed(MouseEvent evt) {
 		setColor(this.vista.getBtnEliminar());
-		setColor(this.vista.getMainPanel());
+//		setColor(this.vista.getMainPanel());
 		resetColor(new JPanel[] { this.vista.getBtnSeleccionar(), this.vista.getBtnActualizar(), this.vista.getBtnAgregar() });
 
 		if (contactoABMControlador == null) {
