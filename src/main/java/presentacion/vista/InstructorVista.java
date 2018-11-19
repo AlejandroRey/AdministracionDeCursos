@@ -20,6 +20,7 @@ public class InstructorVista {
 	private JButton btnConsultarAsignaciones;
 	private JButton btnRecados;
 	private JButton btnCerrarSesion;	
+	private JButton buttonCambiarContrasenia;
 
 	/**
 	 * Launch the application.
@@ -51,7 +52,7 @@ public class InstructorVista {
 	private void initialize() {
 		frmInstructor = new JFrame();
 		frmInstructor.setTitle("Instructor");
-		frmInstructor.setBounds(100, 100, 450, 279);
+		frmInstructor.setBounds(100, 100, 450, 335);
 		frmInstructor.setLocationRelativeTo(null);
 		frmInstructor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmInstructor.getContentPane().setLayout(null);
@@ -81,8 +82,13 @@ public class InstructorVista {
 		
 		btnCerrarSesion = new JButton("Cerrar sesión");
 		btnCerrarSesion.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnCerrarSesion.setBounds(46, 185, 323, 36);
+		btnCerrarSesion.setBounds(46, 242, 323, 36);
 		frmInstructor.getContentPane().add(btnCerrarSesion);
+		
+		buttonCambiarContrasenia = new JButton("Cambiar Contraseña");
+		buttonCambiarContrasenia.setFont(new Font("Tahoma", Font.BOLD, 13));
+		buttonCambiarContrasenia.setBounds(46, 190, 323, 36);
+		frmInstructor.getContentPane().add(buttonCambiarContrasenia);
 	}
 
 	public JButton getBtnRegistrar() {
@@ -105,4 +111,13 @@ public class InstructorVista {
 		return frmInstructor;
 	}
 
+	public JButton getButtonCambiarContrasenia() {
+		return buttonCambiarContrasenia;
+	}
+
+	public void setButtonCambiarContrasenia(JButton buttonCambiarContrasenia) {
+		this.buttonCambiarContrasenia = buttonCambiarContrasenia;
+	}
+	
+	
 }

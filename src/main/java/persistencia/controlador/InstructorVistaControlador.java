@@ -11,6 +11,7 @@ import presentacion.vista.InstructorAdministracionVista;
 import presentacion.vista.InstructorVista;
 import presentacion.vista.LoginVista;
 import presentacion.vista.RecadoABMVistaPrincipal;
+import presentacion.vista.UsuarioCambioContraseñaVista;
 
 public class InstructorVistaControlador implements ActionListener {
 	
@@ -29,6 +30,7 @@ public class InstructorVistaControlador implements ActionListener {
 		this.vista.getBtnConsultarAsignaciones().addActionListener(this);
 		this.vista.getBtnRecados().addActionListener(this);
 		this.vista.getBtnRegistrar().addActionListener(this);
+		this.vista.getButtonCambiarContrasenia().addActionListener(this);
 	}
 	
 	public void inicializar() {
@@ -42,9 +44,7 @@ public class InstructorVistaControlador implements ActionListener {
 			AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
 			LoginVistaControlador controlador = new LoginVistaControlador(vista, modelo);
 			controlador.inicializar();
-		}
-		
-		if (e.getSource() == this.vista.getBtnRecados()) {
+		} else if (e.getSource() == this.vista.getBtnRecados()) {
 			this.vista.getFrmInstructor().dispose();
 			instructorAdministracionVista = new InstructorAdministracionVista();
 			instructorAdministracionVistaControlador = new InstructorAdministracionVistaControlador(modelo, instructorAdministracionVista);
@@ -54,16 +54,16 @@ public class InstructorVistaControlador implements ActionListener {
 				recadoABMControlador = new RecadoABMVistaPrincipalControlador(modelo, recadoABMVistaPrincipal, null, null, instructorAdministracionVista);				
 				this.instructorAdministracionVista.getMainPanel().add(recadoABMVistaPrincipal);
 			}
-		}
-		
-		if (e.getSource() == this.vista.getBtnConsultarAsignaciones()) {
+		} else if (e.getSource() == this.vista.getBtnConsultarAsignaciones()) {
 			// TODO CONSULTAR ASIGNACIONES
 			JOptionPane.showMessageDialog(null, "Esta función todavía no esta desarrollada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-		}
-		
-		if (e.getSource() == this.vista.getBtnRegistrar()) {
+		} else if (e.getSource() == this.vista.getBtnRegistrar()) {
 			// TODO REGISTRAR
 			JOptionPane.showMessageDialog(null, "Esta función todavía no esta desarrollada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+		} else if (e.getSource() == this.vista.getButtonCambiarContrasenia()) {
+			UsuarioCambioContraseñaVista vista = new UsuarioCambioContraseñaVista();
+			UsuarioCambioContraseñaVistaControlador controlador = new UsuarioCambioContraseñaVistaControlador(vista, modelo);
+			controlador.inicializar();
 		}
 	}
 
