@@ -48,21 +48,19 @@ public class SalaABMVistaPrincipal extends JPanel {
 	private void buildMainPanel() {
 
 		mainPanel = new JPanel();
-		mainPanel.setBorder(new MatteBorder(0, 0, 0, 0, (Color) new Color(245, 245, 245)));
 		mainPanel.setBounds(200, 0, 1162, 736);
 		add(mainPanel);
 		mainPanel.setLayout(null);
-		mainPanel.setBackground(new Color(0, 0, 0));	
+		mainPanel.setBackground(UIManager.getColor("Panel.background"));	
 	}
 
 	private void buildButtonPanel() {
 
 		buttonPanel = new JPanel();
-		buttonPanel.setBorder(new MatteBorder(0, 0, 0, 1, (Color) new Color(245, 245, 245)));
 		buttonPanel.setBounds(0, 0, 202, 736);
 		add(buttonPanel);
 		buttonPanel.setLayout(null);
-		buttonPanel.setBackground(new Color(0, 0, 0));
+		buttonPanel.setBackground(new Color(23, 35, 51));
 
 		buildButtonAgregar();
 		buildButtonActualizar();
@@ -72,9 +70,8 @@ public class SalaABMVistaPrincipal extends JPanel {
 	private void buildButtonAgregar() {
 
 		btnAgregar = new JPanel();
-		btnAgregar.setBorder(new MatteBorder(1, 0, 1, 0, (Color) new Color(245, 245, 245)));
 		btnAgregar.setLayout(null);
-		btnAgregar.setBackground(new Color(0, 0, 0));
+		btnAgregar.setBackground(new Color(23, 35, 51));
 		btnAgregar.setBounds(0, 269, 200, 50);
 		buttonPanel.add(btnAgregar);
 		btnAgregar.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -96,9 +93,8 @@ public class SalaABMVistaPrincipal extends JPanel {
 	private void buildButtonActualizar() {
 
 		btnActualizar = new JPanel();
-		btnActualizar.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(245, 245, 245)));
 		btnActualizar.setLayout(null);
-		btnActualizar.setBackground(new Color(0, 0, 0));
+		btnActualizar.setBackground(new Color(23, 35, 51));
 		btnActualizar.setBounds(0, 319, 200, 50);
 		buttonPanel.add(btnActualizar);
 		btnActualizar.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -120,9 +116,8 @@ public class SalaABMVistaPrincipal extends JPanel {
 	private void buildButtonEliminar() {
 
 		btnEliminar = new JPanel();
-		btnEliminar.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(245, 245, 245)));
 		btnEliminar.setLayout(null);
-		btnEliminar.setBackground(new Color(0, 0, 0));
+		btnEliminar.setBackground(new Color(23, 35, 51));
 		btnEliminar.setBounds(0, 368, 200, 50);
 		buttonPanel.add(btnEliminar);
 		btnEliminar.setCursor(new Cursor(Cursor.HAND_CURSOR));

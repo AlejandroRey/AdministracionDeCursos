@@ -149,7 +149,7 @@ public class ContactoABMVistaPrincipalControlador {
 	
 	private void resetColor (JPanel[] pane) {
 		for (int i = 0; i < pane.length; i++) {
-			pane[i].setBackground(new Color(0, 0, 0));
+			pane[i].setBackground(new Color(23, 35, 51));
 		}
 	}
 }

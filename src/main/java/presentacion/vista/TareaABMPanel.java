@@ -66,7 +66,7 @@ public class TareaABMPanel extends JPanel {
 	
 	public TareaABMPanel() {
 		super();
-		setBackground(new Color(41, 57, 80));
+		setBackground(UIManager.getColor("Panel.background"));
 		inicializarTareaABMPanel();
 	}
 
@@ -88,17 +88,17 @@ public class TareaABMPanel extends JPanel {
 
 	private void inicializarPanelEditorTareas() {
 		panelEditor = new JPanel();
-		panelEditor.setForeground(new Color(255, 255, 255));
-		panelEditor.setBackground(new Color(41, 57, 80));
+		panelEditor.setForeground(UIManager.getColor("OptionPane.foreground"));
+		panelEditor.setBackground(UIManager.getColor("Panel.background"));
 		panelEditor.setBounds(27, 390, 706, 278);
-		panelEditor.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Tarea - Editor:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(255, 255, 255)));
+		panelEditor.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Tarea - Editor:", TitledBorder.LEADING, TitledBorder.TOP, null, UIManager.getColor("OptionPane.foreground")));
 		panelEditor.setLayout(null);
 		this.add(panelEditor);
 	}
 	
 	private void inicializarPanelAdministrativos() {
 		spAdministrativos = new JScrollPane();
-		spAdministrativos.getViewport().setBackground(new Color(41, 57, 80));
+		spAdministrativos.getViewport().setBackground(UIManager.getColor("Panel.background"));
 		spAdministrativos.setBounds(758, 27, 396, 641);
 		spAdministrativos.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Administrativos:", TitledBorder.LEADING, TitledBorder.TOP, null, UIManager.getColor("textText")));
 		this.add(spAdministrativos);
@@ -139,7 +139,7 @@ public class TareaABMPanel extends JPanel {
 
 	private void inicializarTablaTareas() {
 		spTareas = new JScrollPane();
-		spTareas.getViewport().setBackground(new Color(41, 57, 80));
+		spTareas.getViewport().setBackground(UIManager.getColor("Panel.background"));
 		spTareas.setBounds(27, 65, 706, 302);
 		this.add(spTareas);
 		
@@ -171,27 +171,32 @@ public class TareaABMPanel extends JPanel {
 
 	private void inicializarLbls() {
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setForeground(new Color(255, 255, 255));
+		lblNombre.setBackground(UIManager.getColor("OptionPane.foreground"));
+		lblNombre.setForeground(UIManager.getColor("OptionPane.foreground"));
 		lblNombre.setBounds(10, 30, 58, 14);
 		panelEditor.add(lblNombre);
 		
 		JLabel lblFecha = new JLabel("Fecha:");
-		lblFecha.setForeground(new Color(255, 255, 255));
+		lblFecha.setBackground(UIManager.getColor("OptionPane.foreground"));
+		lblFecha.setForeground(UIManager.getColor("OptionPane.foreground"));
 		lblFecha.setBounds(10, 59, 46, 14);
 		panelEditor.add(lblFecha);
 		
 		JLabel lblDescripcion = new JLabel("Descripcion:");
-		lblDescripcion.setForeground(new Color(255, 255, 255));
+		lblDescripcion.setBackground(UIManager.getColor("OptionPane.foreground"));
+		lblDescripcion.setForeground(UIManager.getColor("OptionPane.foreground"));
 		lblDescripcion.setBounds(10, 115, 98, 14);
 		panelEditor.add(lblDescripcion);
 		
 		JLabel lblResponsable = new JLabel("Responsable:");
-		lblResponsable.setForeground(new Color(255, 255, 255));
+		lblResponsable.setBackground(UIManager.getColor("OptionPane.foreground"));
+		lblResponsable.setForeground(UIManager.getColor("OptionPane.foreground"));
 		lblResponsable.setBounds(382, 30, 91, 14);
 		panelEditor.add(lblResponsable);
 		
 		JLabel lblEstado = new JLabel("Estado:");
-		lblEstado.setForeground(new Color(255, 255, 255));
+		lblEstado.setBackground(UIManager.getColor("OptionPane.foreground"));
+		lblEstado.setForeground(UIManager.getColor("OptionPane.foreground"));
 		lblEstado.setBounds(10, 87, 46, 14);
 		panelEditor.add(lblEstado);
 		

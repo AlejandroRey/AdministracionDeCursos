@@ -26,6 +26,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import java.awt.Cursor;
+import javax.swing.UIManager;
 
 @SuppressWarnings("serial")
 public class ContactoABMPanel extends JPanel {
@@ -63,7 +64,7 @@ public class ContactoABMPanel extends JPanel {
 			super();
 			setForeground(new Color(0, 0, 0));
 			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-			setBackground(new Color(41, 57, 80));
+			setBackground(UIManager.getColor("Panel.background"));
 			this.setBounds(0, 0, 1065, 656);
 			this.setLayout(null);
 			inicializar();
@@ -92,7 +93,7 @@ public class ContactoABMPanel extends JPanel {
 			tblContactos.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 			
 			spContactos = new JScrollPane(tblContactos);
-			spContactos.getViewport().setBackground(new Color(41, 57, 80)); 
+			spContactos.getViewport().setBackground(UIManager.getColor("Panel.background")); 
 			spContactos.setBounds(129, 25, 829, 358);
 			this.add(spContactos);
 			
@@ -100,8 +101,8 @@ public class ContactoABMPanel extends JPanel {
 
 		private void inicializarEditor() {		
 			panel = new JPanel();
-			panel.setBackground(new Color(41, 57, 80));
-			panel.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Contacto:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(255, 255, 255)));
+			panel.setBackground(UIManager.getColor("Panel.background"));
+			panel.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Contacto:", TitledBorder.LEADING, TitledBorder.TOP, null, UIManager.getColor("OptionPane.foreground")));
 			panel.setBounds(139, 403, 807, 242);
 			this.add(panel);
 			panel.setLayout(null);
@@ -154,7 +155,7 @@ public class ContactoABMPanel extends JPanel {
 			txtProximoContacto.setColumns(10);
 			
 			lblCursoDeInteres = new JLabel("Curso de interes:");
-			lblCursoDeInteres.setForeground(new Color(255, 255, 255));
+			lblCursoDeInteres.setForeground(UIManager.getColor("OptionPane.foreground"));
 			lblCursoDeInteres.setBackground(new Color(255, 255, 255));
 			lblCursoDeInteres.setBounds(10, 206, 123, 14);
 			panel.add(lblCursoDeInteres);
@@ -221,37 +222,37 @@ public class ContactoABMPanel extends JPanel {
 
 		private void inicializarLabels() {
 			JLabel lblNombre = new JLabel("Nombre:");
-			lblNombre.setForeground(new Color(255, 255, 255));
+			lblNombre.setForeground(UIManager.getColor("OptionPane.foreground"));
 			lblNombre.setBackground(new Color(255, 255, 255));
 			lblNombre.setBounds(10, 26, 77, 14);
 			panel.add(lblNombre);
 			
 			JLabel lblApellido = new JLabel("Apellido:");
-			lblApellido.setForeground(new Color(255, 255, 255));
+			lblApellido.setForeground(UIManager.getColor("OptionPane.foreground"));
 			lblApellido.setBackground(new Color(255, 255, 255));
 			lblApellido.setBounds(10, 51, 77, 14);
 			panel.add(lblApellido);
 			
 			JLabel lblTelefono = new JLabel("Teléfono:");
-			lblTelefono.setForeground(new Color(255, 255, 255));
+			lblTelefono.setForeground(UIManager.getColor("OptionPane.foreground"));
 			lblTelefono.setBackground(new Color(255, 255, 255));
 			lblTelefono.setBounds(459, 26, 77, 14);
 			panel.add(lblTelefono);
 			
 			JLabel lblEmail = new JLabel("Email:");
-			lblEmail.setForeground(new Color(255, 255, 255));
+			lblEmail.setForeground(UIManager.getColor("OptionPane.foreground"));
 			lblEmail.setBackground(new Color(255, 255, 255));
 			lblEmail.setBounds(459, 51, 57, 14);
 			panel.add(lblEmail);
 			
 			JLabel lblFechaDePrximo = new JLabel("Fecha de próximo contacto:");
-			lblFechaDePrximo.setForeground(new Color(255, 255, 255));
+			lblFechaDePrximo.setForeground(UIManager.getColor("OptionPane.foreground"));
 			lblFechaDePrximo.setBackground(new Color(255, 255, 255));
 			lblFechaDePrximo.setBounds(10, 177, 161, 14);
 			panel.add(lblFechaDePrximo);
 			
 			JLabel lblDescripcion = new JLabel("Descripción");
-			lblDescripcion.setForeground(new Color(255, 255, 255));
+			lblDescripcion.setForeground(UIManager.getColor("OptionPane.foreground"));
 			lblDescripcion.setBackground(new Color(255, 255, 255));
 			lblDescripcion.setBounds(10, 76, 77, 14);
 			panel.add(lblDescripcion);
