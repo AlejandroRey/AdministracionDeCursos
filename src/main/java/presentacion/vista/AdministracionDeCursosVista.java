@@ -33,6 +33,7 @@ public class AdministracionDeCursosVista {
 	private JMenu menuLogin;
 	private JMenuItem menuItemLogin;
 	private JMenuItem menuItemLogout;
+	private JMenuItem menuItemCambiarContraseña;
 	
 	private JMenu menuUsuario;
 	private JMenuItem menuItemUsuarioVer;
@@ -42,6 +43,12 @@ public class AdministracionDeCursosVista {
 	
 	private JMenu menuSala;
 	private JMenuItem menuItemSalaVer;
+	
+	private JMenu menuNotificaciones;
+	private JMenu menuItemNotificaciones;
+	
+	private JMenu menuRecados;
+	private JMenu menuItemRecados;
 
 	
 	/**
