@@ -25,7 +25,7 @@ public class AlumnoContactoPanel extends JPanel{
 	
 	public AlumnoContactoPanel() {
 		super();
-		setForeground(new Color(240,240,240));
+		setForeground(UIManager.getColor("Panel.background"));
 		setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		setBackground(UIManager.getColor("Panel.background"));
 		this.setBounds(0, 0, 1065, 656);

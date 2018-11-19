@@ -52,7 +52,7 @@ public class SalaABMPanel extends JPanel {
 
 	public SalaABMPanel() {
 		super();
-		setBackground(new Color(41, 57, 80));
+		setBackground(UIManager.getColor("Panel.background"));
 		inicializarSalaABMPanel();
 	}
 
@@ -72,18 +72,17 @@ public class SalaABMPanel extends JPanel {
 
 	private void inicializarPanelEditorSalas() {
 		panel = new JPanel();
-		panel.setBackground(new Color(41, 57, 80));
+		panel.setBackground(UIManager.getColor("Panel.background"));
 		panel.setForeground(new Color(255, 255, 255));
 		panel.setBounds(10, 28, 405, 327);
-		panel.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)),
-				"Sala - Editor:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(255, 255, 255)));
+		panel.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Sala - Editor:", TitledBorder.LEADING, TitledBorder.TOP, null, UIManager.getColor("OptionPane.foreground")));
 		panel.setLayout(null);
 		this.add(panel);
 	}
 
 	private void inicializarTablaSalas() {
 		spSalas = new JScrollPane();
-		spSalas.getViewport().setBackground(new Color(41, 57, 80));
+		spSalas.getViewport().setBackground(UIManager.getColor("Panel.background"));
 		spSalas.setBounds(440, 28, 615, 387);
 		this.add(spSalas);
 
@@ -118,28 +117,28 @@ public class SalaABMPanel extends JPanel {
 
 	private void inicializarLbls() {
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setForeground(new Color(255, 255, 255));
+		lblNombre.setForeground(UIManager.getColor("OptionPane.foreground"));
 		lblNombre.setBounds(10, 30, 92, 14);
 		panel.add(lblNombre);
 
 		JLabel lblCantidadDePc = new JLabel("Cantidad de Pc:");
-		lblCantidadDePc.setForeground(new Color(255, 255, 255));
+		lblCantidadDePc.setForeground(UIManager.getColor("OptionPane.foreground"));
 		lblCantidadDePc.setBounds(10, 65, 92, 14);
 		panel.add(lblCantidadDePc);
 
 		JLabel lblCantidadDeAlumnos = new JLabel("Cantidad de Alumnos:");
-		lblCantidadDeAlumnos.setForeground(new Color(255, 255, 255));
+		lblCantidadDeAlumnos.setForeground(UIManager.getColor("OptionPane.foreground"));
 		lblCantidadDeAlumnos.setBounds(10, 101, 112, 14);
 		panel.add(lblCantidadDeAlumnos);
 
 		JLabel lblId = new JLabel("ID:");
-		lblId.setForeground(new Color(255, 255, 255));
+		lblId.setForeground(UIManager.getColor("OptionPane.foreground"));
 		lblId.setVisible(false);
 		lblId.setBounds(10, 262, 46, 14);
 		panel.add(lblId);
 
 		JLabel lblDescripcion = new JLabel("Descripcion:");
-		lblDescripcion.setForeground(new Color(255, 255, 255));
+		lblDescripcion.setForeground(UIManager.getColor("OptionPane.foreground"));
 		lblDescripcion.setBounds(10, 139, 92, 14);
 		panel.add(lblDescripcion);
 

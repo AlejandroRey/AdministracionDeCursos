@@ -46,6 +46,7 @@ public class TareaABMControlador implements ActionListener{
 		this.panelContacto = null;
 		this.dialog = null;
 		this.ctr = null;
+		this.currentAdministrativo = this.modelo.getUsuarioLogueado();
 		
 		this.validator = new Validator();
 		this.vista.getBtnAgregar().addActionListener(this);
@@ -268,9 +269,9 @@ public class TareaABMControlador implements ActionListener{
 	
 	private void cerrarTarea() {
 		if(hayTareaSeleccionada()){
-//			if(datosValidos()){
-//				int cerrar = OptionPanel.confimarcion("Esta seguro que desea cerrar esta tarea?", "Cerrar tarea");
-//				if(cerrar == 0){
+			if(datosValidos()){
+				int cerrar = OptionPanel.confimarcion("Esta seguro que desea cerrar esta tarea?", "Cerrar tarea");
+				if(cerrar == 0){
 					TareaDTO tarea = new TareaDTO(Long.parseLong(this.vista.getTxtID().getText()),
 							Long.parseLong(this.vista.getTxtIDResponsable().getText()),
 							Long.parseLong(this.vista.getTxtIDAlumno().getText()),
@@ -280,20 +281,23 @@ public class TareaABMControlador implements ActionListener{
 							LocalDateTime.now(),
 							StringToLocalDateTime(this.vista.getTxtFecha().getText(),"00:00:00"),
 							LocalDateTime.now());
-//					this.modelo.actualizarTarea(tarea);
-//					OptionPanel.mensaje("La tarea ha sido cerrada correctamente", "Tarea");
-//					generarTablas();
-//				}
-//			}
-			panelContacto = new ContactoABMPanel();
-			dialog = new ContactoTareaDialog();
-			dialog.setContactoTareaPanel(panelContacto);
-			dialog.setContactoTareaPanel(panelContacto);
-			dialog.setSize(1100, 700);
-			ctr = new TareaContactoControlador(dialog, modelo,this);
-			ctr.setTarea(tarea);
-			ctr.inicializar();
-
+					this.modelo.actualizarTarea(tarea);
+					OptionPanel.mensaje("La tarea ha sido cerrada correctamente", "Tarea");
+					generarTablas();
+					if(tarea.getIdTarea() > 0){
+						if(OptionPanel.confimarcion("¿Desea generar un nuevo contacto?", "Generar Contacto") == 0){
+							panelContacto = new ContactoABMPanel();
+							dialog = new ContactoTareaDialog();
+							dialog.setContactoTareaPanel(panelContacto);
+							dialog.setContactoTareaPanel(panelContacto);
+							dialog.setSize(1100, 700);
+							ctr = new TareaContactoControlador(dialog, modelo,this);
+							ctr.setTarea(tarea);
+							ctr.inicializar();
+						}
+					}
+				}
+			}
 		}
 	}
 

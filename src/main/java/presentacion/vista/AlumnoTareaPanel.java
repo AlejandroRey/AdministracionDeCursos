@@ -5,12 +5,14 @@ import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.SystemColor;
  
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
@@ -30,7 +32,7 @@ public class AlumnoTareaPanel extends JPanel{
  	
 	public AlumnoTareaPanel() {
 		super();
-		setBackground(new Color(245, 245, 245));
+		setBackground(UIManager.getColor("Panel.background"));
 		inicializarTareaAlumnoPanel();
 	}
  	private void inicializarTareaAlumnoPanel() {
@@ -57,7 +59,7 @@ public class AlumnoTareaPanel extends JPanel{
 	}
  	private void inicializarTablaTareas() {
 		spTareas = new JScrollPane();
-		spTareas.getViewport().setBackground(new Color(245, 245, 245));
+		spTareas.getViewport().setBackground(UIManager.getColor("Panel.background"));
 		spTareas.setBounds(27, 65, 706, 507);
 		this.add(spTareas);
 		

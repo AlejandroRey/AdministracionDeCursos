@@ -54,6 +54,8 @@ public class ContactoABMControlador implements ActionListener {
 		this.panelTarea = null;
 		this.dialog = null;
 		this.ctr = null;
+		this.currentAdministrativo = modelo.getUsuarioLogueado();
+		
 		this.vista.getBtnActualizar().addActionListener(this);
 		this.vista.getBtnAgregar().addActionListener(this);
 		this.vista.getBtnEliminar().addActionListener(this);
@@ -327,7 +329,8 @@ public class ContactoABMControlador implements ActionListener {
 		if (datosValidos()) {
 			CursoDTO curso = (CursoDTO) this.vista.getComboBoxCursoDeInteres().getSelectedItem();
 			System.out.println(Long.parseLong(vista.getTxtIDAlumno().getText()));
-			ContactoDTO contacto = new ContactoDTO(0, Long.parseLong(vista.getTxtIDAlumno().getText()), 3,
+			ContactoDTO contacto = new ContactoDTO(0, Long.parseLong(vista.getTxtIDAlumno().getText()), 
+					currentAdministrativo.getIdUsuario(),
 					curso.getIdCurso(), this.vista.getTxtDescripcion().getText(),
 					StringToLocalDateTime(this.vista.getTxtProximoContacto().getText(), "00:00:00"),
 					LocalDateTime.now(), 1);
