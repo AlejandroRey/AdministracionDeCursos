@@ -185,7 +185,8 @@ public class CursadaABMControlador implements ActionListener {
 				cursadaCompletaDTO.getIdEmpresa(), 
 				cursadaCompletaDTO.getIdCurso(), 
 				cursadaCompletaDTO.getIdEstadoCurso(), 
-				cursadaCompletaDTO.getIdAdministrativo(), 
+				cursadaCompletaDTO.getIdAdministrativo(),
+				cursadaCompletaDTO.getIdInstructor(),
 				cursadaCompletaDTO.getFechaInicioInscripcion(), 
 				cursadaCompletaDTO.getFechaFinInscripcion(), 
 				cursadaCompletaDTO.getVacantes(), 
@@ -305,12 +306,13 @@ public class CursadaABMControlador implements ActionListener {
 			idTemp = Long.parseLong(this.vista.getTextIdCursada().getText().toString());
 		}
 		
+		//TODO EL 1 ES UN INSTRUCTOR, AGREGARLO A LA VISTA Y OBTENERLO
 		CursadaDTO cursadaDTO = new CursadaDTO(idTemp, 
 											   empresa.getIdEmpresa(), 
 											   curso.getIdCurso(), 
 											   estadoDeCurso.getIdEstadoDeCurso(), 
 											   Long.parseLong(this.vista.getTextidAdministrativo().getText()),
-											   fechaInicioInscripcion, 
+											   Long.parseLong("1"), fechaInicioInscripcion, 
 											   fechaFinInscripcion, 
 											   this.vista.getTextVacantes().getText(), 
 											   fechaInicioCursada, 

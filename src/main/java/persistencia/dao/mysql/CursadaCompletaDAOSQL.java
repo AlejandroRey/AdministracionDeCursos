@@ -13,9 +13,9 @@ import persistencia.dao.interfaz.CursadaCompletaDAO;
 
 public class CursadaCompletaDAOSQL implements CursadaCompletaDAO {
 	
-	private static final String readall = "SELECT T1.idCursada, T1.idEmpresa, T1.idCurso, T1.idEstadoCurso, T1.idAdministrativo, T1.fechaInicioInscripcion, T1.fechaFinInscripcion, T1.vacantes, T1.fechaInicioCursada, T1.diasDeClase, T1.empresa, T1.curso, T2.nombre AS estadoCurso "
-										 +"FROM (SELECT T1.idCursada, T1.idEmpresa, T1.idCurso, T1.idEstadoCurso, T1.idAdministrativo, T1.fechaInicioInscripcion, T1.fechaFinInscripcion, T1.vacantes, T1.fechaInicioCursada, T1.diasDeClase, T1.empresa, T2.nombre AS curso "
-										 +"FROM (SELECT T1.idCursada, T1.idEmpresa, T1.idCurso, T1.idEstadoCurso, T1.idAdministrativo, T1.fechaInicioInscripcion, T1.fechaFinInscripcion, T1.vacantes, T1.fechaInicioCursada, T1.diasDeClase, T2.nombre AS empresa "
+	private static final String readall = "SELECT T1.idCursada, T1.idEmpresa, T1.idCurso, T1.idEstadoCurso, T1.idAdministrativo, T1.idInstructor, T1.fechaInicioInscripcion, T1.fechaFinInscripcion, T1.vacantes, T1.fechaInicioCursada, T1.diasDeClase, T1.empresa, T1.curso, T2.nombre AS estadoCurso "
+										 +"FROM (SELECT T1.idCursada, T1.idEmpresa, T1.idCurso, T1.idEstadoCurso, T1.idAdministrativo, T1.idInstructor, T1.fechaInicioInscripcion, T1.fechaFinInscripcion, T1.vacantes, T1.fechaInicioCursada, T1.diasDeClase, T1.empresa, T2.nombre AS curso "
+										 +"FROM (SELECT T1.idCursada, T1.idEmpresa, T1.idCurso, T1.idEstadoCurso, T1.idAdministrativo, T1.idInstructor, T1.fechaInicioInscripcion, T1.fechaFinInscripcion, T1.vacantes, T1.fechaInicioCursada, T1.diasDeClase, T2.nombre AS empresa "
 										 +"FROM cursada AS T1 "
 										 +"INNER JOIN empresa AS T2 ON T1.idEmpresa = T2.idEmpresa) AS T1 "
 										 +"INNER JOIN curso AS T2 ON T1.idCurso = T2.idCurso) AS T1 "
@@ -39,6 +39,7 @@ public class CursadaCompletaDAOSQL implements CursadaCompletaDAO {
 													resultSet.getLong("idCurso"), 
 													resultSet.getLong("idEstadoCurso"), 
 													resultSet.getLong("idAdministrativo"),
+													resultSet.getLong("idInstructor"),
 													fechaInicioInscripcion, 
 													fechaFinInscripcion, 
 													resultSet.getString("vacantes"), 

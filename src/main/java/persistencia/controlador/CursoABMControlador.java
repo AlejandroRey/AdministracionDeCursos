@@ -11,6 +11,7 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import dto.ContactoCompletoDTO;
 import dto.ContactoDTO;
 import dto.CursoDTO;
 import dto.CursoTipoDTO;
@@ -25,7 +26,7 @@ public class CursoABMControlador implements ActionListener {
 	private List<CursoDTO> cursosLista;
 	private List<CursoTipoDTO> cursoTipoLista;
 	
-	private List<ContactoDTO> contactosLista;
+	private List<ContactoCompletoDTO> contactosLista;
 
 	public CursoABMControlador(CursoABMPanel vista, AdministracionDeCursos modelo) {
 		this.vista = vista;
@@ -68,16 +69,16 @@ public class CursoABMControlador implements ActionListener {
 		this.vista.getTableInteresados().getColumnModel().getColumn(1).setMaxWidth(0);*/
 	}
 	
-//	private void llenarTablaInteresados() {
-//		this.contactosLista = modelo.obtenerContactos();
-//		for (ContactoDTO contactoDTO : contactosLista) {
-//			Object[] fila = {contactoDTO.getNombre(), contactoDTO.getApellido(), 
-//					contactoDTO.getEmail(), contactoDTO.getFechaCreacion()};
-//			if (contactoDTO.getIdCurso() == Long.parseLong(this.vista.getTextIdCurso().getText())) {
-//				this.vista.getModelInteresados().addRow(fila);
-//			}
-//		}
-//	}
+	private void llenarTablaInteresados() {
+		this.contactosLista = modelo.obtenerContactosCompletos();
+		for (ContactoCompletoDTO contactoDTO : contactosLista) {
+			Object[] fila = {contactoDTO.getAlumno().getNombre(), contactoDTO.getAlumno().getApellido(), 
+					contactoDTO.getAlumno().getEmail(), contactoDTO.getContacto().getFechaCreacion()};
+			if (contactoDTO.getContacto().getIdCurso() == Long.parseLong(this.vista.getTextIdCurso().getText())) {
+				this.vista.getModelInteresados().addRow(fila);
+			}
+		}
+	}
 
 	private void llenarTabla() {
 		this.vista.getModelCursos().setRowCount(0); // Para vaciar la tabla
@@ -163,7 +164,8 @@ public class CursoABMControlador implements ActionListener {
 		} else if (e.getSource() == this.vista.getBtnSeleccionar()) {
 			llenarTabla();
 		} else if (e.getSource() == this.vista.getBtnConsultarInteresados()) {
-//			llenarTablaInteresados();
+			vaciarTablaInteresados();
+			llenarTablaInteresados();
 		}
 	}
 

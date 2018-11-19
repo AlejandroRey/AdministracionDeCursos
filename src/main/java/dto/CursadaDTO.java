@@ -9,13 +9,14 @@ public class CursadaDTO {
 	private long idCurso;
 	private long idEstadoCurso;
 	private long idAdministrativo;
+	private long idInstructor;
 	private LocalDateTime fechaInicioInscripcion;
 	private LocalDateTime fechaFinInscripcion;
 	private String vacantes;
 	private LocalDateTime fechaInicioCursada;
 	private int diasDeClase;
 	
-	public CursadaDTO(long idCursada, long idEmpresa, long idCurso, long idEstadoCurso, long idAdministrativo,
+	public CursadaDTO(long idCursada, long idEmpresa, long idCurso, long idEstadoCurso, long idAdministrativo, long idInstructor,
 			LocalDateTime fechaInicioInscripcion, LocalDateTime fechaFinInscripcion, String vacantes,
 			LocalDateTime fechaInicioCursada, int diasDeClase) {
 		super();
@@ -24,11 +25,20 @@ public class CursadaDTO {
 		this.idCurso = idCurso;
 		this.idEstadoCurso = idEstadoCurso;
 		this.idAdministrativo = idAdministrativo;
+		this.idInstructor = idInstructor;
 		this.fechaInicioInscripcion = fechaInicioInscripcion;
 		this.fechaFinInscripcion = fechaFinInscripcion;
 		this.vacantes = vacantes;
 		this.fechaInicioCursada = fechaInicioCursada;
 		this.diasDeClase = diasDeClase;
+	}
+	
+	public long getIdInstructor() {
+		return idInstructor;
+	}
+
+	public void setIdInstructor(long idInstructor) {
+		this.idInstructor = idInstructor;
 	}
 
 	/**

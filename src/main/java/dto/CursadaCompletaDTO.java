@@ -9,6 +9,7 @@ public class CursadaCompletaDTO {
 	private long idCurso;
 	private long idEstadoCurso;
 	private long idAdministrativo;
+	private long idInstructor;
 	private LocalDateTime fechaInicioInscripcion;
 	private LocalDateTime fechaFinInscripcion;
 	private String vacantes;
@@ -18,7 +19,7 @@ public class CursadaCompletaDTO {
 	private String  curso;
 	private String estadoCurso;
 	
-	public CursadaCompletaDTO(long idCursada, long idEmpresa, long idCurso, long idEstadoCurso, long idAdministrativo,
+	public CursadaCompletaDTO(long idCursada, long idEmpresa, long idCurso, long idEstadoCurso, long idAdministrativo,long idInstructor,
 			LocalDateTime fechaInicioInscripcion, LocalDateTime fechaFinInscripcion, String vacantes,
 			LocalDateTime fechaInicioCursada, int diasDeClase, String empresa, String curso, String estadoCurso) {
 		super();
@@ -27,6 +28,7 @@ public class CursadaCompletaDTO {
 		this.idCurso = idCurso;
 		this.idEstadoCurso = idEstadoCurso;
 		this.idAdministrativo = idAdministrativo;
+		this.idInstructor = idInstructor;
 		this.fechaInicioInscripcion = fechaInicioInscripcion;
 		this.fechaFinInscripcion = fechaFinInscripcion;
 		this.vacantes = vacantes;
@@ -36,6 +38,18 @@ public class CursadaCompletaDTO {
 		this.curso = curso;
 		this.estadoCurso = estadoCurso;
 	}
+	
+	
+	public long getIdInstructor() {
+		return idInstructor;
+	}
+
+
+	public void setIdInstructor(long idInstructor) {
+		this.idInstructor = idInstructor;
+	}
+
+
 	/**
 	 * @return the idCursada
 	 */

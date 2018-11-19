@@ -17,6 +17,7 @@ public class CursoDAOSQL implements CursoDAO{
 	private static final String delete = "DELETE FROM curso WHERE idCurso = ?";
 	private static final String update = "UPDATE curso SET idCursoTipo = ?, nombre = ?, tema = ?, temario = ?  WHERE idCurso = ?";
 	private static final String readall = "SELECT * FROM curso";
+	private static final String readone = "SELECT * FROM curso WHERE idCurso = ?";
 	
 
 	@Override
@@ -103,4 +104,27 @@ public class CursoDAOSQL implements CursoDAO{
 		return cursos;
 	}
 	
+	@Override
+	public CursoDTO obtenerCurso(long id) {
+		PreparedStatement statement;
+		ResultSet resultSet; // Guarda el resultado de la query
+		Conexion conexion = Conexion.getConexion();
+		CursoDTO curso = null;
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(readone);
+			statement.setLong(1, id);
+			resultSet = statement.executeQuery();
+			resultSet.next();
+			curso = new CursoDTO(resultSet.getLong("idCurso"), 
+										  resultSet.getLong("IdCursoTipo"),
+										  resultSet.getString("nombre"), 
+										  resultSet.getString("tema"),
+										  resultSet.getString("temario"));		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			conexion.cerrarConexion();
+		}
+		return curso;
+	}
 }

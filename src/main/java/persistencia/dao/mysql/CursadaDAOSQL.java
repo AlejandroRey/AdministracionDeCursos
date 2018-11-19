@@ -14,9 +14,9 @@ import persistencia.dao.interfaz.CursadaDAO;
 
 public class CursadaDAOSQL implements CursadaDAO{
 	
-	private static final String insert = "INSERT INTO cursada (idEmpresa, idCurso, idEstadoCurso, idAdministrativo, fechaInicioInscripcion, fechaFinInscripcion, vacantes, fechaInicioCursada, diasDeClase) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	private static final String insert = "INSERT INTO cursada (idEmpresa, idCurso, idEstadoCurso, idAdministrativo, idInstructor, fechaInicioInscripcion, fechaFinInscripcion, vacantes, fechaInicioCursada, diasDeClase) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String delete = "DELETE FROM cursada WHERE idCursada = ?";
-	private static final String update = "UPDATE cursada SET idEmpresa = ?, idCurso = ?, idEstadoCurso = ?, idAdministrativo = ?, fechaInicioInscripcion = ?, fechaFinInscripcion = ?, vacantes = ?, fechaInicioCursada = ?, diasDeClase = ? WHERE idCursada = ?";
+	private static final String update = "UPDATE cursada SET idEmpresa = ?, idCurso = ?, idEstadoCurso = ?, idAdministrativo = ?, idInstructor = ?, fechaInicioInscripcion = ?, fechaFinInscripcion = ?, vacantes = ?, fechaInicioCursada = ?, diasDeClase = ? WHERE idCursada = ?";
 	private static final String readall = "SELECT * FROM cursada";
 	private static final String readallByIdCursada = "SELECT * FROM cursada WHERE idCursada = ?";
 
@@ -112,6 +112,7 @@ public class CursadaDAOSQL implements CursadaDAO{
 											resultSet.getLong("idCurso"),
 											resultSet.getLong("idEstadoCurso"),
 											resultSet.getLong("idAdministrativo"),
+											resultSet.getLong("idInstructor"),
 											fechaInicio,
 											fechaFin,
 											resultSet.getString("vacantes"),
@@ -147,6 +148,7 @@ public class CursadaDAOSQL implements CursadaDAO{
 											resultSet.getLong("idCurso"),
 											resultSet.getLong("idEstadoCurso"),
 											resultSet.getLong("idAdministrativo"),
+											resultSet.getLong("idInstructor"),
 											fechaInicio,
 											fechaFin,
 											resultSet.getString("vacantes"),

@@ -12,6 +12,10 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import dto.CategoriaDTO;
+import dto.ContactoCompletoDTO;
+import dto.CursadaDTO;
+import dto.CursoDTO;
+import dto.EstadoDeCursoDTO;
 import dto.UsuarioDTO;
 import modelo.AdministracionDeCursos;
 import presentacion.vista.UsuarioABMPanel;
@@ -22,17 +26,20 @@ public class UsuarioABMControlador implements ActionListener {
 	private AdministracionDeCursos modelo;
 	private List<UsuarioDTO> usuariosLista;
 	List<CategoriaDTO> categoriaLista;
+	private List<CursadaDTO> cursadasLista;
 	
 	public UsuarioABMControlador(UsuarioABMPanel vista, AdministracionDeCursos modelo) {
 		
 		this.vista = vista;
 		this.modelo = modelo;
 		this.usuariosLista = null;
+		this.cursadasLista = null;
 		
 		this.vista.getBtnActualizar().addActionListener(this);
 		this.vista.getBtnAgregar().addActionListener(this);
 		this.vista.getBtnEliminar().addActionListener(this);
 		this.vista.getBtnSeleccionar().addActionListener(this);
+		this.vista.getBtnConsultarAsignaciones().addActionListener(this);
 	}
 
 	public void inicializar() {
@@ -61,6 +68,7 @@ public class UsuarioABMControlador implements ActionListener {
 		this.vista.getModelUsuarios().setColumnCount(0);
 		this.vista.getModelUsuarios().setColumnIdentifiers(this.vista.getNombreColumnas());
 		clearTextInputsBox();
+		vaciarTablaAsignaciones();
 
 		this.usuariosLista = modelo.obtenerUsuarios();
 		for (UsuarioDTO usuarioDTO : usuariosLista) {
@@ -91,12 +99,12 @@ public class UsuarioABMControlador implements ActionListener {
 		this.vista.getTblUsuarios().getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
 			try {
 				if (this.vista.getTblUsuarios().getSelectedRow() >= 0) {
-					if (this.vista.getCbxCategoria().getItemCount() == 0) {
+					/*if (this.vista.getCbxCategoria().getItemCount() == 0) {
 						this.vista.getCbxCategoria().addItem(new CategoriaDTO(0, ""));
 						for (CategoriaDTO categoriaDTO : categoriaLista) {
 							this.vista.getCbxCategoria().addItem(categoriaDTO);
 						}
-					}					
+					}*/					
 					Object idUsuario = this.vista.getTblUsuarios().getValueAt(this.vista.getTblUsuarios().getSelectedRow(), 0);
 					Object idCategoria = this.vista.getTblUsuarios().getValueAt(this.vista.getTblUsuarios().getSelectedRow(), 1);
 					Object categoria = this.vista.getTblUsuarios().getValueAt(this.vista.getTblUsuarios().getSelectedRow(), 2);
@@ -108,7 +116,7 @@ public class UsuarioABMControlador implements ActionListener {
 					Object password = this.vista.getTblUsuarios().getValueAt(this.vista.getTblUsuarios().getSelectedRow(), 8);
 
 					this.vista.getTextIdUsuario().setText(idUsuario.toString());
-					this.vista.getCbxCategoria().setSelectedItem(new CategoriaDTO(Long.parseLong(idCategoria.toString()), categoria.toString()));
+					//this.vista.getCbxCategoria().setSelectedItem(new CategoriaDTO(Long.parseLong(idCategoria.toString()), categoria.toString()));
 					this.vista.getTextNombre().setText(nombre.toString());
 					this.vista.getTextApellido().setText(apellido.toString());
 					this.vista.getTextTelefono().setText(telefono.toString());
@@ -146,14 +154,19 @@ public class UsuarioABMControlador implements ActionListener {
 			eliminarInstructor();
 		} else if (e.getSource() == this.vista.getBtnSeleccionar()) {
 
+		} else if (e.getSource() == this.vista.getBtnConsultarAsignaciones()) {
+			vaciarTablaAsignaciones();
+			llenarTablaAsignaciones();
 		}
 	}
 
 	private void actualizarInstructor() {
-		CategoriaDTO categoria = (CategoriaDTO) this.vista.getCbxCategoria().getSelectedItem();
-		if (categoria.getIdCategoria() > 0) {
+		//CategoriaDTO categoria = (CategoriaDTO) this.vista.getCbxCategoria().getSelectedItem();
+		//if (categoria.getIdCategoria() > 0) {
+		if (this.vista.getTblUsuarios().getSelectedRow() >= 0) {
 			UsuarioDTO usuario = new UsuarioDTO(Long.parseLong(this.vista.getTextIdUsuario().getText()), 
-												categoria.getIdCategoria(), 
+												//categoria.getIdCategoria(),
+													3,
 												   this.vista.getTextNombre().getText(),
 												   this.vista.getTextApellido().getText(),
 												   this.vista.getTextTelefono().getText(),
@@ -168,13 +181,15 @@ public class UsuarioABMControlador implements ActionListener {
 	}
 
 	private void eliminarInstructor() {        
-        CategoriaDTO categoria = (CategoriaDTO) this.vista.getCbxCategoria().getSelectedItem();
-        if (categoria.getIdCategoria() > 0) {
+        //CategoriaDTO categoria = (CategoriaDTO) this.vista.getCbxCategoria().getSelectedItem();
+        //if (categoria.getIdCategoria() > 0) {
+		if (this.vista.getTblUsuarios().getSelectedRow() >= 0) {
         	int dialogResult = JOptionPane.showConfirmDialog(null, "Se va a Eliminar el Instructor seleccionado!", "Confirma Eliminar Registro?", JOptionPane.YES_NO_OPTION);
 	        if (dialogResult == JOptionPane.YES_OPTION) {
 	            try {
 	        		UsuarioDTO usuario = new UsuarioDTO(Long.parseLong(this.vista.getTextIdUsuario().getText()),
-							   categoria.getIdCategoria(),
+							   //categoria.getIdCategoria(),
+	        					3,
 							   this.vista.getTextNombre().getText(),
 							   this.vista.getTextApellido().getText(),
 							   this.vista.getTextTelefono().getText(),
@@ -193,9 +208,10 @@ public class UsuarioABMControlador implements ActionListener {
 	}
 	
 	public UsuarioDTO getUsuarioDTO() {
-		CategoriaDTO categoria = (CategoriaDTO) this.vista.getCbxCategoria().getSelectedItem();
+		//CategoriaDTO categoria = (CategoriaDTO) this.vista.getCbxCategoria().getSelectedItem();
 		UsuarioDTO usuarioDTO = new UsuarioDTO(Long.parseLong(this.vista.getTextIdUsuario().getText()),
-				   categoria.getIdCategoria(),
+				   //categoria.getIdCategoria(),
+					3,
 				   this.vista.getTextNombre().getText(),
 				   this.vista.getTextApellido().getText(),
 				   this.vista.getTextTelefono().getText(),
@@ -222,11 +238,40 @@ public class UsuarioABMControlador implements ActionListener {
 		//} else {
 		//	JOptionPane.showMessageDialog(null, "Seleccione Curso Tipo correctamente!", "Informacion: " + "Curso Tipo", JOptionPane.INFORMATION_MESSAGE);
 		//}
-	}	
+	}
+	
+	private void vaciarTablaAsignaciones() {
+		this.vista.getModelAsignaciones().setRowCount(0); // Para vaciar la tabla
+		this.vista.getModelAsignaciones().setColumnCount(0);
+		this.vista.getModelAsignaciones().setColumnIdentifiers(this.vista.getNombreColumnasAsignaciones());
+	}
+	
+	private void llenarTablaAsignaciones() {
+		this.cursadasLista = modelo.obtenerCursadas();
+		for (CursadaDTO cursadaDTO : cursadasLista) {
+			CursoDTO curso = modelo.obtenerCurso(cursadaDTO.getIdCurso());
+			Object[] fila = {curso.getNombre(), curso.getTema(), asd(cursadaDTO.getIdEstadoCurso()), cursadaDTO.getFechaInicioCursada()};
+			if (cursadaDTO.getIdInstructor() == Long.parseLong(this.vista.getTblUsuarios().getValueAt(this.vista.getTblUsuarios().getSelectedRow(), 0).toString())) {
+				this.vista.getModelAsignaciones().addRow(fila);
+			}
+			
+		}
+	}
+	
+	public String asd(long id) {
+		List<EstadoDeCursoDTO> estados = modelo.obtenerEstadosDeCurso();
+		String result = "";
+		for (EstadoDeCursoDTO estado : estados) {
+			if (estado.getIdEstadoDeCurso()==id) {
+				result = estado.getNombre();
+			}
+		}
+		return result;
+	}
 
 	public void setTextDisable() {
 		this.vista.getTextIdUsuario().setEnabled(false);
-		this.vista.getCbxCategoria().setEnabled(false);
+		//this.vista.getCbxCategoria().setEnabled(false);
 		this.vista.getTextNombre().setEnabled(false);
 		this.vista.getTextApellido().setEnabled(false);
 		this.vista.getTextTelefono().setEnabled(false);
@@ -238,7 +283,7 @@ public class UsuarioABMControlador implements ActionListener {
 	
 	private void clearTextInputsBox() {
 		this.vista.getTextIdUsuario().setText("");
-		this.vista.getCbxCategoria().setSelectedItem(new CategoriaDTO(0, ""));
+		//this.vista.getCbxCategoria().setSelectedItem(new CategoriaDTO(0, ""));
 		this.vista.getTextNombre().setText("");
 		this.vista.getTextApellido().setText("");
 		this.vista.getTextTelefono().setText("");

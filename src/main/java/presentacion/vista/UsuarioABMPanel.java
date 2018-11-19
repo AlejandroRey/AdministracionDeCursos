@@ -26,16 +26,20 @@ import dto.CategoriaDTO;
 @SuppressWarnings("serial")
 public class UsuarioABMPanel extends JPanel {
 	
-	private JComboBox<CategoriaDTO> cbxCategoriaFiltro;
+	//private JComboBox<CategoriaDTO> cbxCategoriaFiltro;
 	private JScrollPane spUsuarios;
+	JScrollPane spAsignaciones;
 	private DefaultTableModel modelUsuarios;
+	private DefaultTableModel modelAsignaciones;
 	private JTable tblUsuarios;
+	private JTable tblAsignaciones;
 	private String[] nombreColumnas = {"idUsuario", "idCategoria", "Categoria", "Nombre", "Apellido", "Telefono", "Email", "Usuario", "Password"};
+	private String[] nombreColumnasAsignaciones = {"Nombre", "Tema", "Estado", "Fecha de inicio"};
 	
 	private JPanel panel;
 	
 	private JTextField textIdUsuario;
-	private JComboBox<CategoriaDTO> cbxCategoria;
+	//private JComboBox<CategoriaDTO> cbxCategoria;
 	private JTextField textNombre;
 	private JTextField textApellido;
 	private JTextField textTelefono;
@@ -47,13 +51,14 @@ public class UsuarioABMPanel extends JPanel {
 	private JButton btnActualizar;
 	private JButton btnEliminar;
 	private JButton btnSeleccionar;
+	private JButton btnConsultarAsignaciones;
 
 	/**
 	 * Create the frame.
 	 */
 	public UsuarioABMPanel() {
 		super();
-		this.setBounds(0, 0, 600, 650);
+		this.setBounds(0, 0, 949, 611);
 		this.setLayout(null);
 		inicializar();
 	}
@@ -66,13 +71,13 @@ public class UsuarioABMPanel extends JPanel {
 	}
 
 	private void inicializarTabla() {
-		JLabel lblFiltro = new JLabel("Filtro:");
+		/*JLabel lblFiltro = new JLabel("Filtro:");
 		lblFiltro.setBounds(4, 14, 46, 14);
-		this.add(lblFiltro);
+		this.add(lblFiltro);*/
 		
-		cbxCategoriaFiltro = new JComboBox<>();
+		/*cbxCategoriaFiltro = new JComboBox<>();
 		cbxCategoriaFiltro.setBounds(48, 11, 141, 20);
-		this.add(cbxCategoriaFiltro);
+		this.add(cbxCategoriaFiltro);*/
 		
 		spUsuarios = new JScrollPane();
 		spUsuarios.setBounds(4, 53, 578, 339);
@@ -91,7 +96,26 @@ public class UsuarioABMPanel extends JPanel {
 		    };
 		tblUsuarios.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 		//tblusuarios.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);		
-		spUsuarios.setViewportView(tblUsuarios);		
+		spUsuarios.setViewportView(tblUsuarios);	
+		
+		spAsignaciones = new JScrollPane();
+		spAsignaciones.setBounds(602, 53, 337, 339);
+		this.add(spAsignaciones);
+		
+		modelAsignaciones = new DefaultTableModel(null, nombreColumnasAsignaciones);
+		tblAsignaciones = new JTable(modelAsignaciones){
+		    @Override
+		       public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+		           Component component = super.prepareRenderer(renderer, row, column);
+		           int rendererWidth = component.getPreferredSize().width;
+		           TableColumn tableColumn = getColumnModel().getColumn(column);
+		           tableColumn.setPreferredWidth(Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
+		           return component;
+		        }
+		    };
+		tblAsignaciones.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+		//tblusuarios.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);		
+		spAsignaciones.setViewportView(tblAsignaciones);
 	}
 
 	private void inicializarEditor() {		
@@ -113,13 +137,13 @@ public class UsuarioABMPanel extends JPanel {
 		panel.add(textIdUsuario);
 		textIdUsuario.setColumns(10);
 		
-		JLabel lblCursoTipo = new JLabel("Categoria:");
+		/*JLabel lblCursoTipo = new JLabel("Categoria:");
 		lblCursoTipo.setBounds(20, 22, 70, 14);
-		panel.add(lblCursoTipo);
+		panel.add(lblCursoTipo);*/
 		
-		cbxCategoria = new JComboBox<>();
+		/*cbxCategoria = new JComboBox<>();
 		cbxCategoria.setBounds(96, 22, 141, 20);
-		panel.add(cbxCategoria);
+		panel.add(cbxCategoria);*/
 		
 		JLabel lblNombre = new JLabel("Nombre:");
 		lblNombre.setBounds(20, 56, 70, 14);
@@ -207,21 +231,26 @@ public class UsuarioABMPanel extends JPanel {
 		separator.setBackground(SystemColor.activeCaption);
 		separator.setBounds(13, 395, 560, 1);
 		this.add(separator);
+		
+		btnConsultarAsignaciones = new JButton("Consultar asignaciones");
+		btnConsultarAsignaciones.setBounds(697, 22, 149, 23);
+		add(btnConsultarAsignaciones);
+		
 	}
 
 	/**
 	 * @return the cbxCategoriaFiltro
 	 */
-	public JComboBox<CategoriaDTO> getCbxCategoriaFiltro() {
-		return cbxCategoriaFiltro;
-	}
+//	public JComboBox<CategoriaDTO> getCbxCategoriaFiltro() {
+//		return cbxCategoriaFiltro;
+//	}
 
 	/**
 	 * @param cbxCategoriaFiltro the cbxCategoriaFiltro to set
 	 */
-	public void setCbxCategoriaFiltro(JComboBox<CategoriaDTO> cbxCategoriaFiltro) {
-		this.cbxCategoriaFiltro = cbxCategoriaFiltro;
-	}
+//	public void setCbxCategoriaFiltro(JComboBox<CategoriaDTO> cbxCategoriaFiltro) {
+//		this.cbxCategoriaFiltro = cbxCategoriaFiltro;
+//	}
 
 	/**
 	 * @return the spUsuarios
@@ -310,16 +339,16 @@ public class UsuarioABMPanel extends JPanel {
 	/**
 	 * @return the cbxCategoria
 	 */
-	public JComboBox<CategoriaDTO> getCbxCategoria() {
-		return cbxCategoria;
-	}
+	//public JComboBox<CategoriaDTO> getCbxCategoria() {
+	//	return cbxCategoria;
+	//}
 
 	/**
 	 * @param cbxCategoria the cbxCategoria to set
 	 */
-	public void setCbxCategoria(JComboBox<CategoriaDTO> cbxCategoria) {
-		this.cbxCategoria = cbxCategoria;
-	}
+	//public void setCbxCategoria(JComboBox<CategoriaDTO> cbxCategoria) {
+	//	this.cbxCategoria = cbxCategoria;
+	//}
 
 	/**
 	 * @return the textNombre
@@ -461,4 +490,43 @@ public class UsuarioABMPanel extends JPanel {
 		this.btnSeleccionar = btnSeleccionar;
 	}
 
+	public JScrollPane getSpAsignaciones() {
+		return spAsignaciones;
+	}
+
+	public void setSpAsignaciones(JScrollPane spAsignaciones) {
+		this.spAsignaciones = spAsignaciones;
+	}
+
+	public DefaultTableModel getModelAsignaciones() {
+		return modelAsignaciones;
+	}
+
+	public void setModelAsignaciones(DefaultTableModel modelAsignaciones) {
+		this.modelAsignaciones = modelAsignaciones;
+	}
+
+	public JTable getTblAsignaciones() {
+		return tblAsignaciones;
+	}
+
+	public void setTblAsignaciones(JTable tblAsignaciones) {
+		this.tblAsignaciones = tblAsignaciones;
+	}
+
+	public String[] getNombreColumnasAsignaciones() {
+		return nombreColumnasAsignaciones;
+	}
+
+	public void setNombreColumnasAsignaciones(String[] nombreColumnasAsignaciones) {
+		this.nombreColumnasAsignaciones = nombreColumnasAsignaciones;
+	}
+
+	public JButton getBtnConsultarAsignaciones() {
+		return btnConsultarAsignaciones;
+	}
+
+	public void setBtnConsultarAsignaciones(JButton btnConsultarAsignaciones) {
+		this.btnConsultarAsignaciones = btnConsultarAsignaciones;
+	}
 }

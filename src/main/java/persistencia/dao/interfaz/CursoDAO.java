@@ -6,6 +6,8 @@ import dto.CursoDTO;
 
 public interface CursoDAO {
 
+	public CursoDTO obtenerCurso(long idCurso);
+
 	public boolean insert(CursoDTO nuevoCurso);
 
 	public boolean delete(CursoDTO curso_a_eliminar);

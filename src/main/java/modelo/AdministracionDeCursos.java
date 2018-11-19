@@ -247,6 +247,10 @@ public class AdministracionDeCursos {
 		return this.curso.readAll();
 	}
 	
+	public CursoDTO obtenerCurso(long id) {
+		return this.curso.obtenerCurso(id);
+	}
+	
 	/* ****************************************************************
 	 *                         Clase
 	 * ****************************************************************
