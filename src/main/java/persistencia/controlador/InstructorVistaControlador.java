@@ -45,27 +45,25 @@ public class InstructorVistaControlador implements ActionListener {
 		}
 		
 		if (e.getSource() == this.vista.getBtnRecados()) {
-			JOptionPane.showMessageDialog(null, "Esta función todavía no esta desarrollada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 			this.vista.getFrmInstructor().dispose();
-
 			instructorAdministracionVista = new InstructorAdministracionVista();
-			instructorAdministracionVistaControlador = new InstructorAdministracionVistaControlador(modelo,instructorAdministracionVista);
+			instructorAdministracionVistaControlador = new InstructorAdministracionVistaControlador(modelo, instructorAdministracionVista);
 			instructorAdministracionVistaControlador.inicializar();
-			
 			if (recadoABMVistaPrincipal == null) {
 				recadoABMVistaPrincipal = new RecadoABMVistaPrincipal();
-				recadoABMControlador = new RecadoABMVistaPrincipalControlador(modelo, recadoABMVistaPrincipal, null);
-				
+				recadoABMControlador = new RecadoABMVistaPrincipalControlador(modelo, recadoABMVistaPrincipal, null, null, instructorAdministracionVista);				
 				this.instructorAdministracionVista.getMainPanel().add(recadoABMVistaPrincipal);
 			}
 		}
 		
 		if (e.getSource() == this.vista.getBtnConsultarAsignaciones()) {
+			// TODO CONSULTAR ASIGNACIONES
 			JOptionPane.showMessageDialog(null, "Esta función todavía no esta desarrollada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 		}
 		
 		if (e.getSource() == this.vista.getBtnRegistrar()) {
-			
+			// TODO REGISTRAR
+			JOptionPane.showMessageDialog(null, "Esta función todavía no esta desarrollada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 

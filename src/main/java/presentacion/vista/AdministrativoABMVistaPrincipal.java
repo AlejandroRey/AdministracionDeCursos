@@ -179,9 +179,12 @@ public class AdministrativoABMVistaPrincipal extends JPanel {
 		lblHome = new JLabel("New label");
 		lblHome.setIcon(new ImageIcon("imagenes/home.png"));
 		lblHome.setBounds(82, 5, 48, 48);
+		lblHome.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		lblHome.setLayout(null);
 		buttonPanel.add(lblHome);
 	}
 
+	
 	/**
 	 * @return the mainPanel
 	 */
@@ -390,6 +393,14 @@ public class AdministrativoABMVistaPrincipal extends JPanel {
 	 */
 	public void setLblIconoPrincipal(JLabel lblIconoPrincipal) {
 		this.lblIconoPrincipal = lblIconoPrincipal;
+	}
+
+	public JLabel getLblHome() {
+		return lblHome;
+	}
+
+	public void setLblHome(JLabel lblHome) {
+		this.lblHome = lblHome;
 	}
 
 }

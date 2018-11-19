@@ -13,6 +13,7 @@ import presentacion.vista.LoginVista;
 import presentacion.vista.RecadoABMVistaPrincipal;
 import presentacion.vista.SupervisorAdministracionVista;
 import presentacion.vista.SupervisorVista;
+import presentacion.vista.UsuarioCambioContraseñaVista;
 
 public class SupervisorVistaControlador implements ActionListener {
 
@@ -47,19 +48,21 @@ public class SupervisorVistaControlador implements ActionListener {
 		if (e.getSource() == this.vista.getMntmCerrarSesion()) {
 			this.vista.getFrmSupervisor().dispose();
 			LoginVista vista = new LoginVista();
-//			AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
 			LoginVistaControlador controlador = new LoginVistaControlador(vista, modelo);
 			controlador.inicializar();
 		}
-	
 		if (e.getSource() == this.vista.getMntmImportar()) {
+			// TODO IMPORTAR
 			JOptionPane.showMessageDialog(null, "Esta función todavía no fue desarrollada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 		}
 		if (e.getSource() == this.vista.getMntmExportar()) {
+			// TODO EXPORTAR
 			JOptionPane.showMessageDialog(null, "Esta función todavía no fue desarrollada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 		}
 		if (e.getSource() == this.vista.getMntmCambiarContrasena()) {
-			JOptionPane.showMessageDialog(null, "Esta función todavía no fue desarrollada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+			UsuarioCambioContraseñaVista vista = new UsuarioCambioContraseñaVista();
+			UsuarioCambioContraseñaVistaControlador controlador = new UsuarioCambioContraseñaVistaControlador(vista, modelo);
+			controlador.inicializar();
 		}
 		if (e.getSource() == this.vista.getBtnRecados()) {
 			this.vista.getFrmSupervisor().dispose();
@@ -70,23 +73,20 @@ public class SupervisorVistaControlador implements ActionListener {
 			
 			if (recadoABMVistaPrincipal == null) {
 				recadoABMVistaPrincipal = new RecadoABMVistaPrincipal();
-				recadoABMControlador = new RecadoABMVistaPrincipalControlador(modelo, recadoABMVistaPrincipal,administracionVista);
-				
+				recadoABMControlador = new RecadoABMVistaPrincipalControlador(modelo, recadoABMVistaPrincipal, null, supervisorAdministracionVista, null);			
 				this.supervisorAdministracionVista.getMainPanel().add(recadoABMVistaPrincipal);
 			}
 		}
 		if (e.getSource() == this.vista.getBtnAdministrativos()) {
 			this.vista.getFrmSupervisor().dispose();
-			//supervisorAdministracionVistaControlador = new SupervisorAdministracionVistaControlador(AdministracionDeCursos, vista);
-//			modelo = new AdministracionDeCursos(new DAOSQLFactory());
 			supervisorAdministracionVista = new SupervisorAdministracionVista();
 			supervisorAdministracionVistaControlador = new SupervisorAdministracionVistaControlador(modelo,supervisorAdministracionVista);
 			administrativoABMVistaPrincipal = new AdministrativoABMVistaPrincipal();
-			administrativoABMVistaPrincipalControlador = new AdministrativoABMVistaPrincipalControlador(modelo, administrativoABMVistaPrincipal);
+			administrativoABMVistaPrincipalControlador = new AdministrativoABMVistaPrincipalControlador(modelo, administrativoABMVistaPrincipal, supervisorAdministracionVista);
 			this.supervisorAdministracionVista.getMainPanel().add(administrativoABMVistaPrincipal);
 		}
 		if (e.getSource() == this.vista.getBtnTareas()) {
-			
+			// TODO TAREAS
 		}
 	}
 }

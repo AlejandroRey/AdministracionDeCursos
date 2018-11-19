@@ -51,7 +51,7 @@ public class SupervisorAdministracionVistaControlador implements ActionListener 
 		if (e.getSource() == this.vista.getMenuItemAdministrativosVer()) {
 			if (administrativoABM == null) {
 				administrativoABM = new AdministrativoABMVistaPrincipal();
-				administrativoABMControlador = new AdministrativoABMVistaPrincipalControlador(modelo, administrativoABM);
+				administrativoABMControlador = new AdministrativoABMVistaPrincipalControlador(modelo, administrativoABM, vista);
 				this.vista.getMainPanel().add(administrativoABM);
 			}
 		} 

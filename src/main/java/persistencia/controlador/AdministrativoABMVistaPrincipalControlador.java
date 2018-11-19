@@ -8,6 +8,9 @@ import javax.swing.JPanel;
 import modelo.AdministracionDeCursos;
 import presentacion.vista.AdministrativoABMPanel;
 import presentacion.vista.AdministrativoABMVistaPrincipal;
+import presentacion.vista.AdministrativoVista;
+import presentacion.vista.SupervisorAdministracionVista;
+import presentacion.vista.SupervisorVista;
 import presentacion.vista.UsuarioABMPanel;
 
 public class AdministrativoABMVistaPrincipalControlador {
@@ -17,14 +20,15 @@ public class AdministrativoABMVistaPrincipalControlador {
 	
 	private AdministrativoABMControlador administrativoABMControlador;
 	private AdministrativoABMPanel administrativoABMVista;
+	private SupervisorAdministracionVista supervisorAdministracionVista;
+	private SupervisorVistaControlador supervisorVistaControlador;
+	private SupervisorVista supervisorVista;
 	
-	public AdministrativoABMVistaPrincipalControlador(AdministracionDeCursos modelo, AdministrativoABMVistaPrincipal vista) {
+	public AdministrativoABMVistaPrincipalControlador(AdministracionDeCursos modelo, AdministrativoABMVistaPrincipal vista, SupervisorAdministracionVista supervisorAdministracionVista) {
 		super();
 		this.modelo = modelo;
 		this.vista = vista;
-		
-		this.modelo = modelo;
-		this.vista = vista;
+		this.supervisorAdministracionVista = supervisorAdministracionVista;
 
 		this.vista.getBtnSeleccionar().addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -50,6 +54,20 @@ public class AdministrativoABMVistaPrincipalControlador {
 			}
 		});
 		
+		this.vista.getLblHome().addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mousePressed(java.awt.event.MouseEvent evt) {
+				btnHome_MousePressed(evt);
+			}
+		});	
+		
+	}
+	
+	private void btnHome_MousePressed(MouseEvent evt) {
+		this.supervisorAdministracionVista.getFrame().dispose();
+		supervisorVista = new SupervisorVista();
+		supervisorVistaControlador = new SupervisorVistaControlador(supervisorVista,
+				modelo);
+		supervisorVistaControlador.inicializar();
 	}
 
 	private void btnSeleccionar_MousePressed(MouseEvent evt) {
