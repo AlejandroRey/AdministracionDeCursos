@@ -146,6 +146,8 @@ public class RecadoABMVistaPrincipal extends JPanel {
 		lblHome = new JLabel("New label");
 		lblHome.setIcon(new ImageIcon("imagenes/home.png"));
 		lblHome.setBounds(74, 16, 48, 48);
+		lblHome.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		lblHome.setLayout(null);
 		buttonPanel.add(lblHome);
 		
 		lblRecado = new JLabel("Recados");

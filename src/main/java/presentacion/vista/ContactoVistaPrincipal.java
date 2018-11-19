@@ -8,9 +8,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
-import javax.swing.border.LineBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.MatteBorder;
 
 @SuppressWarnings("serial")
@@ -183,6 +180,8 @@ private JPanel mainPanel;
 		lblHome = new JLabel("New label");
 		lblHome.setIcon(new ImageIcon("imagenes/home.png"));
 		lblHome.setBounds(82, 5, 48, 48);
+		lblHome.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		lblHome.setLayout(null);
 		buttonPanel.add(lblHome);
 	}
 

@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 
 import dto.CursadaDTO;
 import modelo.AdministracionDeCursos;
+import presentacion.vista.AdministracionDeCursosVista;
+import presentacion.vista.AdministrativoVista;
 import presentacion.vista.AlumnosAsistenciaPanel;
 import presentacion.vista.AlumnosEvaluacionesPanel;
 import presentacion.vista.AlumnosInscriptosPanel;
@@ -36,11 +38,15 @@ public class CursadaABMVistaPrincipalControlador {
 	private AlumnosEvaluacionesControlador alumnosEvaluacionesControlador;
 	private AlumnosEvaluacionesPanel alumnosEvaluaciones;
 	
-	public CursadaABMVistaPrincipalControlador(AdministracionDeCursos modelo, CursadaABMVistaPrincipal vista) {
+	private AdministracionDeCursosVista administracionVista;
+	private AdministrativoVista administrativoVista;
+	private AdministrativoVistaControlador administrativoVistaControlador;
+	
+	public CursadaABMVistaPrincipalControlador(AdministracionDeCursos modelo, CursadaABMVistaPrincipal vista, AdministracionDeCursosVista administracionVista) {
 		super();
 		this.vista = vista;
 		this.modelo = modelo;
-		
+		this.administracionVista = administracionVista;
 		this.vista.getButtonPanelExtends().setVisible(false);
 		
 		this.vista.getBtnSeleccionar().addMouseListener(new java.awt.event.MouseAdapter() {
@@ -118,7 +124,11 @@ public class CursadaABMVistaPrincipalControlador {
 
 	private void btnHome_MousePressed(MouseEvent evt) {
 		resetVistas();
-		
+		this.administracionVista.getFrame().dispose();
+		administrativoVista = new AdministrativoVista();
+		administrativoVistaControlador = new AdministrativoVistaControlador(administrativoVista,
+				modelo);
+		administrativoVistaControlador.inicializar();
 	}
 
 	private void btnHomeII_MousePressed(MouseEvent evt) {
@@ -327,6 +337,7 @@ public class CursadaABMVistaPrincipalControlador {
 		this.vista.getMainPanel().repaint();
 		this.vista.revalidate();
 		this.vista.repaint();
+		
 	}
 	
 	private void setColor(JPanel pane) {

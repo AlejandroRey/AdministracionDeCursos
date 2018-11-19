@@ -280,7 +280,7 @@ public class NotificacionControlador implements ActionListener {
 		}
 		else if (e.getSource() == this.vista.getBtnIrACursadas()) {
 			cursadaABMVistaPrincipal = new CursadaABMVistaPrincipal();
-			cursadaABMVistaPrincipalControlador = new CursadaABMVistaPrincipalControlador(modelo, cursadaABMVistaPrincipal);
+			cursadaABMVistaPrincipalControlador = new CursadaABMVistaPrincipalControlador(modelo, cursadaABMVistaPrincipal, administracionDeCursosVista);
 			administracionDeCursosVista.getMainPanel().add(cursadaABMVistaPrincipal);
 			administracionDeCursosVista.getFrame().repaint();
 			administracionDeCursosVista.getFrame().revalidate();
@@ -288,7 +288,7 @@ public class NotificacionControlador implements ActionListener {
 		}
 		else if (e.getSource() == this.vista.getBtnIrATareas()) {
 			tareaABMVistaPrincipal = new TareaABMVistaPrincipal();
-			tareaABMVistaPrincipalControlador = new TareaABMVistaPrincipalControlador(modelo, tareaABMVistaPrincipal);
+			tareaABMVistaPrincipalControlador = new TareaABMVistaPrincipalControlador(modelo, tareaABMVistaPrincipal, administracionDeCursosVista);
 			administracionDeCursosVista.getMainPanel().add(tareaABMVistaPrincipal);
 			administracionDeCursosVista.getFrame().repaint();
 			administracionDeCursosVista.getFrame().revalidate();

@@ -8,7 +8,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
-import java.awt.SystemColor;
 
 @SuppressWarnings("serial")
 public class UsuarionABMVistaPrincipal extends JPanel {
@@ -180,6 +179,8 @@ public class UsuarionABMVistaPrincipal extends JPanel {
 		lblHome = new JLabel("New label");
 		lblHome.setIcon(new ImageIcon("imagenes/home.png"));
 		lblHome.setBounds(82, 5, 48, 48);
+		lblHome.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		lblHome.setLayout(null);
 		buttonPanel.add(lblHome);
 	}
 
@@ -391,6 +392,14 @@ public class UsuarionABMVistaPrincipal extends JPanel {
 	 */
 	public void setLblIconoPrincipal(JLabel lblIconoPrincipal) {
 		this.lblIconoPrincipal = lblIconoPrincipal;
+	}
+
+	public JLabel getLblHome() {
+		return lblHome;
+	}
+
+	public void setLblHome(JLabel lblHome) {
+		this.lblHome = lblHome;
 	}
 
 }

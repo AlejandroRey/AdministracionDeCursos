@@ -72,7 +72,7 @@ public class AdministracionDeCursosControlador implements ActionListener {
 		if (e.getSource() == this.vista.getMenuItemAlumnoVer()) {
 			if (alumnoABM == null) {
 				alumnoABM = new AlumnoABMVistaPrincipal();
-				alumnoABMControlador = new AlumnoABMVistaPrincipalControlador(modelo, alumnoABM);
+				alumnoABMControlador = new AlumnoABMVistaPrincipalControlador(modelo, alumnoABM, vista);
 				alumnoABMControlador.inicializar();
 
 				this.vista.getMainPanel().add(alumnoABM);
@@ -88,7 +88,7 @@ public class AdministracionDeCursosControlador implements ActionListener {
 		} else if (e.getSource()== this.vista.getMenuItemUsuarioVer()) {
 			if (usuarioABM == null) {
 				usuarioABM = new UsuarionABMVistaPrincipal();
-				usuarioABMControlador = new UsuarioABMVistaPrincipalControlador(modelo, usuarioABM);
+				usuarioABMControlador = new UsuarioABMVistaPrincipalControlador(modelo, usuarioABM, vista);
 				
 				this.vista.getMainPanel().add(usuarioABM);
 			}
@@ -102,7 +102,7 @@ public class AdministracionDeCursosControlador implements ActionListener {
 		} else if (e.getSource()== this.vista.getMenuItemCursadaVer()) {
 			if (cursadaABM == null) {
 				cursadaABM = new CursadaABMVistaPrincipal();
-				cursadaABMControlador = new CursadaABMVistaPrincipalControlador(modelo, cursadaABM);
+				cursadaABMControlador = new CursadaABMVistaPrincipalControlador(modelo, cursadaABM, vista);
 				cursadaABMControlador.inicialiar();
 				
 				this.vista.getMainPanel().add(cursadaABM);
@@ -110,14 +110,14 @@ public class AdministracionDeCursosControlador implements ActionListener {
 		} else if (e.getSource()== this.vista.getMenuItemTareaVer()) {
 			if (tareaABM == null) {
 				tareaABM = new TareaABMVistaPrincipal();
-				tareaABMControlador = new TareaABMVistaPrincipalControlador(modelo, tareaABM);
+				tareaABMControlador = new TareaABMVistaPrincipalControlador(modelo, tareaABM, vista);
 				
 				this.vista.getMainPanel().add(tareaABM);
 			}
 		} else if (e.getSource()== this.vista.getMenuItemSalaVer()) {
 			if (salaABM == null) {
 				salaABM = new SalaABMVistaPrincipal();
-				salaABMControlador = new SalaABMVistaPrincipalControlador(modelo, salaABM);
+				salaABMControlador = new SalaABMVistaPrincipalControlador(modelo, salaABM, vista);
 				
 				this.vista.getMainPanel().add(salaABM);
 			}

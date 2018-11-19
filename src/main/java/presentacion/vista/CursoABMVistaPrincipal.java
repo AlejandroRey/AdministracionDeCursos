@@ -169,6 +169,8 @@ public class CursoABMVistaPrincipal extends JPanel {
 		lblHome = new JLabel("New label");
 		lblHome.setIcon(new ImageIcon("imagenes/home.png"));
 		lblHome.setBounds(82, 5, 48, 48);
+		lblHome.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		lblHome.setLayout(null);
 		buttonPanel.add(lblHome);	
 		
 		lblCurso = new JLabel("Curso");

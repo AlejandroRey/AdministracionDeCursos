@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 
 import dto.AlumnoDTO;
 import modelo.AdministracionDeCursos;
+import presentacion.vista.AdministracionDeCursosVista;
+import presentacion.vista.AdministrativoVista;
 import presentacion.vista.AlumnoABMPanel;
 import presentacion.vista.AlumnoABMVistaPrincipal;
 import presentacion.vista.AlumnoContactoPanel;
@@ -32,12 +34,17 @@ public class AlumnoABMVistaPrincipalControlador {
 	private AlumnoContactoPanel alumnoContacto;
 	
 	private AlumnoDTO alumnoDTO;
+	private AdministrativoVista administrativoVista;
+	private AdministrativoVistaControlador administrativoVistaControlador;
+	
+	private AdministracionDeCursosVista administracionVista;
 
-	public AlumnoABMVistaPrincipalControlador(AdministracionDeCursos modelo, AlumnoABMVistaPrincipal vista) {
+	public AlumnoABMVistaPrincipalControlador(AdministracionDeCursos modelo, AlumnoABMVistaPrincipal vista, AdministracionDeCursosVista administracionVista) {
 		super();
 		this.modelo = modelo;
 		this.vista = vista;
-
+		this.administracionVista = administracionVista;
+		
 		this.vista.getBtnVer().addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mousePressed(java.awt.event.MouseEvent evt) {
 				btnSeleccionar_MousePressed(evt);
@@ -110,7 +117,11 @@ public class AlumnoABMVistaPrincipalControlador {
 	}
 
 	private void btnHomeI_MousePressed(MouseEvent evt) {
-		//setVisiblePanelHistorial();
+		this.administracionVista.getFrame().dispose();
+		administrativoVista = new AdministrativoVista();
+		administrativoVistaControlador = new AdministrativoVistaControlador(administrativoVista,
+				modelo);
+		administrativoVistaControlador.inicializar();
 	}
 	
 	public void setVisiblePanelHistorial() {

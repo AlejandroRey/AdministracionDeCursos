@@ -6,6 +6,8 @@ import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 
 import modelo.AdministracionDeCursos;
+import presentacion.vista.AdministracionDeCursosVista;
+import presentacion.vista.AdministrativoVista;
 import presentacion.vista.TareaABMPanel;
 import presentacion.vista.TareaABMVistaPrincipal;
 
@@ -16,12 +18,17 @@ public class TareaABMVistaPrincipalControlador {
 	
 	private TareaABMControlador tareaABMControlador;
 	private TareaABMPanel tareaABM;
+	
+	private AdministracionDeCursosVista administracionVista;
+	private AdministrativoVista administrativoVista;
+	private AdministrativoVistaControlador administrativoVistaControlador;
 
-	public TareaABMVistaPrincipalControlador(AdministracionDeCursos modelo, TareaABMVistaPrincipal vista) {
+	public TareaABMVistaPrincipalControlador(AdministracionDeCursos modelo, TareaABMVistaPrincipal vista, AdministracionDeCursosVista administracionVista) {
 		super();
 		this.modelo = modelo;
 		this.vista = vista;
-
+		this.administracionVista = administracionVista;
+		
 		this.vista.getBtnAgregar().addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mousePressed(java.awt.event.MouseEvent evt) {
 				btnAgregar_MousePressed(evt);
@@ -39,7 +46,20 @@ public class TareaABMVistaPrincipalControlador {
 				btnEliminar_MousePressed(evt);
 			}
 		});
+		
+		this.vista.getLblHome().addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mousePressed(java.awt.event.MouseEvent evt) {
+				btnHome_MousePressed(evt);
+			}
+		});
 
+	}
+	
+	private void btnHome_MousePressed(MouseEvent evt) {
+		this.administracionVista.getFrame().dispose();
+		administrativoVista = new AdministrativoVista();
+		administrativoVistaControlador = new AdministrativoVistaControlador(administrativoVista, modelo);
+		administrativoVistaControlador.inicializar();
 	}
 
 	private void btnAgregar_MousePressed(MouseEvent evt) {

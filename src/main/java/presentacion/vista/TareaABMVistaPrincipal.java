@@ -138,6 +138,8 @@ public class TareaABMVistaPrincipal extends JPanel {
 		lblHome = new JLabel("");
 		lblHome.setIcon(new ImageIcon("imagenes/home.png"));
 		lblHome.setBounds(82, 5, 48, 48);
+		lblHome.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		lblHome.setLayout(null);
 		buttonPanel.add(lblHome);	
 		
 		lblCurso = new JLabel("Tarea");
@@ -207,4 +209,13 @@ public class TareaABMVistaPrincipal extends JPanel {
 	public void setMainPanel(JPanel mainPanel) {
 		this.mainPanel = mainPanel;
 	}
+
+	public JLabel getLblHome() {
+		return lblHome;
+	}
+
+	public void setLblHome(JLabel lblHome) {
+		this.lblHome = lblHome;
+	}
+	
 }
