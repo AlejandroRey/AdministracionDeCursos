@@ -6,6 +6,8 @@ import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 
 import modelo.AdministracionDeCursos;
+import presentacion.vista.AdministracionDeCursosVista;
+import presentacion.vista.AdministrativoVista;
 import presentacion.vista.RecadoABMPanel;
 import presentacion.vista.RecadoABMVistaPrincipal;
 import presentacion.vista.RecadoEnviarPanel;
@@ -22,14 +24,18 @@ public class RecadoABMVistaPrincipalControlador {
 	private RecadoABMPanelControlador recadoABMPanelEnviadosControlador;
 	private RecadoABMPanelControlador recadoABMPanelRecibidosControlador;
 	private RecadoABMPanelControlador recadoABMPanelEliminadosControlador;
+	private AdministracionDeCursosVista administracionVista;
+	private AdministrativoVista administrativoVista;
+	private AdministrativoVistaControlador administrativoVistaControlador;
 
-	public RecadoABMVistaPrincipalControlador(AdministracionDeCursos modelo, RecadoABMVistaPrincipal vista) {
+	public RecadoABMVistaPrincipalControlador(AdministracionDeCursos modelo, RecadoABMVistaPrincipal vista, AdministracionDeCursosVista administracionVista) {
 		this.vista = vista;
 		this.modelo = modelo;
 		this.vista.getBtnNuevo();
 		this.vista.getBtnEnviados();
 		this.vista.getBtnEliminados();
 		this.vista.getBtnRecibidos();
+		this.administracionVista = administracionVista;
 
 		this.vista.getBtnNuevo().addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -52,6 +58,12 @@ public class RecadoABMVistaPrincipalControlador {
 		this.vista.getBtnRecibidos().addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mousePressed(java.awt.event.MouseEvent evt) {
 				getBtnRecibidos(evt);
+			}
+		});
+		
+		this.vista.getLblHome().addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mousePressed(java.awt.event.MouseEvent evt) {
+				btnHome_MousePressed(evt);
 			}
 		});
 
@@ -134,6 +146,17 @@ public class RecadoABMVistaPrincipalControlador {
 		this.vista.getMainPanel().revalidate();
 	}
 
+	public void btnHome_MousePressed(MouseEvent evt) {
+//		this.vista.getMainPanel().setVisible(false);
+		System.out.println("click");
+		this.administracionVista.getFrame().dispose();
+		administrativoVista = new AdministrativoVista();
+		administrativoVistaControlador = new AdministrativoVistaControlador(administrativoVista,
+				modelo);
+		administrativoVistaControlador.inicializar();
+	}
+	
+	
 	private void setColor(JPanel pane) {
 		pane.setBackground(new Color(0, 0, 0));
 	}

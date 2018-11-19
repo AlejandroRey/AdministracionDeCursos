@@ -178,7 +178,7 @@ public class AdministrativoVistaControlador implements ActionListener {
 			
 			if (recadoABMVistaPrincipal == null) {
 				recadoABMVistaPrincipal = new RecadoABMVistaPrincipal();
-				recadoABMControlador = new RecadoABMVistaPrincipalControlador(modelo, recadoABMVistaPrincipal);
+				recadoABMControlador = new RecadoABMVistaPrincipalControlador(modelo, recadoABMVistaPrincipal, administracionVista);
 				
 				this.administracionVista.getMainPanel().add(recadoABMVistaPrincipal);
 			}

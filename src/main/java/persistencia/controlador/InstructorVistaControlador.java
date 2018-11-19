@@ -54,7 +54,7 @@ public class InstructorVistaControlador implements ActionListener {
 			
 			if (recadoABMVistaPrincipal == null) {
 				recadoABMVistaPrincipal = new RecadoABMVistaPrincipal();
-				recadoABMControlador = new RecadoABMVistaPrincipalControlador(modelo, recadoABMVistaPrincipal);
+				recadoABMControlador = new RecadoABMVistaPrincipalControlador(modelo, recadoABMVistaPrincipal, null);
 				
 				this.instructorAdministracionVista.getMainPanel().add(recadoABMVistaPrincipal);
 			}
