@@ -90,9 +90,10 @@ public class AdministracionDeCursos {
 	private NotaDAO notaDAO;
 	private RecadoDAO recadoDAO;
 	private ContactoCompletoDAO contactoCompleto;
+	private UsuarioDTO usuarioLogueado;
 
 	public AdministracionDeCursos(DAOAbstractFactory metodo_persistencia) {
-		
+		this.usuarioLogueado = null;
 		this.alumno = metodo_persistencia.createAlumnoDAO();
 		this.usuario = metodo_persistencia.createUsuarioDAO();		
 		this.categoria = metodo_persistencia.createCategoriaDAO();
@@ -542,5 +543,13 @@ public class AdministracionDeCursos {
 	
 	public List<RecadoDTO> obtenerRecadosEliminados(){
 		return this.recadoDAO.readAllEliminados();
+	}
+
+	public UsuarioDTO getUsuarioLogueado() {
+		return usuarioLogueado;
+	}
+
+	public void setUsuarioLogueado(UsuarioDTO usuarioLogueado) {
+		this.usuarioLogueado = usuarioLogueado;
 	}
 }

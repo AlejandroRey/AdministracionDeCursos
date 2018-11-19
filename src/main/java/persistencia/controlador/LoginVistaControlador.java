@@ -46,11 +46,12 @@ public class LoginVistaControlador implements ActionListener {
 			boolean encontrado = false;
 			for(UsuarioDTO usuarioDTO : listaDeUsuarios) {
 				if (usuarioDTO.getUsuario().equals(this.vista.getUsuarioField().getText()) && usuarioDTO.getPassword().equals(this.vista.getContraseniaField().getText())){
+					this.modelo.setUsuarioLogueado(usuarioDTO);
 					//Si es supervisor
 					if (usuarioDTO.getIdCategoria()==1) {
 						this.vista.getLoginFrame().dispose();
 						supervisorVista = new SupervisorVista();
-						supervisorVistaControlador = new SupervisorVistaControlador(supervisorVista);
+						supervisorVistaControlador = new SupervisorVistaControlador(supervisorVista, modelo);
 						supervisorVistaControlador.inicializar();
 						encontrado = true;
 					}
@@ -58,7 +59,7 @@ public class LoginVistaControlador implements ActionListener {
 					if (usuarioDTO.getIdCategoria()==2) {
 						this.vista.getLoginFrame().dispose();
 						administrativoVista = new AdministrativoVista();
-						administrativoVistaControlador = new AdministrativoVistaControlador(administrativoVista);
+						administrativoVistaControlador = new AdministrativoVistaControlador(administrativoVista, modelo);
 						administrativoVistaControlador.inicializar();
 						encontrado = true;
 					}
@@ -66,7 +67,7 @@ public class LoginVistaControlador implements ActionListener {
 					if (usuarioDTO.getIdCategoria()==3){
 						this.vista.getLoginFrame().dispose();
 						instructorVista = new InstructorVista();
-						instructorVistaControlador = new InstructorVistaControlador(instructorVista);
+						instructorVistaControlador = new InstructorVistaControlador(instructorVista, modelo);
 						instructorVistaControlador.inicializar();
 						encontrado = true;
 					}
