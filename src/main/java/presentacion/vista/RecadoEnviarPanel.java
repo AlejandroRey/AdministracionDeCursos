@@ -50,7 +50,7 @@ public class RecadoEnviarPanel extends JPanel{
 		panel.setBounds(15, 16, 703, 151);
 		this.add(panel);
 		panel.setLayout(null);
-		
+						
 		JLabel lblIdRecado = new JLabel("id Recado:");
 		lblIdRecado.setVisible(false);
 		lblIdRecado.setBounds(21, 123, 94, 14);
@@ -84,6 +84,7 @@ public class RecadoEnviarPanel extends JPanel{
 		panel.add(txtPara);
 		
 		btnB = new JButton("B");
+		btnB.setVisible(false);
 		btnB.setBounds(635, 28, 41, 22);
 		panel.add(btnB);
 				
