@@ -46,7 +46,6 @@ public class RecadoABMPanelControlador implements ActionListener {
 
 	private void llenarTabladeEnviados() {
 		instanciarTabla();
-		// TODO Cambiar id -- SE OBTIENEN LOS ENVIADOS DEL idUsuarioDe = 1		
 		this.recadosLista = modelo.obtenerRecadosEnviados(modelo.getUsuarioLogueado().getIdUsuario());
 		for (RecadoDTO recadoDTO : recadosLista) {
 			Object[] fila = { recadoDTO.getIdRecado(), recadoDTO.getIdUsuarioDe(),
@@ -63,7 +62,6 @@ public class RecadoABMPanelControlador implements ActionListener {
 
 	private void llenarTabladeRecibidos() {
 		instanciarTabla();
-		// TODO Cambiar id -- SE OBTIENEN LOS ENVIADOS DEL idUsuarioPara = 1
 		this.recadosLista = modelo.obtenerRecadosRecibidos(modelo.getUsuarioLogueado().getIdUsuario());
 		for (RecadoDTO recadoDTO : recadosLista) {
 			Object[] fila = { recadoDTO.getIdRecado(), getNombreDeUsuario(recadoDTO.getIdUsuarioDe()),
@@ -297,28 +295,24 @@ public class RecadoABMPanelControlador implements ActionListener {
 					String mensaje = this.vista.getTblRecados()
 							.getValueAt(this.vista.getTblRecados().getSelectedRow(), 4).toString();
 					Timestamp enviado = (Timestamp) this.vista.getTblRecados()
-							.getValueAt(this.vista.getTblRecados().getSelectedRow(), 5);					
+							.getValueAt(this.vista.getTblRecados().getSelectedRow(), 5);
 					boolean eliminado = (boolean) this.vista.getTblRecados()
 							.getValueAt(this.vista.getTblRecados().getSelectedRow(), 7);
 
-					if (this.tipo.equals("Enviados")) {
-						this.modelo
-								.actualizarRecado(new RecadoDTO(Long.parseLong(idRecado), Long.parseLong(idUsuarioDe),
-										getIdUsuario(idUsuarioPara), asunto, mensaje, enviado, true, eliminado));
-					} else if (this.tipo.equals("Recibidos")) {			
+					if (this.tipo.equals("Recibidos")) {
 						// Marcar visto
 						this.modelo.actualizarRecado(new RecadoDTO(Long.parseLong(idRecado), getIdUsuario(idUsuarioDe),
 								Long.parseLong(idUsuarioPara), asunto, mensaje, enviado, true, eliminado));
-						//Enviar respuesta de visto
-						RecadoDTO recado = new RecadoDTO(0, Long.parseLong(idUsuarioPara), getIdUsuario(idUsuarioDe),
-								"RE: " + asunto, "Enviado: " + stringDateFormatter(enviado.toLocalDateTime()) + "\nVisto: " + stringDateFormatter(LocalDateTime.now())
-										+ ". \n\n ----------------------------------- \n" + mensaje,
-								enviado, true, eliminado);					
-						this.modelo.agregarRecado(recado);
-						
-					} else if (this.tipo.equals("Eliminados")) {
-						this.modelo.actualizarRecado(new RecadoDTO(Long.parseLong(idRecado), getIdUsuario(idUsuarioDe),
-								getIdUsuario(idUsuarioPara), asunto, mensaje, enviado, true, eliminado));
+						if(!mensaje.contains("-------------------------------------------")) {
+							// Enviar respuesta de visto
+							RecadoDTO recado = new RecadoDTO(0, Long.parseLong(idUsuarioPara), getIdUsuario(idUsuarioDe),
+									"RE: " + asunto,
+									"Enviado: " + stringDateFormatter(enviado.toLocalDateTime()) + "\nVisto: "
+											+ stringDateFormatter(LocalDateTime.now())
+											+ ". \n ------------------------------------------- \n" + mensaje,
+									enviado, false, eliminado);
+							this.modelo.agregarRecado(recado);
+						}
 					}
 					if (this.tipo.equals("Enviados")) {
 						llenarTabladeEnviados();
@@ -363,11 +357,11 @@ public class RecadoABMPanelControlador implements ActionListener {
 
 	private String stringDateFormatter(LocalDateTime fecha) {
 		String formatDateTime = "";
-		if ( fecha != null){
+		if (fecha != null) {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss - dd/MM/yyyy");
 			formatDateTime = fecha.format(formatter);
 		}
 		return formatDateTime;
 	}
-	
+
 }
