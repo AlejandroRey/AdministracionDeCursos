@@ -70,7 +70,7 @@ public class SupervisorVistaControlador implements ActionListener {
 			
 			if (recadoABMVistaPrincipal == null) {
 				recadoABMVistaPrincipal = new RecadoABMVistaPrincipal();
-				recadoABMControlador = new RecadoABMVistaPrincipalControlador(modelo, recadoABMVistaPrincipal);
+				recadoABMControlador = new RecadoABMVistaPrincipalControlador(modelo, recadoABMVistaPrincipal,administracionVista);
 				
 				this.supervisorAdministracionVista.getMainPanel().add(recadoABMVistaPrincipal);
 			}
