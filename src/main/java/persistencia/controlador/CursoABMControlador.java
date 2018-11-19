@@ -68,16 +68,16 @@ public class CursoABMControlador implements ActionListener {
 		this.vista.getTableInteresados().getColumnModel().getColumn(1).setMaxWidth(0);*/
 	}
 	
-	private void llenarTablaInteresados() {
-		this.contactosLista = modelo.obtenerContactos();
-		for (ContactoDTO contactoDTO : contactosLista) {
-			Object[] fila = {contactoDTO.getNombre(), contactoDTO.getApellido(), 
-					contactoDTO.getEmail(), contactoDTO.getFechaCreacion()};
-			if (contactoDTO.getIdCurso() == Long.parseLong(this.vista.getTextIdCurso().getText())) {
-				this.vista.getModelInteresados().addRow(fila);
-			}
-		}
-	}
+//	private void llenarTablaInteresados() {
+//		this.contactosLista = modelo.obtenerContactos();
+//		for (ContactoDTO contactoDTO : contactosLista) {
+//			Object[] fila = {contactoDTO.getNombre(), contactoDTO.getApellido(), 
+//					contactoDTO.getEmail(), contactoDTO.getFechaCreacion()};
+//			if (contactoDTO.getIdCurso() == Long.parseLong(this.vista.getTextIdCurso().getText())) {
+//				this.vista.getModelInteresados().addRow(fila);
+//			}
+//		}
+//	}
 
 	private void llenarTabla() {
 		this.vista.getModelCursos().setRowCount(0); // Para vaciar la tabla
@@ -163,7 +163,7 @@ public class CursoABMControlador implements ActionListener {
 		} else if (e.getSource() == this.vista.getBtnSeleccionar()) {
 			llenarTabla();
 		} else if (e.getSource() == this.vista.getBtnConsultarInteresados()) {
-			llenarTablaInteresados();
+//			llenarTablaInteresados();
 		}
 	}
 

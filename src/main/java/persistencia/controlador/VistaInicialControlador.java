@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
+import modelo.AdministracionDeCursos;
 import presentacion.vista.AdministrativoVista;
 import presentacion.vista.InstructorVista;
 import presentacion.vista.SupervisorVista;
@@ -19,11 +20,12 @@ public class VistaInicialControlador implements ActionListener {
 	private SupervisorVistaControlador supervisorVistaControlador;
 	private InstructorVista instructorVista;
 	private InstructorVistaControlador instructorVistaControlador;
+	private AdministracionDeCursos modelo;
 	
-	public VistaInicialControlador(VistaInicial vista) {
+	public VistaInicialControlador(VistaInicial vista, AdministracionDeCursos modelo) {
 		super();
 		this.vista = vista;
-	
+		this.modelo = modelo;
 		this.vista.getBtnAdministrativo().addActionListener(this);
 		this.vista.getBtnInstructor().addActionListener(this);
 		this.vista.getBtnSupervisor().addActionListener(this);
@@ -38,21 +40,21 @@ public class VistaInicialControlador implements ActionListener {
 		if (e.getSource() == this.vista.getBtnAdministrativo()) {
 			this.vista.getFrmBienvenidoAlSistema().dispose();
 			administrativoVista = new AdministrativoVista();
-			administrativoVistaControlador = new AdministrativoVistaControlador(administrativoVista);
+			administrativoVistaControlador = new AdministrativoVistaControlador(administrativoVista,modelo);
 			administrativoVistaControlador.inicializar();
 		}
 		
 		if (e.getSource() == this.vista.getBtnInstructor()) {
 			this.vista.getFrmBienvenidoAlSistema().dispose();
 			instructorVista = new InstructorVista();
-			instructorVistaControlador = new InstructorVistaControlador(instructorVista);
+			instructorVistaControlador = new InstructorVistaControlador(instructorVista,modelo);
 			instructorVistaControlador.inicializar();
 		}
 		
 		if (e.getSource() == this.vista.getBtnSupervisor()) {
 			this.vista.getFrmBienvenidoAlSistema().dispose();
 			supervisorVista = new SupervisorVista();
-			supervisorVistaControlador = new SupervisorVistaControlador(supervisorVista);
+			supervisorVistaControlador = new SupervisorVistaControlador(supervisorVista,modelo);
 			supervisorVistaControlador.inicializar();
 		}
 	}

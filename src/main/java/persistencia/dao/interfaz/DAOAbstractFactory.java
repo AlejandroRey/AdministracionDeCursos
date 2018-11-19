@@ -6,6 +6,8 @@ public interface DAOAbstractFactory {
 	
 	public ContactoDAO createContactoDAO();
 	
+	public ContactoCompletoDAO createContactoCompletoDAO();
+	
 	public UsuarioDAO createUsuarioDAO();
 
 	public CategoriaDAO createCategoriaDAO();
@@ -28,8 +30,6 @@ public interface DAOAbstractFactory {
 
 	public CursadaCompletaDAO createCursadaCompletaDAO();
 	
-	public AlumnoEventoDAO createAlumnoEventoDAO();
-
 	public AlumnoInscriptoDAO createAlumnoInscriptoDAO();
 	
 	public InscriptoDAO createInscriptoDAO();
@@ -57,4 +57,6 @@ public interface DAOAbstractFactory {
 	public NotaDAO createNotaDAO();
 	
 	public NotificacionDAO createNotificacionDAO();
+	
+	public RecadoDAO createRecadoDAO();
 }

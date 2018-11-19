@@ -21,9 +21,6 @@ public class ContactoABMVistaPrincipalControlador {
 		this.modelo = modelo;
 		this.vista = vista;
 		
-		this.modelo = modelo;
-		this.vista = vista;
-
 		this.vista.getBtnSeleccionar().addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mousePressed(java.awt.event.MouseEvent evt) {
 				btnSeleccionar_MousePressed(evt);
@@ -52,6 +49,7 @@ public class ContactoABMVistaPrincipalControlador {
 
 	private void btnSeleccionar_MousePressed(MouseEvent evt) {
 		setColor(this.vista.getBtnSeleccionar());
+		setColor(this.vista.getMainPanel());
 		resetColor(new JPanel[] { this.vista.getBtnAgregar(), this.vista.getBtnActualizar(), this.vista.getBtnEliminar() });
 
 		if (contactoABMControlador == null) {
@@ -64,12 +62,13 @@ public class ContactoABMVistaPrincipalControlador {
 		} else {
 			contactoABMControlador.setVisibleBtnSeleccionar();
 		}
-
+		this.vista.getMainPanel().revalidate();
 		this.vista.getMainPanel().repaint();		
 	}	
 
 	private void btnAgregar_MousePressed(MouseEvent evt) {		
 		setColor(this.vista.getBtnAgregar());
+		setColor(this.vista.getMainPanel());
 		resetColor(new JPanel[] { this.vista.getBtnSeleccionar(), this.vista.getBtnActualizar(), this.vista.getBtnEliminar() });
 
 		if (contactoABMControlador == null) {
@@ -77,19 +76,18 @@ public class ContactoABMVistaPrincipalControlador {
 			contactoABMControlador = new ContactoABMControlador(contactoABM, modelo);
 			contactoABMControlador.inicializar();
 			contactoABMControlador.setVisibleBtnAgregar();
-			contactoABMControlador.setVisibleBtnAgregarYTareas();
 
 			this.vista.getMainPanel().add(contactoABM);
 		} else {
 			contactoABMControlador.setVisibleBtnAgregar();
-			contactoABMControlador.setVisibleBtnAgregarYTareas();
 		}
-
+		this.vista.getMainPanel().revalidate();
 		this.vista.getMainPanel().repaint();	
 	}	
 
 	private void btnActualizar_MousePressed(MouseEvent evt) {
 		setColor(this.vista.getBtnActualizar());
+		setColor(this.vista.getMainPanel());
 		resetColor(new JPanel[] { this.vista.getBtnSeleccionar(), this.vista.getBtnAgregar(), this.vista.getBtnEliminar() });
 
 		if (contactoABMControlador == null) {
@@ -102,12 +100,13 @@ public class ContactoABMVistaPrincipalControlador {
 		} else {
 			contactoABMControlador.setVisibleBtnActualizar();
 		}
-
+		this.vista.getMainPanel().revalidate();
 		this.vista.getMainPanel().repaint();	
 	}	
 
 	private void btnEliminar_MousePressed(MouseEvent evt) {
 		setColor(this.vista.getBtnEliminar());
+		setColor(this.vista.getMainPanel());
 		resetColor(new JPanel[] { this.vista.getBtnSeleccionar(), this.vista.getBtnActualizar(), this.vista.getBtnAgregar() });
 
 		if (contactoABMControlador == null) {
@@ -120,7 +119,7 @@ public class ContactoABMVistaPrincipalControlador {
 		} else {
 			contactoABMControlador.setVisibleBtnEliminar();
 		}
-
+		this.vista.getMainPanel().revalidate();
 		this.vista.getMainPanel().repaint();	
 	}
 	
@@ -128,10 +127,9 @@ public class ContactoABMVistaPrincipalControlador {
 		pane.setBackground(new Color(41, 57, 80));
 	}
 	
-	private void resetColor(JPanel[] pane) {
+	private void resetColor (JPanel[] pane) {
 		for (int i = 0; i < pane.length; i++) {
 			pane[i].setBackground(new Color(0, 0, 0));
-
 		}
 	}
 }

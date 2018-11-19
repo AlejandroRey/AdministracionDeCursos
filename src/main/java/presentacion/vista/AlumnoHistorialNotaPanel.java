@@ -1,6 +1,7 @@
 package presentacion.vista;
 
 import java.awt.Component;
+import java.awt.Cursor;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -14,6 +15,7 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import javax.swing.JButton;
 
 @SuppressWarnings("serial")
 public class AlumnoHistorialNotaPanel extends JPanel {
@@ -29,6 +31,7 @@ public class AlumnoHistorialNotaPanel extends JPanel {
 	private String[] nombreColumnasEvaluaciones = {"idAlumno", "idEvaluacion", "idCursada", "idEvaluacionTipo", "parcial", "tema", "fecha", "nota"};
 	
 	private JLabel lblPromedio;
+	private JButton btnImprimirHistorial;
 	
 	/**
 	 * Create the Panel.
@@ -50,7 +53,7 @@ public class AlumnoHistorialNotaPanel extends JPanel {
 	private void inicializarTablaCursadas() {
 		
 		spCursadas = new JScrollPane();
-		spCursadas.setBounds(10, 10, 500, 380);
+		spCursadas.setBounds(10, 10, 500, 450);
 		add(spCursadas);
 		
 		modelCursadas = new DefaultTableModel(null, nombreColumnasCursadas);
@@ -94,7 +97,7 @@ public class AlumnoHistorialNotaPanel extends JPanel {
 		spEvaluaciones.setViewportView(tablaEvaluaciones);
 		
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Promedio", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Nota Final", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel.setBounds(520, 310, 340, 80);
 		add(panel);
 		panel.setLayout(null);
@@ -104,6 +107,11 @@ public class AlumnoHistorialNotaPanel extends JPanel {
 		lblPromedio.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPromedio.setBounds(140, 13, 60, 60);
 		panel.add(lblPromedio);
+		
+		btnImprimirHistorial = new JButton("Imprimir Historial");
+		btnImprimirHistorial.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		btnImprimirHistorial.setBounds(520, 401, 340, 59);
+		add(btnImprimirHistorial);
 	}
 
 	/**
@@ -230,5 +238,19 @@ public class AlumnoHistorialNotaPanel extends JPanel {
 	 */
 	public void setLblPromedio(JLabel lblPromedio) {
 		this.lblPromedio = lblPromedio;
+	}
+
+	/**
+	 * @return the btnImprimirHistorial
+	 */
+	public JButton getBtnImprimirHistorial() {
+		return btnImprimirHistorial;
+	}
+
+	/**
+	 * @param btnImprimirHistorial the btnImprimirHistorial to set
+	 */
+	public void setBtnImprimirHistorial(JButton btnImprimirHistorial) {
+		this.btnImprimirHistorial = btnImprimirHistorial;
 	}
 }

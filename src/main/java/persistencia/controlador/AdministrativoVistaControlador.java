@@ -16,6 +16,7 @@ import presentacion.vista.CursadaABMVistaPrincipal;
 import presentacion.vista.CursoABMVistaPrincipal;
 import presentacion.vista.LoginVista;
 import presentacion.vista.NotificacionPanel;
+import presentacion.vista.RecadoABMVistaPrincipal;
 import presentacion.vista.SalaABMVistaPrincipal;
 import presentacion.vista.TareaABMVistaPrincipal;
 import presentacion.vista.UsuarionABMVistaPrincipal;
@@ -26,6 +27,8 @@ public class AdministrativoVistaControlador implements ActionListener {
 	private AdministrativoVista vista;
 	private AdministracionDeCursos modelo;
 	private AdministracionDeCursosVista administracionVista;
+	private RecadoABMVistaPrincipal recadoABMVistaPrincipal;
+	private RecadoABMVistaPrincipalControlador recadoABMControlador;
 	private AdministracionDeCursosControlador controlador;
 	private AlumnoABMVistaPrincipal alumnoABM;
 	private AlumnoABMVistaPrincipalControlador alumnoABMControlador;
@@ -46,10 +49,10 @@ public class AdministrativoVistaControlador implements ActionListener {
 	private NotificacionPanel notificacionVista;
 	private NotificacionControlador notificacionControlador;
 	
-	public AdministrativoVistaControlador(AdministrativoVista vista) {
+	public AdministrativoVistaControlador(AdministrativoVista vista, AdministracionDeCursos modelo) {
 		super();
 		this.vista = vista;
-		
+		this.modelo = modelo;
 		this.vista.getBtnAlumnos().addActionListener(this);
 		this.vista.getBtnCambiarContrasena().addActionListener(this);
 		this.vista.getBtnCerrarSesion().addActionListener(this);
@@ -73,7 +76,7 @@ public class AdministrativoVistaControlador implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.vista.getBtnAlumnos()) {
 			this.vista.getFrmAdministrativo().dispose();
-			modelo = new AdministracionDeCursos(new DAOSQLFactory());
+//			modelo = new AdministracionDeCursos(new DAOSQLFactory());
 			administracionVista = new AdministracionDeCursosVista();
 			controlador = new AdministracionDeCursosControlador(modelo, administracionVista);
 			controlador.inicializar();
@@ -91,13 +94,13 @@ public class AdministrativoVistaControlador implements ActionListener {
 		if (e.getSource() == this.vista.getBtnCerrarSesion()) {
 			this.vista.getFrmAdministrativo().dispose();
 			LoginVista vista = new LoginVista();
-			AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
+//			AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
 			LoginVistaControlador controlador = new LoginVistaControlador(vista, modelo);
 			controlador.inicializar();
 		}
 		if (e.getSource() == this.vista.getBtnContactos()) {
 			this.vista.getFrmAdministrativo().dispose();
-			modelo = new AdministracionDeCursos(new DAOSQLFactory());
+//			modelo = new AdministracionDeCursos(new DAOSQLFactory());
 			administracionVista = new AdministracionDeCursosVista();
 			controlador = new AdministracionDeCursosControlador(modelo, administracionVista);
 			controlador.inicializar();
@@ -111,7 +114,7 @@ public class AdministrativoVistaControlador implements ActionListener {
 		}
 		if (e.getSource() == this.vista.getBtnCursadas()) {
 			this.vista.getFrmAdministrativo().dispose();
-			modelo = new AdministracionDeCursos(new DAOSQLFactory());
+//			modelo = new AdministracionDeCursos(new DAOSQLFactory());
 			administracionVista = new AdministracionDeCursosVista();
 			controlador = new AdministracionDeCursosControlador(modelo, administracionVista);
 			controlador.inicializar();
@@ -125,7 +128,7 @@ public class AdministrativoVistaControlador implements ActionListener {
 		}
 		if (e.getSource() == this.vista.getBtnCursos()) {
 			this.vista.getFrmAdministrativo().dispose();
-			modelo = new AdministracionDeCursos(new DAOSQLFactory());
+//			modelo = new AdministracionDeCursos(new DAOSQLFactory());
 			administracionVista = new AdministracionDeCursosVista();
 			controlador = new AdministracionDeCursosControlador(modelo, administracionVista);
 			controlador.inicializar();
@@ -145,7 +148,7 @@ public class AdministrativoVistaControlador implements ActionListener {
 		}
 		if (e.getSource() == this.vista.getBtnInstructores()) {
 			this.vista.getFrmAdministrativo().dispose();
-			modelo = new AdministracionDeCursos(new DAOSQLFactory());
+//			modelo = new AdministracionDeCursos(new DAOSQLFactory());
 			administracionVista = new AdministracionDeCursosVista();
 			controlador = new AdministracionDeCursosControlador(modelo, administracionVista);
 			controlador.inicializar();
@@ -173,11 +176,24 @@ public class AdministrativoVistaControlador implements ActionListener {
 			}
 		}
 		if (e.getSource() == this.vista.getBtnRecados()) {
-			JOptionPane.showMessageDialog(null, "Esta función todavía no está desarrollada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+			//TODO AGREGAR RECADO
+			this.vista.getFrmAdministrativo().dispose();
+//			modelo = new AdministracionDeCursos(new DAOSQLFactory());
+			administracionVista = new AdministracionDeCursosVista();
+			controlador = new AdministracionDeCursosControlador(modelo, administracionVista);
+			controlador.inicializar();
+			
+			if (recadoABMVistaPrincipal == null) {
+				recadoABMVistaPrincipal = new RecadoABMVistaPrincipal();
+				recadoABMControlador = new RecadoABMVistaPrincipalControlador(modelo, recadoABMVistaPrincipal);
+				
+				this.administracionVista.getMainPanel().add(recadoABMVistaPrincipal);
+			}
+			//JOptionPane.showMessageDialog(null, "Esta función todavía no está desarrollada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 		}
 		if (e.getSource() == this.vista.getBtnSalas()) {
 			this.vista.getFrmAdministrativo().dispose();
-			modelo = new AdministracionDeCursos(new DAOSQLFactory());
+//			modelo = new AdministracionDeCursos(new DAOSQLFactory());
 			administracionVista = new AdministracionDeCursosVista();
 			controlador = new AdministracionDeCursosControlador(modelo, administracionVista);
 			controlador.inicializar();
@@ -191,7 +207,7 @@ public class AdministrativoVistaControlador implements ActionListener {
 		}
 		if (e.getSource() == this.vista.getBtnTareas()) {
 			this.vista.getFrmAdministrativo().dispose();
-			modelo = new AdministracionDeCursos(new DAOSQLFactory());
+//			modelo = new AdministracionDeCursos(new DAOSQLFactory());
 			administracionVista = new AdministracionDeCursosVista();
 			controlador = new AdministracionDeCursosControlador(modelo, administracionVista);
 			controlador.inicializar();

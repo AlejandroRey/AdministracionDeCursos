@@ -2,6 +2,7 @@ package presentacion.vista;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.SystemColor;
 
 import javax.swing.JButton;
@@ -14,6 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
@@ -24,7 +26,7 @@ public class AlumnosInscriptosPanel extends JPanel {
 	private JScrollPane spAlumnos;
 	private DefaultTableModel modelAlumnos;
 	private JTable tblAlumnos;
-	private String[] nombreColumnas = {"", "", "Nombre", "Apellido", "Telefono", "Email", "Fecha Insc"};
+	private String[] nombreColumnas = {"", "", "Nombre", "Apellido", "Telefono", "Email", "Fecha Insc", "estado"};
 	
 	private JPanel panel;
 	
@@ -39,13 +41,14 @@ public class AlumnosInscriptosPanel extends JPanel {
 	private JPanel panelButtons;
 	private JButton btnAgregar;
 	private JButton btnEliminar;
+	private JButton btnDarDeAlta;
 
 	/**
 	 * Create the frame.
 	 */
 	public AlumnosInscriptosPanel() {
 		super();
-		this.setBounds(0, 0, 630, 600);
+		this.setBounds(0, 0, 630, 650);
 		this.setLayout(null);
 		inicializar();
 	}
@@ -72,8 +75,26 @@ public class AlumnosInscriptosPanel extends JPanel {
 		           TableColumn tableColumn = getColumnModel().getColumn(column);
 		           tableColumn.setPreferredWidth(Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
 		           return component;
-		        }
+		        }		    
 		    };
+		
+		tblAlumnos.setDefaultRenderer(Object.class, new DefaultTableCellRenderer(){
+		    @Override
+		    public Component getTableCellRendererComponent(JTable table,
+		            Object value, boolean isSelected, boolean hasFocus, int row, int col) {
+		        super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+		        boolean status = (boolean)table.getModel().getValueAt(row, 7);
+		        if (status == false) {
+		            setBackground(Color.RED);
+		            setForeground(Color.WHITE);
+		        } else {
+		            setBackground(table.getBackground());
+		            setForeground(table.getForeground());
+		        }       
+		        return this;
+		    }   
+		});
+		    
 		tblAlumnos.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 		//tblInstructores.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);		
 		spAlumnos.setViewportView(tblAlumnos);		
@@ -173,18 +194,24 @@ public class AlumnosInscriptosPanel extends JPanel {
 	private void inicializarPanelButtons() {
 		
 		panelButtons = new JPanel();
-		panelButtons.setBounds(65, 470, 500, 84);
+		panelButtons.setBounds(65, 470, 500, 135);
 		this.add(panelButtons);
 		panelButtons.setLayout(null);
 		
 		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(108, 46, 280, 30);
-		btnAgregar.setVisible(true);
+		btnAgregar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		btnAgregar.setBounds(108, 93, 280, 30);
 		panelButtons.add(btnAgregar);
 		
-		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(108, 5, 280, 30);
+		btnEliminar = new JButton("Dar de Baja");
+		btnEliminar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		btnEliminar.setBounds(108, 11, 280, 30);
 		panelButtons.add(btnEliminar);
+		
+		btnDarDeAlta = new JButton("Dar de Alta");
+		btnDarDeAlta.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		btnDarDeAlta.setBounds(108, 52, 280, 30);
+		panelButtons.add(btnDarDeAlta);
 	}
 
 	/**
@@ -397,4 +424,17 @@ public class AlumnosInscriptosPanel extends JPanel {
 		this.btnEliminar = btnEliminar;
 	}
 
+	/**
+	 * @return the btnDarDeAlta
+	 */
+	public JButton getBtnDarDeAlta() {
+		return btnDarDeAlta;
+	}
+
+	/**
+	 * @param btnDarDeAlta the btnDarDeAlta to set
+	 */
+	public void setBtnDarDeAlta(JButton btnDarDeAlta) {
+		this.btnDarDeAlta = btnDarDeAlta;
+	}
 }

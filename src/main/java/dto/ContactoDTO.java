@@ -3,31 +3,44 @@ package dto;
 import java.time.LocalDateTime;
 
 public class ContactoDTO {
-	private long idContacto;
-	private long idCurso;
-	private long idAlumno;
-	private String nombre;
-	private String	apellido;
-	private String descripcion;
-	private String telefono;
-	private String email;
-	private LocalDateTime fechaCreacion;
-	private LocalDateTime fechaAccion;
 	
-	public ContactoDTO(long idContacto, long idCurso, long idAlumno, String nombre,
-			String apellido, String descripcion, String telefono,
-			String email, LocalDateTime fechaCreacion, LocalDateTime fechaAccion) {
+	private long idContacto;
+	private long idAlumno;
+	private long idAdministrativo;
+	private long idTarea;
+	private long idCurso;
+	private String descripcion;
+	private LocalDateTime fechaContactar;
+	private LocalDateTime fechaCreacion;
+	private int estado;
+
+	public ContactoDTO(long idContacto, long idAlumno, long idUsuario, long idCurso, String descripcion, LocalDateTime fechaContactar,
+			LocalDateTime fechaCreacion, int estado) {
 		super();
 		this.idContacto = idContacto;
-		this.idCurso = idCurso;
 		this.idAlumno = idAlumno;
-		this.nombre = nombre;
-		this.apellido = apellido;
+		this.idAdministrativo = idUsuario;
+		this.idCurso = idCurso;
 		this.descripcion = descripcion;
-		this.telefono = telefono;
-		this.email = email;
+		this.fechaContactar = fechaContactar;
 		this.fechaCreacion = fechaCreacion;
-		this.fechaAccion = fechaAccion;
+		this.estado = estado;
+	}
+
+	public ContactoDTO(long idContacto, long idAlumno, long idAdministrativo,
+			long idTarea, long idCurso, String descripcion,
+			LocalDateTime fechaContactar, LocalDateTime fechaCreacion,
+			int estado) {
+		super();
+		this.idContacto = idContacto;
+		this.idAlumno = idAlumno;
+		this.idAdministrativo = idAdministrativo;
+		this.idTarea = idTarea;
+		this.idCurso = idCurso;
+		this.descripcion = descripcion;
+		this.fechaContactar = fechaContactar;
+		this.fechaCreacion = fechaCreacion;
+		this.estado = estado;
 	}
 
 	public long getIdContacto() {
@@ -38,28 +51,20 @@ public class ContactoDTO {
 		this.idContacto = idContacto;
 	}
 
+	public long getIdAlumno() {
+		return idAlumno;
+	}
+
+	public void setIdAlumno(long idAlumno) {
+		this.idAlumno = idAlumno;
+	}
+
 	public long getIdCurso() {
 		return idCurso;
 	}
 
 	public void setIdCurso(long idCurso) {
 		this.idCurso = idCurso;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getApellido() {
-		return apellido;
-	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
 	}
 
 	public String getDescripcion() {
@@ -70,20 +75,20 @@ public class ContactoDTO {
 		this.descripcion = descripcion;
 	}
 
-	public String getTelefono() {
-		return telefono;
+	public LocalDateTime getFechaContactar() {
+		return fechaContactar;
 	}
 
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
+	public void setFechaContactar(LocalDateTime fechaContactar) {
+		this.fechaContactar = fechaContactar;
 	}
 
-	public String getEmail() {
-		return email;
+	public int isEstado() {
+		return estado;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEstado(int estado) {
+		this.estado = estado;
 	}
 
 	public LocalDateTime getFechaCreacion() {
@@ -94,29 +99,38 @@ public class ContactoDTO {
 		this.fechaCreacion = fechaCreacion;
 	}
 
-	public LocalDateTime getFechaAccion() {
-		return fechaAccion;
-	}
-
-	public void setFechaAccion(LocalDateTime fechaAccion) {
-		this.fechaAccion = fechaAccion;
-	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
+	/**
+	 * @return the idAdministrativo
 	 */
-	@Override
-	public String toString() {
-		return "ContactoDTO [idContacto: " + idContacto + ", idCurso: " + idCurso + ", idAlumno: " + idAlumno + 
-				", nombre: " + nombre + ", apellido: " + apellido + ", descripcion: " + descripcion + ", telefono: " + 
-				telefono + ", email " + email + ", fechaCreacion: " + fechaCreacion + ", fechaAccion: " + fechaCreacion + "]";
+	public long getIdAdministrativo() {
+		return idAdministrativo;
 	}
 
-	public long getIdAlumno() {
-		return idAlumno;
+	/**
+	 * @param idAdministrativo the idAdministrativo to set
+	 */
+	public void setIdAdministrativo(long idAdministrativo) {
+		this.idAdministrativo = idAdministrativo;
 	}
 
-	public void setIdAlumno(long idAlumno) {
-		this.idAlumno = idAlumno;
+	/**
+	 * @return the estado
+	 */
+	public int getEstado() {
+		return estado;
+	}
+
+	/**
+	 * @return the idTarea
+	 */
+	public long getIdTarea() {
+		return idTarea;
+	}
+
+	/**
+	 * @param idTarea the idTarea to set
+	 */
+	public void setIdTarea(long idTarea) {
+		this.idTarea = idTarea;
 	}	
 }

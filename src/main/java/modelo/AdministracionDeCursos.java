@@ -4,14 +4,14 @@ import java.util.List;
 
 import dto.AlumnoAsistenciaQtyDTO;
 import dto.AlumnoDTO;
-import dto.AlumnoEventoDTO;
+import dto.ContactoCompletoDTO;
+import dto.ContactoDTO;
 import dto.AlumnoInscriptoDTO;
 import dto.AsistenciaDTO;
 import dto.CategoriaDTO;
 import dto.CursadaDTO;
 import dto.CursoDTO;
 import dto.ClaseDTO;
-import dto.ContactoDTO;
 import dto.CursadaCompletaDTO;
 import dto.CursoTipoDTO;
 import dto.DiaCursadaClaseDTO;
@@ -25,13 +25,13 @@ import dto.FeriadoDTO;
 import dto.InscriptoDTO;
 import dto.NotaDTO;
 import dto.NotificacionDTO;
+import dto.RecadoDTO;
 import dto.SalaDTO;
 import dto.SalaDisponibilidadDTO;
 import dto.SalaDisponibleDTO;
 import dto.TareaDTO;
 import dto.UsuarioDTO;
 import persistencia.dao.interfaz.AlumnoDAO;
-import persistencia.dao.interfaz.AlumnoEventoDAO;
 import persistencia.dao.interfaz.AlumnoInscriptoDAO;
 import persistencia.dao.interfaz.AsistenciaDAO;
 import persistencia.dao.interfaz.AlumnoAsistenciaQtyDAO;
@@ -39,6 +39,7 @@ import persistencia.dao.interfaz.CategoriaDAO;
 import persistencia.dao.interfaz.CursoDAO;
 import persistencia.dao.interfaz.ClaseDAO;
 import persistencia.dao.interfaz.ContactoDAO;
+import persistencia.dao.interfaz.ContactoCompletoDAO;
 import persistencia.dao.interfaz.CursadaCompletaDAO;
 import persistencia.dao.interfaz.CursoTipoDAO;
 import persistencia.dao.interfaz.DAOAbstractFactory;
@@ -59,11 +60,11 @@ import persistencia.dao.interfaz.EvaluacionTipoDAO;
 import persistencia.dao.interfaz.EvaluacionCursadaDAO;
 import persistencia.dao.interfaz.NotaDAO;
 import persistencia.dao.interfaz.NotificacionDAO;
+import persistencia.dao.interfaz.RecadoDAO;
 
 public class AdministracionDeCursos {
 
 	private AlumnoDAO alumno;
-	private AlumnoEventoDAO alumnoEvento;
 	private UsuarioDAO usuario;
 	private CategoriaDAO categoria;
 	private ContactoDAO contacto;
@@ -90,14 +91,17 @@ public class AdministracionDeCursos {
 	private EvaluacionCursadaDAO evaluacionCursadaDAO;
 	private NotaDAO notaDAO;
 	private NotificacionDAO notificacion;
+	private RecadoDAO recadoDAO;
+	private ContactoCompletoDAO contactoCompleto;
+	private UsuarioDTO usuarioLogueado;
 
 	public AdministracionDeCursos(DAOAbstractFactory metodo_persistencia) {
-		
+		this.usuarioLogueado = null;
 		this.alumno = metodo_persistencia.createAlumnoDAO();
-		this.alumnoEvento = metodo_persistencia.createAlumnoEventoDAO();
 		this.usuario = metodo_persistencia.createUsuarioDAO();		
 		this.categoria = metodo_persistencia.createCategoriaDAO();
 		this.contacto = metodo_persistencia.createContactoDAO();
+		this.contactoCompleto = metodo_persistencia.createContactoCompletoDAO();
 		this.cursoTipo = metodo_persistencia.createCursoTipoDAO();
 		this.curso = metodo_persistencia.createCursoDAO();
 		this.clase = metodo_persistencia.createClaseDAO();
@@ -121,6 +125,7 @@ public class AdministracionDeCursos {
 		this.evaluacionCursadaDAO = metodo_persistencia.createEvaluacionCursadaDAO();
 		this.notaDAO = metodo_persistencia.createNotaDAO();
 		this.notificacion = metodo_persistencia.createNotificacionDAO();
+		this.recadoDAO = metodo_persistencia.createRecadoDAO();
 	}
 	
 	/* ****************************************************************
@@ -142,7 +147,6 @@ public class AdministracionDeCursos {
 	public List<AlumnoDTO> obtenerAlumnos() {
 		return this.alumno.readAll();
 	}
-	
 	/* ****************************************************************
 	 *                         Notificacion
 	 * ****************************************************************
@@ -161,26 +165,6 @@ public class AdministracionDeCursos {
 	
 	public List<NotificacionDTO> obtenerNotificaciones() {
 		return this.notificacion.readAll();
-	}
-	
-	/* ****************************************************************
-	 *                         AlumnoEvento
-	 * ****************************************************************
-	 */
-	public void agregarAlumnoEvento(AlumnoEventoDTO nuevoAlumnoEvento) {
-		this.alumnoEvento.insert(nuevoAlumnoEvento);
-	}
-
-	public void borrarAlumno(AlumnoEventoDTO alumnoEvento_a_eliminar) {
-		this.alumnoEvento.delete(alumnoEvento_a_eliminar);
-	}
-	
-	public void actualizarAlumnoEvento(AlumnoEventoDTO alumnoEvento_a_actualizar) {
-		this.alumnoEvento.update(alumnoEvento_a_actualizar);
-	}
-	
-	public List<AlumnoEventoDTO> obtenerAlumnoEventos() {
-		return this.alumnoEvento.readAll();
 	}
 	
 	/* ****************************************************************
@@ -222,6 +206,10 @@ public class AdministracionDeCursos {
 	public List<ContactoDTO> obtenerContactos() {
 		return this.contacto.readAll();
 	}	
+	
+	public List<ContactoCompletoDTO> obtenerContactosCompletos() {
+		return this.contactoCompleto.readAll();
+	}
 	
 	/* ****************************************************************
 	 *                         Categoria
@@ -328,12 +316,15 @@ public class AdministracionDeCursos {
 	}
 	
 	public void actualizarCursada(CursadaDTO cursada_a_actualizar) {
-		System.out.println("MODELO");
 		this.cursada.update(cursada_a_actualizar);
 	}
 	
 	public List<CursadaDTO> obtenerCursadas() {
 		return this.cursada.readAll();
+	}
+	
+	public CursadaDTO obtenerCursadasPorId(long idCursada) {
+		return this.cursada.readAllById(idCursada);
 	}
 	
 	/* ****************************************************************
@@ -418,6 +409,10 @@ public class AdministracionDeCursos {
 		return this.fechaCursadaClase.readAll(salaDTO);
 	}
 	
+	public FechaCursadaClaseDTO obtenerFechaCursadaClase(long idFechaCursadaClase) {
+		return this.fechaCursadaClase.getFechaCursadaClase(idFechaCursadaClase);
+	}
+	
 	/* ****************************************************************
 	 *                         Tarea
 	 * ****************************************************************
@@ -447,7 +442,6 @@ public class AdministracionDeCursos {
 	}
 	
 	/* ****************************************************************
-<<<<<<< HEAD
 	 *                         Sala Disponibilidad
 	 * ****************************************************************
 	 */
@@ -542,4 +536,43 @@ public class AdministracionDeCursos {
 		return this.notaDAO.readAll(evaluacionDTO);
 	}
 	
+	/* ****************************************************************
+	 *                         Recado
+	 * ****************************************************************
+	 */
+	public void agregarRecado(RecadoDTO nuevoRecado) {
+		this.recadoDAO.insert(nuevoRecado);
+	}
+
+	public void borrarRecado(RecadoDTO recado_a_eliminar) {
+		this.recadoDAO.delete(recado_a_eliminar);
+	}
+	
+	public void actualizarRecado(RecadoDTO recado_a_actualizar) {
+		this.recadoDAO.update(recado_a_actualizar);
+	}
+	
+	public List<RecadoDTO> obtenerRecados() {
+		return this.recadoDAO.readAll();
+	}
+	
+	public List<RecadoDTO> obtenerRecadosEnviados(long idUsuarioDe){
+		return this.recadoDAO.readAllEnviados(idUsuarioDe);
+	}
+	
+	public List<RecadoDTO> obtenerRecadosRecibidos(long idUsuarioPara){
+		return this.recadoDAO.readAllRecibidos(idUsuarioPara);
+	}
+	
+	public List<RecadoDTO> obtenerRecadosEliminados(){
+		return this.recadoDAO.readAllEliminados();
+	}
+
+	public UsuarioDTO getUsuarioLogueado() {
+		return usuarioLogueado;
+	}
+
+	public void setUsuarioLogueado(UsuarioDTO usuarioLogueado) {
+		this.usuarioLogueado = usuarioLogueado;
+	}
 }

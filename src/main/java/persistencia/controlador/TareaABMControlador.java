@@ -1,7 +1,7 @@
 package persistencia.controlador;
-
-import herramientas.Validator;
 import herramientas.OptionPanel;
+import herramientas.Validator;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
@@ -17,10 +17,11 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 
 import modelo.AdministracionDeCursos;
-import dto.AlumnoDTO;
 import dto.CategoriaDTO;
 import dto.TareaDTO;
 import dto.UsuarioDTO;
+import presentacion.vista.ContactoABMPanel;
+import presentacion.vista.ContactoTareaDialog;
 import presentacion.vista.TareaABMPanel;
 
 public class TareaABMControlador implements ActionListener{
@@ -32,6 +33,9 @@ public class TareaABMControlador implements ActionListener{
 	private List<CategoriaDTO> categoriasLista;
 	private UsuarioDTO currentAdministrativo;
 	private Validator validator;
+	private ContactoABMPanel panelContacto;
+	private ContactoTareaDialog dialog;
+	private TareaContactoControlador ctr;
 	
 	public TareaABMControlador(TareaABMPanel vista, AdministracionDeCursos modelo) {
 		this.administrativosLista = null;
@@ -39,6 +43,10 @@ public class TareaABMControlador implements ActionListener{
 		this.vista = vista;
 		this.modelo = modelo;
 		this.currentAdministrativo = null;
+		this.panelContacto = null;
+		this.dialog = null;
+		this.ctr = null;
+		
 		this.validator = new Validator();
 		this.vista.getBtnAgregar().addActionListener(this);
 		this.vista.getBtnActualizar().addActionListener(this);
@@ -58,9 +66,7 @@ public class TareaABMControlador implements ActionListener{
 		clearTextInputsBox();
 		this.tareasLista = modelo.obtenerTareas();
 		loadDataRowsTbTareas();
-		// Oculto los id del Objeto
 		ocultarColumnasTbTareas();
-		// Agrego listener para obtener los valores de la fila seleccionada
 		this.vista.getTableTareas().setSelectionModel(new ListSelectionModelCstm());
 		this.vista.getTableTareas().getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {seleccionarFila();});
 		DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
@@ -83,8 +89,9 @@ public class TareaABMControlador implements ActionListener{
 							 tareaDTO.getEstado(),
 							 getAdministrativoString(tareaDTO.getIdUsuario()), 
 							 tareaDTO.getIdUsuario(),
-							 stringDateFormatter(tareaDTO.getFechaCreacion()),
-							 stringDateFormatter(tareaDTO.getFechaCierre())};
+							 StringToLocalDateFormatter(tareaDTO.getFechaCreacion(),"dd/MM/yyyy"),
+							 StringToLocalDateFormatter(tareaDTO.getFechaCierre(),"dd/MM/yyyy"),
+							 tareaDTO.getIdAlumno()};
 			this.vista.getModelTareas().addRow(fila);
 		}
 	}
@@ -94,9 +101,7 @@ public class TareaABMControlador implements ActionListener{
 		clearTextInputsBox();
 		loadAdministrativosData();
 		loadDataRowsTbAdministrativos();
-		// Oculto los id del Objeto
 		ocultarColumnasTbAdministrativos();
-//		// Agrego listener para obtener los valores de la fila seleccionada
 		this.vista.getTableAdministrativos().setSelectionModel(new ListSelectionModelCstm());
 		this.vista.getTableAdministrativos().getSelectionModel()
 					                        .addListSelectionListener((ListSelectionEvent event) -> {seleccionarFilaAdministrativos();});
@@ -136,6 +141,7 @@ public class TareaABMControlador implements ActionListener{
 	private void ocultarColumnasTbTareas() {
 		ocultarColumnaTbTareas(0);
 		ocultarColumnaTbTareas(5);
+		ocultarColumnaTbTareas(8);
 	}
 	
 	private void ocultarColumnaTbTareas(int column) {
@@ -203,10 +209,13 @@ public class TareaABMControlador implements ActionListener{
 		if(datosValidos()){
 			TareaDTO tarea = new TareaDTO(0,
 					Long.parseLong(this.vista.getTxtIDResponsable().getText()),
+					Long.parseLong(this.vista.getTxtIDAlumno().getText()),
 					this.vista.getTxtNombre().getText(),
 					this.vista.getTxtAreaDescripcion().getText(),
 					"Pendiente",
-					StringToLocalDateTime(this.vista.getTxtFecha().getText()),null);
+					LocalDateTime.now(),
+					StringToLocalDateTime(this.vista.getTxtFecha().getText(),"00:00:00"),
+					null);
 			this.modelo.agregarTarea(tarea);
 			OptionPanel.mensaje("La tarea ha sido agregada correctamente", "Tarea");
 			generarTablas();
@@ -220,10 +229,12 @@ public class TareaABMControlador implements ActionListener{
 				if(actualizar == 0){
 					TareaDTO tarea = new TareaDTO(Long.parseLong(this.vista.getTxtID().getText()),
 							Long.parseLong(this.vista.getTxtIDResponsable().getText()),
+							Long.parseLong(this.vista.getTxtIDAlumno().getText()),
 							this.vista.getTxtNombre().getText(),
 							this.vista.getTxtAreaDescripcion().getText(),
 							this.vista.getTxtEstado().getText(),
-							StringToLocalDateTime(this.vista.getTxtFecha().getText()),
+							LocalDateTime.now(),
+							StringToLocalDateTime(this.vista.getTxtFecha().getText(),"00:00:00"),
 							null);
 					this.modelo.actualizarTarea(tarea);
 					OptionPanel.mensaje("La tarea ha sido modificada correctamente", "Tarea");
@@ -240,10 +251,12 @@ public class TareaABMControlador implements ActionListener{
 				if(eliminar == 0){
 					TareaDTO tarea = new TareaDTO(Long.parseLong(this.vista.getTxtID().getText()),
 							Long.parseLong(this.vista.getTxtIDResponsable().getText()),
+							Long.parseLong(null),
 							this.vista.getTxtNombre().getText(),
 							this.vista.getTxtAreaDescripcion().getText(),
 							this.vista.getTxtEstado().getText(),
-							StringToLocalDateTime(this.vista.getTxtFecha().getText()),
+							LocalDateTime.now(),
+							StringToLocalDateTime(this.vista.getTxtFecha().getText(),"00:00:00"),
 							null);
 					this.modelo.borrarTarea(tarea);
 					OptionPanel.mensaje("La tarea ha sido eliminada correctamente", "Tarea");
@@ -255,21 +268,32 @@ public class TareaABMControlador implements ActionListener{
 	
 	private void cerrarTarea() {
 		if(hayTareaSeleccionada()){
-			if(datosValidos()){
-				int cerrar = OptionPanel.confimarcion("Esta seguro que desea cerrar esta tarea?", "Cerrar tarea");
-				if(cerrar == 0){
+//			if(datosValidos()){
+//				int cerrar = OptionPanel.confimarcion("Esta seguro que desea cerrar esta tarea?", "Cerrar tarea");
+//				if(cerrar == 0){
 					TareaDTO tarea = new TareaDTO(Long.parseLong(this.vista.getTxtID().getText()),
 							Long.parseLong(this.vista.getTxtIDResponsable().getText()),
+							Long.parseLong(this.vista.getTxtIDAlumno().getText()),
 							this.vista.getTxtNombre().getText(),
 							this.vista.getTxtAreaDescripcion().getText(),
 							"Realizada",
-							StringToLocalDateTime(this.vista.getTxtFecha().getText()),
+							LocalDateTime.now(),
+							StringToLocalDateTime(this.vista.getTxtFecha().getText(),"00:00:00"),
 							LocalDateTime.now());
-					this.modelo.actualizarTarea(tarea);
-					OptionPanel.mensaje("La tarea ha sido cerrada correctamente", "Tarea");
-					generarTablas();
-				}
-			}
+//					this.modelo.actualizarTarea(tarea);
+//					OptionPanel.mensaje("La tarea ha sido cerrada correctamente", "Tarea");
+//					generarTablas();
+//				}
+//			}
+			panelContacto = new ContactoABMPanel();
+			dialog = new ContactoTareaDialog();
+			dialog.setContactoTareaPanel(panelContacto);
+			dialog.setContactoTareaPanel(panelContacto);
+			dialog.setSize(1100, 700);
+			ctr = new TareaContactoControlador(dialog, modelo,this);
+			ctr.setTarea(tarea);
+			ctr.inicializar();
+
 		}
 	}
 
@@ -330,6 +354,7 @@ public class TareaABMControlador implements ActionListener{
 	private void clearTextInputsBoxAux() {
 		this.vista.getTxtID().setText("");
 		this.vista.getTxtIDResponsable().setText("");
+		this.vista.getTxtIDAlumno().setText("0");
 	}
 	
 	public void clickSeleccionResponsable() {
@@ -350,19 +375,19 @@ public class TareaABMControlador implements ActionListener{
 		this.vista.getTableAdministrativos().setOpaque(true);
 	}
 	
-	private String stringDateFormatter(LocalDateTime fecha) {
+	private String StringToLocalDateFormatter(LocalDateTime fecha, String pattern) {
 		String formatDateTime = "";
-		if ( fecha != null){
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		if(fecha!=null){
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
 			formatDateTime = fecha.format(formatter);
 		}
 		return formatDateTime;
 	}
-
-	private LocalDateTime StringToLocalDateTime(String fecha) {
-		String date = fecha + " 00:00:00";
+	
+	private LocalDateTime StringToLocalDateTime(String fecha, String hora) {
+		String date = fecha + " " + hora;
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-		LocalDateTime dateTime = LocalDateTime.parse(date, format);
+		LocalDateTime dateTime = LocalDateTime.parse(date, format); 
 		return dateTime;
 	}
 
@@ -376,6 +401,8 @@ public class TareaABMControlador implements ActionListener{
 				Object responsable = this.vista.getTableTareas().getValueAt(this.vista.getTableTareas().getSelectedRow(), 4);
 				Object idResponsable = this.vista.getTableTareas().getValueAt(this.vista.getTableTareas().getSelectedRow(), 5);
 				Object fechaCreacion = this.vista.getTableTareas().getValueAt(this.vista.getTableTareas().getSelectedRow(), 6);
+//				Object fechaCierre = this.vista.getTableTareas().getValueAt(this.vista.getTableTareas().getSelectedRow(),7);
+				Object idAlumno = this.vista.getTableTareas().getValueAt(this.vista.getTableTareas().getSelectedRow(),8);
 				
 				this.vista.getTxtID().setText(idTarea.toString());
 				this.vista.getTxtNombre().setText(nombre.toString());
@@ -384,6 +411,7 @@ public class TareaABMControlador implements ActionListener{
 				this.vista.getTxtResponsable().setText(responsable.toString());
 				this.vista.getTxtIDResponsable().setText(idResponsable.toString());
 				this.vista.getTxtFecha().setText(fechaCreacion.toString());
+				this.vista.getTxtIDAlumno().setText(idAlumno.toString());
 			}
 		} catch (Exception ex) {
 			System.out.println("Error: " + ex.getMessage());
@@ -446,7 +474,6 @@ public class TareaABMControlador implements ActionListener{
 		else {
 			camposValidos = true;
 		}
-			
 		return camposValidos;
 	}
 
@@ -501,7 +528,5 @@ public class TareaABMControlador implements ActionListener{
 	    @Override
 	    public void removeSelectionInterval(int index0, int index1) {
 	    }
-
 	}
-	
 }

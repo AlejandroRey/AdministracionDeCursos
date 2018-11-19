@@ -191,6 +191,19 @@ public class UsuarioABMControlador implements ActionListener {
         	JOptionPane.showMessageDialog(null, "Seleccione Curso Tipo correctamente!", "Informacion: " + "Curso Tipo", JOptionPane.INFORMATION_MESSAGE);
         }
 	}
+	
+	public UsuarioDTO getUsuarioDTO() {
+		CategoriaDTO categoria = (CategoriaDTO) this.vista.getCbxCategoria().getSelectedItem();
+		UsuarioDTO usuarioDTO = new UsuarioDTO(Long.parseLong(this.vista.getTextIdUsuario().getText()),
+				   categoria.getIdCategoria(),
+				   this.vista.getTextNombre().getText(),
+				   this.vista.getTextApellido().getText(),
+				   this.vista.getTextTelefono().getText(),
+				   this.vista.getTextEmail().getText(),
+				   this.vista.getTextUsuario().getText(),
+				   String.valueOf(this.vista.getTextPassword().getPassword()));
+		return usuarioDTO;
+	}
 
 	private void agregarInstructor() {
 		//CategoriaDTO categoria = (CategoriaDTO) this.vista.getCbxCategoria().getSelectedItem();
@@ -209,6 +222,18 @@ public class UsuarioABMControlador implements ActionListener {
 		//} else {
 		//	JOptionPane.showMessageDialog(null, "Seleccione Curso Tipo correctamente!", "Informacion: " + "Curso Tipo", JOptionPane.INFORMATION_MESSAGE);
 		//}
+	}	
+
+	public void setTextDisable() {
+		this.vista.getTextIdUsuario().setEnabled(false);
+		this.vista.getCbxCategoria().setEnabled(false);
+		this.vista.getTextNombre().setEnabled(false);
+		this.vista.getTextApellido().setEnabled(false);
+		this.vista.getTextTelefono().setEnabled(false);
+		this.vista.getTextEmail().setEnabled(false);
+		this.vista.getTextUsuario().setEnabled(false);
+		this.vista.getTextPassword().setEnabled(false);
+		
 	}
 	
 	private void clearTextInputsBox() {
@@ -273,4 +298,5 @@ public class UsuarioABMControlador implements ActionListener {
 	    }
 
 	}
+	
 }

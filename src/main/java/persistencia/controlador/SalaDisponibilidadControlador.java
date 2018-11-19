@@ -43,6 +43,7 @@ public class SalaDisponibilidadControlador implements PropertyChangeListener, Ac
 	
 	private void addActionBtn() {
 		this.vista.getBtnCerrar().addActionListener(this);
+		this.vista.getBtnCerrar().setActionCommand("Cerrar");
 		this.vista.getDisponibilidadPanel().getCalendar().getDayChooser().addPropertyChangeListener(this);
 	}
 
@@ -68,16 +69,19 @@ public class SalaDisponibilidadControlador implements PropertyChangeListener, Ac
 		Map<LocalDate, Integer> fechasGreen = horariosFecha.entrySet().stream()
               .filter(map -> map.getValue() <= 4 )
               .collect(Collectors.toMap(p -> p.getKey(), p -> p.getValue()));
+		System.out.println("Green: "+ fechasGreen.toString());
 		Set<LocalDate> green = fechasGreen.keySet();
 		
 		Map<LocalDate, Integer> fechasYellow = horariosFecha.entrySet().stream()
 	              .filter(map -> map.getValue() > 4 && map.getValue() <= 10)
 	              .collect(Collectors.toMap(p -> p.getKey(), p -> p.getValue()));
+		System.out.println("Yellow: "+ fechasYellow.toString());
 		Set<LocalDate> yellow = fechasYellow.keySet();
 		
 		Map<LocalDate, Integer> fechasRed = horariosFecha.entrySet().stream()
 	              .filter(map -> map.getValue() > 10)
 	              .collect(Collectors.toMap(p -> p.getKey(), p -> p.getValue()));
+		System.out.println("Red: "+ fechasRed.toString());
 		Set<LocalDate> red = fechasRed.keySet();
 		
 		loadHighlightEvaluatorGreen(green);
@@ -126,11 +130,16 @@ public class SalaDisponibilidadControlador implements PropertyChangeListener, Ac
 		LocalDateTime horaFin = dato.getHoraFin();
 		boolean containsDate = horariosFecha.containsKey(fecha);
 		Integer horas = (int) horaInicio.until(horaFin, ChronoUnit.HOURS);
-		if(!containsDate)
+		System.out.println("fei:" + horaInicio);
+		System.out.println("fei:" + horaFin);
+		System.out.println("Horas: " + horas);
+		if(!containsDate){
 			horariosFecha.put(fecha, horas);
+			System.out.println("Horas totales: " + horariosFecha.get(fecha));}
 		else {
 			horas = horariosFecha.get(fecha) + horas;
 			horariosFecha.put(fecha, horas);
+			System.out.println("Horas totales con suma: " + horas);
 		}
 	}
 
@@ -139,7 +148,9 @@ public class SalaDisponibilidadControlador implements PropertyChangeListener, Ac
 			hashHorarios.put(fecha, new ArrayList<DisponibilidadControlador> ());
 			hashHorarios.get(fecha).add(dato);
 		} else {
-			hashHorarios.get(fecha).add(dato);
+			ArrayList<DisponibilidadControlador> listTemp = hashHorarios.get(fecha);
+			listTemp.add(dato);
+			hashHorarios.put(fecha, listTemp);
 		}
 	}
 	
@@ -160,7 +171,7 @@ public class SalaDisponibilidadControlador implements PropertyChangeListener, Ac
 
 		for (DisponibilidadControlador disponibilidad : disponibilidades) {
 			Object[] fila = {this.stringDate(disponibilidad.getHoraInicio(), "HH:mm"),
-							 this.stringDate(disponibilidad.getHoraInicio(), "HH:mm"), 
+							 this.stringDate(disponibilidad.getHoraFin(), "HH:mm"), 
 							 disponibilidad.getNombreCurso()};
 			this.vista.getDisponibilidadPanel().getModelHorarios().addRow(fila);
 		}
@@ -182,8 +193,12 @@ public class SalaDisponibilidadControlador implements PropertyChangeListener, Ac
             String currentDate = formatoDeFecha.format(vista.getDisponibilidadPanel().getCalendar().getDate());
             LocalDate date = LocalDate.parse(currentDate);
             ArrayList<DisponibilidadControlador> disponibilidades = hashHorarios.get(date);
-            loadTableWithHours(disponibilidades);
             paintCalendar();
+            try {
+            	loadTableWithHours(disponibilidades);
+			} catch (Exception e) {
+				System.out.println(e + "La sala no tiene asignaciones ese dia");
+			}
         }
 	}
 

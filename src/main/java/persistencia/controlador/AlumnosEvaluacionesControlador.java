@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import dto.AlumnoInscriptoDTO;
 import dto.CursadaDTO;
 import dto.EvaluacionDTO;
+import dto.InscriptoDTO;
 import dto.NotaDTO;
 import modelo.AdministracionDeCursos;
 import presentacion.vista.AlumnosEvaluacionesPanel;
@@ -119,7 +120,7 @@ public class AlumnosEvaluacionesControlador implements ActionListener {
 																	    + evaluacionActualDTO.getTipoParcial() 
 																	    + System.lineSeparator());	
 						this.vista.getLblEvaluacionSeleccionadaFecha().setText(localDateFormatterFecha(evaluacionActualDTO.getFecha()));
-						llenarTablaAlumnosInscriptos();
+						llenarTablaAlumnosInscriptos();						
 					}
 				} catch (Exception ex) {
 					System.out.println("Error Tabla Evaluacion: " + ex.getMessage());
@@ -136,22 +137,6 @@ public class AlumnosEvaluacionesControlador implements ActionListener {
 				    JOptionPane.INFORMATION_MESSAGE,
 				    new ImageIcon("imagenes/warning_64.png"));
 		}
-	}
-
-	private void clearComponents() {
-
-		evaluacionesCursadaLista.clear();
-		alumnosInscriptosLista.clear();
-		this.vista.getLblAlumnoSeleccionado().setText("");
-		this.vista.getLblEvaluacionSeleccionada().setText("");	
-		this.vista.getTextNota().setText("");
-	}
-	
-	private void clearAfterUpdateNota() {
-		alumnoActualDTO = null;
-		alumnosInscriptosLista.clear();
-		this.vista.getLblAlumnoSeleccionado().setText("");
-		this.vista.getTextNota().setText("");
 	}
 
 	public void llenarTablaAlumnosInscriptos() {
@@ -175,7 +160,7 @@ public class AlumnosEvaluacionesControlador implements ActionListener {
 								 alumnoInscriptoDTO.getTelefono(),
 								 alumnoInscriptoDTO.getEmail(),
 								 localDateTimeToStringFormatter(alumnoInscriptoDTO.getFecha()),
-								 "N/A",
+								 alumnoInscriptoDTO.isEstado(),
 								 getNotaAlumno(alumnoInscriptoDTO.getIdAlumno())};						 
 				this.vista.getModelAlumnos().addRow(fila);
 			}
@@ -217,7 +202,7 @@ public class AlumnosEvaluacionesControlador implements ActionListener {
 						Object telefono = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 4);
 						Object email = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 5);
 						Object fecha = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 6);
-						Object estado = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 7);
+						Object estadoInscripto = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 7);
 						Object nota = this.vista.getTablaAlumnos().getValueAt(this.vista.getTablaAlumnos().getSelectedRow(), 8);
 						
 						this.alumnoActualDTO = new AlumnoInscriptoDTO(Long.parseLong(idAlumno.toString()), 
@@ -227,11 +212,23 @@ public class AlumnosEvaluacionesControlador implements ActionListener {
 																	  telefono.toString(), 
 																	  email.toString(), 
 																	  LocalDateTime.now(), 
-																	  Boolean.parseBoolean(estado.toString()));
+																	  Boolean.parseBoolean(estadoInscripto.toString()));
 						this.notaActual = nota.toString();
-						this.vista.getTextNota().setText(this.notaActual);
+						if (!this.notaActual.equals("N/A")) {
+							this.vista.getTextNota().setText(this.notaActual);
+						}else {
+							this.vista.getTextNota().setText("");
+						}
+						
 						this.vista.getLblAlumnoSeleccionado().setText(this.alumnoActualDTO.getNombre() + " " + this.alumnoActualDTO.getApellido());
+						
+						if (!alumnoActualDTO.isEstado()) {
+							this.vista.getPanelNota().setVisible(false);
+						} else {
+							this.vista.getPanelNota().setVisible(true);
+						}					
 					}
+					
 				} catch (Exception ex) {
 					System.out.println("Error: " + ex.getMessage());
 				}
@@ -247,8 +244,33 @@ public class AlumnosEvaluacionesControlador implements ActionListener {
 				    JOptionPane.INFORMATION_MESSAGE,
 				    new ImageIcon("imagenes/warning_64.png"));
 		}
+	}	
+
+	private void clearComponents() {
+
+		evaluacionesCursadaLista.clear();
+		alumnosInscriptosLista.clear();
+		this.vista.getLblAlumnoSeleccionado().setText("");
+		this.vista.getLblEvaluacionSeleccionada().setText("");	
+		this.vista.getTextNota().setText("");
 	}
 	
+	private void clearAfterUpdateNota() {
+		alumnoActualDTO = null;
+		alumnosInscriptosLista.clear();
+		this.vista.getLblAlumnoSeleccionado().setText("");
+		this.vista.getTextNota().setText("");
+	}
+	
+	private boolean getEstadoInscripcionAlumno(long idAlumno) {
+		for (InscriptoDTO alumnoInscriptoDTO : modelo.obtenerInscriptos()) {
+			if (alumnoInscriptoDTO.getIdAlumno() == idAlumno) {
+				return alumnoInscriptoDTO.isEstado();
+			}
+		}
+		return false;
+	}
+
 	private String getNotaAlumno(long idAlumno) {
 		if (notasEvaluacionActual.size() > 0) {
 			for (NotaDTO notaDTO : notasEvaluacionActual) {
@@ -336,7 +358,7 @@ public class AlumnosEvaluacionesControlador implements ActionListener {
 				llenarTablaAlumnosInscriptos();
 			} catch (Exception ex) {
 				JOptionPane.showMessageDialog(null,
-					    "No se pudo actualizar la Nota del Alumno!",
+					    "No se pudo actualizar la Nota del Alumno!" + System.lineSeparator() + "Seleccione Evaluacion o Agregue Nota",
 					    "Nota Alumno",
 					    JOptionPane.INFORMATION_MESSAGE,
 					    new ImageIcon("imagenes/warning_64.png"));

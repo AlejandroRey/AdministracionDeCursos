@@ -14,10 +14,7 @@ public class Conexion {
 	private Conexion() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver"); // quitar si no es necesario
-			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestiondecursos?autoReconnect=true&useSSL=false", "root", "Accenture");
-			//this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestiondecursos?autoReconnect=true&useSSL=false", "root", "admin");
-			//this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestiondecursos?autoReconnect=true&useSSL=false", "root", "root");
-			//this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestiondecursos?autoReconnect=true&useSSL=false", "root", "root");
+			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestiondecursos?autoReconnect=true&useSSL=false", "root", "root");
 			log.info("Conexión exitosa");
 		} catch (Exception e) {
 			log.error("Conexión fallida", e);

@@ -27,6 +27,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
+import dto.AlumnoDTO;
+import dto.CategoriaDTO;
 import dto.CursadaDTO;
 import dto.DiaCursadaClaseDTO;
 import dto.DiasDTO;
@@ -35,7 +37,9 @@ import dto.FechaCursadaClaseDTO;
 import dto.FeriadoDTO;
 import dto.SalaDTO;
 import dto.SalaDisponibleDTO;
+import dto.UsuarioDTO;
 import modelo.AdministracionDeCursos;
+import persistencia.controlador.AlumnoABMControlador.ListSelectionModelCstm;
 import presentacion.vista.CalendarioBuilderPanel;
 
 public class CalendarBuilderControlador implements ActionListener {
@@ -51,7 +55,8 @@ public class CalendarBuilderControlador implements ActionListener {
 	private List<FeriadoDTO> feriadosList;
 	
 	private List<SalaDTO> salasList;
-	private List<SalaDisponibleDTO> salasDisponiblesList;	
+	private List<SalaDisponibleDTO> salasDisponiblesList;
+	private List<SalaDisponibleDTO> salasDsiponiblesReasignarList;
 
 	public CalendarBuilderControlador(CursadaDTO cursadaDTO, CalendarioBuilderPanel vista, AdministracionDeCursos modelo) {
 		super();
@@ -61,12 +66,15 @@ public class CalendarBuilderControlador implements ActionListener {
 
 		this.fechasDeCursadaList = new ArrayList<FechaCursadaClaseDTO>();
 		this.salasDisponiblesList = new ArrayList<SalaDisponibleDTO>();
+		this.salasDsiponiblesReasignarList = new ArrayList<SalaDisponibleDTO>();
 		
 		this.vista.getBtnSeleccionar().addActionListener(this);
 		this.vista.getBtnEliminar().addActionListener(this);
 		this.vista.getBtnGenerarHorario().addActionListener(this);
 		this.vista.getBtnAsignarSala().addActionListener(this);
 		this.vista.getBtnGuardarCambios().addActionListener(this);
+		this.vista.getBtnReasignarSalasEnConflicto().addActionListener(this);
+		this.vista.getBtnCancelar().addActionListener(this);
 		
 		this.vista.getBtnGuardarCambios().setVisible(false);
 		
@@ -183,19 +191,19 @@ public class CalendarBuilderControlador implements ActionListener {
 					
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");	
 					SalaDTO salaDTO = (SalaDTO) sala;
-					////System.out.println("SalaDTO: "+salaDTO.getIdSala());
+					//////System.out.println("SalaDTO: "+salaDTO.getIdSala());
 					diaDeCursadaDTO = new DiaCursadaClaseDTO(Long.parseLong(idCursada.toString()),
 																Integer.parseInt(numeroDia.toString()),
 																nombreDia.toString(), 
 																LocalTime.parse(horaInicio.toString(), formatter),
 																LocalTime.parse(horaFin.toString(), formatter),
 																salaDTO.getIdSala());
-					////System.out.println(diaDeCursadaDTO.toString());
+					//////System.out.println(diaDeCursadaDTO.toString());
 					this.vista.revalidate();
 					this.vista.repaint();
 				}
 			} catch (Exception ex) {
-				////System.out.println("Error: " + ex.getMessage());
+				//////System.out.println("Error: " + ex.getMessage());
 			}
 		});
 
@@ -277,7 +285,7 @@ public class CalendarBuilderControlador implements ActionListener {
 					llenarTablaSalasDisponibles();
 				}
 			} catch (Exception ex) {
-				////System.out.println("Error: " + ex.getMessage());
+				//////System.out.println("Error: " + ex.getMessage());
 			}
 		});
 
@@ -355,13 +363,45 @@ public class CalendarBuilderControlador implements ActionListener {
 					this.vista.getTextSalaNombre().setText(nombreSala.toString());
 				}
 			} catch (Exception ex) {
-				////System.out.println("Error: " + ex.getMessage());
+				//////System.out.println("Error: " + ex.getMessage());
 			}
 		});
 
 		DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
 		leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
 		this.vista.getTablaSalas().getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
+	}
+	
+	public void llenarTablasSalasEnConflicto() {
+
+		this.vista.getModelSalasEnConflicto().setRowCount(0); // Para vaciar la tabla
+		this.vista.getModelSalasEnConflicto().setColumnCount(0);
+		this.vista.getModelSalasEnConflicto().setColumnIdentifiers(this.vista.getNombreColumnasSalasEnConflicto());
+
+		//{"idFechaCursadaClase", "idSala", "Sala", "Desde", "Hasta", "Estado"};
+		for (SalaDisponibleDTO salaDisponibleDTO : salasDsiponiblesReasignarList) {
+			Object[] fila = {salaDisponibleDTO.getIdFechaCursadaClase(),
+							 salaDisponibleDTO.getIdSala(),
+							 getNombreSala(salaDisponibleDTO.getIdSala()),
+							 localDateTimeFormatter(salaDisponibleDTO.getDispDesde()),
+							 localDateTimeFormatter(salaDisponibleDTO.getDispHasta()),
+							 salaDisponibleDTO.getEstadoSala()};
+			this.vista.getModelSalasEnConflicto().addRow(fila);
+		}
+		// Oculto los id del Objeto
+		this.vista.getTablaSalasEnConflicto().getColumnModel().getColumn(0).setWidth(0);
+		this.vista.getTablaSalasEnConflicto().getColumnModel().getColumn(0).setMinWidth(0);
+		this.vista.getTablaSalasEnConflicto().getColumnModel().getColumn(0).setMaxWidth(0);
+		this.vista.getTablaSalasEnConflicto().getColumnModel().getColumn(1).setWidth(0);
+		this.vista.getTablaSalasEnConflicto().getColumnModel().getColumn(1).setMinWidth(0);
+		this.vista.getTablaSalasEnConflicto().getColumnModel().getColumn(1).setMaxWidth(0);
+		this.vista.getTablaSalasEnConflicto().getColumnModel().getColumn(5).setWidth(0);
+		this.vista.getTablaSalasEnConflicto().getColumnModel().getColumn(5).setMinWidth(0);
+		this.vista.getTablaSalasEnConflicto().getColumnModel().getColumn(5).setMaxWidth(0);
+
+		DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
+		leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
+		this.vista.getTablaSalasEnConflicto().getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
 	}
 
 	private String getNombreSala(long idSala) {
@@ -424,11 +464,39 @@ public class CalendarBuilderControlador implements ActionListener {
 			for (FechaCursadaClaseDTO fechaCursadaClaseDTO : fechasDeCursadaList) {
 				modelo.actualizarFechaCursadaClase(fechaCursadaClaseDTO);
 			}
-		}		
+		} else if (e.getSource() == this.vista.getBtnReasignarSalasEnConflicto()) {
+			int contador = 0;
+			for (SalaDisponibleDTO salaDisponibleDTO : salasDsiponiblesReasignarList) {
+				FechaCursadaClaseDTO fechaCursadaClaseDTO = modelo.obtenerFechaCursadaClase(salaDisponibleDTO.getIdFechaCursadaClase());
+				CursadaDTO cursadaDTO = modelo.obtenerCursadasPorId(fechaCursadaClaseDTO.getIdCursada());
+				if (cursadaDTO.getIdEstadoCurso() != 2) {
+					fechaCursadaClaseDTO.setIdSala(1);
+					fechaCursadaClaseDTO.setEstadoSala(0);
+					modelo.actualizarFechaCursadaClase(fechaCursadaClaseDTO);
+				} else {
+					contador = contador + 1;
+				}
+			}
+			if (contador > 0) {
+				JOptionPane.showMessageDialog(null,
+					    "Se encontraron " + contador + " Salas con el Estado de Curso INICIADO " + System.lineSeparator() + " por lo que no fue posible reasignar la SALA!!!!",
+					    "Dias de Cursadas",
+					    JOptionPane.INFORMATION_MESSAGE,
+					    new ImageIcon("imagenes/warning_64.png"));
+			}
+			salasDsiponiblesReasignarList.clear();
+			llenarTablasSalasEnConflicto();
+			buildCalendarioFechaDeCursada();
+		} else if (e.getSource() == this.vista.getBtnCancelar()) {
+			salasDsiponiblesReasignarList.clear();
+			llenarTablasSalasEnConflicto();
+		}	
 	}
-	
+
 	private void buildCalendarioFechaDeCursada() {
 
+		salasDsiponiblesReasignarList.clear();
+		llenarTablasSalasEnConflicto();
 		diasDeCursadaList.clear();
 		diasDeCursadaList = modelo.obtenerDiaCursadaClase(cursadaDTO);
 		llenarTablaDiasDeCursada();
@@ -437,7 +505,7 @@ public class CalendarBuilderControlador implements ActionListener {
 
 			for (FechaCursadaClaseDTO fechaCursadaClaseDTO : fechasDeCursadaList) {
 				modelo.borrarFechaCursadaClase(fechaCursadaClaseDTO);
-				System.out.println("BORRAR:"+fechaCursadaClaseDTO.toString());
+				//System.out.println("BORRAR:"+fechaCursadaClaseDTO.toString());
 			}				
 			fechasDeCursadaList.clear();
 			
@@ -483,37 +551,51 @@ public class CalendarBuilderControlador implements ActionListener {
 							salasDisponiblesList.add(salaDisponibleDTO);
 						}					
 					}
-				}
-				
+				}				
 				
 				int size = salasDisponiblesList.size();
 				int loopValue = 0;
-				for (SalaDisponibleDTO salaDTO : salasDisponiblesList) {
-					//System.out.println("SALAALALALALALAL----->>>>>>>>>>: "+salaDTO);
-				}
-				for (SalaDisponibleDTO salaDisponibleDTO : salasDisponiblesList) {
-					//System.out.println("Loop: Estado SALA " + salaDisponibleDTO.getEstadoSala());
-					if (salaDisponibleDTO.getEstadoSala() != 1 
-						&& salaDisponibleDTO.getIdSala() == fechaCursadaClaseDTO.getIdSala()) {
-						if (salaDisponibleDTO.getEstadoSala() == 3) {
-							fechaCursadaClaseDTO.setEstadoSala(3);
-						} else if (salaDisponibleDTO.getEstadoSala() == 2) {
-							fechaCursadaClaseDTO.setEstadoSala(3);
-						} else if (salaDisponibleDTO.getEstadoSala() == 0) {
-							fechaCursadaClaseDTO.setEstadoSala(2);
-						}
-						//System.out.println("BREAK " + salaDisponibleDTO.getEstado() + "" + getSalaDTO(salaDisponibleDTO.getIdSala()));
-						break;
+				for (SalaDisponibleDTO salaDisponibleDTO : salasDisponiblesList) {					
+					if (salaDisponibleDTO.getIdSala() == fechaCursadaClaseDTO.getIdSala()) {
+						if (salaDisponibleDTO.getEstadoSala() == 0 ) {
+							fechaCursadaClaseDTO.setEstadoSala(1);
+						} else {
+							fechaCursadaClaseDTO.setIdSala(1);
+							salasDsiponiblesReasignarList.add(salaDisponibleDTO);
+							System.out.println("LOOP ESTADO SALA " 
+									 + " Id Sala: " + salaDisponibleDTO.getIdSala()
+									 + " Estado Sala:" + salaDisponibleDTO.getEstadoSala() 
+									 + " idFechaCursada: " + salaDisponibleDTO.getIdFechaCursadaClase()
+									 + " DISP DESDE: " + salaDisponibleDTO.getDispDesde()
+									 + " DISP HASTA: " + salaDisponibleDTO.getDispHasta());
+						}					
 					}
+					
+//					if (salaDisponibleDTO.getEstadoSala() != 1 
+//						&& salaDisponibleDTO.getIdSala() == fechaCursadaClaseDTO.getIdSala()) {
+//						if (salaDisponibleDTO.getEstadoSala() == 3) {
+//							fechaCursadaClaseDTO.setEstadoSala(3);
+//						} else if (salaDisponibleDTO.getEstadoSala() == 2) {
+//							fechaCursadaClaseDTO.setEstadoSala(3);
+//						} else if (salaDisponibleDTO.getEstadoSala() == 0) {
+//							fechaCursadaClaseDTO.setEstadoSala(2);
+//						}
+//						break;
+//					}
 					loopValue += 1;
 				}
+				
 				salasDisponiblesList.clear();
 				if (size > 0 && loopValue == size) {
-					fechaCursadaClaseDTO.setIdSala(1);
+					//fechaCursadaClaseDTO.setIdSala(1);
 				}
 				modelo.agregarFechaCursadaClase(fechaCursadaClaseDTO);
 			}
-			
+
+			if (salasDsiponiblesReasignarList.size() > 0) {
+				System.out.println("TAMANO: "+ salasDsiponiblesReasignarList.size());
+				llenarTablasSalasEnConflicto();
+			}
 			
 			fechasDeCursadaList.clear();
 			fechasDeCursadaList = modelo.obtenerFechaCursadaClase(cursadaDTO);				
@@ -561,7 +643,7 @@ public class CalendarBuilderControlador implements ActionListener {
 	private String getDiaDelaSemana(LocalDate date) {
 	    Locale spanishLocale = new Locale("es", "ES");
 	    String dateInSpanish = date.format(DateTimeFormatter.ofPattern("EEEE",spanishLocale));
-	    //////System.out.println("En Espanol: "+dateInSpanish);
+	    ////////System.out.println("En Espanol: "+dateInSpanish);
 	    return dateInSpanish;
 	}
 	

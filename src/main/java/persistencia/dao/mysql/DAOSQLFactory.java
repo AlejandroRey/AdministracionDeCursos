@@ -2,12 +2,12 @@ package persistencia.dao.mysql;
 
 import persistencia.dao.interfaz.AlumnoAsistenciaQtyDAO;
 import persistencia.dao.interfaz.AlumnoDAO;
-import persistencia.dao.interfaz.AlumnoEventoDAO;
 import persistencia.dao.interfaz.AlumnoInscriptoDAO;
 import persistencia.dao.interfaz.AsistenciaDAO;
 import persistencia.dao.interfaz.CategoriaDAO;
 import persistencia.dao.interfaz.ClaseDAO;
 import persistencia.dao.interfaz.ContactoDAO;
+import persistencia.dao.interfaz.ContactoCompletoDAO;
 import persistencia.dao.interfaz.CursadaCompletaDAO;
 import persistencia.dao.interfaz.CursadaDAO;
 import persistencia.dao.interfaz.CursoDAO;
@@ -24,6 +24,7 @@ import persistencia.dao.interfaz.FeriadoDAO;
 import persistencia.dao.interfaz.InscriptoDAO;
 import persistencia.dao.interfaz.NotaDAO;
 import persistencia.dao.interfaz.NotificacionDAO;
+import persistencia.dao.interfaz.RecadoDAO;
 import persistencia.dao.interfaz.SalaDAO;
 import persistencia.dao.interfaz.SalaDisponibilidadDAO;
 import persistencia.dao.interfaz.SalaDisponibleDAO;
@@ -31,17 +32,21 @@ import persistencia.dao.interfaz.UsuarioDAO;
 import persistencia.dao.interfaz.TareaDAO;
 
 public class DAOSQLFactory implements DAOAbstractFactory {
-	
+
 	@Override
 	public ContactoDAO createContactoDAO() {
 		return new ContactoDAOSQL();
 	}
-	
+
 	@Override
 	public NotificacionDAO createNotificacionDAO() {
 		return new NotificacionDAOSQL();
 	}
-	
+
+	public ContactoCompletoDAO createContactoCompletoDAO() {
+		return new ContactoCompletoDAOSQL();
+	}
+
 	@Override
 	public CursoTipoDAO createCursoTipoDAO() {
 		return new CursoTipoDAOSQL();
@@ -96,15 +101,10 @@ public class DAOSQLFactory implements DAOAbstractFactory {
 	public CursadaDAO createCursadaDAO() {
 		return new CursadaDAOSQL();
 	}
-	
+
 	@Override
 	public CursadaCompletaDAO createCursadaCompletaDAO() {
 		return new CursadaCompletaDAOSQL();
-	}
-	
-	public AlumnoEventoDAO createAlumnoEventoDAO() {
-		// TODO Auto-generated method stub
-		return new AlumnoEventoDAOSQL();
 	}
 
 	@Override
@@ -190,6 +190,11 @@ public class DAOSQLFactory implements DAOAbstractFactory {
 		// TODO Auto-generated method stub
 		return new NotaDAOSQL();
 	}
-	
-	
+
+	@Override
+	public RecadoDAO createRecadoDAO() {
+		// TODO Auto-generated method stub
+		return new RecadoDAOSQL();
+	}
+
 }

@@ -1,5 +1,7 @@
 package persistencia.controlador;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.DefaultListSelectionModel;
@@ -11,12 +13,14 @@ import javax.swing.table.DefaultTableCellRenderer;
 import dto.AlumnoDTO;
 import dto.AlumnoHistorialCursadaDTO;
 import dto.AlumnoHistorialNotaDTO;
+import dto.AlumnoHistorialNotasReporteDTO;
 import modelo.AdministracionDeCursos;
-import persistencia.controlador.AlumnoABMControlador.ListSelectionModelCstm;
 import persistencia.dao.mysql.AlumnoHistorialCursadasDAOSQL;
+import persistencia.dao.mysql.AlumnoHistorialNotasReporteDAOSQL;
+import presentacion.reportes.ReporteAnaliticoAlumno;
 import presentacion.vista.AlumnoHistorialNotaPanel;
 
-public class AlumnoHistorialNotaControlador {
+public class AlumnoHistorialNotaControlador implements ActionListener {
 	
 	private AdministracionDeCursos modelo;
 	private AlumnoHistorialNotaPanel vista;
@@ -25,6 +29,7 @@ public class AlumnoHistorialNotaControlador {
 	private List<AlumnoHistorialCursadaDTO> alumnoHistorialCursadasLista;
 	private List<AlumnoHistorialNotaDTO> alumnoHistorialNotasLista;
 	private AlumnoHistorialCursadasDAOSQL mySql;
+	private AlumnoHistorialNotasReporteDAOSQL mySqlReporte;
 	
 	public AlumnoHistorialNotaControlador(AdministracionDeCursos modelo, AlumnoHistorialNotaPanel vista, AlumnoDTO alumnoDTO) {
 		super();
@@ -33,7 +38,9 @@ public class AlumnoHistorialNotaControlador {
 		this.alumnoDTO = alumnoDTO;
 		
 		mySql = new AlumnoHistorialCursadasDAOSQL();
-	
+		mySqlReporte = new AlumnoHistorialNotasReporteDAOSQL();
+		
+		this.vista.getBtnImprimirHistorial().addActionListener(this);
 	}
 
 	public void inicializar() {
@@ -96,15 +103,14 @@ public class AlumnoHistorialNotaControlador {
 					Object fechaInicioCursada = this.vista.getTablaCursadas().getValueAt(this.vista.getTablaCursadas().getSelectedRow(), 9);
 					
 					this.alumnoHistorialNotasLista = mySql.readAllNota(Long.parseLong(idAlumno.toString()), Long.parseLong(idCursada.toString()));
-					
+
 					double promedio = 0;
 					for (AlumnoHistorialNotaDTO alumnoHistorialNotaDTO : alumnoHistorialNotasLista) {
+						System.out.println("Alumno Historial Nota: " + alumnoHistorialNotaDTO.toString());
 						promedio = promedio + alumnoHistorialNotaDTO.getNota();
 					}
-					System.out.println(alumnoHistorialNotasLista.size());
-					System.out.println(promedio/alumnoHistorialNotasLista.size());
-					
-					this.vista.getLblPromedio().setText("" + promedio/alumnoHistorialNotasLista.size());
+
+					this.vista.getLblPromedio().setText("" + promedio / alumnoHistorialNotasLista.size());
 					llenarTablaNotas();
 					
 				}
@@ -183,6 +189,17 @@ public class AlumnoHistorialNotaControlador {
 	    public void removeSelectionInterval(int index0, int index1) {
 	    }
 
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		if (e.getSource() == this.vista.getBtnImprimirHistorial()) {
+			for (AlumnoHistorialNotasReporteDTO alumnoHistorialNotaDTO : mySqlReporte.readAll(alumnoDTO.getIdAlumno())) {
+				System.out.println(alumnoHistorialNotaDTO.toString());
+			}
+			ReporteAnaliticoAlumno reporte = new ReporteAnaliticoAlumno(mySqlReporte.readAll(alumnoDTO.getIdAlumno()));
+			reporte.mostrar();
+		}	
 	}
 	
 }

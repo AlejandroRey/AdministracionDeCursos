@@ -1,4 +1,5 @@
 package presentacion.vista;
+
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
@@ -14,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
-
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
@@ -28,15 +28,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
-public class SalaABMPanel extends JPanel{
-
+public class SalaABMPanel extends JPanel {
 
 	private JScrollPane spSalas;
 	private JTable tableSalas;
 	private DefaultTableModel modelSalas;
 	private TableRowSorter<TableModel> modeloOrdenado;
-	private String[] nombreColumnas = {"ID", "Nombre","Cantidad de Alumnos", "Cantidad de Pc", "Descripcion"};
-	
+	private String[] nombreColumnas = { "ID", "Nombre", "Cantidad de Alumnos", "Cantidad de Pc", "Descripcion" };
+
 	private JPanel panel;
 	private JTextField txtNombre;
 	private JTextField txtCantidadDePc;
@@ -45,21 +44,21 @@ public class SalaABMPanel extends JPanel{
 	private JPanel panelDescripcion;
 	private JScrollPane spDescripcion;
 	private JTextArea textAreaDescripcion;
-	
+
 	private JButton btnAgregar;
 	private JButton btnActualizar;
 	private JButton btnEliminar;
 	private JButton btnVerDisponibilidad;
-	
-	
+
 	public SalaABMPanel() {
 		super();
+		setBackground(new Color(41, 57, 80));
 		inicializarSalaABMPanel();
 	}
 
 	private void inicializarSalaABMPanel() {
 		inicializarPanel();
-		inicializarTablaSalas(); 
+		inicializarTablaSalas();
 		inicializarPanelEditorSalas();
 		inicializarLbls();
 		inicializarTxts();
@@ -73,31 +72,40 @@ public class SalaABMPanel extends JPanel{
 
 	private void inicializarPanelEditorSalas() {
 		panel = new JPanel();
+		panel.setBackground(new Color(41, 57, 80));
+		panel.setForeground(new Color(255, 255, 255));
 		panel.setBounds(10, 28, 405, 327);
-		panel.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Sala - Editor:", TitledBorder.LEADING, TitledBorder.TOP, null, UIManager.getColor("textText")));
+		panel.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)),
+				"Sala - Editor:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(255, 255, 255)));
 		panel.setLayout(null);
 		this.add(panel);
 	}
-	
+
 	private void inicializarTablaSalas() {
 		spSalas = new JScrollPane();
+		spSalas.getViewport().setBackground(new Color(41, 57, 80));
 		spSalas.setBounds(440, 28, 615, 387);
 		this.add(spSalas);
-		
-		modelSalas = new DefaultTableModel(null, nombreColumnas){public boolean isCellEditable(int row, int column){return false;}};
-		tableSalas = new JTable(modelSalas){
+
+		modelSalas = new DefaultTableModel(null, nombreColumnas) {
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		tableSalas = new JTable(modelSalas) {
 			@Override
-		       public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
-		           Component component = super.prepareRenderer(renderer, row, column);
-		           int rendererWidth = component.getPreferredSize().width;
-		           TableColumn tableColumn = getColumnModel().getColumn(column);
-		           tableColumn.setPreferredWidth(Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
-		           return component;
-		        }
+			public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+				Component component = super.prepareRenderer(renderer, row, column);
+				int rendererWidth = component.getPreferredSize().width;
+				TableColumn tableColumn = getColumnModel().getColumn(column);
+				tableColumn.setPreferredWidth(
+						Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
+				return component;
+			}
 		};
 		tableSalas.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 		spSalas.setViewportView(tableSalas);
-		
+
 		modeloOrdenado = new TableRowSorter<TableModel>(modelSalas);
 		tableSalas.setRowSorter(modeloOrdenado);
 
@@ -110,60 +118,65 @@ public class SalaABMPanel extends JPanel{
 
 	private void inicializarLbls() {
 		JLabel lblNombre = new JLabel("Nombre:");
+		lblNombre.setForeground(new Color(255, 255, 255));
 		lblNombre.setBounds(10, 30, 92, 14);
 		panel.add(lblNombre);
-		
+
 		JLabel lblCantidadDePc = new JLabel("Cantidad de Pc:");
+		lblCantidadDePc.setForeground(new Color(255, 255, 255));
 		lblCantidadDePc.setBounds(10, 65, 92, 14);
 		panel.add(lblCantidadDePc);
-		
+
 		JLabel lblCantidadDeAlumnos = new JLabel("Cantidad de Alumnos:");
+		lblCantidadDeAlumnos.setForeground(new Color(255, 255, 255));
 		lblCantidadDeAlumnos.setBounds(10, 101, 112, 14);
 		panel.add(lblCantidadDeAlumnos);
-		
+
 		JLabel lblId = new JLabel("ID:");
+		lblId.setForeground(new Color(255, 255, 255));
 		lblId.setVisible(false);
 		lblId.setBounds(10, 262, 46, 14);
 		panel.add(lblId);
-				
+
 		JLabel lblDescripcion = new JLabel("Descripcion:");
+		lblDescripcion.setForeground(new Color(255, 255, 255));
 		lblDescripcion.setBounds(10, 139, 92, 14);
 		panel.add(lblDescripcion);
 
 	}
 
 	private void inicializarTxts() {
-		
+
 		txtNombre = new JTextField();
 		txtNombre.setBounds(132, 27, 251, 20);
 		panel.add(txtNombre);
 		txtNombre.setColumns(10);
-		
+
 		txtCantidadDePc = new JTextField();
 		txtCantidadDePc.setBounds(132, 63, 251, 20);
 		panel.add(txtCantidadDePc);
 		txtCantidadDePc.setColumns(10);
-		
+
 		txtCantidadDeAlumnos = new JTextField();
 		txtCantidadDeAlumnos.setColumns(10);
 		txtCantidadDeAlumnos.setBounds(132, 95, 251, 20);
 		panel.add(txtCantidadDeAlumnos);
-		
+
 		txtID = new JTextField();
 		txtID.setVisible(false);
 		txtID.setEnabled(false);
 		txtID.setBounds(70, 259, 86, 20);
 		panel.add(txtID);
 		txtID.setColumns(10);
-		
+
 		panelDescripcion = new JPanel();
 		panelDescripcion.setBounds(134, 142, 249, 106);
 		panelDescripcion.setLayout(new BorderLayout(0, 0));
 		panel.add(panelDescripcion);
-		
+
 		spDescripcion = new JScrollPane();
 		panelDescripcion.add(spDescripcion, BorderLayout.CENTER);
-		
+
 		textAreaDescripcion = new JTextArea();
 		spDescripcion.setViewportView(textAreaDescripcion);
 		textAreaDescripcion.setLineWrap(true);
@@ -174,15 +187,15 @@ public class SalaABMPanel extends JPanel{
 		btnAgregar = new JButton("Agregar");
 		btnAgregar.setBounds(276, 258, 107, 23);
 		panel.add(btnAgregar);
-		
+
 		btnActualizar = new JButton("Actualizar");
 		btnActualizar.setBounds(276, 258, 107, 23);
 		panel.add(btnActualizar);
-		
+
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.setBounds(276, 258, 107, 23);
 		panel.add(btnEliminar);
-		
+
 		btnVerDisponibilidad = new JButton("Ver Disponibilidad");
 		btnVerDisponibilidad.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -191,7 +204,7 @@ public class SalaABMPanel extends JPanel{
 		btnVerDisponibilidad.setBounds(879, 447, 176, 31);
 		add(btnVerDisponibilidad);
 	}
-	
+
 	public JButton getBtnAgregar() {
 		return btnAgregar;
 	}
@@ -219,7 +232,7 @@ public class SalaABMPanel extends JPanel{
 	public JTextField getTxtNombre() {
 		return txtNombre;
 	}
-	
+
 	/**
 	 * @return the btnVerDisponibilidad
 	 */
@@ -228,7 +241,8 @@ public class SalaABMPanel extends JPanel{
 	}
 
 	/**
-	 * @param btnVerDisponibilidad the btnVerDisponibilidad to set
+	 * @param btnVerDisponibilidad
+	 *            the btnVerDisponibilidad to set
 	 */
 	public void setBtnVerDisponibilidad(JButton btnVerDisponibilidad) {
 		this.btnVerDisponibilidad = btnVerDisponibilidad;
@@ -285,7 +299,7 @@ public class SalaABMPanel extends JPanel{
 	public void setModeloOrdenado(TableRowSorter<TableModel> model) {
 		this.modeloOrdenado = model;
 	}
-	
+
 	/**
 	 * @return the nombreColumnas
 	 */
@@ -294,7 +308,8 @@ public class SalaABMPanel extends JPanel{
 	}
 
 	/**
-	 * @param nombreColumnas the nombreColumnas to set
+	 * @param nombreColumnas
+	 *            the nombreColumnas to set
 	 */
 	public void setNombreColumnas(String[] nombreColumnas) {
 		this.nombreColumnas = nombreColumnas;
@@ -308,7 +323,8 @@ public class SalaABMPanel extends JPanel{
 	}
 
 	/**
-	 * @param txtID the txtID to set
+	 * @param txtID
+	 *            the txtID to set
 	 */
 	public void setTxtID(JTextField txtID) {
 		this.txtID = txtID;

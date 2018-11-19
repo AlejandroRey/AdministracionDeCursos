@@ -17,7 +17,8 @@ public class InscriptoDAOSQL implements InscriptoDAO {
 	private static final String insert = "INSERT INTO inscripto (idAlumno, idCursada, fecha, estado) VALUES (?, ?, ?, ?)";
 	private static final String delete = "DELETE FROM inscripto WHERE idAlumno = ? AND idCursada = ?";
 	private static final String update = "UPDATE inscripto SET fecha = ?, estado = ? WHERE idAlumno = ? AND idCursada = ?";
-	private static final String readall = "SELECT * FROM inscripto WHERE idCursada = ?";
+	//private static final String readall = "SELECT * FROM inscripto WHERE idCursada = ?";
+	private static final String readall = "SELECT * FROM inscripto";
 	
 	@Override
 	public boolean insert(InscriptoDTO inscriptoDTO) {

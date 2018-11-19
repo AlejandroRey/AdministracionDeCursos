@@ -21,6 +21,7 @@ public class FechaCursadaClaseDAOSQL implements FechaCursadaClaseDAO {
 	private static final String update = "UPDATE fechacursadaclase SET idCursada = ?, idSala = ?, fechaInicio = ?, fechaFin = ?, estadoSala = ? WHERE idFechaCursadaClase = ?";
 	private static final String readall = "SELECT * FROM fechacursadaclase WHERE idCursada = ?";
 	private static final String readallBySala = "SELECT * FROM fechacursadaclase WHERE idSala = ?";
+	private static final String readallByIdFechaCursadaClase = "SELECT * FROM fechacursadaclase WHERE idFechaCursadaClase = ?";
 
 	@Override
 	public boolean insert(FechaCursadaClaseDTO fechaCursadaClaseDTO) {
@@ -139,6 +140,32 @@ public class FechaCursadaClaseDAOSQL implements FechaCursadaClaseDAO {
 			conexion.cerrarConexion();
 		}
 		return fechasCursadasClases;
+	}
+	
+	@Override
+	public FechaCursadaClaseDTO getFechaCursadaClase(long idFechaCursadaClase) {
+		PreparedStatement statement;
+		ResultSet resultSet; // Guarda el resultado de la query
+		FechaCursadaClaseDTO fechaCursadaClaseDTO = null;
+		Conexion conexion = Conexion.getConexion();
+		try {
+			statement = conexion.getSQLConexion().prepareStatement(readallByIdFechaCursadaClase);
+			statement.setLong(1, idFechaCursadaClase);
+			resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				fechaCursadaClaseDTO =  new FechaCursadaClaseDTO(resultSet.getLong("idFechaCursadaClase"), 
+																 resultSet.getLong("idCursada"), 
+																 resultSet.getLong("idSala"), 
+																 resultSet.getTimestamp("fechaInicio").toLocalDateTime(), 
+																 resultSet.getTimestamp("fechaFin").toLocalDateTime(),
+																 resultSet.getInt("estadoSala"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			conexion.cerrarConexion();
+		}
+		return fechaCursadaClaseDTO;
 	}
 
 	public Timestamp convertToTimeStamp(LocalDateTime ldt) {

@@ -7,8 +7,10 @@ import javax.swing.JOptionPane;
 
 import modelo.AdministracionDeCursos;
 import persistencia.dao.mysql.DAOSQLFactory;
+import presentacion.vista.AdministracionDeCursosVista;
 import presentacion.vista.AdministrativoABMVistaPrincipal;
 import presentacion.vista.LoginVista;
+import presentacion.vista.RecadoABMVistaPrincipal;
 import presentacion.vista.SupervisorAdministracionVista;
 import presentacion.vista.SupervisorVista;
 
@@ -17,14 +19,17 @@ public class SupervisorVistaControlador implements ActionListener {
 	private SupervisorVista vista;
 	private AdministracionDeCursos modelo;
 	private SupervisorAdministracionVista supervisorAdministracionVista;
+	private AdministracionDeCursosVista administracionVista;
 	private SupervisorAdministracionVistaControlador supervisorAdministracionVistaControlador;
 	private AdministrativoABMVistaPrincipal administrativoABMVistaPrincipal;
 	private AdministrativoABMVistaPrincipalControlador administrativoABMVistaPrincipalControlador;
+	private RecadoABMVistaPrincipal recadoABMVistaPrincipal;
+	private RecadoABMVistaPrincipalControlador recadoABMControlador;
 	
-	public SupervisorVistaControlador(SupervisorVista vista) {
+	public SupervisorVistaControlador(SupervisorVista vista, AdministracionDeCursos modelo) {
 		super();
 		this.vista = vista;
-		
+		this.modelo = modelo;
 		this.vista.getBtnAdministrativos().addActionListener(this);
 		this.vista.getBtnRecados().addActionListener(this);
 		this.vista.getBtnTareas().addActionListener(this);
@@ -42,7 +47,7 @@ public class SupervisorVistaControlador implements ActionListener {
 		if (e.getSource() == this.vista.getMntmCerrarSesion()) {
 			this.vista.getFrmSupervisor().dispose();
 			LoginVista vista = new LoginVista();
-			AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
+//			AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
 			LoginVistaControlador controlador = new LoginVistaControlador(vista, modelo);
 			controlador.inicializar();
 		}
@@ -57,12 +62,23 @@ public class SupervisorVistaControlador implements ActionListener {
 			JOptionPane.showMessageDialog(null, "Esta función todavía no fue desarrollada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 		}
 		if (e.getSource() == this.vista.getBtnRecados()) {
-			JOptionPane.showMessageDialog(null, "Esta función todavía no fue desarrollada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+			this.vista.getFrmSupervisor().dispose();
+
+			supervisorAdministracionVista = new SupervisorAdministracionVista();
+			supervisorAdministracionVistaControlador = new SupervisorAdministracionVistaControlador(modelo,supervisorAdministracionVista);
+			supervisorAdministracionVistaControlador.inicializar();
+			
+			if (recadoABMVistaPrincipal == null) {
+				recadoABMVistaPrincipal = new RecadoABMVistaPrincipal();
+				recadoABMControlador = new RecadoABMVistaPrincipalControlador(modelo, recadoABMVistaPrincipal);
+				
+				this.supervisorAdministracionVista.getMainPanel().add(recadoABMVistaPrincipal);
+			}
 		}
 		if (e.getSource() == this.vista.getBtnAdministrativos()) {
 			this.vista.getFrmSupervisor().dispose();
 			//supervisorAdministracionVistaControlador = new SupervisorAdministracionVistaControlador(AdministracionDeCursos, vista);
-			modelo = new AdministracionDeCursos(new DAOSQLFactory());
+//			modelo = new AdministracionDeCursos(new DAOSQLFactory());
 			supervisorAdministracionVista = new SupervisorAdministracionVista();
 			supervisorAdministracionVistaControlador = new SupervisorAdministracionVistaControlador(modelo,supervisorAdministracionVista);
 			administrativoABMVistaPrincipal = new AdministrativoABMVistaPrincipal();

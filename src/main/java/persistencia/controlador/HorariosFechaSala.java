@@ -24,7 +24,7 @@ public class HorariosFechaSala {
 	private void addDisponibilidad(SalaDisponibilidadDTO fecha) {
 		String sala = fecha.getSala();
 		String curso = fecha.getCurso();
-		LocalDateTime inicio = fecha.getHoraFin();
+		LocalDateTime inicio = fecha.getHoraInicio();
 		LocalDateTime fin = fecha.getHoraFin();
 		DisponibilidadControlador disponibilidad = new DisponibilidadControlador(sala,curso,inicio,fin);
 		this.disponibilidad.add(disponibilidad);
