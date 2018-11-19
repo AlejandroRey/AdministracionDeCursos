@@ -13,7 +13,7 @@ public class UsuarioCambioContraseñaVistaControlador implements ActionListener{
 	private UsuarioCambioContraseñaVista vista;
 	private AdministracionDeCursos modelo;
 	
-	public UsuarioCambioContraseñaVistaControlador(AdministracionDeCursos modelo, UsuarioCambioContraseñaVista vista) {
+	public UsuarioCambioContraseñaVistaControlador(UsuarioCambioContraseñaVista vista, AdministracionDeCursos modelo) {
 		super();
 		this.vista = vista;
 		this.modelo = modelo;

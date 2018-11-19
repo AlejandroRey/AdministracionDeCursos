@@ -18,6 +18,7 @@ import presentacion.vista.NotificacionPanel;
 import presentacion.vista.RecadoABMVistaPrincipal;
 import presentacion.vista.SalaABMVistaPrincipal;
 import presentacion.vista.TareaABMVistaPrincipal;
+import presentacion.vista.UsuarioCambioContraseñaVista;
 import presentacion.vista.UsuarionABMVistaPrincipal;
 import presentacion.vista.VistaInicial;
 
@@ -87,7 +88,9 @@ public class AdministrativoVistaControlador implements ActionListener {
 			}	
 		}
 		if (e.getSource() == this.vista.getBtnCambiarContrasena()) {
-			JOptionPane.showMessageDialog(null, "Esta función todavía no está desarrollada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+			UsuarioCambioContraseñaVista vista = new UsuarioCambioContraseñaVista();
+			UsuarioCambioContraseñaVistaControlador controlador = new UsuarioCambioContraseñaVistaControlador(vista, modelo);
+			controlador.inicializar();
 		}
 		if (e.getSource() == this.vista.getBtnCerrarSesion()) {
 			this.vista.getFrmAdministrativo().dispose();
