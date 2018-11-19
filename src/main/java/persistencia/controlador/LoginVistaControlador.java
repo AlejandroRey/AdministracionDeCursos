@@ -3,11 +3,7 @@ package persistencia.controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-
 import javax.swing.JOptionPane;
-
-import com.itextpdf.text.log.SysoCounter;
-
 import dto.UsuarioDTO;
 import modelo.AdministracionDeCursos;
 import presentacion.vista.AdministrativoVista;
