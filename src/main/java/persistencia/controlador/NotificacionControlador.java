@@ -288,7 +288,7 @@ public class NotificacionControlador implements ActionListener {
 		}
 		else if (e.getSource() == this.vista.getBtnIrATareas()) {
 			tareaABMVistaPrincipal = new TareaABMVistaPrincipal();
-			tareaABMVistaPrincipalControlador = new TareaABMVistaPrincipalControlador(modelo, tareaABMVistaPrincipal, administracionDeCursosVista);
+			tareaABMVistaPrincipalControlador = new TareaABMVistaPrincipalControlador(modelo, tareaABMVistaPrincipal, administracionDeCursosVista,null,null);
 			administracionDeCursosVista.getMainPanel().add(tareaABMVistaPrincipal);
 			administracionDeCursosVista.getFrame().repaint();
 			administracionDeCursosVista.getFrame().revalidate();

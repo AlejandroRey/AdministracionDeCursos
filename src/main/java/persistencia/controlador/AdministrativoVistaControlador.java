@@ -204,7 +204,7 @@ public class AdministrativoVistaControlador implements ActionListener {
 			
 			if (tareaABM == null) {
 				tareaABM = new TareaABMVistaPrincipal();
-				tareaABMControlador = new TareaABMVistaPrincipalControlador(modelo, tareaABM, administracionVista);
+				tareaABMControlador = new TareaABMVistaPrincipalControlador(modelo, tareaABM, administracionVista, null, null);
 				
 				this.administracionVista.getMainPanel().add(tareaABM);
 			}

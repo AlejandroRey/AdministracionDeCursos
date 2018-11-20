@@ -173,6 +173,7 @@ public class ContactoABMPanel extends JPanel {
 			txtDescripcion.setColumns(10);
 			
 			txtIDContacto = new JTextField();
+			txtIDContacto.setVisible(false);
 			txtIDContacto.setBackground(Color.WHITE);
 			txtIDContacto.setDisabledTextColor(Color.DARK_GRAY);
 			txtIDContacto.setEnabled(false);
@@ -182,6 +183,7 @@ public class ContactoABMPanel extends JPanel {
 			txtIDContacto.setColumns(10);
 			
 			txtIDAlumno = new JTextField();
+			txtIDAlumno.setVisible(false);
 			txtIDAlumno.setBackground(Color.WHITE);
 			txtIDAlumno.setDisabledTextColor(Color.DARK_GRAY);
 			txtIDAlumno.setEnabled(false);
@@ -191,6 +193,7 @@ public class ContactoABMPanel extends JPanel {
 			txtIDAlumno.setColumns(10);
 			
 			txtIDAdministrativo = new JTextField();
+			txtIDAdministrativo.setVisible(false);
 			txtIDAdministrativo.setBackground(Color.WHITE);
 			txtIDAdministrativo.setDisabledTextColor(Color.DARK_GRAY);
 			txtIDAdministrativo.setEnabled(false);
@@ -204,11 +207,13 @@ public class ContactoABMPanel extends JPanel {
 			panel.add(btnSeleccionarAlumno);
 			
 			txtIDTarea = new JTextField();
+			txtIDTarea.setVisible(false);
 			txtIDTarea.setBounds(753, 174, 44, 20);
 			panel.add(txtIDTarea);
 			txtIDTarea.setColumns(10);
 			
 			txtIDCurso = new JTextField();
+			txtIDCurso.setVisible(false);
 			txtIDCurso.setBounds(699, 174, 44, 20);
 			panel.add(txtIDCurso);
 			txtIDCurso.setColumns(10);

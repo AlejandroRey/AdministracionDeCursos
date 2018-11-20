@@ -13,6 +13,7 @@ import presentacion.vista.LoginVista;
 import presentacion.vista.RecadoABMVistaPrincipal;
 import presentacion.vista.SupervisorAdministracionVista;
 import presentacion.vista.SupervisorVista;
+import presentacion.vista.TareaABMVistaPrincipal;
 import presentacion.vista.UsuarioCambioContraseñaVista;
 
 public class SupervisorVistaControlador implements ActionListener {
@@ -26,6 +27,8 @@ public class SupervisorVistaControlador implements ActionListener {
 	private AdministrativoABMVistaPrincipalControlador administrativoABMVistaPrincipalControlador;
 	private RecadoABMVistaPrincipal recadoABMVistaPrincipal;
 	private RecadoABMVistaPrincipalControlador recadoABMControlador;
+	private TareaABMVistaPrincipal tareaABM;
+	private TareaABMVistaPrincipalControlador tareaABMControlador;
 	
 	public SupervisorVistaControlador(SupervisorVista vista, AdministracionDeCursos modelo) {
 		super();
@@ -79,6 +82,7 @@ public class SupervisorVistaControlador implements ActionListener {
 		}
 		if (e.getSource() == this.vista.getBtnAdministrativos()) {
 			this.vista.getFrmSupervisor().dispose();
+			
 			supervisorAdministracionVista = new SupervisorAdministracionVista();
 			supervisorAdministracionVistaControlador = new SupervisorAdministracionVistaControlador(modelo,supervisorAdministracionVista);
 			administrativoABMVistaPrincipal = new AdministrativoABMVistaPrincipal();
@@ -86,7 +90,17 @@ public class SupervisorVistaControlador implements ActionListener {
 			this.supervisorAdministracionVista.getMainPanel().add(administrativoABMVistaPrincipal);
 		}
 		if (e.getSource() == this.vista.getBtnTareas()) {
-			// TODO TAREAS
+			this.vista.getFrmSupervisor().dispose();
+			supervisorAdministracionVista = new SupervisorAdministracionVista();
+			supervisorAdministracionVistaControlador = new SupervisorAdministracionVistaControlador(modelo, supervisorAdministracionVista);
+			supervisorAdministracionVistaControlador.inicializar();
+			
+			if (tareaABM == null) {
+				tareaABM = new TareaABMVistaPrincipal();
+				tareaABMControlador = new TareaABMVistaPrincipalControlador(modelo, tareaABM, null, supervisorAdministracionVista, null);
+				
+				this.supervisorAdministracionVista.getMainPanel().add(tareaABM);
+			}		
 		}
 	}
 }
