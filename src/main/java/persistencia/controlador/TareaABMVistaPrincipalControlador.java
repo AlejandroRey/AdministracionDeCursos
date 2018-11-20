@@ -41,8 +41,8 @@ public class TareaABMVistaPrincipalControlador {
 		this.modelo = modelo;
 		this.vista = vista;
 		this.administracionVista = administracionVista;
-		this.supervisorVista = supervisorVista;
-		this.instructorVista= instructorVista;
+		this.supervisorAdministracionVista = supervisorAdministracionVista;
+		this.instructorAdministracionVista = instructorAdministracionVista;
 		
 		this.vista.getBtnAgregar().addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mousePressed(java.awt.event.MouseEvent evt) {
