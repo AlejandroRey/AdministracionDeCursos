@@ -15,6 +15,7 @@ import presentacion.vista.AlumnosInscriptosPanel;
 import presentacion.vista.CalendarioBuilderPanel;
 import presentacion.vista.CursadaABMPanel;
 import presentacion.vista.CursadaABMVistaPrincipal;
+import presentacion.vista.InstructorAdministracionVista;
 
 public class CursadaABMVistaPrincipalControlador {
 	
@@ -41,12 +42,14 @@ public class CursadaABMVistaPrincipalControlador {
 	private AdministracionDeCursosVista administracionVista;
 	private AdministrativoVista administrativoVista;
 	private AdministrativoVistaControlador administrativoVistaControlador;
+	private InstructorAdministracionVista instructorAdministracionVista;
 	
-	public CursadaABMVistaPrincipalControlador(AdministracionDeCursos modelo, CursadaABMVistaPrincipal vista, AdministracionDeCursosVista administracionVista) {
+	public CursadaABMVistaPrincipalControlador(AdministracionDeCursos modelo, CursadaABMVistaPrincipal vista, AdministracionDeCursosVista administracionVista, InstructorAdministracionVista instructorAdministracionVista) {
 		super();
 		this.vista = vista;
 		this.modelo = modelo;
 		this.administracionVista = administracionVista;
+		this.instructorAdministracionVista = instructorAdministracionVista;
 		this.vista.getButtonPanelExtends().setVisible(false);
 		
 		this.vista.getBtnSeleccionar().addMouseListener(new java.awt.event.MouseAdapter() {
@@ -124,11 +127,14 @@ public class CursadaABMVistaPrincipalControlador {
 
 	private void btnHome_MousePressed(MouseEvent evt) {
 		resetVistas();
-		this.administracionVista.getFrame().dispose();
+		try{this.administracionVista.getFrame().dispose();
 		administrativoVista = new AdministrativoVista();
 		administrativoVistaControlador = new AdministrativoVistaControlador(administrativoVista,
 				modelo);
-		administrativoVistaControlador.inicializar();
+		administrativoVistaControlador.inicializar();}
+		catch(Exception ex){
+			
+		}
 	}
 
 	private void btnHomeII_MousePressed(MouseEvent evt) {

@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.ListSelectionModel;
@@ -70,11 +71,12 @@ public class CursadaABMControlador implements ActionListener {
 		clearTextBoxPanelCursadas();
 
 		this.cursadasLista = modelo.obtenerCursadasCompletas();
+		filtrarPorInstructor();
 //		for (CursadaCompletaDTO cursadaCompletaDTO : cursadasLista) {
 //			controlarEstadoCursada(cursadaCompletaDTO);
 //		}
 		
-		this.cursadasLista = modelo.obtenerCursadasCompletas();
+		//this.cursadasLista = modelo.obtenerCursadasCompletas();
 		for (CursadaCompletaDTO cursadaCompletaDTO : cursadasLista) {
 			Object[] fila = {cursadaCompletaDTO.getIdCursada(),
 							 cursadaCompletaDTO.getIdEmpresa(),
@@ -151,6 +153,13 @@ public class CursadaABMControlador implements ActionListener {
 		DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
 		leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
 		this.vista.getTblCursadas().getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
+		filtrarPorInstructor();
+	}
+	
+	private void filtrarPorInstructor() {
+		if(this.modelo.getUsuarioLogueado().getIdCategoria()==3) {
+			this.cursadasLista = cursadasLista.stream().filter(cursada -> cursada.getIdInstructor()==this.modelo.getUsuarioLogueado().getIdUsuario()).collect(Collectors.toList());
+		}
 	}
 	
 	private String obtenerAdministrativo(long idUsuario) {
@@ -312,7 +321,7 @@ public class CursadaABMControlador implements ActionListener {
 											   curso.getIdCurso(), 
 											   estadoDeCurso.getIdEstadoDeCurso(), 
 											   Long.parseLong(this.vista.getTextidAdministrativo().getText()),
-											   Long.parseLong("1"), fechaInicioInscripcion, 
+											   Long.parseLong("4"), fechaInicioInscripcion, 
 											   fechaFinInscripcion, 
 											   this.vista.getTextVacantes().getText(), 
 											   fechaInicioCursada, 
@@ -346,6 +355,9 @@ public class CursadaABMControlador implements ActionListener {
 			CursadaDTO cursadaDTO = getCursadaDTO();
 			String strCursadaDTO = cursadaDTOToString(cursadaDTO);
 			
+			//if(this.modelo.getUsuarioLogueado().getIdCategoria()==3) {
+				//cursadaDTO.
+			//}
 			this.vistaPrincipalControlador.getVista().getButtonPanel().setVisible(false);
 			this.vistaPrincipalControlador.getVista().getButtonPanelExtends().setVisible(true);
 			this.vistaPrincipalControlador.getVista().getTextAreaCursadaSeleccionada().setText(strCursadaDTO);

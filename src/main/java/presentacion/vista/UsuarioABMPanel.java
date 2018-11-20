@@ -28,7 +28,7 @@ public class UsuarioABMPanel extends JPanel {
 	
 	//private JComboBox<CategoriaDTO> cbxCategoriaFiltro;
 	private JScrollPane spUsuarios;
-	JScrollPane spAsignaciones;
+	private JScrollPane spAsignaciones;
 	private DefaultTableModel modelUsuarios;
 	private DefaultTableModel modelAsignaciones;
 	private JTable tblUsuarios;

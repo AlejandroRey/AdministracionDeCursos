@@ -2,9 +2,16 @@ package persistencia.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.chrono.Chronology;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import dto.CursadaDTO;
+import dto.CursoDTO;
+import dto.NotificacionDTO;
 import modelo.AdministracionDeCursos;
 import persistencia.dao.mysql.DAOSQLFactory;
 import presentacion.vista.AdministracionDeCursosVista;
@@ -14,6 +21,7 @@ import presentacion.vista.ContactoVistaPrincipal;
 import presentacion.vista.CursadaABMVistaPrincipal;
 import presentacion.vista.CursoABMVistaPrincipal;
 import presentacion.vista.LoginVista;
+import presentacion.vista.NotificacionABMVistaPrincipal;
 import presentacion.vista.NotificacionPanel;
 import presentacion.vista.RecadoABMVistaPrincipal;
 import presentacion.vista.SalaABMVistaPrincipal;
@@ -48,6 +56,10 @@ public class AdministrativoVistaControlador implements ActionListener {
 	private UsuarioABMVistaPrincipalControlador instructorABMControlador;
 	private NotificacionPanel notificacionVista;
 	private NotificacionControlador notificacionControlador;
+	private NotificacionABMVistaPrincipal notificacionABMVistaPrincipal;
+	private NotificacionABMVistaPrincipalControlador notificacionABMVistaPrincipalControlador;
+	private List<CursadaDTO> cursadas;
+	private List<NotificacionDTO> notificaciones;
 	
 	public AdministrativoVistaControlador(AdministrativoVista vista, AdministracionDeCursos modelo) {
 		super();
@@ -69,9 +81,51 @@ public class AdministrativoVistaControlador implements ActionListener {
 	}
 	
 	public void inicializar() {
-		
+		revisarCursadas();
+		leerNotificaciones();
 	}
 
+	private void leerNotificaciones() {
+		this.notificaciones = this.modelo.obtenerNotificaciones();
+		boolean result = false;
+		for(NotificacionDTO notificacion : notificaciones) {
+			if (notificacion.isVisto()==true) {
+				result = true;
+			}
+		}
+		if (result) {
+			JOptionPane.showMessageDialog(null, "Tienes nuevas notificaciones, revisa la sección.", "Alerta!", JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+	
+	private void revisarCursadas() {
+		this.cursadas = this.modelo.obtenerCursadas();
+		for(CursadaDTO cursada : cursadas) {
+			int cierreInscripcion = cursada.getFechaFinInscripcion().getDayOfYear();
+			int actual = LocalDateTime.now().getDayOfYear();
+			int result = cierreInscripcion-actual;
+			boolean result2 = false;
+			if(result>0 && result<6) {
+				CursoDTO curso = this.modelo.obtenerCurso(cursada.getIdCurso());
+				NotificacionDTO notificacion = new NotificacionDTO(0, cursada.getIdAdministrativo(),0,
+						"El cierre de inscripción de la cursada de " + curso.getNombre() + " está próximo a cumplirse",false,LocalDateTime.now());
+				notificaciones = this.modelo.obtenerNotificaciones();
+				for(NotificacionDTO notificacion2 : notificaciones) {
+					if(notificacion2.getTipoNotificacion()==0 && notificacion2.getIdUsuario()==this.modelo.getUsuarioLogueado().getIdUsuario()) {
+						if(!notificacion2.getFechaHora().toLocalDate().toString().equals(LocalDate.now().toString())) {
+							result2 = true;
+							//this.modelo.agregarNotificacion(notificacion);
+						}
+						else
+							result2 = false;
+					}
+				}
+				if (result2)
+					this.modelo.agregarNotificacion(notificacion);
+			}
+		}
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.vista.getBtnAlumnos()) {
@@ -119,7 +173,7 @@ public class AdministrativoVistaControlador implements ActionListener {
 			
 			if (cursadaABM == null) {
 				cursadaABM = new CursadaABMVistaPrincipal();
-				cursadaABMControlador = new CursadaABMVistaPrincipalControlador(modelo, cursadaABM, administracionVista);
+				cursadaABMControlador = new CursadaABMVistaPrincipalControlador(modelo, cursadaABM, administracionVista, null);
 				
 				this.administracionVista.getMainPanel().add(cursadaABM);
 			}
@@ -158,17 +212,18 @@ public class AdministrativoVistaControlador implements ActionListener {
 		}
 		if (e.getSource() == this.vista.getBtnNotificaciones()) {
 			this.vista.getFrmAdministrativo().dispose();
-			modelo = new AdministracionDeCursos(new DAOSQLFactory());
+			//modelo = new AdministracionDeCursos(new DAOSQLFactory());
 			administracionVista = new AdministracionDeCursosVista();
 			controlador = new AdministracionDeCursosControlador(modelo, administracionVista);
 			controlador.inicializar();
 			
-			if(notificacionVista == null) {
-				notificacionVista = new NotificacionPanel();
-				administracionVista.getMainPanel().add(notificacionVista);
-				notificacionControlador = new NotificacionControlador(modelo, notificacionVista, administracionVista, controlador);
-				notificacionControlador.inicializar();
-			}
+			notificacionABMVistaPrincipal = new NotificacionABMVistaPrincipal();
+			notificacionABMVistaPrincipalControlador = new NotificacionABMVistaPrincipalControlador(modelo, notificacionABMVistaPrincipal, administracionVista, null, null);
+			notificacionVista = new NotificacionPanel();
+			notificacionABMVistaPrincipal.getMainPanel().add(notificacionVista);
+			notificacionControlador = new NotificacionControlador(modelo, notificacionVista, administracionVista, null, null);
+			notificacionControlador.inicializar();
+			this.administracionVista.getMainPanel().add(notificacionABMVistaPrincipal);
 		}
 		if (e.getSource() == this.vista.getBtnRecados()) {
 			this.vista.getFrmAdministrativo().dispose();
@@ -204,7 +259,7 @@ public class AdministrativoVistaControlador implements ActionListener {
 			
 			if (tareaABM == null) {
 				tareaABM = new TareaABMVistaPrincipal();
-				tareaABMControlador = new TareaABMVistaPrincipalControlador(modelo, tareaABM, administracionVista);
+				tareaABMControlador = new TareaABMVistaPrincipalControlador(modelo, tareaABM, administracionVista, null);
 				
 				this.administracionVista.getMainPanel().add(tareaABM);
 			}

@@ -20,6 +20,7 @@ import javax.swing.table.TableModel;
 
 import modelo.AdministracionDeCursos;
 import dto.CategoriaDTO;
+import dto.NotificacionDTO;
 import dto.TareaDTO;
 import dto.UsuarioDTO;
 import presentacion.vista.ContactoABMPanel;
@@ -247,6 +248,9 @@ public class TareaABMControlador implements ActionListener{
 					StringToLocalDateTime(this.vista.getTxtFecha().getText(),"00:00:00"),
 					null);
 			this.modelo.agregarTarea(tarea);
+			NotificacionDTO notificacion = new NotificacionDTO(0, Long.parseLong(this.vista.getTxtIDResponsable().getText()),
+					2, "Se te ha asignado una tarea. Revisa la sección Tareas", false, LocalDateTime.now());
+			this.modelo.agregarNotificacion(notificacion);
 			OptionPanel.mensaje("La tarea ha sido agregada correctamente", "Tarea");
 			generarTablas();
 		}
@@ -267,6 +271,9 @@ public class TareaABMControlador implements ActionListener{
 							StringToLocalDateTime(this.vista.getTxtFecha().getText(),"00:00:00"),
 							null);
 					this.modelo.actualizarTarea(tarea);
+					NotificacionDTO notificacion = new NotificacionDTO(0, Long.parseLong(this.vista.getTxtIDResponsable().getText()),
+							2, "Se te ha asignado una tarea. Revisa la sección Tareas", false, LocalDateTime.now());
+					this.modelo.agregarNotificacion(notificacion);
 					OptionPanel.mensaje("La tarea ha sido modificada correctamente", "Tarea");
 					generarTablas();
 				}

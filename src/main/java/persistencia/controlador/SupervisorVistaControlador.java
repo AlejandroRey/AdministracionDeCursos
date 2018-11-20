@@ -10,9 +10,12 @@ import persistencia.dao.mysql.DAOSQLFactory;
 import presentacion.vista.AdministracionDeCursosVista;
 import presentacion.vista.AdministrativoABMVistaPrincipal;
 import presentacion.vista.LoginVista;
+import presentacion.vista.NotificacionABMVistaPrincipal;
+import presentacion.vista.NotificacionPanel;
 import presentacion.vista.RecadoABMVistaPrincipal;
 import presentacion.vista.SupervisorAdministracionVista;
 import presentacion.vista.SupervisorVista;
+import presentacion.vista.TareaABMVistaPrincipal;
 import presentacion.vista.UsuarioCambioContraseñaVista;
 
 public class SupervisorVistaControlador implements ActionListener {
@@ -26,6 +29,12 @@ public class SupervisorVistaControlador implements ActionListener {
 	private AdministrativoABMVistaPrincipalControlador administrativoABMVistaPrincipalControlador;
 	private RecadoABMVistaPrincipal recadoABMVistaPrincipal;
 	private RecadoABMVistaPrincipalControlador recadoABMControlador;
+	private NotificacionABMVistaPrincipal notificacionABMVistaPrincipal;
+	private NotificacionABMVistaPrincipalControlador notificacionABMVistaPrincipalControlador;
+	private NotificacionPanel notificacionPanel;
+	private NotificacionControlador notificacionControlador;
+	private TareaABMVistaPrincipal tareaABMVistaPrincipal;
+	private TareaABMVistaPrincipalControlador tareaABMVistaPrincipalControlador;
 	
 	public SupervisorVistaControlador(SupervisorVista vista, AdministracionDeCursos modelo) {
 		super();
@@ -38,6 +47,7 @@ public class SupervisorVistaControlador implements ActionListener {
 		this.vista.getMntmCerrarSesion().addActionListener(this);
 		this.vista.getMntmExportar().addActionListener(this);
 		this.vista.getMntmImportar().addActionListener(this);
+		this.vista.getBtnNotificaciones().addActionListener(this);
 	}
 	
 	public void inicializar() {
@@ -86,7 +96,24 @@ public class SupervisorVistaControlador implements ActionListener {
 			this.supervisorAdministracionVista.getMainPanel().add(administrativoABMVistaPrincipal);
 		}
 		if (e.getSource() == this.vista.getBtnTareas()) {
-			// TODO TAREAS
+			this.vista.getFrmSupervisor().dispose();
+			supervisorAdministracionVista = new SupervisorAdministracionVista();
+			supervisorAdministracionVistaControlador = new SupervisorAdministracionVistaControlador(modelo,supervisorAdministracionVista);
+			tareaABMVistaPrincipal = new TareaABMVistaPrincipal();
+			tareaABMVistaPrincipalControlador = new TareaABMVistaPrincipalControlador(modelo, tareaABMVistaPrincipal, null, supervisorAdministracionVista);
+			this.supervisorAdministracionVista.getMainPanel().add(tareaABMVistaPrincipal);
+		}
+		if (e.getSource() == this.vista.getBtnNotificaciones()) {
+			this.vista.getFrmSupervisor().dispose();
+			supervisorAdministracionVista = new SupervisorAdministracionVista();
+			supervisorAdministracionVistaControlador = new SupervisorAdministracionVistaControlador(modelo, supervisorAdministracionVista);
+			notificacionABMVistaPrincipal = new NotificacionABMVistaPrincipal();
+			notificacionABMVistaPrincipalControlador = new NotificacionABMVistaPrincipalControlador(modelo, notificacionABMVistaPrincipal, null, supervisorAdministracionVista, null);
+			notificacionPanel = new NotificacionPanel();
+			notificacionControlador = new NotificacionControlador(modelo, notificacionPanel, null, supervisorAdministracionVista, null);
+			notificacionControlador.inicializar();
+			this.supervisorAdministracionVista.getMainPanel().add(notificacionABMVistaPrincipal);
+			notificacionABMVistaPrincipal.getMainPanel().add(notificacionPanel);
 		}
 	}
 }

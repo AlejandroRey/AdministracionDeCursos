@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import modelo.AdministracionDeCursos;
 import presentacion.vista.AdministracionDeCursosVista;
 import presentacion.vista.AdministrativoVista;
+import presentacion.vista.SupervisorAdministracionVista;
 import presentacion.vista.TareaABMPanel;
 import presentacion.vista.TareaABMVistaPrincipal;
 
@@ -23,12 +24,14 @@ public class TareaABMVistaPrincipalControlador {
 	private AdministracionDeCursosVista administracionVista;
 	private AdministrativoVista administrativoVista;
 	private AdministrativoVistaControlador administrativoVistaControlador;
+	private SupervisorAdministracionVista supervisorAdministracionVista;
 
-	public TareaABMVistaPrincipalControlador(AdministracionDeCursos modelo, TareaABMVistaPrincipal vista, AdministracionDeCursosVista administracionVista) {
+	public TareaABMVistaPrincipalControlador(AdministracionDeCursos modelo, TareaABMVistaPrincipal vista, AdministracionDeCursosVista administracionVista, SupervisorAdministracionVista supervisorAdministracionVista) {
 		super();
 		this.modelo = modelo;
 		this.vista = vista;
 		this.administracionVista = administracionVista;
+		this.supervisorAdministracionVista = supervisorAdministracionVista;
 		
 		this.vista.getBtnAgregar().addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mousePressed(java.awt.event.MouseEvent evt) {

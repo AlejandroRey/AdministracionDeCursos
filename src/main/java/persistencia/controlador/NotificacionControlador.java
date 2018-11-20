@@ -22,7 +22,11 @@ import persistencia.controlador.UsuarioABMControlador.ListSelectionModelCstm;
 import presentacion.vista.AdministracionDeCursosVista;
 import presentacion.vista.CursadaABMPanel;
 import presentacion.vista.CursadaABMVistaPrincipal;
+import presentacion.vista.InstructorAdministracionVista;
 import presentacion.vista.NotificacionPanel;
+import presentacion.vista.RecadoABMPanel;
+import presentacion.vista.RecadoABMVistaPrincipal;
+import presentacion.vista.SupervisorAdministracionVista;
 import presentacion.vista.TareaABMPanel;
 import presentacion.vista.TareaABMVistaPrincipal;
 
@@ -35,6 +39,12 @@ public class NotificacionControlador implements ActionListener {
 	private AdministracionDeCursosControlador administracionDeCursosControlador;
 	private AdministracionDeCursosVista administracionDeCursosVista;
 	
+	private SupervisorAdministracionVista supervisorAdministracionVista;
+	private SupervisorAdministracionVistaControlador supervisorAdministracionVistaControlador;
+	
+	private InstructorAdministracionVista instructorAdministracionVista;
+	private InstructorAdministracionVistaControlador intrusctorAdministracionVistaControlador;
+	
 	private TareaABMVistaPrincipal tareaABMVistaPrincipal;
 	private TareaABMVistaPrincipalControlador tareaABMVistaPrincipalControlador;
 	private TareaABMPanel tareaABMPanel;
@@ -45,16 +55,22 @@ public class NotificacionControlador implements ActionListener {
 	private CursadaABMPanel cursadaABMPanel;
 	private CursadaABMControlador cursadaABMControlador;
 	
-	//Aquí se deben crear las variables de recados
+	private RecadoABMVistaPrincipal recadoABMVistaPrincipal;
+	private RecadoABMVistaPrincipalControlador recadoABMVistaPrincipalControlador;
+	private RecadoABMPanel recadoABMPanel;
+	private RecadoABMPanelControlador recadoABMPanelControlador;
 	
 	public NotificacionControlador(AdministracionDeCursos modelo, NotificacionPanel vista, 
-		AdministracionDeCursosVista administracionDeCursosVista, AdministracionDeCursosControlador administracionDeCursosControlador) {
+		AdministracionDeCursosVista administracionDeCursosVista, SupervisorAdministracionVista supervisorAdministracionVista,
+		InstructorAdministracionVista instructorAdministracionVista) {
 		super();
 		this.modelo = modelo;
 		this.vista = vista;
 		this.notificaciones = null;
 		this.administracionDeCursosVista = administracionDeCursosVista;
-		this.administracionDeCursosControlador = administracionDeCursosControlador;
+		this.supervisorAdministracionVista = supervisorAdministracionVista;
+		this.instructorAdministracionVista = instructorAdministracionVista;
+		//this.administracionDeCursosControlador = administracionDeCursosControlador;
 		
 		this.vista.getBtnIrACursadas().addActionListener(this);
 		this.vista.getBtnIrARecados().addActionListener(this);
@@ -86,6 +102,10 @@ public class NotificacionControlador implements ActionListener {
 							 booleanToString(notificacionDTO.isVisto()),
 							 stringToLocalDateFormatter(notificacionDTO.getFechaHora())};
 			//filtro para obterner solo los instructores
+			if(this.modelo.getUsuarioLogueado().getIdUsuario()==notificacionDTO.getIdUsuario())
+			//System.out.println("El usuario logueado es: " + this.modelo.getUsuarioLogueado().getIdUsuario());
+			//System.out.println(this.modelo.getUsuarioLogueado().toString());
+			//System.out.println("El idNotificacion actual es: " + notificacionDTO.getIdUsuario());
 			this.vista.getModelNotificaciones().addRow(fila);
 		}
 		
@@ -280,19 +300,55 @@ public class NotificacionControlador implements ActionListener {
 		}
 		else if (e.getSource() == this.vista.getBtnIrACursadas()) {
 			cursadaABMVistaPrincipal = new CursadaABMVistaPrincipal();
-			cursadaABMVistaPrincipalControlador = new CursadaABMVistaPrincipalControlador(modelo, cursadaABMVistaPrincipal, administracionDeCursosVista);
+			cursadaABMVistaPrincipalControlador = new CursadaABMVistaPrincipalControlador(modelo, cursadaABMVistaPrincipal, administracionDeCursosVista, instructorAdministracionVista);
+			administracionDeCursosVista.getMainPanel().removeAll();
 			administracionDeCursosVista.getMainPanel().add(cursadaABMVistaPrincipal);
+			vista.setVisible(false);
 			administracionDeCursosVista.getFrame().repaint();
 			administracionDeCursosVista.getFrame().revalidate();
-			vista.setVisible(false);
 		}
 		else if (e.getSource() == this.vista.getBtnIrATareas()) {
 			tareaABMVistaPrincipal = new TareaABMVistaPrincipal();
-			tareaABMVistaPrincipalControlador = new TareaABMVistaPrincipalControlador(modelo, tareaABMVistaPrincipal, administracionDeCursosVista);
+			tareaABMVistaPrincipalControlador = new TareaABMVistaPrincipalControlador(modelo, tareaABMVistaPrincipal, administracionDeCursosVista, supervisorAdministracionVista);
+			administracionDeCursosVista.getMainPanel().removeAll();
 			administracionDeCursosVista.getMainPanel().add(tareaABMVistaPrincipal);
+			vista.setVisible(false);
 			administracionDeCursosVista.getFrame().repaint();
 			administracionDeCursosVista.getFrame().revalidate();
+		}
+		else if (e.getSource() == this.vista.getBtnIrARecados()) {
+			recadoABMVistaPrincipal = new RecadoABMVistaPrincipal();
+			recadoABMVistaPrincipalControlador = new RecadoABMVistaPrincipalControlador(modelo, recadoABMVistaPrincipal, administracionDeCursosVista, null, null);
+			try {
+			administracionDeCursosVista.getMainPanel().removeAll();
+			administracionDeCursosVista.getMainPanel().add(recadoABMVistaPrincipal);
 			vista.setVisible(false);
+			administracionDeCursosVista.getFrame().repaint();
+			administracionDeCursosVista.getFrame().revalidate();
+			}
+			catch (Exception ex) {
+				
+			}
+			try {
+				supervisorAdministracionVista.getMainPanel().removeAll();
+				supervisorAdministracionVista.getMainPanel().add(recadoABMVistaPrincipal);
+				vista.setVisible(false);
+				supervisorAdministracionVista.getFrame().repaint();
+				supervisorAdministracionVista.getFrame().revalidate();
+			}
+			catch(Exception ex) {
+				
+			}
+			try {
+				instructorAdministracionVista.getMainPanel().removeAll();
+				instructorAdministracionVista.getMainPanel().add(recadoABMVistaPrincipal);
+				vista.setVisible(false);
+				instructorAdministracionVista.getFrame().repaint();
+				instructorAdministracionVista.getFrame().revalidate();
+			}
+			catch(Exception ex) {
+				
+			}
 		}
 	}
 }

@@ -22,6 +22,12 @@ public class SupervisorAdministracionVista {
 	private JMenu menuRecados;
 	private JMenuItem menuItemRecadosVer;
 	
+	private JMenu menuNotificaciones;
+	private JMenuItem menuItemNotificacionesVer;
+	
+	private JMenu menuTareas;
+	private JMenuItem menuItemTareasVer;
+	
 	private JMenu menuSistema;
 	private JMenuItem menuItemCambiarDeUsuario;
 	private JMenuItem menuItemImportarBaseDeDatos;
@@ -62,7 +68,9 @@ public class SupervisorAdministracionVista {
 		
 		buildMenuSistema();
 		buildMenuAdministrativos();
+		buildMenuTareas();
 		buildMenuRecados();
+		buildMenuNotificaciones();
 	}
 
 private void buildMenuSistema() {
@@ -105,6 +113,27 @@ private void buildMenuSistema() {
 		
 		menuItemRecadosVer = new JMenuItem("Ver Recados");
 		menuRecados.add(menuItemRecadosVer);
+	}
+	
+	private void buildMenuTareas() {
+
+		menuTareas = new JMenu("Tareas");
+		menuTareas.setMnemonic(KeyEvent.VK_A);
+		menuTareas.getAccessibleContext().setAccessibleDescription("");
+		menuBar.add(menuTareas);
+		
+		menuItemTareasVer = new JMenuItem("Ver Tareas");
+		menuTareas.add(menuItemTareasVer);
+	}
+	
+	private void buildMenuNotificaciones() {
+		menuNotificaciones = new JMenu("Notificaciones");
+		menuNotificaciones.setMnemonic(KeyEvent.VK_A);
+		menuNotificaciones.getAccessibleContext().setAccessibleDescription("");
+		menuBar.add(menuNotificaciones);
+		
+		menuItemNotificacionesVer = new JMenuItem("Ver Notificaciones");
+		menuNotificaciones.add(menuItemNotificacionesVer);
 	}
 
 	/**
@@ -235,6 +264,22 @@ private void buildMenuSistema() {
 
 	public void setMenuItemExportarBaseDeDatos(JMenuItem menuItemExportarBaseDeDatos) {
 		this.menuItemExportarBaseDeDatos = menuItemExportarBaseDeDatos;
+	}
+
+	public JMenuItem getMenuItemNotificacionesVer() {
+		return menuItemNotificacionesVer;
+	}
+
+	public void setMenuItemNotificacionesVer(JMenuItem menuItemNotificacionesVer) {
+		this.menuItemNotificacionesVer = menuItemNotificacionesVer;
+	}
+
+	public JMenuItem getMenuItemTareasVer() {
+		return menuItemTareasVer;
+	}
+
+	public void setMenuItemTareasVer(JMenuItem menuItemTareasVer) {
+		this.menuItemTareasVer = menuItemTareasVer;
 	}
 
 }

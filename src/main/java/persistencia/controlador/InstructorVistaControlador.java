@@ -7,6 +7,8 @@ import javax.swing.JOptionPane;
 
 import modelo.AdministracionDeCursos;
 import persistencia.dao.mysql.DAOSQLFactory;
+import presentacion.vista.AsignacionesDeInstructorVista;
+import presentacion.vista.CursadaABMVistaPrincipal;
 import presentacion.vista.InstructorAdministracionVista;
 import presentacion.vista.InstructorVista;
 import presentacion.vista.LoginVista;
@@ -21,6 +23,10 @@ public class InstructorVistaControlador implements ActionListener {
 	private InstructorAdministracionVistaControlador instructorAdministracionVistaControlador;
 	private RecadoABMVistaPrincipal recadoABMVistaPrincipal;
 	private RecadoABMVistaPrincipalControlador recadoABMControlador;
+	private CursadaABMVistaPrincipal cursadaABM;
+	private CursadaABMVistaPrincipalControlador cursadaABMControlador;
+	private AsignacionesDeInstructorVista asignacionesDeInstructorVista;
+	private AsignacionesDeInstructorControlador asignacionesDeInstructorControlador;
 	
 	public InstructorVistaControlador (InstructorVista vista, AdministracionDeCursos modelo) {
 		super();
@@ -55,11 +61,21 @@ public class InstructorVistaControlador implements ActionListener {
 				this.instructorAdministracionVista.getMainPanel().add(recadoABMVistaPrincipal);
 			}
 		} else if (e.getSource() == this.vista.getBtnConsultarAsignaciones()) {
-			// TODO CONSULTAR ASIGNACIONES
-			JOptionPane.showMessageDialog(null, "Esta función todavía no esta desarrollada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+			asignacionesDeInstructorVista = new AsignacionesDeInstructorVista();
+			asignacionesDeInstructorControlador = new AsignacionesDeInstructorControlador(modelo,asignacionesDeInstructorVista);
+			asignacionesDeInstructorControlador.inicializar();
 		} else if (e.getSource() == this.vista.getBtnRegistrar()) {
-			// TODO REGISTRAR
-			JOptionPane.showMessageDialog(null, "Esta función todavía no esta desarrollada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+			this.vista.getFrmInstructor().dispose();
+			instructorAdministracionVista = new InstructorAdministracionVista();
+			instructorAdministracionVistaControlador = new InstructorAdministracionVistaControlador(modelo, instructorAdministracionVista);
+			instructorAdministracionVistaControlador.inicializar();
+			cursadaABM = new CursadaABMVistaPrincipal();
+			cursadaABMControlador = new CursadaABMVistaPrincipalControlador(modelo,cursadaABM,null, instructorAdministracionVista);
+			cursadaABM.getBtnActualizar().setVisible(false);
+			cursadaABM.getBtnAgregar().setVisible(false);
+			cursadaABM.getBtnEliminar().setVisible(false);
+			cursadaABM.getBtnPagos().setVisible(false);
+			instructorAdministracionVista.getMainPanel().add(cursadaABM);
 		} else if (e.getSource() == this.vista.getButtonCambiarContrasenia()) {
 			UsuarioCambioContraseñaVista vista = new UsuarioCambioContraseñaVista();
 			UsuarioCambioContraseñaVistaControlador controlador = new UsuarioCambioContraseñaVistaControlador(vista, modelo);

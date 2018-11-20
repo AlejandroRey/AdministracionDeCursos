@@ -31,11 +31,12 @@ public class CursadaDAOSQL implements CursadaDAO{
 			statement.setLong(2, cursada.getIdCurso());
 			statement.setLong(3, cursada.getIdEstadoCurso());
 			statement.setLong(4, cursada.getIdAdministrativo());
-			statement.setTimestamp(5, convertToTimeStamp(cursada.getFechaInicioInscripcion()));
-			statement.setTimestamp(6, convertToTimeStamp(cursada.getFechaFinInscripcion()));
-			statement.setString(7, cursada.getVacantes());
-			statement.setTimestamp(8, convertToTimeStamp(cursada.getFechaInicioCursada()));
-			statement.setInt(9, cursada.getDiasDeClase());
+			statement.setLong(5, cursada.getIdInstructor());
+			statement.setTimestamp(6, convertToTimeStamp(cursada.getFechaInicioInscripcion()));
+			statement.setTimestamp(7, convertToTimeStamp(cursada.getFechaFinInscripcion()));
+			statement.setString(8, cursada.getVacantes());
+			statement.setTimestamp(9, convertToTimeStamp(cursada.getFechaInicioCursada()));
+			statement.setInt(10, cursada.getDiasDeClase());
 			
 			if (statement.executeUpdate() > 0) // True is successfully return
 				return true;
@@ -77,12 +78,13 @@ public class CursadaDAOSQL implements CursadaDAO{
 			statement.setLong(2, cursada.getIdCurso());
 			statement.setLong(3, cursada.getIdEstadoCurso());
 			statement.setLong(4, cursada.getIdAdministrativo());
-			statement.setTimestamp(5, convertToTimeStamp(cursada.getFechaInicioInscripcion()));
-			statement.setTimestamp(6, convertToTimeStamp(cursada.getFechaFinInscripcion()));
-			statement.setString(7, cursada.getVacantes());
-			statement.setTimestamp(8, convertToTimeStamp(cursada.getFechaInicioCursada()));
-			statement.setInt(9, cursada.getDiasDeClase());
-			statement.setLong(10, cursada.getIdCursada());
+			statement.setLong(5, cursada.getIdInstructor());
+			statement.setTimestamp(6, convertToTimeStamp(cursada.getFechaInicioInscripcion()));
+			statement.setTimestamp(7, convertToTimeStamp(cursada.getFechaFinInscripcion()));
+			statement.setString(8, cursada.getVacantes());
+			statement.setTimestamp(9, convertToTimeStamp(cursada.getFechaInicioCursada()));
+			statement.setInt(10, cursada.getDiasDeClase());
+			statement.setLong(11, cursada.getIdCursada());
 			
 			if (statement.executeUpdate() > 0) // True is successfully return
 				return true;

@@ -2,7 +2,10 @@ package persistencia.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 import modelo.AdministracionDeCursos;
@@ -13,6 +16,9 @@ import presentacion.vista.ContactoVistaPrincipal;
 import presentacion.vista.CursadaABMVistaPrincipal;
 import presentacion.vista.CursoABMVistaPrincipal;
 import presentacion.vista.LoginVista;
+import presentacion.vista.NotificacionABMVistaPrincipal;
+import presentacion.vista.NotificacionPanel;
+import presentacion.vista.RecadoABMVistaPrincipal;
 import presentacion.vista.SalaABMVistaPrincipal;
 import presentacion.vista.TareaABMVistaPrincipal;
 import presentacion.vista.UsuarionABMVistaPrincipal;
@@ -43,6 +49,14 @@ public class AdministracionDeCursosControlador implements ActionListener {
 	private SalaABMVistaPrincipal salaABM;
 	private SalaABMVistaPrincipalControlador salaABMControlador;
 	
+	private RecadoABMVistaPrincipal recadoABM;
+	private RecadoABMVistaPrincipalControlador recadoABMControlador;
+	
+	private NotificacionABMVistaPrincipal notificacionABM;
+	private NotificacionABMVistaPrincipalControlador notificacionABMControlador;
+	private NotificacionPanel notificacionPanel;
+	private NotificacionControlador notificacionPanelControlador;
+	
 	public AdministracionDeCursosControlador(AdministracionDeCursos modelo, AdministracionDeCursosVista vista) {
 		super();
 		this.modelo = modelo;
@@ -57,6 +71,8 @@ public class AdministracionDeCursosControlador implements ActionListener {
 		this.vista.getMenuItemLogin().addActionListener(this);
 		this.vista.getMenuItemLogout().addActionListener(this);
 		this.vista.getMenuItemContactoVer().addActionListener(this);
+		this.vista.getMenuItemRecadosVer().addActionListener(this);
+		this.vista.getMenuItemNotificacionesVer().addActionListener(this);
 	}
 	
 
@@ -102,7 +118,7 @@ public class AdministracionDeCursosControlador implements ActionListener {
 		} else if (e.getSource()== this.vista.getMenuItemCursadaVer()) {
 			if (cursadaABM == null) {
 				cursadaABM = new CursadaABMVistaPrincipal();
-				cursadaABMControlador = new CursadaABMVistaPrincipalControlador(modelo, cursadaABM, vista);
+				cursadaABMControlador = new CursadaABMVistaPrincipalControlador(modelo, cursadaABM, vista, null);
 				cursadaABMControlador.inicialiar();
 				
 				this.vista.getMainPanel().add(cursadaABM);
@@ -110,7 +126,7 @@ public class AdministracionDeCursosControlador implements ActionListener {
 		} else if (e.getSource()== this.vista.getMenuItemTareaVer()) {
 			if (tareaABM == null) {
 				tareaABM = new TareaABMVistaPrincipal();
-				tareaABMControlador = new TareaABMVistaPrincipalControlador(modelo, tareaABM, vista);
+				tareaABMControlador = new TareaABMVistaPrincipalControlador(modelo, tareaABM, vista, null);
 				
 				this.vista.getMainPanel().add(tareaABM);
 			}
@@ -137,6 +153,21 @@ public class AdministracionDeCursosControlador implements ActionListener {
 			AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
 			LoginVistaControlador controlador = new LoginVistaControlador(vista, modelo);
 			controlador.inicializar();
+		}
+		else if (e.getSource()==this.vista.getMenuItemRecadosVer()) {
+				recadoABM = new RecadoABMVistaPrincipal();
+				recadoABMControlador = new RecadoABMVistaPrincipalControlador(modelo, recadoABM, vista, null, null);
+				
+				this.vista.getMainPanel().add(recadoABM);
+		}
+		else if (e.getSource()==this.vista.getMenuItemNotificacionesVer()) {
+				notificacionABM = new NotificacionABMVistaPrincipal();
+				notificacionABMControlador = new NotificacionABMVistaPrincipalControlador(modelo, notificacionABM, vista, null, null);
+				notificacionPanel = new NotificacionPanel();
+				notificacionPanelControlador = new NotificacionControlador(modelo, notificacionPanel, vista, null, null);
+				notificacionPanelControlador.inicializar();
+				this.vista.getMainPanel().add(notificacionABM);
+				notificacionABM.getMainPanel().add(notificacionPanel);
 		}
 		this.vista.getFrame().repaint();		
 	}

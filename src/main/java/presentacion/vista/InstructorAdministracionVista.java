@@ -16,16 +16,17 @@ public class InstructorAdministracionVista {
 	private JPanel mainPanel;
 	private JMenuBar menuBar;
 	
-	private JMenu menuAdministrativos;
-	private JMenuItem menuItemAdministrativosVer;
-	
 	private JMenu menuRecados;
 	private JMenuItem menuItemRecadosVer;
 	
+	private JMenu menuCursadas;
+	private JMenuItem menuItemCursadasVer;
+	
+	private JMenu menuNotificaciones;
+	private JMenuItem menuItemNotificacionesVer;
+	
 	private JMenu menuSistema;
 	private JMenuItem menuItemCambiarDeUsuario;
-	private JMenuItem menuItemImportarBaseDeDatos;
-	private JMenuItem menuItemExportarBaseDeDatos;
 	private JMenuItem menuItemSalirDelSistema;
 
 	/**
@@ -33,7 +34,7 @@ public class InstructorAdministracionVista {
 	 */
 	public InstructorAdministracionVista() {
 		super();		
-		initialize();		
+		initialize();
 	}
 	
 	private void initialize() {
@@ -61,8 +62,9 @@ public class InstructorAdministracionVista {
 		mainPanel.setLayout(null);
 		
 		buildMenuSistema();
-		buildMenuAdministrativos();
+		buildMenuCursadas();
 		buildMenuRecados();
+		buildMenuNotificaciones();
 	}
 
 private void buildMenuSistema() {
@@ -79,17 +81,6 @@ private void buildMenuSistema() {
 		menuSistema.add(menuItemSalirDelSistema);
 	}
 	
-	private void buildMenuAdministrativos() {
-		
-		menuAdministrativos = new JMenu("Administrativos");
-		menuAdministrativos.setMnemonic(KeyEvent.VK_A);
-		menuAdministrativos.getAccessibleContext().setAccessibleDescription("");
-		menuBar.add(menuAdministrativos);
-		
-		menuItemAdministrativosVer = new JMenuItem("Ver Administrativos");
-		menuAdministrativos.add(menuItemAdministrativosVer);
-	}
-	
 	private void buildMenuRecados() {
 
 		menuRecados = new JMenu("Recados");
@@ -99,6 +90,26 @@ private void buildMenuSistema() {
 		
 		menuItemRecadosVer = new JMenuItem("Ver Recados");
 		menuRecados.add(menuItemRecadosVer);
+	}
+	
+	private void buildMenuCursadas() {
+		menuCursadas = new JMenu("Cursadas");
+		menuCursadas.setMnemonic(KeyEvent.VK_A);
+		menuCursadas.getAccessibleContext().setAccessibleDescription("");
+		menuBar.add(menuCursadas);
+		
+		menuItemCursadasVer = new JMenuItem("Ver Cursadas");
+		menuCursadas.add(menuItemCursadasVer);
+	}
+	
+	private void buildMenuNotificaciones() {
+		menuNotificaciones = new JMenu("Notificaciones");
+		menuNotificaciones.setMnemonic(KeyEvent.VK_A);
+		menuNotificaciones.getAccessibleContext().setAccessibleDescription("");
+		menuBar.add(menuNotificaciones);
+		
+		menuItemNotificacionesVer = new JMenuItem("Ver Notificaciones");
+		menuNotificaciones.add(menuItemNotificacionesVer);
 	}
 
 	/**
@@ -141,34 +152,6 @@ private void buildMenuSistema() {
 	 */
 	public void setMenuBar(JMenuBar menuBar) {
 		this.menuBar = menuBar;
-	}
-
-	/**
-	 * @return the menuAlumno
-	 */
-	public JMenu getMenuAdministrativos() {
-		return menuAdministrativos;
-	}
-
-	/**
-	 * @param menuAlumno the menuAlumno to set
-	 */
-	public void setMenuAdministrativos(JMenu menuAlumno) {
-		this.menuAdministrativos = menuAlumno;
-	}
-
-	/**
-	 * @return the menuItemAlumnoVer
-	 */
-	public JMenuItem getMenuItemAdministrativosVer() {
-		return menuItemAdministrativosVer;
-	}
-
-	/**
-	 * @param menuItemAlumnoVer the menuItemAlumnoVer to set
-	 */
-	public void setMenuItemAdministrativosVer(JMenuItem menuItemAlumnoVer) {
-		this.menuItemAdministrativosVer = menuItemAlumnoVer;
 	}
 
 	/**
@@ -215,20 +198,20 @@ private void buildMenuSistema() {
 		this.menuItemSalirDelSistema = menuItemSalirDelSistema;
 	}
 
-	public JMenuItem getMenuItemImportarBaseDeDatos() {
-		return menuItemImportarBaseDeDatos;
+	public JMenuItem getMenuItemCursadasVer() {
+		return menuItemCursadasVer;
 	}
 
-	public void setMenuItemImportarBaseDeDatos(JMenuItem menuItemImportarBaseDeDatos) {
-		this.menuItemImportarBaseDeDatos = menuItemImportarBaseDeDatos;
+	public void setMenuItemCursadasVer(JMenuItem menuItemCursadasVer) {
+		this.menuItemCursadasVer = menuItemCursadasVer;
 	}
 
-	public JMenuItem getMenuItemExportarBaseDeDatos() {
-		return menuItemExportarBaseDeDatos;
+	public JMenuItem getMenuItemNotificacionesVer() {
+		return menuItemNotificacionesVer;
 	}
 
-	public void setMenuItemExportarBaseDeDatos(JMenuItem menuItemExportarBaseDeDatos) {
-		this.menuItemExportarBaseDeDatos = menuItemExportarBaseDeDatos;
+	public void setMenuItemNotificacionesVer(JMenuItem menuItemNotificacionesVer) {
+		this.menuItemNotificacionesVer = menuItemNotificacionesVer;
 	}
 
 

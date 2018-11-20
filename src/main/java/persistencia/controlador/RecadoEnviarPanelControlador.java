@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,6 +13,7 @@ import javax.swing.JOptionPane;
 
 import com.mxrck.autocompleter.TextAutoCompleter;
 
+import dto.NotificacionDTO;
 import dto.RecadoDTO;
 import dto.UsuarioDTO;
 import modelo.AdministracionDeCursos;
@@ -103,6 +105,9 @@ public class RecadoEnviarPanelControlador implements ActionListener {
 									this.vista.getTextAsunto().getText(), this.vista.getTextAreaMensaje().getText(),
 									null, false, false);
 							this.modelo.agregarRecado(recado);
+							NotificacionDTO notificacion = new NotificacionDTO(0, getIdUsuarioPara(this.vista.getTxtPara().getText()),
+									1,"Te ha llegado un recado", false, LocalDateTime.now());
+							this.modelo.agregarNotificacion(notificacion);
 							limpiarInputs();
 							JOptionPane.showMessageDialog(null, "Recado enviado exitosamente!", "Recado",
 									JOptionPane.INFORMATION_MESSAGE);
@@ -117,6 +122,9 @@ public class RecadoEnviarPanelControlador implements ActionListener {
 								this.vista.getTextAsunto().getText(), this.vista.getTextAreaMensaje().getText(), null,
 								false, false);
 						this.modelo.agregarRecado(recado);
+						NotificacionDTO notificacion = new NotificacionDTO(0, getIdUsuarioPara(this.vista.getTxtPara().getText()),
+								1,"Te ha llegado un recado", false, LocalDateTime.now());
+						this.modelo.agregarNotificacion(notificacion);
 						limpiarInputs();
 						JOptionPane.showMessageDialog(null, "Recado enviado exitosamente!", "Recado",
 								JOptionPane.INFORMATION_MESSAGE);

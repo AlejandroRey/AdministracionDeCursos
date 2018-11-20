@@ -45,10 +45,10 @@ public class AdministracionDeCursosVista {
 	private JMenuItem menuItemSalaVer;
 	
 	private JMenu menuNotificaciones;
-	private JMenu menuItemNotificaciones;
+	private JMenuItem menuItemNotificacionesVer;
 	
 	private JMenu menuRecados;
-	private JMenu menuItemRecados;
+	private JMenuItem menuItemRecadosVer;
 
 	
 	/**
@@ -92,6 +92,8 @@ public class AdministracionDeCursosVista {
 		buildMenuTarea();
 		buildMenuSala();
 		buildMenuContacto();
+		buildMenuRecados();
+		buildMenuNotificaciones();
 	}
 
 	private void buildMenuAlumno() {
@@ -180,6 +182,26 @@ public class AdministracionDeCursosVista {
 		
 		menuItemSalaVer = new JMenuItem("Ver Sala");
 		menuSala.add(menuItemSalaVer);
+	}
+	
+	private void buildMenuRecados() {
+		menuRecados = new JMenu("Recados");
+		menuRecados.setMnemonic(KeyEvent.VK_A);
+		menuRecados.getAccessibleContext().setAccessibleDescription("");
+		menuBar.add(menuRecados);
+		
+		menuItemRecadosVer = new JMenuItem("Ver Recados");
+		menuRecados.add(menuItemRecadosVer);
+	}
+	
+	private void buildMenuNotificaciones() {
+		menuNotificaciones = new JMenu("Notificaciones");
+		menuNotificaciones.setMnemonic(KeyEvent.VK_A);
+		menuNotificaciones.getAccessibleContext().setAccessibleDescription("");
+		menuBar.add(menuNotificaciones);
+		
+		menuItemNotificacionesVer = new JMenuItem("Ver Notificaciones");
+		menuNotificaciones.add(menuItemNotificacionesVer);
 	}
 
 
@@ -449,6 +471,22 @@ public class AdministracionDeCursosVista {
 
 	public void setMenuItemContactoVer(JMenuItem menuItemContactoVer) {
 		this.menuItemContactoVer = menuItemContactoVer;
+	}
+
+	public JMenuItem getMenuItemNotificacionesVer() {
+		return menuItemNotificacionesVer;
+	}
+
+	public void setMenuItemNotificacionesVer(JMenuItem menuItemNotificacionesVer) {
+		this.menuItemNotificacionesVer = menuItemNotificacionesVer;
+	}
+
+	public JMenuItem getMenuItemRecadosVer() {
+		return menuItemRecadosVer;
+	}
+
+	public void setMenuItemRecadosVer(JMenuItem menuItemRecadosVer) {
+		this.menuItemRecadosVer = menuItemRecadosVer;
 	}
 
 }

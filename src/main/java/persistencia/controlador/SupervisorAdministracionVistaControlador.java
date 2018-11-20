@@ -13,6 +13,9 @@ import presentacion.vista.AlumnoABMVistaPrincipal;
 import presentacion.vista.CursadaABMVistaPrincipal;
 import presentacion.vista.CursoABMVistaPrincipal;
 import presentacion.vista.LoginVista;
+import presentacion.vista.NotificacionABMVistaPrincipal;
+import presentacion.vista.NotificacionPanel;
+import presentacion.vista.RecadoABMVistaPrincipal;
 import presentacion.vista.SalaABMVistaPrincipal;
 import presentacion.vista.SupervisorAdministracionVista;
 import presentacion.vista.TareaABMVistaPrincipal;
@@ -26,6 +29,17 @@ public class SupervisorAdministracionVistaControlador implements ActionListener 
 	private AdministrativoABMVistaPrincipal administrativoABM;
 	private AdministrativoABMVistaPrincipalControlador administrativoABMControlador;
 	
+	private RecadoABMVistaPrincipal recadoABM;
+	private RecadoABMVistaPrincipalControlador recadoABMControlador;
+	
+	private TareaABMVistaPrincipal tareaABM;
+	private TareaABMVistaPrincipalControlador tareaABMControlador;
+	
+	private NotificacionABMVistaPrincipal notificacionABM;
+	private NotificacionABMVistaPrincipalControlador notificacionABMControlador;
+	private NotificacionPanel notificacionPanel;
+	private NotificacionControlador notificacionPanelControlador;
+	
 	public SupervisorAdministracionVistaControlador(AdministracionDeCursos modelo, SupervisorAdministracionVista vista) {
 		super();
 		this.modelo = modelo;
@@ -37,6 +51,8 @@ public class SupervisorAdministracionVistaControlador implements ActionListener 
 		this.vista.getMenuItemExportarBaseDeDatos().addActionListener(this);
 		this.vista.getMenuItemImportarBaseDeDatos().addActionListener(this);
 		this.vista.getMenuItemRecadosVer().addActionListener(this);
+		this.vista.getMenuItemTareasVer().addActionListener(this);
+		this.vista.getMenuItemNotificacionesVer().addActionListener(this);
 	}
 	
 	public void inicializar() {
@@ -62,7 +78,9 @@ public class SupervisorAdministracionVistaControlador implements ActionListener 
 			JOptionPane.showMessageDialog(null, "Esta función todavía no fue desarrollada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 		}
 		else if (e.getSource()==this.vista.getMenuItemRecadosVer()) {
-			JOptionPane.showMessageDialog(null, "Esta función todavía no fue desarrollada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+				recadoABM = new RecadoABMVistaPrincipal();
+				recadoABMControlador = new RecadoABMVistaPrincipalControlador(modelo, recadoABM, null, this.vista, null);			
+				this.vista.getMainPanel().add(recadoABM);
 		}
 		else if (e.getSource()== this.vista.getMenuItemSalirDelSistema()) {
 			int respuesta = JOptionPane.showConfirmDialog(null, "Estas seguro que deseas salir?", "Salir del sistema", JOptionPane.YES_NO_OPTION);
@@ -78,6 +96,20 @@ public class SupervisorAdministracionVistaControlador implements ActionListener 
 			AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
 			LoginVistaControlador controlador = new LoginVistaControlador(vista, modelo);
 			controlador.inicializar();
+		}
+		else if (e.getSource()==this.vista.getMenuItemTareasVer()){
+			tareaABM = new TareaABMVistaPrincipal();
+			tareaABMControlador = new TareaABMVistaPrincipalControlador(modelo,tareaABM,null,vista);
+			this.vista.getMainPanel().add(tareaABM);
+		}
+		else if (e.getSource()==this.vista.getMenuItemNotificacionesVer()) {
+			notificacionABM = new NotificacionABMVistaPrincipal();
+			notificacionABMControlador = new NotificacionABMVistaPrincipalControlador(modelo, notificacionABM, null, vista, null);
+			notificacionPanel = new NotificacionPanel();
+			notificacionPanelControlador = new NotificacionControlador(modelo, notificacionPanel, null, vista, null);
+			notificacionPanelControlador.inicializar();
+			this.vista.getMainPanel().add(notificacionABM);
+			notificacionABM.getMainPanel().add(notificacionPanel);
 		}
 		this.vista.getFrame().repaint();
 	}
