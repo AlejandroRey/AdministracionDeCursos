@@ -16,6 +16,7 @@ import presentacion.vista.CalendarioBuilderPanel;
 import presentacion.vista.CursadaABMPanel;
 import presentacion.vista.CursadaABMVistaPrincipal;
 import presentacion.vista.InstructorAdministracionVista;
+import presentacion.vista.InstructorVista;
 
 public class CursadaABMVistaPrincipalControlador {
 	
@@ -43,6 +44,8 @@ public class CursadaABMVistaPrincipalControlador {
 	private AdministrativoVista administrativoVista;
 	private AdministrativoVistaControlador administrativoVistaControlador;
 	private InstructorAdministracionVista instructorAdministracionVista;
+	private InstructorVista instructorVista;
+	private InstructorVistaControlador instructorVistaControlador;
 	
 	public CursadaABMVistaPrincipalControlador(AdministracionDeCursos modelo, CursadaABMVistaPrincipal vista, AdministracionDeCursosVista administracionVista, InstructorAdministracionVista instructorAdministracionVista) {
 		super();
@@ -127,12 +130,21 @@ public class CursadaABMVistaPrincipalControlador {
 
 	private void btnHome_MousePressed(MouseEvent evt) {
 		resetVistas();
+		if(this.modelo.getUsuarioLogueado().getIdCategoria()==2) {
 		try{this.administracionVista.getFrame().dispose();
 		administrativoVista = new AdministrativoVista();
 		administrativoVistaControlador = new AdministrativoVistaControlador(administrativoVista,
 				modelo);
 		administrativoVistaControlador.inicializar();}
 		catch(Exception ex){
+			
+		}
+		}
+		else {
+			instructorAdministracionVista.getFrame().dispose();
+			instructorVista = new InstructorVista();
+			instructorVistaControlador = new InstructorVistaControlador(instructorVista, modelo);
+			instructorVistaControlador.inicializar();
 			
 		}
 	}

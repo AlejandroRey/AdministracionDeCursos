@@ -101,6 +101,7 @@ public class AdministrativoVista {
 		frmAdministrativo.getContentPane().add(btnSalas);
 		
 		btnFeriados = new JButton("Feriados");
+		btnFeriados.setEnabled(false);
 		btnFeriados.setBounds(36, 271, 198, 36);
 		frmAdministrativo.getContentPane().add(btnFeriados);
 		
@@ -113,6 +114,7 @@ public class AdministrativoVista {
 		frmAdministrativo.getContentPane().add(btnTareas);
 		
 		btnEmpresas = new JButton("Empresas");
+		btnEmpresas.setEnabled(false);
 		btnEmpresas.setBounds(245, 180, 198, 36);
 		frmAdministrativo.getContentPane().add(btnEmpresas);
 		

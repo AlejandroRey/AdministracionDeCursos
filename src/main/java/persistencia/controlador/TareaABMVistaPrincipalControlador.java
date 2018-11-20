@@ -10,6 +10,7 @@ import modelo.AdministracionDeCursos;
 import presentacion.vista.AdministracionDeCursosVista;
 import presentacion.vista.AdministrativoVista;
 import presentacion.vista.SupervisorAdministracionVista;
+import presentacion.vista.SupervisorVista;
 import presentacion.vista.TareaABMPanel;
 import presentacion.vista.TareaABMVistaPrincipal;
 
@@ -25,6 +26,8 @@ public class TareaABMVistaPrincipalControlador {
 	private AdministrativoVista administrativoVista;
 	private AdministrativoVistaControlador administrativoVistaControlador;
 	private SupervisorAdministracionVista supervisorAdministracionVista;
+	private SupervisorVista supervisorVista;
+	private SupervisorVistaControlador supervisorVistaControlador;
 
 	public TareaABMVistaPrincipalControlador(AdministracionDeCursos modelo, TareaABMVistaPrincipal vista, AdministracionDeCursosVista administracionVista, SupervisorAdministracionVista supervisorAdministracionVista) {
 		super();
@@ -60,10 +63,18 @@ public class TareaABMVistaPrincipalControlador {
 	}
 	
 	private void btnHome_MousePressed(MouseEvent evt) {
+		if(this.modelo.getUsuarioLogueado().getIdCategoria()==1) {
+			this.supervisorAdministracionVista.getFrame().dispose();
+			supervisorVista = new SupervisorVista();
+			supervisorVistaControlador = new SupervisorVistaControlador(supervisorVista, modelo);
+			supervisorVistaControlador.inicializar();
+		}
+		else {
 		this.administracionVista.getFrame().dispose();
 		administrativoVista = new AdministrativoVista();
 		administrativoVistaControlador = new AdministrativoVistaControlador(administrativoVista, modelo);
 		administrativoVistaControlador.inicializar();
+		}
 	}
 
 	private void btnAgregar_MousePressed(MouseEvent evt) {
