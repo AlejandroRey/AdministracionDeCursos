@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableModel;
 
 import modelo.AdministracionDeCursos;
 import presentacion.vista.ContactoTareaDialog;
@@ -43,12 +45,14 @@ public class ContactoTareaControlador implements ActionListener{
 		this.vista = (TareaABMPanel) dialog.getContactoTareaPanel();
 		this.modelo = modelo;
 		this.contacto = null;
-		this.currentAdministrativo = null;
 		this.controladorParent = controladorParent;
 		this.validator = new Validator();
+		this.currentAdministrativo = this.modelo.getUsuarioLogueado();
+
 		this.vista.getBtnAgregar().addActionListener(this);
 		this.vista.getBtnSelecionarResponsable().addActionListener(this);
 		this.vista.getCboxEstado().addActionListener(this);
+		this.vista.getCboxTareas().addActionListener(this);
 		this.dialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         this.dialog.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -189,10 +193,36 @@ public class ContactoTareaControlador implements ActionListener{
 	}
 	
 	public void filtro() {
-        if(this.vista.getCboxEstado().getSelectedItem().toString() == "Pendientes")
+//		List<RowFilter> pendientesAndTodas = new LinkedList<RowFilter>();
+//		List<RowFilter> realizadasAndTodas = new LinkedList<RowFilter>();
+//		List<RowFilter> todasAndMisTareas = new LinkedList<RowFilter>();
+		List<RowFilter<TableModel,Integer>> pendientesAndMisTareas = new LinkedList<RowFilter<TableModel,Integer>>();
+		List<RowFilter<TableModel,Integer>> realizadasAndMisTareas = new LinkedList<RowFilter<TableModel,Integer>>();
+		
+		pendientesAndMisTareas.add(RowFilter.regexFilter("Pendiente", 3));
+		pendientesAndMisTareas.add(RowFilter.regexFilter(Long.toString(this.currentAdministrativo.getIdUsuario(), 6)));
+		
+		realizadasAndMisTareas.add(RowFilter.regexFilter("Realizada", 3));
+		realizadasAndMisTareas.add(RowFilter.regexFilter(Long.toString(this.currentAdministrativo.getIdUsuario(), 6)));
+		
+		RowFilter<TableModel, Integer> filtroPendientes = RowFilter.andFilter(pendientesAndMisTareas);
+		RowFilter<TableModel,Integer> filtroRealizadas = RowFilter.andFilter(realizadasAndMisTareas);
+		
+        if(this.vista.getCboxEstado().getSelectedItem().toString() == "Pendientes" && this.vista.getCboxTareas().getSelectedItem().toString() == "Todas"){
         	this.vista.getModeloOrdenado().setRowFilter(RowFilter.regexFilter("Pendiente", 3));
-        else if(this.vista.getCboxEstado().getSelectedItem().toString() == "Realizadas")
+        }
+        else if(this.vista.getCboxEstado().getSelectedItem().toString() == "Realizadas" && this.vista.getCboxTareas().getSelectedItem().toString() == "Todas"){
         	this.vista.getModeloOrdenado().setRowFilter(RowFilter.regexFilter("Realizada", 3));
+        }
+        else if(this.vista.getCboxEstado().getSelectedItem().toString() == "Pendientes" && this.vista.getCboxTareas().getSelectedItem().toString() == "Mis tareas"){
+        	this.vista.getModeloOrdenado().setRowFilter(filtroPendientes);
+        }
+        else if(this.vista.getCboxEstado().getSelectedItem().toString() == "Realizadas" && this.vista.getCboxTareas().getSelectedItem().toString() == "Mis tareas"){
+        	this.vista.getModeloOrdenado().setRowFilter(filtroRealizadas);
+        }
+        else if(this.vista.getCboxEstado().getSelectedItem().toString() == "Todas" && this.vista.getCboxTareas().getSelectedItem().toString() == "Mis tareas"){
+        	this.vista.getModeloOrdenado().setRowFilter(RowFilter.regexFilter(Long.toString(this.currentAdministrativo.getIdUsuario(), 6)));
+        }
         else 
         	this.vista.getModeloOrdenado().setRowFilter(null);
     }

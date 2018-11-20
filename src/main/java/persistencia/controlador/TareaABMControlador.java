@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,6 +16,7 @@ import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableModel;
 
 import modelo.AdministracionDeCursos;
 import dto.CategoriaDTO;
@@ -42,7 +44,6 @@ public class TareaABMControlador implements ActionListener{
 		this.categoriasLista = null;
 		this.vista = vista;
 		this.modelo = modelo;
-		this.currentAdministrativo = null;
 		this.panelContacto = null;
 		this.dialog = null;
 		this.ctr = null;
@@ -55,6 +56,8 @@ public class TareaABMControlador implements ActionListener{
 		this.vista.getBtnSelecionarResponsable().addActionListener(this);
 		this.vista.getBtnMarcarComoRealizada().addActionListener(this);
 		this.vista.getCboxEstado().addActionListener(this);
+		this.vista.getCboxTareas().addActionListener(this);
+
 	}
 	
 	public void inicializar() {
@@ -175,10 +178,36 @@ public class TareaABMControlador implements ActionListener{
 	}
 	
 	public void filtro() {
-        if(this.vista.getCboxEstado().getSelectedItem().toString() == "Pendientes")
+//		List<RowFilter> pendientesAndTodas = new LinkedList<RowFilter>();
+//		List<RowFilter> realizadasAndTodas = new LinkedList<RowFilter>();
+//		List<RowFilter> todasAndMisTareas = new LinkedList<RowFilter>();
+		List<RowFilter<TableModel,Integer>> pendientesAndMisTareas = new LinkedList<RowFilter<TableModel,Integer>>();
+		List<RowFilter<TableModel,Integer>> realizadasAndMisTareas = new LinkedList<RowFilter<TableModel,Integer>>();
+		
+		pendientesAndMisTareas.add(RowFilter.regexFilter("Pendiente", 3));
+		pendientesAndMisTareas.add(RowFilter.regexFilter(Long.toString(this.currentAdministrativo.getIdUsuario(), 6)));
+		
+		realizadasAndMisTareas.add(RowFilter.regexFilter("Realizada", 3));
+		realizadasAndMisTareas.add(RowFilter.regexFilter(Long.toString(this.currentAdministrativo.getIdUsuario(), 6)));
+		
+		RowFilter<TableModel, Integer> filtroPendientes = RowFilter.andFilter(pendientesAndMisTareas);
+		RowFilter<TableModel,Integer> filtroRealizadas = RowFilter.andFilter(realizadasAndMisTareas);
+		
+        if(this.vista.getCboxEstado().getSelectedItem().toString() == "Pendientes" && this.vista.getCboxTareas().getSelectedItem().toString() == "Todas"){
         	this.vista.getModeloOrdenado().setRowFilter(RowFilter.regexFilter("Pendiente", 3));
-        else if(this.vista.getCboxEstado().getSelectedItem().toString() == "Realizadas")
+        }
+        else if(this.vista.getCboxEstado().getSelectedItem().toString() == "Realizadas" && this.vista.getCboxTareas().getSelectedItem().toString() == "Todas"){
         	this.vista.getModeloOrdenado().setRowFilter(RowFilter.regexFilter("Realizada", 3));
+        }
+        else if(this.vista.getCboxEstado().getSelectedItem().toString() == "Pendientes" && this.vista.getCboxTareas().getSelectedItem().toString() == "Mis tareas"){
+        	this.vista.getModeloOrdenado().setRowFilter(filtroPendientes);
+        }
+        else if(this.vista.getCboxEstado().getSelectedItem().toString() == "Realizadas" && this.vista.getCboxTareas().getSelectedItem().toString() == "Mis tareas"){
+        	this.vista.getModeloOrdenado().setRowFilter(filtroRealizadas);
+        }
+        else if(this.vista.getCboxEstado().getSelectedItem().toString() == "Todas" && this.vista.getCboxTareas().getSelectedItem().toString() == "Mis tareas"){
+        	this.vista.getModeloOrdenado().setRowFilter(RowFilter.regexFilter(Long.toString(this.currentAdministrativo.getIdUsuario(), 6)));
+        }
         else 
         	this.vista.getModeloOrdenado().setRowFilter(null);
     }
