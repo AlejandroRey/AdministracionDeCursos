@@ -70,7 +70,8 @@ public class CursoABMControlador implements ActionListener {
 	}
 	
 	private void llenarTablaInteresados() {
-		this.contactosLista = modelo.obtenerContactosCompletos();
+		CursoDTO cursoSeleccionado = new CursoDTO(Long.parseLong(this.vista.getTextIdCurso().getText()),0,"","","");
+		this.contactosLista = modelo.obtenerContactosInteresados(cursoSeleccionado);
 		for (ContactoCompletoDTO contactoDTO : contactosLista) {
 			Object[] fila = {contactoDTO.getAlumno().getNombre(), contactoDTO.getAlumno().getApellido(), 
 					contactoDTO.getAlumno().getEmail(), contactoDTO.getContacto().getFechaCreacion()};

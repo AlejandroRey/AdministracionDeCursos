@@ -211,6 +211,10 @@ public class AdministracionDeCursos {
 		return this.contactoCompleto.readAll();
 	}
 	
+	public List<ContactoCompletoDTO> obtenerContactosInteresados(CursoDTO curso) {
+		return this.contactoCompleto.readAllInteresados(curso);
+	}
+	
 	/* ****************************************************************
 	 *                         Categoria
 	 * ****************************************************************
