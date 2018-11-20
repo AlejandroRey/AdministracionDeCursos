@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import modelo.AdministracionDeCursos;
 import presentacion.vista.AdministracionDeCursosVista;
 import presentacion.vista.AdministrativoVista;
+import presentacion.vista.InstructorAdministracionVista;
+import presentacion.vista.InstructorVista;
 import presentacion.vista.SupervisorAdministracionVista;
 import presentacion.vista.SupervisorVista;
 import presentacion.vista.TareaABMPanel;
@@ -25,16 +27,22 @@ public class TareaABMVistaPrincipalControlador {
 	private AdministracionDeCursosVista administracionVista;
 	private AdministrativoVista administrativoVista;
 	private AdministrativoVistaControlador administrativoVistaControlador;
+	
 	private SupervisorAdministracionVista supervisorAdministracionVista;
 	private SupervisorVista supervisorVista;
 	private SupervisorVistaControlador supervisorVistaControlador;
+	
+	private InstructorAdministracionVista instructorAdministracionVista;
+	private InstructorVista instructorVista;
+	private InstructorVistaControlador instructorVistaControlador;
 
-	public TareaABMVistaPrincipalControlador(AdministracionDeCursos modelo, TareaABMVistaPrincipal vista, AdministracionDeCursosVista administracionVista, SupervisorAdministracionVista supervisorAdministracionVista) {
+	public TareaABMVistaPrincipalControlador(AdministracionDeCursos modelo, TareaABMVistaPrincipal vista, AdministracionDeCursosVista administracionVista, SupervisorAdministracionVista supervisorAdministracionVista, InstructorAdministracionVista instructorAdministracionVista) {
 		super();
 		this.modelo = modelo;
 		this.vista = vista;
 		this.administracionVista = administracionVista;
 		this.supervisorAdministracionVista = supervisorAdministracionVista;
+		this.instructorAdministracionVista = instructorAdministracionVista;
 		
 		this.vista.getBtnAgregar().addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -70,10 +78,26 @@ public class TareaABMVistaPrincipalControlador {
 			supervisorVistaControlador.inicializar();
 		}
 		else {
-		this.administracionVista.getFrame().dispose();
-		administrativoVista = new AdministrativoVista();
-		administrativoVistaControlador = new AdministrativoVistaControlador(administrativoVista, modelo);
-		administrativoVistaControlador.inicializar();
+			this.administracionVista.getFrame().dispose();
+			administrativoVista = new AdministrativoVista();
+			administrativoVistaControlador = new AdministrativoVistaControlador(administrativoVista, modelo);
+			administrativoVistaControlador.inicializar();
+			if(this.administracionVista != null) {
+				this.administracionVista.getFrame().dispose();
+				administrativoVista = new AdministrativoVista();
+				administrativoVistaControlador = new AdministrativoVistaControlador(administrativoVista, modelo);
+				administrativoVistaControlador.inicializar();
+			} else if (this.supervisorAdministracionVista != null) {
+				this.supervisorAdministracionVista.getFrame().dispose();
+				supervisorVista = new SupervisorVista();
+				supervisorVistaControlador = new SupervisorVistaControlador(supervisorVista, modelo);
+				supervisorVistaControlador.inicializar();
+			} else if (this.instructorAdministracionVista != null) {
+				this.instructorAdministracionVista.getFrame().dispose();
+				instructorVista = new InstructorVista();
+				instructorVistaControlador = new InstructorVistaControlador(instructorVista, modelo);
+				instructorVistaControlador.inicializar();
+			}
 		}
 	}
 

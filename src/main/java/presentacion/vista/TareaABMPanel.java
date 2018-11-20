@@ -291,6 +291,7 @@ public class TareaABMPanel extends JPanel {
 		panelEditor.add(btnMarcarComoRealizada);
 		
 		txtIDAlumno = new JTextField();
+		txtIDAlumno.setVisible(false);
 		txtIDAlumno.setEditable(false);
 		txtIDAlumno.setEnabled(false);
 		txtIDAlumno.setBounds(448, 115, 46, 20);

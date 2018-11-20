@@ -159,7 +159,6 @@ public class RecadoABMVistaPrincipalControlador {
 	}
 
 	public void btnHome_MousePressed(MouseEvent evt) {
-		
 		if(this.administracionVista != null) {
 			this.administracionVista.getFrame().dispose();
 			administrativoVista = new AdministrativoVista();
@@ -179,7 +178,6 @@ public class RecadoABMVistaPrincipalControlador {
 			modelo);
 			instructorVistaControlador.inicializar();
 		}
-		
 	}
 	
 	private void setColor(JPanel pane) {

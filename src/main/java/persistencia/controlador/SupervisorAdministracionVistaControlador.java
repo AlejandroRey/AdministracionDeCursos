@@ -99,7 +99,7 @@ public class SupervisorAdministracionVistaControlador implements ActionListener 
 		}
 		else if (e.getSource()==this.vista.getMenuItemTareasVer()){
 			tareaABM = new TareaABMVistaPrincipal();
-			tareaABMControlador = new TareaABMVistaPrincipalControlador(modelo,tareaABM,null,vista);
+			tareaABMControlador = new TareaABMVistaPrincipalControlador(modelo,tareaABM,null,vista,null);
 			this.vista.getMainPanel().add(tareaABM);
 		}
 		else if (e.getSource()==this.vista.getMenuItemNotificacionesVer()) {

@@ -35,6 +35,8 @@ public class SupervisorVistaControlador implements ActionListener {
 	private NotificacionControlador notificacionControlador;
 	private TareaABMVistaPrincipal tareaABMVistaPrincipal;
 	private TareaABMVistaPrincipalControlador tareaABMVistaPrincipalControlador;
+	private TareaABMVistaPrincipal tareaABM;
+	private TareaABMVistaPrincipalControlador tareaABMControlador;
 	
 	public SupervisorVistaControlador(SupervisorVista vista, AdministracionDeCursos modelo) {
 		super();
@@ -89,6 +91,7 @@ public class SupervisorVistaControlador implements ActionListener {
 		}
 		if (e.getSource() == this.vista.getBtnAdministrativos()) {
 			this.vista.getFrmSupervisor().dispose();
+			
 			supervisorAdministracionVista = new SupervisorAdministracionVista();
 			supervisorAdministracionVistaControlador = new SupervisorAdministracionVistaControlador(modelo,supervisorAdministracionVista);
 			administrativoABMVistaPrincipal = new AdministrativoABMVistaPrincipal();
@@ -100,7 +103,7 @@ public class SupervisorVistaControlador implements ActionListener {
 			supervisorAdministracionVista = new SupervisorAdministracionVista();
 			supervisorAdministracionVistaControlador = new SupervisorAdministracionVistaControlador(modelo,supervisorAdministracionVista);
 			tareaABMVistaPrincipal = new TareaABMVistaPrincipal();
-			tareaABMVistaPrincipalControlador = new TareaABMVistaPrincipalControlador(modelo, tareaABMVistaPrincipal, null, supervisorAdministracionVista);
+			tareaABMVistaPrincipalControlador = new TareaABMVistaPrincipalControlador(modelo, tareaABMVistaPrincipal, null, supervisorAdministracionVista,null);
 			this.supervisorAdministracionVista.getMainPanel().add(tareaABMVistaPrincipal);
 		}
 		if (e.getSource() == this.vista.getBtnNotificaciones()) {
@@ -114,6 +117,15 @@ public class SupervisorVistaControlador implements ActionListener {
 			notificacionControlador.inicializar();
 			this.supervisorAdministracionVista.getMainPanel().add(notificacionABMVistaPrincipal);
 			notificacionABMVistaPrincipal.getMainPanel().add(notificacionPanel);
+			supervisorAdministracionVistaControlador = new SupervisorAdministracionVistaControlador(modelo, supervisorAdministracionVista);
+			supervisorAdministracionVistaControlador.inicializar();
+			
+			if (tareaABM == null) {
+				tareaABM = new TareaABMVistaPrincipal();
+				tareaABMControlador = new TareaABMVistaPrincipalControlador(modelo, tareaABM, null, supervisorAdministracionVista, null);
+				
+				this.supervisorAdministracionVista.getMainPanel().add(tareaABM);
+			}		
 		}
 	}
 }
