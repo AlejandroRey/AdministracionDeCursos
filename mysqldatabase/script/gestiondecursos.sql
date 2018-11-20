@@ -156,6 +156,7 @@ CREATE TABLE `cursada` (
   `idCurso` int(11) NOT NULL,
   `idEstadoCurso` int(11) NOT NULL DEFAULT '1',
   `idAdministrativo` int(11) NOT NULL,
+  `idInstructor` int(11) NOT NULL,
   `fechaInicioInscripcion` datetime NOT NULL,
   `fechaFinInscripcion` datetime NOT NULL,
   `vacantes` int(11) NOT NULL,
@@ -166,11 +167,13 @@ CREATE TABLE `cursada` (
   KEY `fk_cursada_estadoCurso1_idx` (`idEstadoCurso`),
   KEY `fk_cursada_empresa1_idx` (`idEmpresa`),
   KEY `fk_cursada_usuario1_idx` (`idAdministrativo`),
+  KEY `fk_cursada_instructor1_idx` (`idInstructor`),
   CONSTRAINT `fk_cursada_curso1` FOREIGN KEY (`idCurso`) REFERENCES `curso` (`idCurso`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_cursada_empresa1` FOREIGN KEY (`idEmpresa`) REFERENCES `empresa` (`idEmpresa`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_cursada_estadoCurso1` FOREIGN KEY (`idEstadoCurso`) REFERENCES `estadocurso` (`idEstadoCurso`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_cursada_usuario1` FOREIGN KEY (`idAdministrativo`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_cursada_usuario1` FOREIGN KEY (`idAdministrativo`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cursada_instructor1` FOREIGN KEY (`idInstructor`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -673,7 +676,7 @@ CREATE TABLE `usuario` (
   PRIMARY KEY (`idUsuario`),
   KEY `fk_usuario_categoria1_idx` (`idCategoria`),
   CONSTRAINT `fk_usuario_categoria1` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`idCategoria`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -685,6 +688,36 @@ LOCK TABLES `usuario` WRITE;
 INSERT INTO `usuario` VALUES (1,1,'Alejandro','Rey','+549 11 2211 9999','alejakakjdjdj@gmail.com','alejandro','admin',NULL,NULL,NULL),(2,1,'Marcos','Lever','+549 11 3443 9921','hdsdhewd@gmail.com','marcos','admin',NULL,NULL,NULL),(3,2,'Pablo','Drink','+549 11 7755 9932','frerfsdscvsdc@gmail.com','pablo','admin',NULL,NULL,NULL),(4,3,'Gonzalo','Paolinelli','+549 11 8272 5637','rqetgdfvdsaodkas@gmail.com','gonzalo','admin',NULL,NULL,NULL),(5,1,'Emiliano','Saucedo','+549 11 6729 2891','ewrewwef@gmail.com','emiliano','admin',NULL,NULL,NULL),(6,3,'Leandro','Jobs','+549 11 7589 2397','iuouewiowjj@gmail.com','leandro','admin',NULL,NULL,NULL),(7,1,'Sofia','Catacata','+549 11 5378 9988','eourwieuwegvdc@gmail.com','sofia','admin',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
+
+DROP TABLE IF EXISTS `recado`;
+CREATE TABLE IF NOT EXISTS `recado` (
+  `idRecado` int(11) NOT NULL AUTO_INCREMENT,
+  `idUsuarioDe` int(11) NOT NULL,
+  `idUsuarioPara` int(11) NOT NULL,
+  `asunto` varchar(255) NOT NULL DEFAULT 'Sin asunto',
+  `mensaje` varchar(255) NOT NULL,
+  `fechaHoraEnvio` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `visto` tinyint(1) NOT NULL DEFAULT '0',
+  `eliminado` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`idRecado`),
+  KEY `FK_recado_usuarioDe` (`idUsuarioDe`),
+  KEY `FK_recado_usuario` (`idUsuarioPara`),
+  CONSTRAINT `FK_recado_usuario` FOREIGN KEY (`idUsuarioPara`) REFERENCES `usuario` (`idusuario`),
+  CONSTRAINT `FK_recado_usuarioDe` FOREIGN KEY (`idUsuarioDe`) REFERENCES `usuario` (`idusuario`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+
+DROP TABLE IF EXISTS `notificacion`;
+CREATE TABLE IF NOT EXISTS `notificacion` (
+  `idNotificacion` int(11) NOT NULL AUTO_INCREMENT,
+  `idUsuario` int(11) NOT NULL,
+  `tipoNotificacion` int(1) NOT NULL,
+  `mensaje` varchar(200) NOT NULL,
+  `visto` tinyint(1) NOT NULL DEFAULT '0',
+  `fechaHora` datetime NOT NULL,
+  PRIMARY KEY (`idNotificacion`),
+  KEY `fk_notificacion_usuario1_idx` (`idUsuario`),
+  CONSTRAINT `fk_notificacion_usuario1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping routines for database 'gestiondecursos'
