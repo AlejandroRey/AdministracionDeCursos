@@ -110,7 +110,7 @@ public class AdministracionDeCursosControlador implements ActionListener {
 		} else if (e.getSource()== this.vista.getMenuItemTareaVer()) {
 			if (tareaABM == null) {
 				tareaABM = new TareaABMVistaPrincipal();
-				tareaABMControlador = new TareaABMVistaPrincipalControlador(modelo, tareaABM, vista);
+				tareaABMControlador = new TareaABMVistaPrincipalControlador(modelo, tareaABM, vista,null,null);
 				
 				this.vista.getMainPanel().add(tareaABM);
 			}

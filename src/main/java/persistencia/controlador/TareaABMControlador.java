@@ -178,17 +178,15 @@ public class TareaABMControlador implements ActionListener{
 	}
 	
 	public void filtro() {
-//		List<RowFilter> pendientesAndTodas = new LinkedList<RowFilter>();
-//		List<RowFilter> realizadasAndTodas = new LinkedList<RowFilter>();
-//		List<RowFilter> todasAndMisTareas = new LinkedList<RowFilter>();
+		this.currentAdministrativo = this.modelo.getUsuarioLogueado();
 		List<RowFilter<TableModel,Integer>> pendientesAndMisTareas = new LinkedList<RowFilter<TableModel,Integer>>();
 		List<RowFilter<TableModel,Integer>> realizadasAndMisTareas = new LinkedList<RowFilter<TableModel,Integer>>();
 		
 		pendientesAndMisTareas.add(RowFilter.regexFilter("Pendiente", 3));
-		pendientesAndMisTareas.add(RowFilter.regexFilter(Long.toString(this.currentAdministrativo.getIdUsuario(), 6)));
+		pendientesAndMisTareas.add(RowFilter.regexFilter(Long.toString(this.currentAdministrativo.getIdUsuario()), 5));
 		
 		realizadasAndMisTareas.add(RowFilter.regexFilter("Realizada", 3));
-		realizadasAndMisTareas.add(RowFilter.regexFilter(Long.toString(this.currentAdministrativo.getIdUsuario(), 6)));
+		realizadasAndMisTareas.add(RowFilter.regexFilter(Long.toString(this.currentAdministrativo.getIdUsuario()), 5));
 		
 		RowFilter<TableModel, Integer> filtroPendientes = RowFilter.andFilter(pendientesAndMisTareas);
 		RowFilter<TableModel,Integer> filtroRealizadas = RowFilter.andFilter(realizadasAndMisTareas);
@@ -199,6 +197,9 @@ public class TareaABMControlador implements ActionListener{
         else if(this.vista.getCboxEstado().getSelectedItem().toString() == "Realizadas" && this.vista.getCboxTareas().getSelectedItem().toString() == "Todas"){
         	this.vista.getModeloOrdenado().setRowFilter(RowFilter.regexFilter("Realizada", 3));
         }
+        else if(this.vista.getCboxEstado().getSelectedItem().toString() == "Todas" && this.vista.getCboxTareas().getSelectedItem().toString() == "Todas"){
+            this.vista.getModeloOrdenado().setRowFilter(null);
+        }
         else if(this.vista.getCboxEstado().getSelectedItem().toString() == "Pendientes" && this.vista.getCboxTareas().getSelectedItem().toString() == "Mis tareas"){
         	this.vista.getModeloOrdenado().setRowFilter(filtroPendientes);
         }
@@ -206,10 +207,8 @@ public class TareaABMControlador implements ActionListener{
         	this.vista.getModeloOrdenado().setRowFilter(filtroRealizadas);
         }
         else if(this.vista.getCboxEstado().getSelectedItem().toString() == "Todas" && this.vista.getCboxTareas().getSelectedItem().toString() == "Mis tareas"){
-        	this.vista.getModeloOrdenado().setRowFilter(RowFilter.regexFilter(Long.toString(this.currentAdministrativo.getIdUsuario(), 6)));
+        	this.vista.getModeloOrdenado().setRowFilter(RowFilter.regexFilter(Long.toString(this.currentAdministrativo.getIdUsuario()), 5));
         }
-        else 
-        	this.vista.getModeloOrdenado().setRowFilter(null);
     }
 
 	
