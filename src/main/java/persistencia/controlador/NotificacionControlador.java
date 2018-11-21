@@ -309,9 +309,9 @@ public class NotificacionControlador implements ActionListener {
 		}
 		else if (e.getSource() == this.vista.getBtnIrATareas()) {
 			tareaABMVistaPrincipal = new TareaABMVistaPrincipal();
-			tareaABMVistaPrincipalControlador = new TareaABMVistaPrincipalControlador(modelo, tareaABMVistaPrincipal, administracionDeCursosVista, supervisorAdministracionVista,null);
+			tareaABMVistaPrincipalControlador = new TareaABMVistaPrincipalControlador(modelo, tareaABMVistaPrincipal, administracionDeCursosVista, supervisorAdministracionVista, instructorAdministracionVista);
 			administracionDeCursosVista.getMainPanel().removeAll();
-			tareaABMVistaPrincipalControlador = new TareaABMVistaPrincipalControlador(modelo, tareaABMVistaPrincipal, administracionDeCursosVista,null,null);
+			tareaABMVistaPrincipalControlador = new TareaABMVistaPrincipalControlador(modelo, tareaABMVistaPrincipal, administracionDeCursosVista,supervisorAdministracionVista,instructorAdministracionVista);
 			administracionDeCursosVista.getMainPanel().add(tareaABMVistaPrincipal);
 			vista.setVisible(false);
 			administracionDeCursosVista.getFrame().repaint();
@@ -319,7 +319,7 @@ public class NotificacionControlador implements ActionListener {
 		}
 		else if (e.getSource() == this.vista.getBtnIrARecados()) {
 			recadoABMVistaPrincipal = new RecadoABMVistaPrincipal();
-			recadoABMVistaPrincipalControlador = new RecadoABMVistaPrincipalControlador(modelo, recadoABMVistaPrincipal, administracionDeCursosVista, null, null);
+			recadoABMVistaPrincipalControlador = new RecadoABMVistaPrincipalControlador(modelo, recadoABMVistaPrincipal, administracionDeCursosVista, supervisorAdministracionVista, instructorAdministracionVista);
 			try {
 			administracionDeCursosVista.getMainPanel().removeAll();
 			administracionDeCursosVista.getMainPanel().add(recadoABMVistaPrincipal);

@@ -52,6 +52,7 @@ public class CursadaABMPanel extends JPanel {
 	private JTextField textidAdministrativo;
 	private JLabel lblIdadmin;
 	private JLabel lblAdmisitrativo;
+	private JTextField textFieldInstructor;
 
 	/**
 	 * Create the frame.
@@ -232,11 +233,22 @@ public class CursadaABMPanel extends JPanel {
 		lblIdadmin.setVisible(false);
 		lblIdadmin.setBounds(497, 125, 70, 14);
 		panel.add(lblIdadmin);
+		
+		JLabel labelInstructor = new JLabel("Instructor:");
+		labelInstructor.setBounds(12, 155, 70, 14);
+		panel.add(labelInstructor);
+		
+		textFieldInstructor = new JTextField();
+		textFieldInstructor.setHorizontalAlignment(SwingConstants.LEFT);
+		textFieldInstructor.setColumns(10);
+		textFieldInstructor.setBounds(82, 155, 141, 20);
+		panel.add(textFieldInstructor);
 		lblIdCursada.setVisible(false);
 	}
 	
 	private void inicializarBotones() {
 	}
+	
 
 	/**
 	 * @return the spCursadas
@@ -558,5 +570,13 @@ public class CursadaABMPanel extends JPanel {
 	 */
 	public void setLblAdmisitrativo(JLabel lblAdmisitrativo) {
 		this.lblAdmisitrativo = lblAdmisitrativo;
+	}
+
+	public JTextField getTextFieldInstructor() {
+		return textFieldInstructor;
+	}
+
+	public void setTextFieldInstructor(JTextField textFieldInstructor) {
+		this.textFieldInstructor = textFieldInstructor;
 	}
 }

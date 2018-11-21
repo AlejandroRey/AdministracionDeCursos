@@ -2,9 +2,12 @@ package persistencia.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,6 +18,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
+
+import com.mxrck.autocompleter.TextAutoCompleter;
 
 import dto.CursadaCompletaDTO;
 import dto.CursadaDTO;
@@ -37,6 +42,8 @@ public class CursadaABMControlador implements ActionListener {
 	private List<EmpresaDTO> empresasLista;
 	private List<CursoDTO> cursosLista;
 	private List<EstadoDeCursoDTO> estadosCurso;
+	private List<UsuarioDTO> usuariosLista;
+	private List<UsuarioDTO> listaTemporalUsuarios;
 	
 	private UsuarioModalPanel usuarioModalPanel;
 	private UsuarioModalControlador usuarioModalControlador;
@@ -46,12 +53,60 @@ public class CursadaABMControlador implements ActionListener {
 		this.vista = vista;
 		this.vistaPrincipalControlador = vistaPrincipalControlador;
 		this.modelo = modelo;
+		this.usuariosLista = modelo.obtenerUsuarios();
+		
 		
 		this.vista.getBtnSeleccionar().addActionListener(this);
 		this.vista.getBtnAgregar().addActionListener(this);
 		this.vista.getBtnActualizar().addActionListener(this);
 		this.vista.getBtnEliminar().addActionListener(this);
 		this.vista.getBtnAgregarAdministrativo().addActionListener(this);
+		this.vista.getTextFieldInstructor().addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				listaTemporalUsuarios = new ArrayList<UsuarioDTO>();
+//				usuariosLista.stream()
+//						.filter(UsuarioDTO -> UsuarioDTO.getUsuario().contains(vista.getTextFieldInstructor().getText()))
+//						.filter(UsuarioDTO -> UsuarioDTO.getIdCategoria() == 3)
+//						.collect(Collectors.toList());
+				
+				try {
+					listaTemporalUsuarios.add(usuariosLista.stream()
+							.filter(UsuarioDTO -> UsuarioDTO.getUsuario().contains(vista.getTextFieldInstructor().getText()) && UsuarioDTO.getIdCategoria() == 3)
+							.collect(Collectors.toList()).get(0));
+					System.out.println(usuariosLista.stream()
+					.filter(UsuarioDTO -> UsuarioDTO.getUsuario().contains(vista.getTextFieldInstructor().getText()) && UsuarioDTO.getIdCategoria() == 3)
+					.collect(Collectors.toList()).get(0));
+					listaTemporalUsuarios.add(usuariosLista.stream()
+							.filter(UsuarioDTO -> UsuarioDTO.getUsuario().contains(vista.getTextFieldInstructor().getText()) && UsuarioDTO.getIdCategoria() == 3)
+							.collect(Collectors.toList()).get(1));
+					listaTemporalUsuarios.add(usuariosLista.stream()
+							.filter(UsuarioDTO -> UsuarioDTO.getUsuario().contains(vista.getTextFieldInstructor().getText()) && UsuarioDTO.getIdCategoria() == 3)
+							.collect(Collectors.toList()).get(2));
+				} catch (Exception e2) {
+				}
+
+		//		 System.out.println(listaTemporalUsuarios.toString());
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+			}
+						
+		});
+		
+		TextAutoCompleter textAutoAcompleter = new TextAutoCompleter(this.vista.getTextFieldInstructor());
+		for (UsuarioDTO usuarioDTO : usuariosLista) {
+			textAutoAcompleter.addItem(usuarioDTO.getUsuario());
+		}
+		
 	}	
 	
 	public void inicializar() {
@@ -130,7 +185,8 @@ public class CursadaABMControlador implements ActionListener {
 					Object esatdoCurso = this.vista.getTblCursadas().getValueAt(this.vista.getTblCursadas().getSelectedRow(), 9);
 					Object vacantes = this.vista.getTblCursadas().getValueAt(this.vista.getTblCursadas().getSelectedRow(), 10);
 					Object fechaInicioCursada = this.vista.getTblCursadas().getValueAt(this.vista.getTblCursadas().getSelectedRow(), 11);
-					Object diasDeClase = this.vista.getTblCursadas().getValueAt(this.vista.getTblCursadas().getSelectedRow(), 12);					
+					Object diasDeClase = this.vista.getTblCursadas().getValueAt(this.vista.getTblCursadas().getSelectedRow(), 12);
+					
 					
 					this.vista.getCbxEmpresa().setSelectedItem(selectEmpresa(idEmpresa));
 					this.vista.getCbxCurso().setSelectedItem(selectCurso(idCurso));
@@ -226,6 +282,7 @@ public class CursadaABMControlador implements ActionListener {
 		this.vista.getTextDiasDeClase().setText("");
 		this.vista.getTextIdCursada().setText("");
 		this.vista.getTextAdministrativo().setText("");
+		this.vista.getTextFieldInstructor().setText("");
 	}
 
 	private void initComboBox() {
@@ -315,13 +372,13 @@ public class CursadaABMControlador implements ActionListener {
 			idTemp = Long.parseLong(this.vista.getTextIdCursada().getText().toString());
 		}
 		
-		//TODO EL 1 ES UN INSTRUCTOR, AGREGARLO A LA VISTA Y OBTENERLO
+		//TODO EL 4 ES UN INSTRUCTOR, AGREGARLO A LA VISTA Y OBTENERLO
 		CursadaDTO cursadaDTO = new CursadaDTO(idTemp, 
 											   empresa.getIdEmpresa(), 
 											   curso.getIdCurso(), 
 											   estadoDeCurso.getIdEstadoDeCurso(), 
 											   Long.parseLong(this.vista.getTextidAdministrativo().getText()),
-											   Long.parseLong("4"), fechaInicioInscripcion, 
+											   getIdUsuarioPara(this.vista.getTextFieldInstructor().getText()), fechaInicioInscripcion, 
 											   fechaFinInscripcion, 
 											   this.vista.getTextVacantes().getText(), 
 											   fechaInicioCursada, 
@@ -329,6 +386,16 @@ public class CursadaABMControlador implements ActionListener {
 	
 		
 		return cursadaDTO;
+	}
+	
+	private long getIdUsuarioPara(String usuario) {
+		long idUsuarioPara = 0;
+		for (UsuarioDTO usuarioDTO : usuariosLista) {
+			if (usuarioDTO.getUsuario().equals(usuario)) {
+				idUsuarioPara = usuarioDTO.getIdUsuario();
+			}
+		}
+		return idUsuarioPara;
 	}
 	
 	private String cursadaDTOToString(CursadaDTO cursadaDTO) {

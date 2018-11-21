@@ -23,6 +23,7 @@ import dto.AlumnoInscriptoDTO;
 import dto.AsistenciaDTO;
 import dto.CursadaDTO;
 import dto.FechaCursadaClaseDTO;
+import dto.TareaDTO;
 import modelo.AdministracionDeCursos;
 import presentacion.vista.AlumnosAsistenciaPanel;
 
@@ -283,6 +284,13 @@ public class AlumnosAsistenciaControlador implements ActionListener {
 					} else if (presente.toString().equals("Ausente")) {
 						this.vista.getRbtnAusente().setSelected(true);
 						presenteInt = 0;
+						try {
+							TareaDTO tareaDTO = new TareaDTO(0,cursadaDTO.getIdAdministrativo(),Long.parseLong(idAlumno.toString()),"Notificar inasistencia","Se debe llamar al alumno por telefono","Pendiente",LocalDateTime.now(),LocalDateTime.now().plusDays(2), LocalDateTime.now().plusDays(4));
+							modelo.agregarTarea(tareaDTO);
+						} catch (Exception e) {
+							// TODO: handle exception
+						}
+						
 					}else if (presente.toString().equals("Presente")) {
 						this.vista.getRbtnPresente().setSelected(true);
 						presenteInt = 1;
