@@ -18,6 +18,9 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import java.awt.BorderLayout;
+import javax.swing.JTextPane;
+import javax.swing.border.TitledBorder;
  
 @SuppressWarnings("serial")
 public class AlumnoTareaPanel extends JPanel{
@@ -29,6 +32,8 @@ public class AlumnoTareaPanel extends JPanel{
 	private String[] nombreColumnas = {"ID", "Tarea", "Descripcion", "Estado", "Responsable" , "ID Reponsable", "Fecha de Creacion", "Fecha de cierre", "IDAlumno"};
  	private JComboBox<String> cboxTareas;
 	private JComboBox<String> cboxEstado;
+	private JPanel panel;
+	private JScrollPane scrollPane;
  	
 	public AlumnoTareaPanel() {
 		super();
@@ -41,7 +46,7 @@ public class AlumnoTareaPanel extends JPanel{
 		inicializarCbox();
 	}
  	private void inicializarPanel() {
-		setBounds(0, 0, 764, 617);
+		setBounds(0, 0, 1162, 617);
 		setLayout(null);
 	}
  	private void inicializarCbox() {
@@ -56,6 +61,18 @@ public class AlumnoTareaPanel extends JPanel{
 		cboxEstado.setModel(new DefaultComboBoxModel<String>(new String[] {"Todas", "Pendientes", "Realizadas"}));
 		cboxEstado.setBounds(633, 34, 100, 20);
 		add(cboxEstado);
+		
+		panel = new JPanel();
+		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Detalle:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel.setBounds(769, 48, 363, 531);
+		add(panel);
+		panel.setLayout(new BorderLayout(0, 0));
+		
+		scrollPane = new JScrollPane();
+		panel.add(scrollPane, BorderLayout.CENTER);
+		
+		JTextPane textPane = new JTextPane();
+		scrollPane.setViewportView(textPane);
 	}
  	private void inicializarTablaTareas() {
 		spTareas = new JScrollPane();
@@ -171,92 +188,4 @@ public class AlumnoTareaPanel extends JPanel{
 	public void setCboxEstado(JComboBox<String> cboxEstado) {
 		this.cboxEstado = cboxEstado;
 	}
- //	private void inicializarTxts() {
-//		txtNombre = new JTextField();
-//		txtNombre.setBounds(85, 27, 244, 20);
-//		panelEditor.add(txtNombre);
-//		txtNombre.setColumns(10);
-//		
-//		txtFecha = new JTextField();
-//		txtFecha.setBounds(85, 56, 98, 20);
-//		panelEditor.add(txtFecha);
-//		txtFecha.setColumns(10);
-//		
-//		txtID = new JTextField();
-//		txtID.setVisible(false);
-//		txtID.setEditable(false);
-//		txtID.setEnabled(false);
-//		txtID.setBounds(504, 116, 86, 20);
-//		panelEditor.add(txtID);
-//		txtID.setColumns(10);
-//		
-//		txtIDResponsable = new JTextField();
-//		txtIDResponsable.setVisible(false);
-//		txtIDResponsable.setEditable(false);
-//		txtIDResponsable.setEnabled(false);
-//		txtIDResponsable.setBounds(599, 116, 86, 20);
-//		panelEditor.add(txtIDResponsable);
-//		txtIDResponsable.setColumns(10);
-//		
-//		txtEstado = new JTextField();
-//		txtEstado.setEditable(false);
-//		txtEstado.setBackground(Color.WHITE);
-//		txtEstado.setDisabledTextColor(Color.WHITE);
-//		txtEstado.setBounds(85, 84, 98, 20);
-//		panelEditor.add(txtEstado);
-//		txtEstado.setColumns(10);
-//
-//		
-//		txtResponsable = new JTextField();
-//		txtResponsable.setBackground(Color.WHITE);
-//		txtResponsable.setEditable(false);
-//		txtResponsable.setColumns(10);
-//		txtResponsable.setBounds(483, 27, 181, 20);
-//		panelEditor.add(txtResponsable);
-//		
-//		panelDescripcion = new JPanel();
-//		panelDescripcion.setBounds(10, 147, 686, 83);
-//		panelEditor.add(panelDescripcion);
-//		panelDescripcion.setLayout(new BorderLayout(0, 0));
-//		
-//		spDescripcion = new JScrollPane();
-//		panelDescripcion.add(spDescripcion, BorderLayout.CENTER);
-//		
-//		textAreaDescripcion = new JTextArea();
-//		spDescripcion.setViewportView(textAreaDescripcion);
-//		textAreaDescripcion.setLineWrap(true);
-//		textAreaDescripcion.setWrapStyleWord(true);
-//	}
- //	private void inicializarBtns() {
-//		btnSeleccionarResponsable = new JButton("Seleccionar Responsable");
-//		btnSeleccionarResponsable.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-//		btnSeleccionarResponsable.setBounds(493, 55, 171, 23);
-//		panelEditor.add(btnSeleccionarResponsable);
-//		
-//		btnAgregar = new JButton("Agregar");
-//		btnAgregar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-//		btnAgregar.setBounds(589, 241, 107, 23);
-//		panelEditor.add(btnAgregar);
-//		
-//		btnActualizar = new JButton("Actualizar");
-//		btnActualizar.setBounds(589, 241, 107, 23);
-//		panelEditor.add(btnActualizar);
-//		
-//		btnEliminar = new JButton("Eliminar");
-//		btnEliminar.setBounds(589, 241, 107, 23);
-//		panelEditor.add(btnEliminar);
-//		
-//		btnMarcarComoRealizada = new JButton("Marcar como realizada");
-//		btnMarcarComoRealizada.setFocusPainted(false);
-//		btnMarcarComoRealizada.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-//		btnMarcarComoRealizada.setBounds(430, 241, 139, 23);
-//		panelEditor.add(btnMarcarComoRealizada);
-//		
-//		txtIDAlumno = new JTextField();
-//		txtIDAlumno.setEditable(false);
-//		txtIDAlumno.setEnabled(false);
-//		txtIDAlumno.setBounds(448, 115, 46, 20);
-//		panelEditor.add(txtIDAlumno);
-//		txtIDAlumno.setColumns(10);
-//	}
 }

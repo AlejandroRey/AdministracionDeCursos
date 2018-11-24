@@ -12,6 +12,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.UIManager;
+import javax.swing.border.TitledBorder;
+import java.awt.BorderLayout;
+import javax.swing.JTextPane;
  
 @SuppressWarnings("serial")
 public class AlumnoContactoPanel extends JPanel{
@@ -21,6 +24,9 @@ public class AlumnoContactoPanel extends JPanel{
 	private String[] nombreColumnas = {"idContacto", "idAlumno", "idAdministrativo", "idCurso", "Curso de interes", "Nombre", "Apellido", 
 			"Descripcion", "Telefono", "Email", "Fecha de contacto", "horaComtacto", "Próximo contacto", "horaProximoContacto",
 			"apellidoAdministrativo","nombreAdministrativo","estado", "idTarea"};
+	private JPanel panel;
+	private JScrollPane scrollPane;
+	private JTextPane textPane;
 	
 	public AlumnoContactoPanel() {
 		super();
@@ -61,6 +67,18 @@ public class AlumnoContactoPanel extends JPanel{
 		separator.setBackground(new Color(153, 180, 209));
 		separator.setBounds(132, 394, 826, 2);
 		this.add(separator);
+		
+		panel = new JPanel();
+		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Detalle:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel.setBounds(127, 409, 831, 236);
+		add(panel);
+		panel.setLayout(new BorderLayout(0, 0));
+		
+		scrollPane = new JScrollPane();
+		panel.add(scrollPane, BorderLayout.CENTER);
+		
+		textPane = new JTextPane();
+		scrollPane.setViewportView(textPane);
 	}
  	/**
 	 * @return the spContactos
