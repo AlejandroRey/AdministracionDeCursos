@@ -22,14 +22,15 @@ public class Main {
 		} catch (UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		} finally {
-			//LoginVista vista = new LoginVista();
+			LoginVista vista = new LoginVista();
 			AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
-			//LoginVistaControlador controlador = new LoginVistaControlador(vista, modelo);
-			//controlador.inicializar();
-			
-			AdministracionDeCursosVista vista = new AdministracionDeCursosVista();
-			AdministracionDeCursosControlador controlador = new AdministracionDeCursosControlador(modelo, vista);
+			LoginVistaControlador controlador = new LoginVistaControlador(vista, modelo);
 			controlador.inicializar();
+			
+//			AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
+//			AdministracionDeCursosVista vista = new AdministracionDeCursosVista();
+//			AdministracionDeCursosControlador controlador = new AdministracionDeCursosControlador(modelo, vista);
+//			controlador.inicializar();
 		}
 	}
 }
