@@ -50,7 +50,8 @@ public class RecadoABMPanelControlador implements ActionListener {
 		for (RecadoDTO recadoDTO : recadosLista) {
 			Object[] fila = { recadoDTO.getIdRecado(), recadoDTO.getIdUsuarioDe(),
 					getNombreDeUsuario(recadoDTO.getIdUsuarioPara()), recadoDTO.getAsunto(), recadoDTO.getMensaje(),
-					recadoDTO.getFechaHoraEnvio(), recadoDTO.isVisto(), recadoDTO.isEliminado() };
+					recadoDTO.getFechaHoraEnvio(), recadoDTO.isVisto(), recadoDTO.isEliminado(),
+					stringDateFormatter(recadoDTO.getFechaHoraEnvio().toLocalDateTime()) };
 			this.vista.getModelRecados().addRow(fila);
 		}
 
@@ -66,7 +67,8 @@ public class RecadoABMPanelControlador implements ActionListener {
 		for (RecadoDTO recadoDTO : recadosLista) {
 			Object[] fila = { recadoDTO.getIdRecado(), getNombreDeUsuario(recadoDTO.getIdUsuarioDe()),
 					recadoDTO.getIdUsuarioPara(), recadoDTO.getAsunto(), recadoDTO.getMensaje(),
-					recadoDTO.getFechaHoraEnvio(), recadoDTO.isVisto(), recadoDTO.isEliminado() };
+					recadoDTO.getFechaHoraEnvio(), recadoDTO.isVisto(), recadoDTO.isEliminado(),
+					stringDateFormatter(recadoDTO.getFechaHoraEnvio().toLocalDateTime()) };
 			this.vista.getModelRecados().addRow(fila);
 		}
 
@@ -82,7 +84,8 @@ public class RecadoABMPanelControlador implements ActionListener {
 		for (RecadoDTO recadoDTO : recadosLista) {
 			Object[] fila = { recadoDTO.getIdRecado(), getNombreDeUsuario(recadoDTO.getIdUsuarioDe()),
 					getNombreDeUsuario(recadoDTO.getIdUsuarioPara()), recadoDTO.getAsunto(), recadoDTO.getMensaje(),
-					recadoDTO.getFechaHoraEnvio(), recadoDTO.isVisto(), recadoDTO.isEliminado() };
+					recadoDTO.getFechaHoraEnvio(), recadoDTO.isVisto(), recadoDTO.isEliminado(),
+					stringDateFormatter(recadoDTO.getFechaHoraEnvio().toLocalDateTime()) };
 			this.vista.getModelRecados().addRow(fila);
 		}
 
@@ -122,6 +125,9 @@ public class RecadoABMPanelControlador implements ActionListener {
 		this.vista.getTblRecados().getColumnModel().getColumn(7).setWidth(0);
 		this.vista.getTblRecados().getColumnModel().getColumn(7).setMinWidth(0);
 		this.vista.getTblRecados().getColumnModel().getColumn(7).setMaxWidth(0);
+		this.vista.getTblRecados().getColumnModel().getColumn(5).setWidth(0);
+		this.vista.getTblRecados().getColumnModel().getColumn(5).setMinWidth(0);
+		this.vista.getTblRecados().getColumnModel().getColumn(5).setMaxWidth(0);
 		if (this.tipo.equals("Enviados")) {
 			this.vista.getTblRecados().getColumnModel().getColumn(1).setWidth(0);
 			this.vista.getTblRecados().getColumnModel().getColumn(1).setMinWidth(0);
@@ -303,10 +309,10 @@ public class RecadoABMPanelControlador implements ActionListener {
 						// Marcar visto
 						this.modelo.actualizarRecado(new RecadoDTO(Long.parseLong(idRecado), getIdUsuario(idUsuarioDe),
 								Long.parseLong(idUsuarioPara), asunto, mensaje, enviado, true, eliminado));
-						if(!mensaje.contains("-------------------------------------------")) {
+						if (!mensaje.contains("-------------------------------------------")) {
 							// Enviar respuesta de visto
-							RecadoDTO recado = new RecadoDTO(0, Long.parseLong(idUsuarioPara), getIdUsuario(idUsuarioDe),
-									"RE: " + asunto,
+							RecadoDTO recado = new RecadoDTO(0, Long.parseLong(idUsuarioPara),
+									getIdUsuario(idUsuarioDe), "RE: " + asunto,
 									"Enviado: " + stringDateFormatter(enviado.toLocalDateTime()) + "\nVisto: "
 											+ stringDateFormatter(LocalDateTime.now())
 											+ ". \n ------------------------------------------- \n" + mensaje,

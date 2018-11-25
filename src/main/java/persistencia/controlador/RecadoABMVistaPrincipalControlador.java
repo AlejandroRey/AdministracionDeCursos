@@ -49,6 +49,25 @@ public class RecadoABMVistaPrincipalControlador {
 		this.supervisorAdministracionVista = supervisorAdministracionVista;
 		this.instructorAdministracionVista = instructorAdministracionVista;
 		
+		//Inicialzar en recibido
+		setColor(this.vista.getBtnRecibidos());
+		resetColor(
+				new JPanel[] { this.vista.getBtnEliminados(), this.vista.getBtnNuevo(), this.vista.getBtnEnviados() });
+		clearMainPanel();
+		if (recadoABMPanelRecibidos == null) {
+			recadoABMPanelRecibidos = new RecadoABMPanel("Recibidos");
+			recadoABMPanelRecibidos.setBtnRestaurarVisible(false);
+			recadoABMPanelRecibidosControlador = new RecadoABMPanelControlador(modelo, recadoABMPanelRecibidos,
+					"Recibidos");
+			recadoABMPanelRecibidosControlador.inicializar();
+			this.vista.getMainPanel().add(recadoABMPanelRecibidos);
+		} else {
+			recadoABMPanelRecibidosControlador.inicializar();
+			this.vista.getMainPanel().add(recadoABMPanelRecibidos);
+		}
+		this.vista.getMainPanel().repaint();
+		this.vista.getMainPanel().revalidate();
+		
 		this.vista.getBtnNuevo().addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mousePressed(java.awt.event.MouseEvent evt) {
 				getBtnNuevo(evt);
@@ -88,7 +107,7 @@ public class RecadoABMVistaPrincipalControlador {
 		clearMainPanel();
 		if (recadoEnviarPanelControlador == null) {
 			recadoEnviarPanel = new RecadoEnviarPanel();
-			recadoEnviarPanelControlador = new RecadoEnviarPanelControlador(modelo, recadoEnviarPanel);
+			recadoEnviarPanelControlador = new RecadoEnviarPanelControlador(modelo, recadoEnviarPanel, vista, recadoABMPanelRecibidos, recadoABMPanelRecibidosControlador);
 			recadoEnviarPanelControlador.limpiarInputs();
 			this.vista.getMainPanel().add(recadoEnviarPanel);
 		} else {
