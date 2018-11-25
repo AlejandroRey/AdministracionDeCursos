@@ -59,4 +59,6 @@ public interface DAOAbstractFactory {
 	public NotificacionDAO createNotificacionDAO();
 	
 	public RecadoDAO createRecadoDAO();
+	
+	public ContactoTareaDAO createContactoTareaDAO();
 }

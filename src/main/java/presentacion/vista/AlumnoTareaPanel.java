@@ -6,6 +6,7 @@ import java.awt.Cursor;
 import java.awt.SystemColor;
  
 
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
@@ -18,7 +19,9 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+
 import java.awt.BorderLayout;
+
 import javax.swing.JTextPane;
 import javax.swing.border.TitledBorder;
  
@@ -29,7 +32,7 @@ public class AlumnoTareaPanel extends JPanel{
 	private JTable tableTareas;
 	private DefaultTableModel modelTareas;
 	private TableRowSorter<TableModel> modeloOrdenado;
-	private String[] nombreColumnas = {"ID", "Tarea", "Descripcion", "Estado", "Responsable" , "ID Reponsable", "Fecha de Creacion", "Fecha de cierre", "IDAlumno"};
+	private String[] nombreColumnas = {"ID", "Tarea", "Descripcion", "Estado", "Responsable" , "ID Reponsable", "Fecha de Creacion", "Hora de Creacion","Fecha a realizar","Hora Realizar", "Fecha de cierre", "Hora de cierre","IDAlumno"};
  	private JComboBox<String> cboxTareas;
 	private JComboBox<String> cboxEstado;
 	private JPanel panel;
