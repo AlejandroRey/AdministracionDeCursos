@@ -28,41 +28,8 @@
 		<variableExpression><![CDATA[$F{idEvaluacionTipo}.equals( 3 )]]></variableExpression>
 	</variable>
 	<group name="GroupAverage" minHeightToStartNewPage="10">
-		<groupExpression><![CDATA[$F{idCursada}]]></groupExpression>
 		<groupHeader>
-			<band height="7"/>
-		</groupHeader>
-		<groupFooter>
-			<band height="3">
-				<printWhenExpression><![CDATA[$F{idEvaluacionTipo}==3]]></printWhenExpression>
-				<frame>
-					<reportElement mode="Opaque" x="1" y="-19" width="512" height="16" backcolor="#D9D4D4" uuid="ecf25a1a-b251-4398-b9a2-5365630edf4b">
-						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
-					</reportElement>
-				</frame>
-				<textField>
-					<reportElement mode="Transparent" x="520" y="-19" width="33" height="15" forecolor="#FFFFFF" backcolor="#FFFFFF" uuid="d227e09c-d907-4203-b6d9-e3aaf474f607"/>
-					<textElement verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{idEvaluacionTipo}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="481" y="-19" width="30" height="15" forecolor="#000000" backcolor="#FFFFFF" uuid="69068f19-34c3-424c-a8c9-e9ee9e9c2d09"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{nota}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement x="383" y="-19" width="90" height="15" uuid="6daad103-e321-4b3b-bfba-b508b9d6cc0d"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font size="9" isBold="true"/>
-					</textElement>
-					<text><![CDATA[Nota Final Cursada:]]></text>
-				</staticText>
-			</band>
-		</groupFooter>
-	</group>
-	<group name="GroupCursada">
-		<groupHeader>
-			<band height="51">
+			<band height="24">
 				<staticText>
 					<reportElement x="481" y="4" width="30" height="12" uuid="f8b66015-f668-4792-a095-50131e5dd636"/>
 					<textElement textAlignment="Center">
@@ -108,29 +75,16 @@
 				<line>
 					<reportElement x="1" y="20" width="512" height="1" forecolor="#0000FF" uuid="fa0794b0-6c7b-4996-a03b-32d0a17e90f4"/>
 				</line>
-				<textField>
-					<reportElement x="1" y="25" width="79" height="15" uuid="8f75eea4-baab-4a39-84e2-7530dfe14e41"/>
-					<textElement verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{curso}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="84" y="25" width="120" height="15" uuid="24590ee1-b982-4688-9dd4-6f6d924e949c"/>
-					<textElement verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{temaCurso}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="210" y="25" width="71" height="15" uuid="0b7b2fb5-bb19-4137-8a8d-1e2f8fb20a7d"/>
-					<textElement verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{empresa}]]></textFieldExpression>
-				</textField>
-				<line>
-					<reportElement x="1" y="44" width="512" height="1" forecolor="#0000FF" uuid="963eb82e-5d0b-43f4-b7db-094cdbae25ac"/>
-				</line>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="22"/>
+			<band>
+				<printWhenExpression><![CDATA[$F{idEvaluacionTipo}==3]]></printWhenExpression>
+			</band>
 		</groupFooter>
+	</group>
+	<group name="GroupCursada">
+		<groupExpression><![CDATA[$F{idEvaluacionTipo} == 3]]></groupExpression>
 	</group>
 	<background>
 		<band splitType="Stretch"/>
@@ -209,32 +163,47 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="23" splitType="Stretch">
-			<printWhenExpression><![CDATA[$F{idEvaluacionTipo} != 3]]></printWhenExpression>
+		<band height="31" splitType="Stretch">
+			<printWhenExpression><![CDATA[$F{idEvaluacionTipo} == 3]]></printWhenExpression>
 			<textField>
-				<reportElement x="481" y="4" width="30" height="15" uuid="fd09c454-3b7a-4507-9243-4599c0105404"/>
+				<reportElement x="1" y="8" width="79" height="15" uuid="8f75eea4-baab-4a39-84e2-7530dfe14e41"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{curso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="85" y="8" width="120" height="15" uuid="24590ee1-b982-4688-9dd4-6f6d924e949c"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{temaCurso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="8" width="71" height="15" uuid="0b7b2fb5-bb19-4137-8a8d-1e2f8fb20a7d"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{empresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="287" y="8" width="90" height="15" uuid="b2c18a86-0ea9-4571-88cb-d5dce1a726b0"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fechaInicioCursada}]]></textFieldExpression>
+			</textField>
+			<textField pattern="&quot;yyyy-MM-dd&quot;">
+				<reportElement x="383" y="8" width="90" height="15" uuid="8f1a69f4-9c3b-42b6-a588-41b412b7b10b"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{evaluacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="481" y="8" width="30" height="15" uuid="fd09c454-3b7a-4507-9243-4599c0105404"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{nota}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="520" y="4" width="33" height="15" forecolor="#FFFFFF" uuid="e00e6fa2-a81f-482e-bfe5-9eb31282a262"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{idEvaluacionTipo}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="287" y="4" width="90" height="15" uuid="b2c18a86-0ea9-4571-88cb-d5dce1a726b0"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{fechaInicioCursada}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="520" y="4" width="33" height="15" forecolor="#FFFFFF" uuid="34c9a259-7a69-4633-9ba9-4d58472e64e4"/>
+				<reportElement x="520" y="8" width="33" height="15" forecolor="#FFFFFF" uuid="34c9a259-7a69-4633-9ba9-4d58472e64e4"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{idCursada}]]></textFieldExpression>
 			</textField>
-			<textField pattern="&quot;yyyy-MM-dd&quot;">
-				<reportElement x="383" y="4" width="90" height="15" uuid="8f1a69f4-9c3b-42b6-a588-41b412b7b10b"/>
+			<textField>
+				<reportElement x="520" y="8" width="33" height="15" forecolor="#FFFFFF" uuid="e00e6fa2-a81f-482e-bfe5-9eb31282a262"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{evaluacion}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{idEvaluacionTipo}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -242,7 +211,7 @@
 		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="42" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</pageFooter>
 	<summary>
 		<band height="22" splitType="Stretch">

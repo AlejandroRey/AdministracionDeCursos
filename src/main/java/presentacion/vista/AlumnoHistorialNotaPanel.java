@@ -32,6 +32,7 @@ public class AlumnoHistorialNotaPanel extends JPanel {
 	
 	private JLabel lblPromedio;
 	private JButton btnImprimirHistorial;
+	private JButton btnImprimirAnalitico;
 	
 	/**
 	 * Create the Panel.
@@ -39,7 +40,7 @@ public class AlumnoHistorialNotaPanel extends JPanel {
 	public AlumnoHistorialNotaPanel() {
 		super();
 		
-		this.setBounds(0, 0, 960, 500);
+		this.setBounds(0, 0, 960, 550);
 		this.setLayout(null);
 		inicializar();
 	}
@@ -53,7 +54,7 @@ public class AlumnoHistorialNotaPanel extends JPanel {
 	private void inicializarTablaCursadas() {
 		
 		spCursadas = new JScrollPane();
-		spCursadas.setBounds(10, 10, 500, 450);
+		spCursadas.setBounds(10, 10, 500, 529);
 		add(spCursadas);
 		
 		modelCursadas = new DefaultTableModel(null, nombreColumnasCursadas);
@@ -112,6 +113,10 @@ public class AlumnoHistorialNotaPanel extends JPanel {
 		btnImprimirHistorial.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnImprimirHistorial.setBounds(520, 401, 340, 59);
 		add(btnImprimirHistorial);
+		
+		btnImprimirAnalitico = new JButton("Imprimir Analitico");
+		btnImprimirAnalitico.setBounds(520, 480, 340, 59);
+		add(btnImprimirAnalitico);
 	}
 
 	/**
@@ -252,5 +257,19 @@ public class AlumnoHistorialNotaPanel extends JPanel {
 	 */
 	public void setBtnImprimirHistorial(JButton btnImprimirHistorial) {
 		this.btnImprimirHistorial = btnImprimirHistorial;
+	}
+
+	/**
+	 * @return the btnImprimirAnalitico
+	 */
+	public JButton getBtnImprimirAnalitico() {
+		return btnImprimirAnalitico;
+	}
+
+	/**
+	 * @param btnImprimirAnalitico the btnImprimirAnalitico to set
+	 */
+	public void setBtnImprimirAnalitico(JButton btnImprimirAnalitico) {
+		this.btnImprimirAnalitico = btnImprimirAnalitico;
 	}
 }

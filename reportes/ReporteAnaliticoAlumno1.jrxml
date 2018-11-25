@@ -62,7 +62,7 @@
 	</group>
 	<group name="GroupCursada">
 		<groupHeader>
-			<band height="51">
+			<band height="21">
 				<staticText>
 					<reportElement x="481" y="4" width="30" height="12" uuid="f8b66015-f668-4792-a095-50131e5dd636"/>
 					<textElement textAlignment="Center">
@@ -107,24 +107,6 @@
 				</staticText>
 				<line>
 					<reportElement x="1" y="20" width="512" height="1" forecolor="#0000FF" uuid="fa0794b0-6c7b-4996-a03b-32d0a17e90f4"/>
-				</line>
-				<textField>
-					<reportElement x="1" y="25" width="79" height="15" uuid="8f75eea4-baab-4a39-84e2-7530dfe14e41"/>
-					<textElement verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{curso}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="84" y="25" width="120" height="15" uuid="24590ee1-b982-4688-9dd4-6f6d924e949c"/>
-					<textElement verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{temaCurso}]]></textFieldExpression>
-				</textField>
-				<textField>
-					<reportElement x="210" y="25" width="71" height="15" uuid="0b7b2fb5-bb19-4137-8a8d-1e2f8fb20a7d"/>
-					<textElement verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{empresa}]]></textFieldExpression>
-				</textField>
-				<line>
-					<reportElement x="1" y="44" width="512" height="1" forecolor="#0000FF" uuid="963eb82e-5d0b-43f4-b7db-094cdbae25ac"/>
 				</line>
 			</band>
 		</groupHeader>
@@ -212,9 +194,24 @@
 		<band height="23" splitType="Stretch">
 			<printWhenExpression><![CDATA[$F{idEvaluacionTipo} != 3]]></printWhenExpression>
 			<textField>
+				<reportElement x="1" y="4" width="79" height="15" uuid="8f75eea4-baab-4a39-84e2-7530dfe14e41"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{curso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="85" y="4" width="120" height="15" uuid="24590ee1-b982-4688-9dd4-6f6d924e949c"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{temaCurso}]]></textFieldExpression>
+			</textField>
+			<textField>
 				<reportElement x="481" y="4" width="30" height="15" uuid="fd09c454-3b7a-4507-9243-4599c0105404"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{nota}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="4" width="71" height="15" uuid="0b7b2fb5-bb19-4137-8a8d-1e2f8fb20a7d"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{empresa}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="520" y="4" width="33" height="15" forecolor="#FFFFFF" uuid="e00e6fa2-a81f-482e-bfe5-9eb31282a262"/>

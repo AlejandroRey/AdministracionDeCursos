@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.DefaultListSelectionModel;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
@@ -41,6 +43,7 @@ public class AlumnoHistorialNotaControlador implements ActionListener {
 		mySqlReporte = new AlumnoHistorialNotasReporteDAOSQL();
 		
 		this.vista.getBtnImprimirHistorial().addActionListener(this);
+		this.vista.getBtnImprimirAnalitico().addActionListener(this);
 	}
 
 	public void inicializar() {
@@ -193,13 +196,23 @@ public class AlumnoHistorialNotaControlador implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		if (e.getSource() == this.vista.getBtnImprimirHistorial()) {
-			for (AlumnoHistorialNotasReporteDTO alumnoHistorialNotaDTO : mySqlReporte.readAll(alumnoDTO.getIdAlumno())) {
-				System.out.println(alumnoHistorialNotaDTO.toString());
+		List<AlumnoHistorialNotasReporteDTO> alumnoHistorialNotasReporteList = mySqlReporte.readAll(alumnoDTO.getIdAlumno());
+		
+		if (alumnoHistorialNotasReporteList.size()>0) {
+			if (e.getSource() == this.vista.getBtnImprimirHistorial()) {
+				ReporteAnaliticoAlumno reporte = new ReporteAnaliticoAlumno("ReporteAnaliticoAlumno.jasper", alumnoHistorialNotasReporteList);
+				reporte.mostrar();
+			} else if (e.getSource() == this.vista.getBtnImprimirAnalitico()) {
+				ReporteAnaliticoAlumno reporte = new ReporteAnaliticoAlumno("ReporteAnaliticoAlumnoFinal.jasper", alumnoHistorialNotasReporteList);
+				reporte.mostrar();
 			}
-			ReporteAnaliticoAlumno reporte = new ReporteAnaliticoAlumno(mySqlReporte.readAll(alumnoDTO.getIdAlumno()));
-			reporte.mostrar();
-		}	
+		} else {
+			JOptionPane.showMessageDialog(null,
+				    "No se encontraron Notas disponibles para el Alumno Seleccionado!",
+				    "Historial de Notas",
+				    JOptionPane.INFORMATION_MESSAGE,
+				    new ImageIcon("imagenes/warning_64.png"));
+		}
 	}
 	
 }
