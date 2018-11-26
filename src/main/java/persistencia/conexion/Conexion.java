@@ -54,7 +54,7 @@ public class Conexion {
 		}
 		instancia = null;
 	}
-
+	
 	public static String obtenerDatos(String host, String port, String user, String password, String db) {
 		int BUFFER = 99999;
 
@@ -134,5 +134,5 @@ public class Conexion {
 		return a;
 
 	}
-
+	
 }

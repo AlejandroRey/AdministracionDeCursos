@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 import modelo.AdministracionDeCursos;
-import persistencia.dao.mysql.DAOSQLFactory;
 import presentacion.vista.AdministracionDeCursosVista;
 import presentacion.vista.AdministrativoABMVistaPrincipal;
 import presentacion.vista.LoginVista;
@@ -65,6 +64,7 @@ public class SupervisorVistaControlador implements ActionListener {
 		}
 		if (e.getSource() == this.vista.getMntmImportar()) {
 			// TODO IMPORTAR
+			
 			JOptionPane.showMessageDialog(null, "Esta función todavía no fue desarrollada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 		}
 		if (e.getSource() == this.vista.getMntmExportar()) {
