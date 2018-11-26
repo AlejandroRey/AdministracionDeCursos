@@ -47,12 +47,13 @@ public class CursadaABMPanel extends JPanel {
 	private JTextField textFechaInicioCursada;
 	private JTextField textDiasDeClase;
 	
-	private JTextField textAdministrativo;
-	private JButton btnAgregarAdministrativo;
+	private JTextField textInstructor;
+	private JButton btnAgregarInstructor;
 	private JTextField textidAdministrativo;
 	private JLabel lblIdadmin;
-	private JLabel lblAdmisitrativo;
-	private JTextField textFieldInstructor;
+	private JLabel lblInstructor;
+	private JTextField textIdIntructor;
+	private JLabel lblIdintructor;
 
 	/**
 	 * Create the frame.
@@ -179,13 +180,14 @@ public class CursadaABMPanel extends JPanel {
 		panel.add(textDiasDeClase);
 		
 		JLabel lblIdCursada = new JLabel("Id Cursada:");
+		lblIdCursada.setVisible(false);
 		lblIdCursada.setBounds(497, 94, 70, 14);
 		panel.add(lblIdCursada);
 		
 		textIdCursada = new JTextField();
+		textIdCursada.setVisible(false);
 		textIdCursada.setBounds(577, 91, 70, 20);
 		panel.add(textIdCursada);
-		textIdCursada.setVisible(false);
 		textIdCursada.setHorizontalAlignment(SwingConstants.LEFT);
 		textIdCursada.setColumns(10);
 		
@@ -209,41 +211,41 @@ public class CursadaABMPanel extends JPanel {
 		btnSeleccionar.setBounds(173, 188, 333, 40);
 		panel.add(btnSeleccionar);
 		
-		lblAdmisitrativo = new JLabel("Admisitrativo:");
-		lblAdmisitrativo.setBounds(12, 125, 70, 14);
-		panel.add(lblAdmisitrativo);
+		lblInstructor = new JLabel("Instructor:");
+		lblInstructor.setBounds(12, 125, 70, 14);
+		panel.add(lblInstructor);
 		
-		textAdministrativo = new JTextField();
-		textAdministrativo.setHorizontalAlignment(SwingConstants.LEFT);
-		textAdministrativo.setColumns(10);
-		textAdministrativo.setBounds(82, 125, 141, 20);
-		panel.add(textAdministrativo);
+		textInstructor = new JTextField();
+		textInstructor.setHorizontalAlignment(SwingConstants.LEFT);
+		textInstructor.setColumns(10);
+		textInstructor.setBounds(82, 125, 141, 20);
+		panel.add(textInstructor);
 		
-		btnAgregarAdministrativo = new JButton("Agregar");
-		btnAgregarAdministrativo.setBounds(238, 125, 89, 23);
-		panel.add(btnAgregarAdministrativo);
+		btnAgregarInstructor = new JButton("Agregar");
+		btnAgregarInstructor.setBounds(238, 125, 89, 23);
+		panel.add(btnAgregarInstructor);
 		
-		textidAdministrativo = new JTextField();		
+		textidAdministrativo = new JTextField();
+		textidAdministrativo.setVisible(false);
 		textidAdministrativo.setBounds(577, 125, 70, 20);
 		panel.add(textidAdministrativo);
 		textidAdministrativo.setColumns(10);
-		textidAdministrativo.setVisible(false);
 		
 		lblIdadmin = new JLabel("idAdmin:");
 		lblIdadmin.setVisible(false);
 		lblIdadmin.setBounds(497, 125, 70, 14);
 		panel.add(lblIdadmin);
 		
-		JLabel labelInstructor = new JLabel("Instructor:");
-		labelInstructor.setBounds(12, 155, 70, 14);
-		panel.add(labelInstructor);
+		lblIdintructor = new JLabel("idIntructor:");
+		lblIdintructor.setVisible(false);
+		lblIdintructor.setBounds(497, 150, 70, 27);
+		panel.add(lblIdintructor);
 		
-		textFieldInstructor = new JTextField();
-		textFieldInstructor.setHorizontalAlignment(SwingConstants.LEFT);
-		textFieldInstructor.setColumns(10);
-		textFieldInstructor.setBounds(82, 155, 141, 20);
-		panel.add(textFieldInstructor);
-		lblIdCursada.setVisible(false);
+		textIdIntructor = new JTextField();
+		textIdIntructor.setVisible(false);
+		textIdIntructor.setBounds(577, 156, 70, 20);
+		panel.add(textIdIntructor);
+		textIdIntructor.setColumns(10);
 	}
 	
 	private void inicializarBotones() {
@@ -505,29 +507,29 @@ public class CursadaABMPanel extends JPanel {
 	/**
 	 * @return the textAdministrativo
 	 */
-	public JTextField getTextAdministrativo() {
-		return textAdministrativo;
+	public JTextField getTextInstructor() {
+		return textInstructor;
 	}
 
 	/**
-	 * @param textAdministrativo the textAdministrativo to set
+	 * @param textInstructor the textAdministrativo to set
 	 */
-	public void setTextAdministrativo(JTextField textAdministrativo) {
-		this.textAdministrativo = textAdministrativo;
+	public void setTextInstructor(JTextField textInstructor) {
+		this.textInstructor = textInstructor;
 	}
 
 	/**
 	 * @return the btnAgregarAdministrativo
 	 */
-	public JButton getBtnAgregarAdministrativo() {
-		return btnAgregarAdministrativo;
+	public JButton getBtnAgregarInstructor() {
+		return btnAgregarInstructor;
 	}
 
 	/**
-	 * @param btnAgregarAdministrativo the btnAgregarAdministrativo to set
+	 * @param btnAgregarInstructor the btnAgregarAdministrativo to set
 	 */
-	public void setBtnAgregarAdministrativo(JButton btnAgregarAdministrativo) {
-		this.btnAgregarAdministrativo = btnAgregarAdministrativo;
+	public void setBtnAgregarInstructor(JButton btnAgregarInstructor) {
+		this.btnAgregarInstructor = btnAgregarInstructor;
 	}
 
 	/**
@@ -562,21 +564,28 @@ public class CursadaABMPanel extends JPanel {
 	 * @return the lblAdmisitrativo
 	 */
 	public JLabel getLblAdmisitrativo() {
-		return lblAdmisitrativo;
+		return lblInstructor;
 	}
 
 	/**
 	 * @param lblAdmisitrativo the lblAdmisitrativo to set
 	 */
 	public void setLblAdmisitrativo(JLabel lblAdmisitrativo) {
-		this.lblAdmisitrativo = lblAdmisitrativo;
+		this.lblInstructor = lblAdmisitrativo;
 	}
 
-	public JTextField getTextFieldInstructor() {
-		return textFieldInstructor;
+	/**
+	 * @return the textIdIntructor
+	 */
+	public JTextField getTextIdIntructor() {
+		return textIdIntructor;
 	}
 
-	public void setTextFieldInstructor(JTextField textFieldInstructor) {
-		this.textFieldInstructor = textFieldInstructor;
+	/**
+	 * @param textIdIntructor the textIdIntructor to set
+	 */
+	public void setTextIdIntructor(JTextField textIdIntructor) {
+		this.textIdIntructor = textIdIntructor;
 	}
+
 }

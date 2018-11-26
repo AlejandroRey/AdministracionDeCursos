@@ -52,6 +52,7 @@ public class RecadoVistaPanel {
 		jFrame.setTitle("Recado");
 		jFrame.setBounds(0, 0, 650, 690);
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		jFrame.setLocationRelativeTo(null);
 		jFrame.getContentPane().setLayout(null);
 		jFrame.setVisible(true);
 		jFrame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);

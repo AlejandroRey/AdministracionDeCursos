@@ -207,8 +207,7 @@ public class AlumnoHistorialNotaControlador implements ActionListener {
 				reporte.mostrar();
 			}
 		} else {
-			JOptionPane.showMessageDialog(null,
-				    "No se encontraron Notas disponibles para el Alumno Seleccionado!",
+			JOptionPane.showMessageDialog(null, "No se encontraron Notas disponibles para el Alumno Seleccionado!",
 				    "Historial de Notas",
 				    JOptionPane.INFORMATION_MESSAGE,
 				    new ImageIcon("imagenes/warning_64.png"));

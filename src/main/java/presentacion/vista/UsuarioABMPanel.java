@@ -20,6 +20,8 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import dto.CategoriaDTO;
 
@@ -30,6 +32,7 @@ public class UsuarioABMPanel extends JPanel {
 	private JScrollPane spUsuarios;
 	private JScrollPane spAsignaciones;
 	private DefaultTableModel modelUsuarios;
+	private TableRowSorter<TableModel> modeloOrdenado;
 	private DefaultTableModel modelAsignaciones;
 	private JTable tblUsuarios;
 	private JTable tblAsignaciones;
@@ -95,7 +98,9 @@ public class UsuarioABMPanel extends JPanel {
 		        }
 		    };
 		tblUsuarios.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
-		//tblusuarios.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);		
+		//tblusuarios.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		modeloOrdenado = new TableRowSorter<TableModel>(modelUsuarios);
+		tblUsuarios.setRowSorter(modeloOrdenado);   
 		spUsuarios.setViewportView(tblUsuarios);	
 		
 		spAsignaciones = new JScrollPane();
@@ -114,7 +119,7 @@ public class UsuarioABMPanel extends JPanel {
 		        }
 		    };
 		tblAsignaciones.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
-		//tblusuarios.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);		
+		//tblusuarios.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);	
 		spAsignaciones.setViewportView(tblAsignaciones);
 	}
 
@@ -528,5 +533,19 @@ public class UsuarioABMPanel extends JPanel {
 
 	public void setBtnConsultarAsignaciones(JButton btnConsultarAsignaciones) {
 		this.btnConsultarAsignaciones = btnConsultarAsignaciones;
+	}
+
+	/**
+	 * @return the modeloOrdenado
+	 */
+	public TableRowSorter<TableModel> getModeloOrdenado() {
+		return modeloOrdenado;
+	}
+
+	/**
+	 * @param modeloOrdenado the modeloOrdenado to set
+	 */
+	public void setModeloOrdenado(TableRowSorter<TableModel> modeloOrdenado) {
+		this.modeloOrdenado = modeloOrdenado;
 	}
 }

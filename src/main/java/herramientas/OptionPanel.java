@@ -1,12 +1,13 @@
 package herramientas;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class OptionPanel 
 {
 	public static void mensaje(String mensaje, String titulo)
 	{
-		JOptionPane.showMessageDialog(null, mensaje, titulo, JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, mensaje, titulo, JOptionPane.INFORMATION_MESSAGE, new ImageIcon("imagenes/warning_64.png"));
 	}
 
 	public static String input(String referencia, String titulo)
