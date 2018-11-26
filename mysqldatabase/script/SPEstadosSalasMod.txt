@@ -1,0 +1,37 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `modEstadosSalasSP`(
+IN param1 DATETIME,
+IN param2 DATETIME,
+IN param3 INT)
+BEGIN
+
+DECLARE dateTimeInicio DATETIME; 
+DECLARE dateTimeFinal DATETIME; 
+DECLARE salaId INT;
+
+SET @dateTimeInicio = param1;
+SET @dateTimeFinal = param2;
+SET @salaId = param3;
+
+SELECT 
+b.idSala AS idSala, 
+IF (d.name = 'Libre', 0, b.estadoSala) AS estadoSala, 
+IF (d.name = 'Libre', @dateTimeInicio, b.inicio) as dispDesde,
+IF (d.name = 'Libre', b.inicio, @dateTimeInicio := b.inicio + INTERVAL b.duration MINUTE) AS dispHasta,
+d.name AS estado
+FROM 
+(SELECT 1 AS place, 'Libre' AS name UNION SELECT 2 AS place, 'Ocupado' AS name ) AS d 
+INNER JOIN 
+(SELECT 
+idSala, 
+estadoSala, 
+fechaInicio AS inicio, 
+TIMESTAMPDIFF(MINUTE, fechaInicio, fechaFin) AS duration   
+FROM fechacursadaclase WHERE idSala = @salaId 
+AND fechaInicio BETWEEN @dateTimeInicio AND @dateTimeFinal ORDER BY fechaInicio ASC) AS b
+HAVING dispDesde < dispHasta
+UNION SELECT @salaId AS idSala, 0 AS estadoSala, @dateTimeInicio AS dispDesde, @dateTimeFinal AS dispHasta, 'Libre' AS estado 
+FROM (SELECT 1) as g
+WHERE @dateTimeInicio < @dateTimeFinal  
+ORDER BY dispDesde, dispHasta;
+
+END

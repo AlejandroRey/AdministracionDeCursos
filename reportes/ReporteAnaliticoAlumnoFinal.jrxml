@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.5.1.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteAnaliticoAlumno" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9c16a142-1bb4-4e93-abe2-70cfb193e320">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="Fecha" class="java.lang.String"/>
+	<parameter name="Cantidad" class="java.lang.Integer"/>
+	<parameter name="Suma" class="java.lang.Double"/>
+	<parameter name="Promedio" class="java.lang.Double"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="curso" class="java.lang.String"/>
+	<field name="temaCurso" class="java.lang.String"/>
+	<field name="nota" class="java.lang.Long"/>
+	<field name="empresa" class="java.lang.String"/>
+	<field name="idEvaluacionTipo" class="java.lang.Long"/>
+	<field name="fechaInicioCursada" class="java.lang.String"/>
+	<field name="idCursada" class="java.lang.Long"/>
+	<field name="evaluacion" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="apellido" class="java.lang.String"/>
+	<field name="telefono" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
+	<variable name="Average" class="java.lang.Double" calculation="Average">
+		<variableExpression><![CDATA[$F{idEvaluacionTipo}==3?$F{nota}:0]]></variableExpression>
+	</variable>
+	<variable name="Cuenta" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{idEvaluacionTipo}.equals( 3 )]]></variableExpression>
+	</variable>
+	<group name="GroupAverage" minHeightToStartNewPage="10">
+		<groupHeader>
+			<band height="24">
+				<staticText>
+					<reportElement x="481" y="4" width="30" height="12" uuid="f8b66015-f668-4792-a095-50131e5dd636"/>
+					<textElement textAlignment="Center">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nota]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1" y="4" width="79" height="12" uuid="670d4c86-853e-4204-afa3-e4a33708d728"/>
+					<textElement textAlignment="Center">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Curso]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="85" y="4" width="120" height="12" uuid="024aa44f-4ed3-456e-bd52-33423c9df880"/>
+					<textElement textAlignment="Center">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Tema]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="210" y="4" width="71" height="12" uuid="7e3de5a3-91b0-436a-a56d-fd953ea33c17"/>
+					<textElement textAlignment="Center">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Empresa]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="287" y="4" width="90" height="12" uuid="f094d4ef-5de7-483e-99f5-9bdadd49b038"/>
+					<textElement textAlignment="Center">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fecha Cursada]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="383" y="4" width="90" height="12" uuid="2d410dc3-09df-4c4c-a6bb-33544c507966"/>
+					<textElement textAlignment="Center">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Evaluacion]]></text>
+				</staticText>
+				<line>
+					<reportElement x="1" y="20" width="512" height="1" forecolor="#0000FF" uuid="fa0794b0-6c7b-4996-a03b-32d0a17e90f4"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band>
+				<printWhenExpression><![CDATA[$F{idEvaluacionTipo}==3]]></printWhenExpression>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="GroupCursada">
+		<groupExpression><![CDATA[$F{idEvaluacionTipo} == 3]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="47" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="10" width="180" height="25" uuid="01be28d1-1d91-4310-a944-cc750bcfa4fc"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Reporte Analitico]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="10" width="102" height="20" uuid="d12b0938-0db9-40b6-97c1-93bbf55d0d20"/>
+				<text><![CDATA[Reporte generado el:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="449" y="10" width="56" height="20" uuid="cf075be7-99ab-4b75-8680-e2a2df0699a9"/>
+				<textFieldExpression><![CDATA[$P{Fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="6" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="70" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="1" y="2" width="512" height="52" backcolor="#1999D4" uuid="f88f4c09-0f49-4ff4-894a-01e0fd523004">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+				</reportElement>
+			</frame>
+			<staticText>
+				<reportElement x="2" y="5" width="60" height="12" forecolor="#FFFFFF" uuid="b4395ed2-20d6-4f13-af5f-9a658e507d04"/>
+				<textElement textAlignment="Left">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="22" width="60" height="12" forecolor="#FFFFFF" uuid="5e9e2a93-73f6-47da-8408-871e9e0a4db3"/>
+				<textElement textAlignment="Left">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefono:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="40" width="60" height="12" forecolor="#FFFFFF" uuid="aa0370d2-0f5b-4a74-8946-8ee29cb45943"/>
+				<textElement textAlignment="Left">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Email:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="69" y="5" width="150" height="12" forecolor="#FFFFFF" uuid="5cd21ba3-11d7-4fc1-a482-168dffe68688"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre} + " " + $F{apellido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="69" y="22" width="100" height="12" forecolor="#FFFFFF" uuid="fac19f70-bdcc-45e2-8538-04de8d1df747"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="69" y="40" width="100" height="12" forecolor="#FFFFFF" uuid="0ac4877c-a57f-4fa3-a0aa-9cdc2d15db7e"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<printWhenExpression><![CDATA[$F{idEvaluacionTipo} == 3]]></printWhenExpression>
+			<textField>
+				<reportElement x="1" y="8" width="79" height="15" uuid="8f75eea4-baab-4a39-84e2-7530dfe14e41"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{curso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="85" y="8" width="120" height="15" uuid="24590ee1-b982-4688-9dd4-6f6d924e949c"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{temaCurso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="8" width="71" height="15" uuid="0b7b2fb5-bb19-4137-8a8d-1e2f8fb20a7d"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{empresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="287" y="8" width="90" height="15" uuid="b2c18a86-0ea9-4571-88cb-d5dce1a726b0"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fechaInicioCursada}]]></textFieldExpression>
+			</textField>
+			<textField pattern="&quot;yyyy-MM-dd&quot;">
+				<reportElement x="383" y="8" width="90" height="15" uuid="8f1a69f4-9c3b-42b6-a588-41b412b7b10b"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{evaluacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="481" y="8" width="30" height="15" uuid="fd09c454-3b7a-4507-9243-4599c0105404"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nota}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="520" y="8" width="33" height="15" forecolor="#FFFFFF" uuid="34c9a259-7a69-4633-9ba9-4d58472e64e4"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{idCursada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="520" y="8" width="33" height="15" forecolor="#FFFFFF" uuid="e00e6fa2-a81f-482e-bfe5-9eb31282a262"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{idEvaluacionTipo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="22" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="1" y="3" width="512" height="16" backcolor="#F70E0A" uuid="32e26bb0-941b-4009-b788-2255b18b2f0f">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+				</reportElement>
+			</frame>
+			<textField>
+				<reportElement x="481" y="4" width="30" height="12" forecolor="#FFFFFF" uuid="d3a9aa59-a7ed-46c4-b018-b5040479f275"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[String.format("%.1f",(double)($P{Promedio}.doubleValue()))]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="384" y="4" width="89" height="12" forecolor="#FFFFFF" uuid="5f9957de-7029-41e3-9e3f-f65d1ffbad20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Promedio General:]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="520" y="4" width="33" height="15" forecolor="#FFFFFF" backcolor="#FFFFFF" uuid="3b2363bc-ab76-487c-b110-a8e20d214dd2"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{idEvaluacionTipo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
