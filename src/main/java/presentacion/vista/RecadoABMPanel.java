@@ -1,12 +1,10 @@
 package presentacion.vista;
 
 import java.awt.Component;
-import java.awt.SystemColor;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;

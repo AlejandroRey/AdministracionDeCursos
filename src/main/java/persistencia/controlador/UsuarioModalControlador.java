@@ -31,6 +31,7 @@ public class UsuarioModalControlador implements ActionListener {
 		this.usuarioABMControlador.inicializar();
 		this.usuarioABMControlador.setBtnNotVisible();
 		this.usuarioABMControlador.setTextDisable();
+		this.usuarioABMControlador.filtrarInstructores();
 		
 		this.usuarioModalPanel.getBtnAgregar().addActionListener(this);
 	}
@@ -45,12 +46,11 @@ public class UsuarioModalControlador implements ActionListener {
 		if (e.getSource() == this.usuarioModalPanel.getBtnAgregar()) {
 			try {
 				this.usuarioDTO = this.usuarioABMControlador.getUsuarioDTO();
-				this.cursadaABMControlador.getVista().getTextidAdministrativo().setText(this.usuarioDTO.getIdUsuario()+"");
-				this.cursadaABMControlador.getVista().getTextAdministrativo()
+				this.cursadaABMControlador.getVista().getTextIdIntructor().setText(this.usuarioDTO.getIdUsuario()+"");
+				this.cursadaABMControlador.getVista().getTextInstructor()
 				.setText(this.usuarioDTO.getNombre() + " " + this.usuarioDTO.getApellido());
 				this.usuarioModalPanel.dispose();
 			} catch (Exception ex) {
-				// TODO: handle exception
 			}
 		}
 		

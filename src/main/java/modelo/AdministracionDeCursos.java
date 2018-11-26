@@ -9,6 +9,7 @@ import dto.ContactoDTO;
 import dto.AlumnoInscriptoDTO;
 import dto.AsistenciaDTO;
 import dto.CategoriaDTO;
+import dto.ContactoTareaDTO;
 import dto.CursadaDTO;
 import dto.CursoDTO;
 import dto.ClaseDTO;
@@ -61,6 +62,7 @@ import persistencia.dao.interfaz.EvaluacionCursadaDAO;
 import persistencia.dao.interfaz.NotaDAO;
 import persistencia.dao.interfaz.NotificacionDAO;
 import persistencia.dao.interfaz.RecadoDAO;
+import persistencia.dao.interfaz.ContactoTareaDAO;
 
 public class AdministracionDeCursos {
 
@@ -94,6 +96,7 @@ public class AdministracionDeCursos {
 	private RecadoDAO recadoDAO;
 	private ContactoCompletoDAO contactoCompleto;
 	private UsuarioDTO usuarioLogueado;
+	private ContactoTareaDAO contactoTareaDAO;
 
 	public AdministracionDeCursos(DAOAbstractFactory metodo_persistencia) {
 		this.usuarioLogueado = null;
@@ -126,6 +129,7 @@ public class AdministracionDeCursos {
 		this.notaDAO = metodo_persistencia.createNotaDAO();
 		this.notificacion = metodo_persistencia.createNotificacionDAO();
 		this.recadoDAO = metodo_persistencia.createRecadoDAO();
+		this.contactoTareaDAO = metodo_persistencia.createContactoTareaDAO();
 	}
 	
 	/* ****************************************************************

@@ -34,13 +34,9 @@ public class TareaABMPanel extends JPanel {
 	private JTable tableTareas;
 	private DefaultTableModel modelTareas;
 	private TableRowSorter<TableModel> modeloOrdenado;
-	private String[] nombreColumnas = {"ID", "Tarea", "Descripcion", "Estado", "Responsable" , "ID Reponsable", "Fecha de Creacion", "Fecha de cierre", "IDAlumno"};
+	private String[] nombreColumnas = {"ID", "Tarea", "Descripcion", "Estado", "Responsable" , "ID Reponsable", "Fecha de Creacion", "Hora de Creacion","Fecha a realizar","Hora Realizar", "Fecha de cierre", "Hora de cierre","IDAlumno"};
 	
-	private JScrollPane spAdministrativos;
-	private JTable tableAdministrativos;
-	private DefaultTableModel modelAdministrativos;
-	private TableRowSorter<TableModel> modeloOrdenadoAdministrativos;
-	private String[] nombreColumnasAdministrativos = {"Id", "idCategoria", "Categoria", "Nombre", "Apellido", "Telefono", "Email", "Usuario", "Password"};
+	private JScrollPane spDetalleContacto;
 	
 	private JPanel panelEditor;
 	private JTextField txtNombre;
@@ -63,6 +59,7 @@ public class TareaABMPanel extends JPanel {
 	private JComboBox<String> cboxTareas;
 	private JComboBox<String> cboxEstado;
 	private JTextField txtIDAlumno;
+	private JButton btnAsignarALista;
 	
 	public TareaABMPanel() {
 		super();
@@ -97,30 +94,14 @@ public class TareaABMPanel extends JPanel {
 	}
 	
 	private void inicializarPanelAdministrativos() {
-		spAdministrativos = new JScrollPane();
-		spAdministrativos.getViewport().setBackground(UIManager.getColor("Panel.background"));
-		spAdministrativos.setBounds(758, 27, 396, 641);
-		spAdministrativos.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Administrativos:", TitledBorder.LEADING, TitledBorder.TOP, null, UIManager.getColor("textText")));
-		this.add(spAdministrativos);
+		spDetalleContacto = new JScrollPane();
+		spDetalleContacto.getViewport().setBackground(UIManager.getColor("Panel.background"));
+		spDetalleContacto.setBounds(758, 27, 396, 302);
+		spDetalleContacto.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Detalle del Contacto:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		this.add(spDetalleContacto);
 		
-		modelAdministrativos = new DefaultTableModel(null, nombreColumnasAdministrativos){public boolean isCellEditable(int row, int column){return false;}};
-		tableAdministrativos = new JTable(modelAdministrativos){
-			@Override
-		       public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
-		           Component component = super.prepareRenderer(renderer, row, column);
-		           int rendererWidth = component.getPreferredSize().width;
-		           TableColumn tableColumn = getColumnModel().getColumn(column);
-		           tableColumn.setPreferredWidth(Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
-		           return component;
-		        }
-		};
-		tableAdministrativos.setOpaque(false);
-		tableAdministrativos.getTableHeader().setBackground(new Color(255, 255, 255));
-		tableAdministrativos.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
-		spAdministrativos.setViewportView(tableAdministrativos);
-		
-		modeloOrdenadoAdministrativos = new TableRowSorter<TableModel>(modelAdministrativos);
-		tableAdministrativos.setRowSorter(modeloOrdenadoAdministrativos);
+		JTextArea txtDetalleContactoOrigen = new JTextArea();
+		spDetalleContacto.setViewportView(txtDetalleContactoOrigen);
 	}
 
 	private void inicializarCbox() {
@@ -228,7 +209,6 @@ public class TareaABMPanel extends JPanel {
 		txtID.setColumns(10);
 		
 		txtIDResponsable = new JTextField();
-		txtIDResponsable.setVisible(false);
 		txtIDResponsable.setEditable(false);
 		txtIDResponsable.setEnabled(false);
 		txtIDResponsable.setBounds(599, 116, 86, 20);
@@ -287,7 +267,7 @@ public class TareaABMPanel extends JPanel {
 		btnMarcarComoRealizada = new JButton("Marcar como realizada");
 		btnMarcarComoRealizada.setFocusPainted(false);
 		btnMarcarComoRealizada.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnMarcarComoRealizada.setBounds(430, 241, 139, 23);
+		btnMarcarComoRealizada.setBounds(293, 241, 139, 23);
 		panelEditor.add(btnMarcarComoRealizada);
 		
 		txtIDAlumno = new JTextField();
@@ -297,6 +277,10 @@ public class TareaABMPanel extends JPanel {
 		txtIDAlumno.setBounds(448, 115, 46, 20);
 		panelEditor.add(txtIDAlumno);
 		txtIDAlumno.setColumns(10);
+		
+		btnAsignarALista = new JButton("Asignar a mi lista");
+		btnAsignarALista.setBounds(448, 241, 122, 23);
+		panelEditor.add(btnAsignarALista);
 	}
 	
 	public JButton getBtnAgregar() {
@@ -449,75 +433,17 @@ public class TareaABMPanel extends JPanel {
 	}
 	
 	/**
-	 * @return the tableAdministrativos
-	 */
-	public JTable getTableAdministrativos() {
-		return tableAdministrativos;
-	}
-
-	/**
-	 * @param tableAdministrativos the tableAdministrativos to set
-	 */
-	public void setTableAdministrativos(JTable tableAdministrativos) {
-		this.tableAdministrativos = tableAdministrativos;
-	}
-
-	/**
-	 * @return the modelAdministrativos
-	 */
-	public DefaultTableModel getModelAdministrativos() {
-		return modelAdministrativos;
-	}
-
-	/**
-	 * @param modelAdministrativos the modelAdministrativos to set
-	 */
-	public void setModelAdministrativos(DefaultTableModel modelAdministrativos) {
-		this.modelAdministrativos = modelAdministrativos;
-	}
-
-	/**
-	 * @return the modeloOrdenadoAdministrativos
-	 */
-	public TableRowSorter<TableModel> getModeloOrdenadoAdministrativos() {
-		return modeloOrdenadoAdministrativos;
-	}
-
-	/**
-	 * @param modeloOrdenadoAdministrativos the modeloOrdenadoAdministrativos to set
-	 */
-	public void setModeloOrdenadoAdministrativos(
-			TableRowSorter<TableModel> modeloOrdenadoAdministrativos) {
-		this.modeloOrdenadoAdministrativos = modeloOrdenadoAdministrativos;
-	}
-
-	/**
-	 * @return the nombreColumnasAdministrativos
-	 */
-	public String[] getNombreColumnasAdministrativos() {
-		return nombreColumnasAdministrativos;
-	}
-
-	/**
-	 * @param nombreColumnasAdministrativos the nombreColumnasAdministrativos to set
-	 */
-	public void setNombreColumnasAdministrativos(
-			String[] nombreColumnasAdministrativos) {
-		this.nombreColumnasAdministrativos = nombreColumnasAdministrativos;
-	}
-	
-	/**
 	 * @return the spAdministrativos
 	 */
 	public JScrollPane getSpAdministrativos() {
-		return spAdministrativos;
+		return spDetalleContacto;
 	}
 
 	/**
 	 * @param spAdministrativos the spAdministrativos to set
 	 */
 	public void setSpAdministrativos(JScrollPane spAdministrativos) {
-		this.spAdministrativos = spAdministrativos;
+		this.spDetalleContacto = spAdministrativos;
 	}
 
 	/**
@@ -574,5 +500,19 @@ public class TareaABMPanel extends JPanel {
 	 */
 	public void setTxtIDAlumno(JTextField txtIDAlumno) {
 		this.txtIDAlumno = txtIDAlumno;
+	}
+
+	/**
+	 * @return the btnAsignarALista
+	 */
+	public JButton getBtnAsignarALista() {
+		return btnAsignarALista;
+	}
+
+	/**
+	 * @param btnAsignarALista the btnAsignarALista to set
+	 */
+	public void setBtnAsignarALista(JButton btnAsignarALista) {
+		this.btnAsignarALista = btnAsignarALista;
 	}
 }

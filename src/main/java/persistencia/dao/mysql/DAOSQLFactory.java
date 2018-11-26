@@ -8,6 +8,7 @@ import persistencia.dao.interfaz.CategoriaDAO;
 import persistencia.dao.interfaz.ClaseDAO;
 import persistencia.dao.interfaz.ContactoDAO;
 import persistencia.dao.interfaz.ContactoCompletoDAO;
+import persistencia.dao.interfaz.ContactoTareaDAO;
 import persistencia.dao.interfaz.CursadaCompletaDAO;
 import persistencia.dao.interfaz.CursadaDAO;
 import persistencia.dao.interfaz.CursoDAO;
@@ -195,6 +196,12 @@ public class DAOSQLFactory implements DAOAbstractFactory {
 	public RecadoDAO createRecadoDAO() {
 		// TODO Auto-generated method stub
 		return new RecadoDAOSQL();
+	}
+
+	@Override
+	public ContactoTareaDAO createContactoTareaDAO() {
+		// TODO Auto-generated method stub
+		return new ContactoTareaDAOSQL();
 	}
 
 }

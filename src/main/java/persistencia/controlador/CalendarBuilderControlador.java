@@ -387,6 +387,7 @@ public class CalendarBuilderControlador implements ActionListener {
 							 localDateTimeFormatter(salaDisponibleDTO.getDispHasta()),
 							 salaDisponibleDTO.getEstadoSala()};
 			this.vista.getModelSalasEnConflicto().addRow(fila);
+		System.out.println(salasDsiponiblesReasignarList.size());
 		}
 		// Oculto los id del Objeto
 		this.vista.getTablaSalasEnConflicto().getColumnModel().getColumn(0).setWidth(0);
@@ -601,18 +602,10 @@ public class CalendarBuilderControlador implements ActionListener {
 			fechasDeCursadaList = modelo.obtenerFechaCursadaClase(cursadaDTO);				
 			llenarTablaFechasDeCursada();
 			
-			JOptionPane.showMessageDialog(null,
-				    "Se actualizaron las Fechas de Cursadas  las asignaciones de Salas!",
-				    "Fecha de Cursada",
-				    JOptionPane.INFORMATION_MESSAGE,
-				    new ImageIcon("imagenes/information_64.png"));
+			JOptionPane.showMessageDialog(null, "Se actualizaron las Fechas de Cursadas  las asignaciones de Salas!", "Fecha de Cursada", JOptionPane.INFORMATION_MESSAGE, new ImageIcon("imagenes/information_64.png"));
 			
 		} else {
-			JOptionPane.showMessageDialog(null,
-				    "Seleccione Dias de Cursada!",
-				    "Dias de Cursada",
-				    JOptionPane.INFORMATION_MESSAGE,
-				    new ImageIcon("imagenes/warning_64.png"));	
+			JOptionPane.showMessageDialog(null, "Seleccione Dias de Cursada!", "Dias de Cursada", JOptionPane.INFORMATION_MESSAGE,new ImageIcon("imagenes/warning_64.png"));	
 		}
 	}
 

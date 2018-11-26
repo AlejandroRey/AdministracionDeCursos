@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,6 +14,7 @@ import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableModel;
 
 import modelo.AdministracionDeCursos;
 import presentacion.vista.AlumnoTareaPanel;
@@ -58,30 +60,40 @@ public class AlumnoTareaControlador implements ActionListener {
 		this.vista.getTableTareas().getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
 		filtro();
 	}
+	
  	private void clearTableTareas() {
 		this.vista.getModelTareas().setRowCount(0); // Para vaciar la tabla
 		this.vista.getModelTareas().setColumnCount(0);
 		this.vista.getModelTareas().setColumnIdentifiers(this.vista.getNombreColumnas());
 	}
+ 	
  	private void loadDataRowsTbTareas() {
 		this.tareasLista =  this.tareasLista.stream().filter(tarea -> tarea.getIdAlumno() == this.alumno.getIdAlumno()).collect(Collectors.toList());
 		for (TareaDTO tareaDTO : tareasLista) {
 			Object[] fila = {tareaDTO.getIdTarea(),
-							 tareaDTO.getNombre(),
-							 tareaDTO.getDescripcion(),
-							 tareaDTO.getEstado(),
-							 getAdministrativoString(tareaDTO.getIdUsuario()), 
-							 tareaDTO.getIdUsuario(),
-							 StringToLocalDateFormatter(tareaDTO.getFechaCreacion(),"dd/MM/yyyy"),
-							 StringToLocalDateFormatter(tareaDTO.getFechaCierre(),"dd/MM/yyyy"),
-							 tareaDTO.getIdAlumno()};
+					tareaDTO.getNombre(),
+					tareaDTO.getDescripcion(),
+					tareaDTO.getEstado(),
+					getAdministrativoString(tareaDTO.getIdUsuario()), 
+					tareaDTO.getIdUsuario(),
+					StringToLocalDateFormatter(tareaDTO.getFechaCreacion(),"dd/MM/yyyy"),
+					StringToLocalDateFormatter(tareaDTO.getFechaCreacion(),"HH:mm:ss"),
+					StringToLocalDateFormatter(tareaDTO.getFechaRealizar(),"dd/MM/yyyy"),
+					StringToLocalDateFormatter(tareaDTO.getFechaRealizar(),"HH:mm:ss"),
+					StringToLocalDateFormatter(tareaDTO.getFechaCierre(),"dd/MM/yyyy"),
+					StringToLocalDateFormatter(tareaDTO.getFechaCierre(),"HH:mm:ss"),
+					tareaDTO.getIdAlumno()};
 			this.vista.getModelTareas().addRow(fila);
 		}
 	}
- 	private void ocultarColumnasTbTareas() {
+	
+	private void ocultarColumnasTbTareas() {
 		ocultarColumnaTbTareas(0);
 		ocultarColumnaTbTareas(5);
-		ocultarColumnaTbTareas(8);
+		ocultarColumnaTbTareas(7);
+		ocultarColumnaTbTareas(9);
+		ocultarColumnaTbTareas(11);
+		ocultarColumnaTbTareas(12);
 	}
 	
 	private void ocultarColumnaTbTareas(int column) {
@@ -89,17 +101,43 @@ public class AlumnoTareaControlador implements ActionListener {
 		this.vista.getTableTareas().getColumnModel().getColumn(column).setMinWidth(0);
 		this.vista.getTableTareas().getColumnModel().getColumn(column).setMaxWidth(0);
 	}
+
  	//************************Filtros*************************//
 	
 	public void filtro() {
-        if(this.vista.getCboxEstado().getSelectedItem().toString() == "Pendientes")
+		this.currentAdministrativo = this.modelo.getUsuarioLogueado();
+		List<RowFilter<TableModel,Integer>> pendientesAndMisTareas = new LinkedList<RowFilter<TableModel,Integer>>();
+		List<RowFilter<TableModel,Integer>> realizadasAndMisTareas = new LinkedList<RowFilter<TableModel,Integer>>();
+		
+		pendientesAndMisTareas.add(RowFilter.regexFilter("Pendiente", 3));
+		pendientesAndMisTareas.add(RowFilter.regexFilter(Long.toString(this.currentAdministrativo.getIdUsuario()), 5));
+		
+		realizadasAndMisTareas.add(RowFilter.regexFilter("Realizada", 3));
+		realizadasAndMisTareas.add(RowFilter.regexFilter(Long.toString(this.currentAdministrativo.getIdUsuario()), 5));
+		
+		RowFilter<TableModel, Integer> filtroPendientes = RowFilter.andFilter(pendientesAndMisTareas);
+		RowFilter<TableModel,Integer> filtroRealizadas = RowFilter.andFilter(realizadasAndMisTareas);
+		
+        if(this.vista.getCboxEstado().getSelectedItem().toString() == "Pendientes" && this.vista.getCboxTareas().getSelectedItem().toString() == "Todas"){
         	this.vista.getModeloOrdenado().setRowFilter(RowFilter.regexFilter("Pendiente", 3));
-        else if(this.vista.getCboxEstado().getSelectedItem().toString() == "Realizadas")
+        }
+        else if(this.vista.getCboxEstado().getSelectedItem().toString() == "Realizadas" && this.vista.getCboxTareas().getSelectedItem().toString() == "Todas"){
         	this.vista.getModeloOrdenado().setRowFilter(RowFilter.regexFilter("Realizada", 3));
-        else 
-        	this.vista.getModeloOrdenado().setRowFilter(null);
+        }
+        else if(this.vista.getCboxEstado().getSelectedItem().toString() == "Todas" && this.vista.getCboxTareas().getSelectedItem().toString() == "Todas"){
+            this.vista.getModeloOrdenado().setRowFilter(null);
+        }
+        else if(this.vista.getCboxEstado().getSelectedItem().toString() == "Pendientes" && this.vista.getCboxTareas().getSelectedItem().toString() == "Mis tareas"){
+        	this.vista.getModeloOrdenado().setRowFilter(filtroPendientes);
+        }
+        else if(this.vista.getCboxEstado().getSelectedItem().toString() == "Realizadas" && this.vista.getCboxTareas().getSelectedItem().toString() == "Mis tareas"){
+        	this.vista.getModeloOrdenado().setRowFilter(filtroRealizadas);
+        }
+        else if(this.vista.getCboxEstado().getSelectedItem().toString() == "Todas" && this.vista.getCboxTareas().getSelectedItem().toString() == "Mis tareas"){
+        	this.vista.getModeloOrdenado().setRowFilter(RowFilter.regexFilter(Long.toString(this.currentAdministrativo.getIdUsuario()), 5));
+        }
     }
-	
+
 	//*********************************************************//
 	
 	private String getCategoriaString(long idCategoria) {
@@ -155,7 +193,7 @@ public class AlumnoTareaControlador implements ActionListener {
 				Object responsable = this.vista.getTableTareas().getValueAt(this.vista.getTableTareas().getSelectedRow(), 4);
 				Object idResponsable = this.vista.getTableTareas().getValueAt(this.vista.getTableTareas().getSelectedRow(), 5);
 				Object fechaCreacion = this.vista.getTableTareas().getValueAt(this.vista.getTableTareas().getSelectedRow(), 6);
-//				Object fechaCierre = this.vista.getTableTareas().getValueAt(this.vista.getTableTareas().getSelectedRow(),7);
+				Object fechaCierre = this.vista.getTableTareas().getValueAt(this.vista.getTableTareas().getSelectedRow(),7);
 				Object idAlumno = this.vista.getTableTareas().getValueAt(this.vista.getTableTareas().getSelectedRow(),8);
 			}
 		} catch (Exception ex) {

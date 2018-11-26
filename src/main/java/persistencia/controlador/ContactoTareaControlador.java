@@ -93,13 +93,18 @@ public class ContactoTareaControlador implements ActionListener{
 	private void loadDataRowsTbTareas() {
 		for (TareaDTO tareaDTO : tareasLista) {
 			Object[] fila = {tareaDTO.getIdTarea(),
-							 tareaDTO.getNombre(),
-							 tareaDTO.getDescripcion(),
-							 tareaDTO.getEstado(),
-							 getAdministrativoString(tareaDTO.getIdUsuario()), 
-							 tareaDTO.getIdUsuario(),
-							 StringToLocalDateFormatter(tareaDTO.getFechaCreacion(), "dd/MM/yyyy"),
-							 StringToLocalDateFormatter(tareaDTO.getFechaCierre(),"dd/MM/yyyy")};
+					tareaDTO.getNombre(),
+					tareaDTO.getDescripcion(),
+					tareaDTO.getEstado(),
+					getAdministrativoString(tareaDTO.getIdUsuario()), 
+					tareaDTO.getIdUsuario(),
+					StringToLocalDateFormatter(tareaDTO.getFechaCreacion(),"dd/MM/yyyy"),
+					StringToLocalDateFormatter(tareaDTO.getFechaCreacion(),"HH:mm:ss"),
+					StringToLocalDateFormatter(tareaDTO.getFechaRealizar(),"dd/MM/yyyy"),
+					StringToLocalDateFormatter(tareaDTO.getFechaRealizar(),"HH:mm:ss"),
+					StringToLocalDateFormatter(tareaDTO.getFechaCierre(),"dd/MM/yyyy"),
+					StringToLocalDateFormatter(tareaDTO.getFechaCierre(),"HH:mm:ss"),
+					tareaDTO.getIdAlumno()};
 			this.vista.getModelTareas().addRow(fila);
 		}
 	}
@@ -118,45 +123,12 @@ public class ContactoTareaControlador implements ActionListener{
 		this.vista.getTxtIDResponsable().setText(Long.toString(contacto.getIdAdministrativo()));
 	}
 
-	private void llenarTablaAdministrativos() {
-		clearTableAdministrativos();
-		clearTextInputsBox();
-		loadAdministrativosData();
-		loadDataRowsTbAdministrativos();
-		ocultarColumnasTbAdministrativos();
-		DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
-		leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
-		this.vista.getTableAdministrativos().getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
-		this.deshabilitarTablaAdministrativos();
-	}
-
 	private void loadAdministrativosData() {
 		this.administrativosLista = modelo.obtenerUsuarios();
 		this.categoriasLista = modelo.obtenerCategorias();
 		filtrarAdministrativos();
 	}
 
-	private void clearTableAdministrativos() {
-		this.vista.getModelAdministrativos().setRowCount(0); // Para vaciar la tabla
-		this.vista.getModelAdministrativos().setColumnCount(0);
-		this.vista.getModelAdministrativos().setColumnIdentifiers(this.vista.getNombreColumnasAdministrativos());
-	}
-
-	private void loadDataRowsTbAdministrativos() {
-		for (UsuarioDTO usuarioDTO : administrativosLista) {
-			Object[] fila = {usuarioDTO.getIdUsuario(),
-							 usuarioDTO.getIdCategoria(),
-							 getCategoriaString(usuarioDTO.getIdCategoria()),
-							 usuarioDTO.getNombre(), 
-							 usuarioDTO.getApellido(),
-							 usuarioDTO.getTelefono(),
-							 usuarioDTO.getEmail(),
-							 usuarioDTO.getUsuario(),
-							 usuarioDTO.getPassword()};
-			this.vista.getModelAdministrativos().addRow(fila);
-		}
-	}
-	
 	private void ocultarColumnasTbTareas() {
 		ocultarColumnaTbTareas(0);
 		ocultarColumnaTbTareas(5);
@@ -169,21 +141,6 @@ public class ContactoTareaControlador implements ActionListener{
 		this.vista.getTableTareas().getColumnModel().getColumn(column).setMaxWidth(0);
 	}
 
-	private void ocultarColumnasTbAdministrativos() {
-		ocultarColumnaTbAdministrativos(1);
-		ocultarColumnaTbAdministrativos(2);
-		ocultarColumnaTbAdministrativos(5);
-		ocultarColumnaTbAdministrativos(6);
-		ocultarColumnaTbAdministrativos(7);
-		ocultarColumnaTbAdministrativos(8);
-	}
-	
-	private void ocultarColumnaTbAdministrativos(int column) {
-		this.vista.getTableAdministrativos().getColumnModel().getColumn(column).setWidth(0);
-		this.vista.getTableAdministrativos().getColumnModel().getColumn(column).setMinWidth(0);
-		this.vista.getTableAdministrativos().getColumnModel().getColumn(column).setMaxWidth(0);
-	}
-
 	//************************Filtros*************************//
 	
 	private void filtrarAdministrativos() {
@@ -193,17 +150,15 @@ public class ContactoTareaControlador implements ActionListener{
 	}
 	
 	public void filtro() {
-//		List<RowFilter> pendientesAndTodas = new LinkedList<RowFilter>();
-//		List<RowFilter> realizadasAndTodas = new LinkedList<RowFilter>();
-//		List<RowFilter> todasAndMisTareas = new LinkedList<RowFilter>();
+		this.currentAdministrativo = this.modelo.getUsuarioLogueado();
 		List<RowFilter<TableModel,Integer>> pendientesAndMisTareas = new LinkedList<RowFilter<TableModel,Integer>>();
 		List<RowFilter<TableModel,Integer>> realizadasAndMisTareas = new LinkedList<RowFilter<TableModel,Integer>>();
 		
 		pendientesAndMisTareas.add(RowFilter.regexFilter("Pendiente", 3));
-		pendientesAndMisTareas.add(RowFilter.regexFilter(Long.toString(this.currentAdministrativo.getIdUsuario(), 6)));
+		pendientesAndMisTareas.add(RowFilter.regexFilter(Long.toString(this.currentAdministrativo.getIdUsuario()), 5));
 		
 		realizadasAndMisTareas.add(RowFilter.regexFilter("Realizada", 3));
-		realizadasAndMisTareas.add(RowFilter.regexFilter(Long.toString(this.currentAdministrativo.getIdUsuario(), 6)));
+		realizadasAndMisTareas.add(RowFilter.regexFilter(Long.toString(this.currentAdministrativo.getIdUsuario()), 5));
 		
 		RowFilter<TableModel, Integer> filtroPendientes = RowFilter.andFilter(pendientesAndMisTareas);
 		RowFilter<TableModel,Integer> filtroRealizadas = RowFilter.andFilter(realizadasAndMisTareas);
@@ -214,6 +169,9 @@ public class ContactoTareaControlador implements ActionListener{
         else if(this.vista.getCboxEstado().getSelectedItem().toString() == "Realizadas" && this.vista.getCboxTareas().getSelectedItem().toString() == "Todas"){
         	this.vista.getModeloOrdenado().setRowFilter(RowFilter.regexFilter("Realizada", 3));
         }
+        else if(this.vista.getCboxEstado().getSelectedItem().toString() == "Todas" && this.vista.getCboxTareas().getSelectedItem().toString() == "Todas"){
+            this.vista.getModeloOrdenado().setRowFilter(null);
+        }
         else if(this.vista.getCboxEstado().getSelectedItem().toString() == "Pendientes" && this.vista.getCboxTareas().getSelectedItem().toString() == "Mis tareas"){
         	this.vista.getModeloOrdenado().setRowFilter(filtroPendientes);
         }
@@ -221,12 +179,10 @@ public class ContactoTareaControlador implements ActionListener{
         	this.vista.getModeloOrdenado().setRowFilter(filtroRealizadas);
         }
         else if(this.vista.getCboxEstado().getSelectedItem().toString() == "Todas" && this.vista.getCboxTareas().getSelectedItem().toString() == "Mis tareas"){
-        	this.vista.getModeloOrdenado().setRowFilter(RowFilter.regexFilter(Long.toString(this.currentAdministrativo.getIdUsuario(), 6)));
+        	this.vista.getModeloOrdenado().setRowFilter(RowFilter.regexFilter(Long.toString(this.currentAdministrativo.getIdUsuario()), 5));
         }
-        else 
-        	this.vista.getModeloOrdenado().setRowFilter(null);
     }
-	
+
 	//*********************************************************//
 	
 	private String getCategoriaString(long idCategoria) {
@@ -281,7 +237,6 @@ public class ContactoTareaControlador implements ActionListener{
 	
 	private void generarTablas() {
 		llenarTabla();
-		llenarTablaAdministrativos();
 	}
 	
 	public void setVisibleBtnActualizar() {
@@ -298,7 +253,6 @@ public class ContactoTareaControlador implements ActionListener{
 		generarTablas();
 		setBtnNotVisible();
 		this.vista.getBtnAgregar().setVisible(true);
-//		this.setVisibleBtnSeleccionarResponsable();
 	}
 	
 	public void setVisibleBtnEliminar() {
@@ -322,6 +276,7 @@ public class ContactoTareaControlador implements ActionListener{
 		this.vista.getBtnEliminar().setVisible(false);
 		this.vista.getBtnSelecionarResponsable().setVisible(false);
 		this.vista.getBtnMarcarComoRealizada().setVisible(false);
+		this.vista.getBtnAsignarALista().setVisible(false);
 	}
 
 	private void clearTextInputsBox() {
@@ -345,15 +300,15 @@ public class ContactoTareaControlador implements ActionListener{
 	public void habilitarTablaAdministrativos(){
 		this.vista.getSpAdministrativos().setEnabled(true);
 		this.vista.getSpAdministrativos().setOpaque(true);
-		this.vista.getTableAdministrativos().setEnabled(true);
-		this.vista.getTableAdministrativos().setOpaque(true);
+//		this.vista.getTableAdministrativos().setEnabled(true);
+//		this.vista.getTableAdministrativos().setOpaque(true);
 	}
 	
 	public void deshabilitarTablaAdministrativos() {
 		this.vista.getSpAdministrativos().setEnabled(false);
 		this.vista.getSpAdministrativos().setOpaque(false);
-		this.vista.getTableAdministrativos().setEnabled(false);
-		this.vista.getTableAdministrativos().setOpaque(true);
+//		this.vista.getTableAdministrativos().setEnabled(false);
+//		this.vista.getTableAdministrativos().setOpaque(true);
 	}
 	
 	private String StringToLocalDateFormatter(LocalDateTime fecha, String pattern) {
