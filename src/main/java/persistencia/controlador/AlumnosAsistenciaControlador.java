@@ -23,6 +23,7 @@ import dto.AlumnoInscriptoDTO;
 import dto.AsistenciaDTO;
 import dto.CursadaDTO;
 import dto.FechaCursadaClaseDTO;
+import dto.NotificacionDTO;
 import dto.TareaDTO;
 import modelo.AdministracionDeCursos;
 import presentacion.vista.AlumnosAsistenciaPanel;
@@ -285,8 +286,10 @@ public class AlumnosAsistenciaControlador implements ActionListener {
 						this.vista.getRbtnAusente().setSelected(true);
 						presenteInt = 0;
 						try {
-							TareaDTO tareaDTO = new TareaDTO(0,cursadaDTO.getIdAdministrativo(),Long.parseLong(idAlumno.toString()),"Notificar inasistencia","Se debe llamar al alumno por telefono","Pendiente",LocalDateTime.now(),LocalDateTime.now().plusDays(2), LocalDateTime.now().plusDays(4));
-							modelo.agregarTarea(tareaDTO);
+							//TareaDTO tareaDTO = new TareaDTO(0,cursadaDTO.getIdAdministrativo(),Long.parseLong(idAlumno.toString()),"Notificar inasistencia","Se debe llamar al alumno por telefono","Pendiente",LocalDateTime.now(),LocalDateTime.now().plusDays(2), LocalDateTime.now().plusDays(4));
+							//modelo.agregarTarea(tareaDTO);
+							//NotificacionDTO notificacion = new NotificacionDTO(0, cursadaDTO.getIdAdministrativo(),2, "Se te ha asignado una tarea. Revisa la sección Tareas", false, LocalDateTime.now());
+							//this.modelo.agregarNotificacion(notificacion);
 						} catch (Exception e) {
 							// TODO: handle exception
 						}
@@ -394,6 +397,11 @@ public class AlumnosAsistenciaControlador implements ActionListener {
 			setCountAlumnoAsistenciaQty();
 		} else if (e.getSource() == this.vista.getRbtnAusente()) {
 			//System.out.println("AUSENTE");
+			TareaDTO tareaDTO = new TareaDTO(0,cursadaDTO.getIdAdministrativo(),Long.parseLong(this.vista.getTextIdAlumno().getText()),"Notificar inasistencia","Se debe llamar al alumno por telefono","Pendiente",LocalDateTime.now(),LocalDateTime.now().plusDays(2), LocalDateTime.now().plusDays(4));
+			modelo.agregarTarea(tareaDTO);
+			NotificacionDTO notificacion = new NotificacionDTO(0, cursadaDTO.getIdAdministrativo(),
+					2, "Se te ha asignado una tarea. Revisa la sección Tareas", false, LocalDateTime.now());
+			this.modelo.agregarNotificacion(notificacion);
 			asistenciaChangeDTO.setTipoAsistencia(0);
 			modelo.actualizarAsistencia(asistenciaChangeDTO);
 			clearTextInputsBox();

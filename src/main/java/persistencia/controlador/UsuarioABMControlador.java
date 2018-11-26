@@ -7,6 +7,7 @@ import java.util.List;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -82,9 +83,9 @@ public class UsuarioABMControlador implements ActionListener {
 							 usuarioDTO.getUsuario(),
 							 usuarioDTO.getPassword()};
 			//filtro para obterner solo los instructores
-			if (usuarioDTO.getIdCategoria() == 3) {
+//			if (usuarioDTO.getIdCategoria() == 3) {
 				this.vista.getModelUsuarios().addRow(fila);
-			}
+//			}
 		}
 		// Oculto los id del Objeto
 		this.vista.getTblUsuarios().getColumnModel().getColumn(0).setWidth(0);
@@ -142,6 +143,10 @@ public class UsuarioABMControlador implements ActionListener {
 			}
 		}
 		return categoriaNombre;
+	}
+	
+	public void filtrarInstructores() {
+		this.vista.getModeloOrdenado().setRowFilter(RowFilter.regexFilter(Long.toString(3), 1));
 	}
 	
 	@Override

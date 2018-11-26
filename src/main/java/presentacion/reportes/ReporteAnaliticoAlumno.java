@@ -25,7 +25,7 @@ public class ReporteAnaliticoAlumno {
 	private JasperPrint reporteLleno;
 	private Logger log = Logger.getLogger(ReporteAnaliticoAlumno.class);
 
-	public ReporteAnaliticoAlumno(List<AlumnoHistorialNotasReporteDTO> alumnoHistorialNotasReporteDTO) {
+	public ReporteAnaliticoAlumno(String nombreReporte, List<AlumnoHistorialNotasReporteDTO> alumnoHistorialNotasReporteDTO) {
 
 		Map<String, Object> parametersMap = new HashMap<String, Object>();
 		
@@ -47,7 +47,7 @@ public class ReporteAnaliticoAlumno {
 		try {
 			this.reporte = (JasperReport) JRLoader.loadObjectFromFile("reportes" + 
 																	  File.separator + 
-																	  "ReporteAnaliticoAlumno.jasper");
+																	  nombreReporte);
 			this.reporteLleno = JasperFillManager.fillReport(this.reporte, 
 															 parametersMap,
 															 new JRBeanCollectionDataSource(alumnoHistorialNotasReporteDTO));

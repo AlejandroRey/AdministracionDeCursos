@@ -1,12 +1,10 @@
 package presentacion.vista;
 
 import java.awt.Component;
-import java.awt.SystemColor;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
@@ -24,7 +22,7 @@ public class RecadoABMPanel extends JPanel{
 	private JScrollPane spRecados;
 	private DefaultTableModel modelRecados;
 	private JTable tblRecados;
-	private String[] nombreColumnas = {"idRecado","De", "Para", "Asunto", "Mensaje", "Enviado", "Visto", "Eliminado"};
+	private String[] nombreColumnas = {"idRecado","De", "Para", "Asunto", "Mensaje", "Enviado", "Visto", "Eliminado", "Fecha y Hora"};
 	private JButton btnEliminar_1;
 	private JButton btnVer;
 	private JButton btnRestaurar;
@@ -36,7 +34,7 @@ public class RecadoABMPanel extends JPanel{
 	 */
 	public RecadoABMPanel(String titulo) {
 		super();
-		this.setBounds(0, 0, 742, 708);
+		this.setBounds(0, 0, 1088, 717);
 		this.setLayout(null);
 		inicializar(titulo);
 	}
@@ -51,7 +49,7 @@ public class RecadoABMPanel extends JPanel{
 	private void inicializarTabla() {
 		
 		spRecados = new JScrollPane();
-		spRecados.setBounds(15, 49, 712, 581);
+		spRecados.setBounds(15, 49, 1054, 601);
 		this.add(spRecados);
 		
 		modelRecados = new DefaultTableModel(null, nombreColumnas);
@@ -79,14 +77,8 @@ public class RecadoABMPanel extends JPanel{
 
 	private void inicializarEditor(String titulo) {
 		
-		JSeparator separator = new JSeparator();
-		separator.setForeground(SystemColor.darkGray);
-		separator.setBackground(SystemColor.DARK_GRAY);
-		separator.setBounds(15, 646, 712, 1);
-		add(separator);
-		
 		btnEliminar_1 = new JButton("Eliminar");
-		btnEliminar_1.setBounds(15, 657, 115, 35);
+		btnEliminar_1.setBounds(15, 666, 115, 35);
 		add(btnEliminar_1);
 		
 		btnVer = new JButton("Ver");
@@ -94,17 +86,17 @@ public class RecadoABMPanel extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnVer.setBounds(612, 657, 115, 35);
+		btnVer.setBounds(954, 666, 115, 35);
 		add(btnVer);
 		
 		lblTitulo = new JLabel(titulo);
 		lblTitulo.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitulo.setBounds(289, 13, 148, 20);
+		lblTitulo.setBounds(450, 16, 148, 20);
 		add(lblTitulo);
 
 		btnRestaurar = new JButton("Restaurar");
-		btnRestaurar.setBounds(465, 657, 115, 35);
+		btnRestaurar.setBounds(824, 666, 115, 35);
 		add(btnRestaurar);
 		
 	}

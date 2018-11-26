@@ -24,11 +24,10 @@ public class SalaDisponibleDAOSQL implements SalaDisponibleDAO {
 		LocalDate localDate = fechaCursadaDTO.getFechaInicio().toLocalDate();
 		LocalDateTime localDateTimeInicio = LocalDateTime.of(localDate, LocalTime.MIN);
 		LocalDateTime localDateTimeFin = localDateTimeInicio.plusDays(1);
-
 		ArrayList<SalaDisponibleDTO> salasDisponibles = new ArrayList<SalaDisponibleDTO>();
 		Conexion conexion = Conexion.getConexion();
 		try {
-			CallableStatement spSalaDisponible = (CallableStatement) conexion.getSQLConexion().prepareCall("{CALL modEstadosSalasFechaCursadaSP(?, ?, ?)}");
+			CallableStatement spSalaDisponible = (CallableStatement) conexion.getSQLConexion().prepareCall("{CALL modEstadosSalasSP(?, ?, ?)}"); 
 			spSalaDisponible.setTimestamp(1, convert(localDateTimeInicio));
 			spSalaDisponible.setTimestamp(2, convert(localDateTimeFin));
 			spSalaDisponible.setLong(3, salaDTO.getIdSala());
@@ -37,12 +36,12 @@ public class SalaDisponibleDAOSQL implements SalaDisponibleDAO {
 
 			ResultSet resultSet = spSalaDisponible.getResultSet();
 			while (resultSet.next()) {
-				salasDisponibles.add(new SalaDisponibleDTO(resultSet.getLong(1),
-														   resultSet.getLong(2),
-														   resultSet.getInt(3), 
-														   resultSet.getTimestamp(4).toLocalDateTime(),
-														   resultSet.getTimestamp(5).toLocalDateTime(), 
-														   resultSet.getString(6)));
+				salasDisponibles.add(new SalaDisponibleDTO(fechaCursadaDTO.getIdFechaCursadaClase(),
+														   resultSet.getLong(1),
+														   resultSet.getInt(2), 
+														   resultSet.getTimestamp(3).toLocalDateTime(),
+														   resultSet.getTimestamp(4).toLocalDateTime(), 
+														   resultSet.getString(5)));
 			}
 
 		} catch (SQLException e) {
@@ -60,5 +59,16 @@ public class SalaDisponibleDAOSQL implements SalaDisponibleDAO {
 	private Timestamp convert(LocalDateTime localDateTime) {
 		return localDateTime == null ? null : Timestamp.valueOf(localDateTime);
 	}
-
+	
+	public LocalDateTime convertToLocalDateTime(Timestamp ts) {
+		return ts != null ? ts.toLocalDateTime() : null;
+	}
+	
+	public static void main(String[] args) {
+		LocalDateTime l = LocalDateTime.now();
+		LocalDate localDate = l.toLocalDate();
+		LocalDateTime localDateTimeInicio = LocalDateTime.of(localDate, LocalTime.MIN);
+		Timestamp t = null;
+		System.out.println(t);
+	}
 }

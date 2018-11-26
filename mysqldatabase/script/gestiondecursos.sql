@@ -19,6 +19,7 @@
 -- Table structure for table `alumno`
 --
 
+USE `gestiondecursos`;
 DROP TABLE IF EXISTS `alumno`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -182,7 +183,7 @@ CREATE TABLE `cursada` (
 
 LOCK TABLES `cursada` WRITE;
 /*!40000 ALTER TABLE `cursada` DISABLE KEYS */;
-INSERT INTO `cursada` VALUES (1,3,1,1,4,'2018-11-01 00:00:00','2018-11-20 00:00:00',35,'2018-11-21 00:00:00',10);
+INSERT INTO `cursada` VALUES (1,3,1,1,3,4,'2018-11-01 00:00:00','2018-11-20 00:00:00',35,'2018-11-21 00:00:00',10);
 /*!40000 ALTER TABLE `cursada` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -685,7 +686,13 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,1,'Alejandro','Rey','+549 11 2211 9999','alejakakjdjdj@gmail.com','alejandro','admin',NULL,NULL,NULL),(2,1,'Marcos','Lever','+549 11 3443 9921','hdsdhewd@gmail.com','marcos','admin',NULL,NULL,NULL),(3,2,'Pablo','Drink','+549 11 7755 9932','frerfsdscvsdc@gmail.com','pablo','admin',NULL,NULL,NULL),(4,3,'Gonzalo','Paolinelli','+549 11 8272 5637','rqetgdfvdsaodkas@gmail.com','gonzalo','admin',NULL,NULL,NULL),(5,1,'Emiliano','Saucedo','+549 11 6729 2891','ewrewwef@gmail.com','emiliano','admin',NULL,NULL,NULL),(6,3,'Leandro','Jobs','+549 11 7589 2397','iuouewiowjj@gmail.com','leandro','admin',NULL,NULL,NULL),(7,1,'Sofia','Catacata','+549 11 5378 9988','eourwieuwegvdc@gmail.com','sofia','admin',NULL,NULL,NULL);
+INSERT INTO `usuario` VALUES (1,1,'Alejandro','Rey','+549 11 2211 9999','alejakakjdjdj@gmail.com','alejandro','admin',NULL,NULL,NULL),
+(2,1,'Marcos','Lever','+549 11 3443 9921','hdsdhewd@gmail.com','marcos','admin',NULL,NULL,NULL),
+(3,2,'Pablo','Drink','+549 11 7755 9932','frerfsdscvsdc@gmail.com','pablo','admin',NULL,NULL,NULL),
+(4,3,'Gonzalo','Paolinelli','+549 11 8272 5637','rqetgdfvdsaodkas@gmail.com','gonzalo','admin',NULL,NULL,NULL),
+(5,1,'Emiliano','Saucedo','+549 11 6729 2891','ewrewwef@gmail.com','emiliano','admin',NULL,NULL,NULL),
+(6,3,'Leandro','Jobs','+549 11 7589 2397','iuouewiowjj@gmail.com','leandro','admin',NULL,NULL,NULL),
+(7,1,'Sofia','Catacata','+549 11 5378 9988','eourwieuwegvdc@gmail.com','sofia','admin',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 

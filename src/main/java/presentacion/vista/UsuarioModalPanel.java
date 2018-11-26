@@ -13,10 +13,10 @@ public class UsuarioModalPanel extends JDialog {
 	
 	public UsuarioModalPanel() {
 		super();
-		setSize(600, 700);
+		setSize(597, 700);
 		getContentPane().setLayout(null);
 		
-		btnAgregar = new JButton("Seleccionar Administrativo");
+		btnAgregar = new JButton("Seleccionar Instructor");
 		btnAgregar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnAgregar.setBounds(0, 624, 581, 37);
 		getContentPane().add(btnAgregar);
