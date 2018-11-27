@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 import persistencia.conexion.Conexion;
 
-public class ExportarBaseDeDatosVistaControlador {
+public class BaseDeDatosVistaControlador {
 
 	private JFrame frame;
 	// Variables declaration - do not modify//GEN-BEGIN:variables
@@ -28,6 +28,7 @@ public class ExportarBaseDeDatosVistaControlador {
 	private javax.swing.JTextField txtdatabase;
 	private javax.swing.JTextField txtpassword;
 	private javax.swing.JTextField txtusername;
+	private static String accion;
 
 	/**
 	 * Launch the application.
@@ -36,7 +37,7 @@ public class ExportarBaseDeDatosVistaControlador {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ExportarBaseDeDatosVistaControlador window = new ExportarBaseDeDatosVistaControlador();
+					BaseDeDatosVistaControlador window = new BaseDeDatosVistaControlador(accion);
 					window.frame.setVisible(true);
 					window.frame.setLocationRelativeTo(null);
 					window.frame.getContentPane().setLayout(null);
@@ -49,8 +50,10 @@ public class ExportarBaseDeDatosVistaControlador {
 
 	/**
 	 * Create the application.
+	 * @param string 
 	 */
-	public ExportarBaseDeDatosVistaControlador() {
+	public BaseDeDatosVistaControlador(String string) {
+		this.accion = string;
 		initialize();
 	}
 
@@ -92,21 +95,36 @@ public class ExportarBaseDeDatosVistaControlador {
 		btnbackup.setBounds(135, 171, 149, 29);
 
 		frame.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-		jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Backup",
-				javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION,
-				new java.awt.Font("Agency FB", 1, 10)));
+		if(accion.equals("Exportar")) {
+			jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Exportar",
+					javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION,
+					new java.awt.Font("Agency FB", 1, 10)));
+		} else {
+			jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Importar",
+					javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION,
+					new java.awt.Font("Agency FB", 1, 10)));
+		}
+		
 		jLabel1.setText("Usuario:");
 		jLabel2.setText("Contraseña:");
 		jLabel3.setText("Base de Datos:");
-		jLabel4.setText("Guardar en:");
+		if(accion.equals("Exportar")) {
+			jLabel4.setText("Guardar en:");
+		} else {
+			jLabel4.setText("Obtener de:");
+		}
 		btnchoose.setText("Elegir");
 		btnchoose.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				btnchooseActionPerformed(evt);
 			}
 		});
-
-		btnbackup.setText("Realizar Backup");
+		
+		if(accion.equals("Exportar")) {
+			btnbackup.setText("Realizar Backup");
+		} else {
+			btnbackup.setText("Importar Backup");
+		}
 		btnbackup.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				btnbackupActionPerformed(evt);
@@ -129,29 +147,35 @@ public class ExportarBaseDeDatosVistaControlador {
 	}
 
 	private void btnchooseActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnchooseActionPerformed
-		// TODO add your handling code here:
 		txtbackuppath.setText(getBackUpPath());
 	}
 
 	private void btnbackupActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnbackupActionPerformed
-		String backuppath = txtbackuppath.getText();
-		String Database = txtdatabase.getText();
-		String Password = txtpassword.getText();
-		String user = txtusername.getText();
-		try {
-			byte[] data = Conexion.obtenerDatos("localhost", "3306", user, Password, Database).getBytes();
-			File filedst = new File(backuppath + ".sql");
-			FileOutputStream dest = new FileOutputStream(filedst);
-			dest.write(data);
-			dest.close();
-			JOptionPane.showMessageDialog(null, "Backup exitoso!" + "\n" + "Para la base: " + Database + "\n"
-					+ "Realizado: " + stringDateFormatter(LocalDateTime.now()), "Backup", JOptionPane.INFORMATION_MESSAGE);
-			frame.dispose();
-		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(null,
-					"Fallo!" + "\n" + "Para la base: " + Database + "\n " + "Realizado: " + stringDateFormatter(LocalDateTime.now()),
-					"Backup", JOptionPane.INFORMATION_MESSAGE);
-			ex.printStackTrace();
+		
+		if(accion.equals("Exportar")) {
+			String backuppath = txtbackuppath.getText();
+			String Database = txtdatabase.getText();
+			String Password = txtpassword.getText();
+			String user = txtusername.getText();
+			try {
+				byte[] data = Conexion.obtenerDatos("localhost", "3306", user, Password, Database).getBytes();
+				File filedst = new File(backuppath + ".sql");
+				FileOutputStream dest = new FileOutputStream(filedst);
+				dest.write(data);
+				dest.close();
+				JOptionPane.showMessageDialog(null, "Backup exitoso!" + "\n" + "Para la base: " + Database + "\n"
+						+ "Realizado: " + stringDateFormatter(LocalDateTime.now()), "Backup", JOptionPane.INFORMATION_MESSAGE);
+				frame.dispose();
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(null,
+						"Fallo!" + "\n" + "Para la base: " + Database + "\n " + "Realizado: " + stringDateFormatter(LocalDateTime.now()),
+						"Backup", JOptionPane.INFORMATION_MESSAGE);
+				ex.printStackTrace();
+			}
+		} else if(accion.equals("Importar")) {
+			Conexion.Restoredbfromsql("C:\\Users\\jgpao\\Desktop\\Gestion de Cursos - 27-11-2018.sql");
+			//JOptionPane.showMessageDialog(null, "Se va a cerrar la aplicacion, por favor abrala nuevamente.", "Importar Base de Datos", JOptionPane.INFORMATION_MESSAGE);
+			//System.exit(1);
 		}
 
 	}
@@ -162,7 +186,12 @@ public class ExportarBaseDeDatosVistaControlador {
 		JFileChooser fc = null;
 		if (fc == null) {
 			fc = new JFileChooser();
-			fc.setSelectedFile(new File("Gestion de Cursos - " + stringDateFormatter(LocalDateTime.now())));
+			if(accion.equals("Exportar")) {
+				fc.setSelectedFile(new File("Gestion de Cursos " + stringDateFormatter(LocalDateTime.now())));
+			} else {
+				fc.setSelectedFile(new File(""));
+			}
+			
 		}
 		int returnVal = fc.showDialog(null, "Seleccionar");
 		if (returnVal == JFileChooser.APPROVE_OPTION) {

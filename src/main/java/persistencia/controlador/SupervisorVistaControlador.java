@@ -63,13 +63,12 @@ public class SupervisorVistaControlador implements ActionListener {
 			controlador.inicializar();
 		}
 		if (e.getSource() == this.vista.getMntmImportar()) {
-			// TODO IMPORTAR
-			
-			JOptionPane.showMessageDialog(null, "Esta función todavía no fue desarrollada", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+			BaseDeDatosVistaControlador baseDeDatosVistaControlador = new BaseDeDatosVistaControlador("Importar");
+			baseDeDatosVistaControlador.getFrame().setVisible(true);
 		}
 		if (e.getSource() == this.vista.getMntmExportar()) {
-			ExportarBaseDeDatosVistaControlador exportarBaseDeDatosVistaControlador = new ExportarBaseDeDatosVistaControlador();
-			exportarBaseDeDatosVistaControlador.getFrame().setVisible(true);
+			BaseDeDatosVistaControlador baseDeDatosVistaControlador = new BaseDeDatosVistaControlador("Exportar");
+			baseDeDatosVistaControlador.getFrame().setVisible(true);
 		}
 		if (e.getSource() == this.vista.getMntmCambiarContrasena()) {
 			UsuarioCambioContraseñaVista vista = new UsuarioCambioContraseñaVista();
