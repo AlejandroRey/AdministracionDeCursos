@@ -17,7 +17,7 @@ public class InstructorVista {
 	
 	//------JButton-------
 	private JButton btnRegistrar;
-	private JButton btnConsultarAsignaciones;
+	private JButton btnNotificaciones;
 	private JButton btnRecados;
 	private JButton btnCerrarSesion;	
 	private JButton buttonCambiarContrasenia;
@@ -70,10 +70,10 @@ public class InstructorVista {
 		btnRegistrar.setBounds(46, 44, 323, 36);
 		frmInstructor.getContentPane().add(btnRegistrar);
 		
-		btnConsultarAsignaciones = new JButton("Consultar asignaciones");
-		btnConsultarAsignaciones.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnConsultarAsignaciones.setBounds(46, 91, 323, 36);
-		frmInstructor.getContentPane().add(btnConsultarAsignaciones);
+		btnNotificaciones = new JButton("Notificaciones");
+		btnNotificaciones.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnNotificaciones.setBounds(46, 91, 323, 36);
+		frmInstructor.getContentPane().add(btnNotificaciones);
 		
 		btnRecados = new JButton("Recados");
 		btnRecados.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -95,8 +95,8 @@ public class InstructorVista {
 		return btnRegistrar;
 	}
 
-	public JButton getBtnConsultarAsignaciones() {
-		return btnConsultarAsignaciones;
+	public JButton getBtnNotificaciones() {
+		return btnNotificaciones;
 	}
 
 	public JButton getBtnRecados() {

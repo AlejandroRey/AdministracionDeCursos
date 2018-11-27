@@ -89,7 +89,7 @@ public class AdministrativoVistaControlador implements ActionListener {
 		this.notificaciones = this.modelo.obtenerNotificaciones();
 		boolean result = false;
 		for(NotificacionDTO notificacion : notificaciones) {
-			if (notificacion.isVisto()==true) {
+			if (!notificacion.isVisto()==true && notificacion.getIdUsuario()==2) {
 				result = true;
 			}
 		}
@@ -101,27 +101,40 @@ public class AdministrativoVistaControlador implements ActionListener {
 	private void revisarCursadas() {
 		this.cursadas = this.modelo.obtenerCursadas();
 		for(CursadaDTO cursada : cursadas) {
+			System.out.println(cursada.toString());
+			if (cursada.getIdEstadoCurso()==1) {
 			int cierreInscripcion = cursada.getFechaFinInscripcion().getDayOfYear();
 			int actual = LocalDateTime.now().getDayOfYear();
 			int result = cierreInscripcion-actual;
-			boolean result2 = false;
+			
 			if(result>0 && result<6) {
 				CursoDTO curso = this.modelo.obtenerCurso(cursada.getIdCurso());
 				NotificacionDTO notificacion = new NotificacionDTO(0, cursada.getIdAdministrativo(),0,
 						"El cierre de inscripción de la cursada de " + curso.getNombre() + " está próximo a cumplirse",false,LocalDateTime.now());
+				
 				notificaciones = this.modelo.obtenerNotificaciones();
+				boolean result2 = true;
 				for(NotificacionDTO notificacion2 : notificaciones) {
-					if(notificacion2.getTipoNotificacion()==0 && notificacion2.getIdUsuario()==this.modelo.getUsuarioLogueado().getIdUsuario()) {
-						if(!notificacion2.getFechaHora().toLocalDate().toString().equals(LocalDate.now().toString())) {
-							result2 = true;
-							//this.modelo.agregarNotificacion(notificacion);
-						}
-						else
+					System.out.println(notificacion2.toString());
+					if(notificacion.getIdUsuario()==notificacion2.getIdUsuario() && notificacion.getMensaje().equals(notificacion2.getMensaje()) && notificacion.getTipoNotificacion()==notificacion2.getTipoNotificacion()){
+						if (notificacion.getFechaHora().toLocalDate().equals(notificacion2.getFechaHora().toLocalDate())) {
 							result2 = false;
+						}
 					}
 				}
-				if (result2)
+				
+				if(result2==true) {
 					this.modelo.agregarNotificacion(notificacion);
+				}
+			}
+			else if(result==0 || result<0) {
+				System.out.println("Entro en fecha pasada");
+				CursadaDTO cursadaConNuevoEstado = new CursadaDTO(cursada.getIdCursada(),cursada.getIdEmpresa(),
+						cursada.getIdCurso(),2,cursada.getIdAdministrativo(),cursada.getIdInstructor(),
+						cursada.getFechaInicioInscripcion(),cursada.getFechaFinInscripcion(),cursada.getVacantes(),
+						cursada.getFechaInicioCursada(),cursada.getDiasDeClase());
+				modelo.actualizarCursada(cursadaConNuevoEstado);
+			}
 			}
 		}
 	}

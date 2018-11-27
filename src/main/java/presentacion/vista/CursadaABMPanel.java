@@ -21,6 +21,8 @@ import javax.swing.table.TableColumn;
 import dto.CursoDTO;
 import dto.EmpresaDTO;
 import dto.EstadoDeCursoDTO;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class CursadaABMPanel extends JPanel {
@@ -30,7 +32,11 @@ public class CursadaABMPanel extends JPanel {
 	private JTable tblCursadas;
 	private String[] nombreColumnas = {"idCursada", "idEmpresa", "idCurso", "idEstadoCurso", "idAdministrativo","Curso", "Empresa", "Ini Inscrip", "Fin Inscrip", "EstadoCurso", "Vacantes", "Ini Cursada", "DiasDeClase"};
 	
-
+	private JScrollPane spAsignaciones;
+	private DefaultTableModel modelAsignaciones;
+	private JTable tblAsignaciones;
+	private String[] nombreColumnasAsignaciones = {"Nombre", "Tema", "Estado", "Fecha de inicio"};
+	
 	private JPanel panel;	
 	private JComboBox<EmpresaDTO> cbxEmpresa;
 	private JComboBox<CursoDTO> cbxCurso;
@@ -43,6 +49,7 @@ public class CursadaABMPanel extends JPanel {
 	private JButton btnActualizar;
 	private JButton btnEliminar;
 	private JButton btnSeleccionar;
+	private JButton btnCerrarPeriodoDe;
 	
 	private JTextField textFechaInicioCursada;
 	private JTextField textDiasDeClase;
@@ -54,13 +61,14 @@ public class CursadaABMPanel extends JPanel {
 	private JLabel lblInstructor;
 	private JTextField textIdIntructor;
 	private JLabel lblIdintructor;
+	private JButton btnCancelarCursada;
 
 	/**
 	 * Create the frame.
 	 */
 	public CursadaABMPanel() {
 		super();
-		this.setBounds(0, 0, 705, 640);
+		this.setBounds(0, 0, 1125, 640);
 		this.setLayout(null);
 		inicializar();
 	}
@@ -92,6 +100,25 @@ public class CursadaABMPanel extends JPanel {
 		tblCursadas.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 		//tblusuarios.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);		
 		spCursadas.setViewportView(tblCursadas);
+		
+		spAsignaciones = new JScrollPane();
+		spAsignaciones.setBounds(701, 37, 414, 338);
+		this.add(spAsignaciones);
+		
+		modelAsignaciones = new DefaultTableModel(null, nombreColumnasAsignaciones);
+		tblAsignaciones = new JTable(modelAsignaciones){
+		    @Override
+		       public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+		           Component component = super.prepareRenderer(renderer, row, column);
+		           int rendererWidth = component.getPreferredSize().width;
+		           TableColumn tableColumn = getColumnModel().getColumn(column);
+		           tableColumn.setPreferredWidth(Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
+		           return component;
+		        }
+		    };
+		tblAsignaciones.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+		//tblusuarios.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);		
+		spAsignaciones.setViewportView(tblAsignaciones);
 	}
 
 	private void inicializarEditor() {	
@@ -193,22 +220,22 @@ public class CursadaABMPanel extends JPanel {
 		
 		btnAgregar = new JButton("Agregar");
 		btnAgregar.setCursor(new Cursor(Cursor.HAND_CURSOR));		
-		btnAgregar.setBounds(173, 188, 333, 40);
+		btnAgregar.setBounds(234, 188, 240, 40);
 		panel.add(btnAgregar);
 		
 		btnActualizar = new JButton("Actualizar");
 		btnActualizar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		btnActualizar.setBounds(173, 188, 333, 40);
+		btnActualizar.setBounds(234, 188, 240, 40);
 		panel.add(btnActualizar);
 		
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		btnEliminar.setBounds(173, 188, 333, 40);
+		btnEliminar.setBounds(234, 188, 240, 40);
 		panel.add(btnEliminar);
 		
 		btnSeleccionar = new JButton("Seleccionar");
 		btnSeleccionar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		btnSeleccionar.setBounds(173, 188, 333, 40);
+		btnSeleccionar.setBounds(234, 188, 240, 40);
 		panel.add(btnSeleccionar);
 		
 		lblInstructor = new JLabel("Instructor:");
@@ -246,6 +273,18 @@ public class CursadaABMPanel extends JPanel {
 		textIdIntructor.setBounds(577, 156, 70, 20);
 		panel.add(textIdIntructor);
 		textIdIntructor.setColumns(10);
+		
+		btnCerrarPeriodoDe = new JButton("Cerrar periodo de cursada");
+		btnCerrarPeriodoDe.setBounds(10, 197, 213, 23);
+		panel.add(btnCerrarPeriodoDe);
+		
+		btnCancelarCursada = new JButton("Cancelar cursada");
+		btnCancelarCursada.setBounds(497, 197, 150, 23);
+		panel.add(btnCancelarCursada);
+		
+		JLabel lblTusAsignaciones = new JLabel("Tus asignaciones");
+		lblTusAsignaciones.setBounds(864, 12, 114, 14);
+		add(lblTusAsignaciones);
 	}
 	
 	private void inicializarBotones() {
@@ -588,4 +627,51 @@ public class CursadaABMPanel extends JPanel {
 		this.textIdIntructor = textIdIntructor;
 	}
 
+	public JScrollPane getSpAsignaciones() {
+		return spAsignaciones;
+	}
+
+	public void setSpAsignaciones(JScrollPane spAsignaciones) {
+		this.spAsignaciones = spAsignaciones;
+	}
+
+	public DefaultTableModel getModelAsignaciones() {
+		return modelAsignaciones;
+	}
+
+	public void setModelAsignaciones(DefaultTableModel modelAsignaciones) {
+		this.modelAsignaciones = modelAsignaciones;
+	}
+
+	public JTable getTblAsignaciones() {
+		return tblAsignaciones;
+	}
+
+	public void setTblAsignaciones(JTable tblAsignaciones) {
+		this.tblAsignaciones = tblAsignaciones;
+	}
+
+	public String[] getNombreColumnasAsignaciones() {
+		return nombreColumnasAsignaciones;
+	}
+
+	public void setNombreColumnasAsignaciones(String[] nombreColumnasAsignaciones) {
+		this.nombreColumnasAsignaciones = nombreColumnasAsignaciones;
+	}
+
+	public JButton getBtnCerrarPeriodoDe() {
+		return btnCerrarPeriodoDe;
+	}
+
+	public void setBtnCerrarPeriodoDe(JButton btnCerrarPeriodoDe) {
+		this.btnCerrarPeriodoDe = btnCerrarPeriodoDe;
+	}
+
+	public JButton getBtnCancelarCursada() {
+		return btnCancelarCursada;
+	}
+
+	public void setBtnCancelarCursada(JButton btnCancelarCursada) {
+		this.btnCancelarCursada = btnCancelarCursada;
+	}
 }

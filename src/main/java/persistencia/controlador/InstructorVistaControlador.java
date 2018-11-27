@@ -12,6 +12,8 @@ import presentacion.vista.CursadaABMVistaPrincipal;
 import presentacion.vista.InstructorAdministracionVista;
 import presentacion.vista.InstructorVista;
 import presentacion.vista.LoginVista;
+import presentacion.vista.NotificacionABMVistaPrincipal;
+import presentacion.vista.NotificacionPanel;
 import presentacion.vista.RecadoABMVistaPrincipal;
 import presentacion.vista.UsuarioCambioContraseñaVista;
 
@@ -27,13 +29,17 @@ public class InstructorVistaControlador implements ActionListener {
 	private CursadaABMVistaPrincipalControlador cursadaABMControlador;
 	private AsignacionesDeInstructorVista asignacionesDeInstructorVista;
 	private AsignacionesDeInstructorControlador asignacionesDeInstructorControlador;
+	private NotificacionABMVistaPrincipal notificacionABM;
+	private NotificacionABMVistaPrincipalControlador notificacionABMControlador;
+	private NotificacionPanel notificacionPanel;
+	private NotificacionControlador notificacionPanelControlador;
 	
 	public InstructorVistaControlador (InstructorVista vista, AdministracionDeCursos modelo) {
 		super();
 		this.vista = vista;
 		this.modelo = modelo;
 		this.vista.getBtnCerrarSesion().addActionListener(this);
-		this.vista.getBtnConsultarAsignaciones().addActionListener(this);
+		this.vista.getBtnNotificaciones().addActionListener(this);
 		this.vista.getBtnRecados().addActionListener(this);
 		this.vista.getBtnRegistrar().addActionListener(this);
 		this.vista.getButtonCambiarContrasenia().addActionListener(this);
@@ -60,10 +66,20 @@ public class InstructorVistaControlador implements ActionListener {
 				recadoABMControlador = new RecadoABMVistaPrincipalControlador(modelo, recadoABMVistaPrincipal, null, null, instructorAdministracionVista);				
 				this.instructorAdministracionVista.getMainPanel().add(recadoABMVistaPrincipal);
 			}
-		} else if (e.getSource() == this.vista.getBtnConsultarAsignaciones()) {
-			asignacionesDeInstructorVista = new AsignacionesDeInstructorVista();
-			asignacionesDeInstructorControlador = new AsignacionesDeInstructorControlador(modelo,asignacionesDeInstructorVista);
-			asignacionesDeInstructorControlador.inicializar();
+		} else if (e.getSource() == this.vista.getBtnNotificaciones()) {
+			this.vista.getFrmInstructor().dispose();
+			instructorAdministracionVista = new InstructorAdministracionVista();
+			instructorAdministracionVistaControlador = new InstructorAdministracionVistaControlador(modelo, instructorAdministracionVista);
+			instructorAdministracionVistaControlador.inicializar();
+			
+			instructorAdministracionVista.getMainPanel().removeAll();
+			notificacionABM = new NotificacionABMVistaPrincipal();
+			notificacionABMControlador = new NotificacionABMVistaPrincipalControlador(modelo, notificacionABM, null, null, instructorAdministracionVista);
+			notificacionPanel = new NotificacionPanel();
+			notificacionPanelControlador = new NotificacionControlador(modelo, notificacionPanel, null, null, instructorAdministracionVista);
+			notificacionPanelControlador.inicializar();
+			instructorAdministracionVista.getMainPanel().add(notificacionABM);
+			notificacionABM.getMainPanel().add(notificacionPanel);
 		} else if (e.getSource() == this.vista.getBtnRegistrar()) {
 			this.vista.getFrmInstructor().dispose();
 			instructorAdministracionVista = new InstructorAdministracionVista();

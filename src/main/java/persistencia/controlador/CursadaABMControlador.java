@@ -47,6 +47,7 @@ public class CursadaABMControlador implements ActionListener {
 	private List<EstadoDeCursoDTO> estadosCurso;
 	private List<UsuarioDTO> usuariosLista;
 	private List<UsuarioDTO> listaTemporalUsuarios;
+	private List<CursadaDTO> cursadas;
 	
 	private UsuarioModalPanel usuarioModalPanel;
 	private UsuarioModalControlador usuarioModalControlador;
@@ -57,6 +58,7 @@ public class CursadaABMControlador implements ActionListener {
 		this.vistaPrincipalControlador = vistaPrincipalControlador;
 		this.modelo = modelo;
 		this.usuariosLista = modelo.obtenerUsuarios();
+		this.cursadas = null;
 		
 		
 		this.vista.getBtnSeleccionar().addActionListener(this);
@@ -64,6 +66,8 @@ public class CursadaABMControlador implements ActionListener {
 		this.vista.getBtnActualizar().addActionListener(this);
 		this.vista.getBtnEliminar().addActionListener(this);
 		this.vista.getBtnAgregarInstructor().addActionListener(this);
+		this.vista.getBtnCerrarPeriodoDe().addActionListener(this);
+		this.vista.getBtnCancelarCursada().addActionListener(this);
 		this.vista.getTextInstructor().addKeyListener(new KeyListener() {
 
 			@Override
@@ -111,7 +115,45 @@ public class CursadaABMControlador implements ActionListener {
 		
 		initComboBox();
 		
+		this.vista.getBtnCerrarPeriodoDe().setVisible(false);
+		this.vista.getBtnCancelarCursada().setVisible(false);
 		llenarTablaCursadas();
+		llenarTablaAsignaciones();
+	}
+	
+	private void llenarTablaAsignaciones() {
+		this.vista.getModelAsignaciones().setRowCount(0); // Para vaciar la tabla
+		this.vista.getModelAsignaciones().setColumnCount(0);
+		this.vista.getModelAsignaciones().setColumnIdentifiers(this.vista.getNombreColumnasAsignaciones());
+		
+		this.cursadas = modelo.obtenerCursadas();
+		for (CursadaDTO cursadaDTO : cursadas) {
+			CursoDTO curso = modelo.obtenerCurso(cursadaDTO.getIdCurso());
+			Object[] fila = {curso.getNombre(), curso.getTema(), asd(cursadaDTO.getIdEstadoCurso()), cursadaDTO.getFechaInicioCursada()};
+			System.out.println(modelo.getUsuarioLogueado().getIdCategoria());
+			if (this.modelo.getUsuarioLogueado().getIdCategoria()==3) {
+				if (cursadaDTO.getIdInstructor()==this.modelo.getUsuarioLogueado().getIdUsuario()) {	
+					this.vista.getModelAsignaciones().addRow(fila);
+				}
+			}
+			else if (this.modelo.getUsuarioLogueado().getIdCategoria()==2) {
+				if (cursadaDTO.getIdAdministrativo()==this.modelo.getUsuarioLogueado().getIdUsuario()) {	
+					this.vista.getModelAsignaciones().addRow(fila);
+				}
+			}
+			
+		}
+	}
+
+	public String asd(long id) {
+		List<EstadoDeCursoDTO> estados = modelo.obtenerEstadosDeCurso();
+		String result = "";
+		for (EstadoDeCursoDTO estado : estados) {
+			if (estado.getIdEstadoDeCurso()==id) {
+				result = estado.getNombre();
+			}
+		}
+		return result;
 	}
 
 	private void llenarTablaCursadas() {
@@ -196,6 +238,15 @@ public class CursadaABMControlador implements ActionListener {
 					this.vista.getTextidAdministrativo().setText(idAdministrativo.toString());
 					this.vista.getTextIdIntructor().setText(instructor);
 					System.out.println(obtenerIdInstructor(Long.parseLong(idCursada.toString())));
+					
+					if (selectEstadoDeCurso(idEstadoCurso).getIdEstadoDeCurso()==1 && this.modelo.getUsuarioLogueado().getIdCategoria()==2) {
+						this.vista.getBtnCerrarPeriodoDe().setVisible(true);
+						this.vista.getBtnCancelarCursada().setVisible(true);
+					}
+					else {
+						this.vista.getBtnCerrarPeriodoDe().setVisible(false);
+						this.vista.getBtnCancelarCursada().setVisible(false);
+					}
 				}
 			} catch (Exception ex) {
 				System.out.println("Error: " + ex.getMessage());
@@ -441,6 +492,18 @@ public class CursadaABMControlador implements ActionListener {
 			eliminar();
 		} else if (e.getSource() == this.vista.getBtnAgregarInstructor()) {
 			abrirAgregarInstructor();
+		} else if (e.getSource() == this.vista.getBtnCerrarPeriodoDe()) {
+			EstadoDeCursoDTO nuevoEstado = new EstadoDeCursoDTO(2,"Curso Iniciado");
+			this.vista.getCbxEstado().setSelectedItem(nuevoEstado);
+			modificar();
+			this.vista.getBtnCerrarPeriodoDe().setVisible(false);
+			this.vista.getBtnCancelarCursada().setVisible(false);
+		} else if (e.getSource() == this.vista.getBtnCancelarCursada()) {
+			EstadoDeCursoDTO nuevoEstado = new EstadoDeCursoDTO(4,"Curso Cancelado");
+			this.vista.getCbxEstado().setSelectedItem(nuevoEstado);
+			modificar();
+			this.vista.getBtnCerrarPeriodoDe().setVisible(false);
+			this.vista.getBtnCancelarCursada().setVisible(false);
 		}
 		
 	}

@@ -31,9 +31,6 @@ public class Conexion {
 			Class.forName("com.mysql.jdbc.Driver"); // quitar si no es necesario
 			this.connection = DriverManager.getConnection(
 					"jdbc:mysql://localhost:3306/gestiondecursos?autoReconnect=true&useSSL=false", "root", "root");
-			// this.connection =
-			// DriverManager.getConnection("jdbc:mysql://localhost:3306/gestiondecursos?autoReconnect=true&useSSL=false",
-			// "root", "Accenture");
 			log.info("Conexión exitosa");
 		} catch (Exception e) {
 			log.error("Conexión fallida", e);
@@ -60,7 +57,7 @@ public class Conexion {
 		}
 		instancia = null;
 	}
-	
+
 	public static String obtenerDatos(String host, String port, String user, String password, String db) {
 		int BUFFER = 99999;
 
@@ -140,48 +137,57 @@ public class Conexion {
 		return a;
 
 	}
-	
+
 	public static void Restoredbfromsql(String s) {
-        try {
-            /*NOTE: String s is the mysql file name including the .sql in its name*/
-            /*NOTE: Getting path to the Jar file being executed*/
-            /*NOTE: YourImplementingClass-> replace with the class executing the code*/
-            CodeSource codeSource = Conexion.class.getProtectionDomain().getCodeSource();
-            File jarFile = new File(codeSource.getLocation().toURI().getPath());
-            String jarDir = jarFile.getParentFile().getPath();
+		try {
+			/* NOTE: String s is the mysql file name including the .sql in its name */
+			/* NOTE: Getting path to the Jar file being executed */
+			/* NOTE: YourImplementingClass-> replace with the class executing the code */
+			CodeSource codeSource = Conexion.class.getProtectionDomain().getCodeSource();
+			File jarFile = new File(codeSource.getLocation().toURI().getPath());
+			String jarDir = jarFile.getParentFile().getPath();
 
-            /*NOTE: Creating Database Constraints*/
-             String dbName = "gestiondecursos";
-             String dbUser = "root";
-             String dbPass = "root";
+			/* NOTE: Creating Database Constraints */
+			String dbName = "gestiondecursos";
+			String dbUser = "root";
+			String dbPass = "root";
 
-            /*NOTE: Creating Path Constraints for restoring*/
-            String restorePath = jarDir + "\\backup" + "\\" + s;
-            
-            System.out.println(restorePath);
+			/* NOTE: Creating Path Constraints for restoring */
+			String restorePath = jarDir + "\\backup" + "\\" + s;
 
-            /*NOTE: Used to create a cmd command*/
-            /*NOTE: Do not create a single large string, this will cause buffer locking, use string array*/
-            //String[] executeCmd = new String[]{"mysql", dbName, "-u" + dbUser, "-p" + dbPass, "-e", " source " + restorePath};
-            String executeCmd = "C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin\\mysqldump -u" + dbUser + " -p" + dbPass + " --database " + dbName + " -r " + s;
-            
-            /*NOTE: processComplete=0 if correctly executed, will contain other values if not*/
-            Process runtimeProcess = Runtime.getRuntime().exec(executeCmd);
-            int processComplete = runtimeProcess.waitFor();
+			System.out.println(restorePath);
 
-            /*NOTE: processComplete=0 if correctly executed, will contain other values if not*/
-            if (processComplete == 0) {
-                JOptionPane.showMessageDialog(null, "Successfully restored from SQL : " + s);
-            } else {
-                JOptionPane.showMessageDialog(null, "Error at restoring, " + processComplete);
-            }
+			/* NOTE: Used to create a cmd command */
+			/*
+			 * NOTE: Do not create a single large string, this will cause buffer locking,
+			 * use string array
+			 */
+			// String[] executeCmd = new String[]{"mysql", dbName, "-u" + dbUser, "-p" +
+			// dbPass, "-e", " source " + restorePath};
+			String executeCmd = "C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin\\mysqldump -u" + dbUser + " -p"
+					+ dbPass + " --database " + dbName + " -r " + s;
 
+			/*
+			 * NOTE: processComplete=0 if correctly executed, will contain other values if
+			 * not
+			 */
+			Process runtimeProcess = Runtime.getRuntime().exec(executeCmd);
+			int processComplete = runtimeProcess.waitFor();
 
-        } catch (URISyntaxException | IOException | InterruptedException | HeadlessException ex) {
-            JOptionPane.showMessageDialog(null, "Error at Restoredbfromsql" + ex.getMessage());
-        }
+			/*
+			 * NOTE: processComplete=0 if correctly executed, will contain other values if
+			 * not
+			 */
+			if (processComplete == 0) {
+				JOptionPane.showMessageDialog(null, "Successfully restored from SQL : " + s);
+			} else {
+				JOptionPane.showMessageDialog(null, "Error at restoring, " + processComplete);
+			}
 
-    }
-	
-	
+		} catch (URISyntaxException | IOException | InterruptedException | HeadlessException ex) {
+			JOptionPane.showMessageDialog(null, "Error at Restoredbfromsql" + ex.getMessage());
+		}
+
+	}
+
 }
