@@ -4,8 +4,14 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JToolBar;
+
+import dto.NotificacionDTO;
+import persistencia.controlador.AdministrativoVistaControlador;
+
 import javax.swing.JButton;
 import java.awt.Font;
+import java.util.List;
+
 import javax.swing.JLabel;
 
 public class AdministrativoVista {

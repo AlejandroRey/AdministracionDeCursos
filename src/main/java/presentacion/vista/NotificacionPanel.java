@@ -35,7 +35,7 @@ public class NotificacionPanel extends JPanel {
 	private JButton btnIrARecados;
 	private JButton btnIrATareas;
 	private JButton btnIrACursadas;
-	private JButton btnMarcarComoLeido;
+	private JButton btnMarcarComoNoLeido;
 	private JTextField textFechaHora;
 	private JLabel lblFiltrar;
 	private JComboBox<String> comboBoxFiltro;
@@ -102,9 +102,9 @@ public class NotificacionPanel extends JPanel {
 		btnIrACursadas.setBounds(221, 114, 107, 23);
 		panel.add(btnIrACursadas);
 		
-		btnMarcarComoLeido = new JButton("Marcar como leido");
-		btnMarcarComoLeido.setBounds(349, 114, 141, 23);
-		panel.add(btnMarcarComoLeido);
+		btnMarcarComoNoLeido = new JButton("Marcar como no leido");
+		btnMarcarComoNoLeido.setBounds(349, 114, 141, 23);
+		panel.add(btnMarcarComoNoLeido);
 		
 		textFechaHora = new JTextField();
 		textFechaHora.setBounds(96, 115, 107, 20);
@@ -201,12 +201,12 @@ public class NotificacionPanel extends JPanel {
 		this.btnIrACursadas = btnIrACursadas;
 	}
 
-	public JButton getBtnMarcarComoLeido() {
-		return btnMarcarComoLeido;
+	public JButton getBtnMarcarComoNoLeido() {
+		return btnMarcarComoNoLeido;
 	}
 
-	public void setBtnMarcarComoLeido(JButton btnMarcarComoLeido) {
-		this.btnMarcarComoLeido = btnMarcarComoLeido;
+	public void setBtnMarcarComoNoLeido(JButton btnMarcarComoLeido) {
+		this.btnMarcarComoNoLeido = btnMarcarComoLeido;
 	}
 
 	public JTextField getTextFechaHora() {

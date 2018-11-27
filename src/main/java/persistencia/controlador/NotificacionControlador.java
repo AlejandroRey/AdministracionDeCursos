@@ -75,7 +75,7 @@ public class NotificacionControlador implements ActionListener {
 		this.vista.getBtnIrACursadas().addActionListener(this);
 		this.vista.getBtnIrARecados().addActionListener(this);
 		this.vista.getBtnIrATareas().addActionListener(this);
-		this.vista.getBtnMarcarComoLeido().addActionListener(this);
+		this.vista.getBtnMarcarComoNoLeido().addActionListener(this);
 		this.vista.getComboBoxFiltro().addActionListener(this);
 	}
 	
@@ -91,7 +91,7 @@ public class NotificacionControlador implements ActionListener {
 		this.vista.getModelNotificaciones().setColumnIdentifiers(this.vista.getNombreColumnas());
 		clearFields();
 		setBtnNotVisible();
-		this.vista.getBtnMarcarComoLeido().setVisible(false);
+		this.vista.getBtnMarcarComoNoLeido().setVisible(false);
 
 		this.notificaciones = modelo.obtenerNotificaciones();
 		for (NotificacionDTO notificacionDTO : notificaciones) {
@@ -162,10 +162,10 @@ public class NotificacionControlador implements ActionListener {
 						setVisibleBtnIrARecados();
 					else if(tipoNotificacion.toString().equals("2"))
 						setVisibleBtnIrATareas();
-					if(visto.toString().equals("No leído"))
-						this.vista.getBtnMarcarComoLeido().setVisible(true);
+					if(visto.toString().equals("Leído"))
+						this.vista.getBtnMarcarComoNoLeido().setVisible(true);
 					else 
-						this.vista.getBtnMarcarComoLeido().setVisible(false);
+						this.vista.getBtnMarcarComoNoLeido().setVisible(false);
 				}
 			} catch (Exception ex) {
 				System.out.println("Error: " + ex.getMessage());
@@ -273,6 +273,22 @@ public class NotificacionControlador implements ActionListener {
 			llenarTabla();
 	}
 	
+	private void marcarComoNoLeido() {
+		Object idNotificacion = this.vista.getTblNotificaciones().getValueAt(this.vista.getTblNotificaciones().getSelectedRow(), 0);
+		Object idUsuario = this.vista.getTblNotificaciones().getValueAt(this.vista.getTblNotificaciones().getSelectedRow(), 1);
+		Object tipoNotificacion = this.vista.getTblNotificaciones().getValueAt(this.vista.getTblNotificaciones().getSelectedRow(), 2);
+		Object visto = this.vista.getTblNotificaciones().getValueAt(this.vista.getTblNotificaciones().getSelectedRow(), 4);
+			NotificacionDTO notificacion = new NotificacionDTO(Long.parseLong(idNotificacion.toString()), 
+												Long.parseLong(idUsuario.toString()), 
+												Long.parseLong(tipoNotificacion.toString()),
+												this.vista.getTextDetalle().getText(),
+												false,
+												localDateTimeToString(this.vista.getTextFechaHora().getText()));
+			this.modelo.actualizarNotificacion(notificacion);
+			System.out.println(notificacion.toString());
+			llenarTabla();
+	}
+	
 	@SuppressWarnings("serial")
 	public class ListSelectionModelCstm extends DefaultListSelectionModel {
 
@@ -295,10 +311,11 @@ public class NotificacionControlador implements ActionListener {
 		if (e.getSource() == this.vista.getComboBoxFiltro()) {
 			llenarTabla();
 		}
-		else if (e.getSource() == this.vista.getBtnMarcarComoLeido()) {
-				marcarComoLeido();
+		else if (e.getSource() == this.vista.getBtnMarcarComoNoLeido()) {
+				marcarComoNoLeido();
 		}
 		else if (e.getSource() == this.vista.getBtnIrACursadas()) {
+			marcarComoLeido();
 			cursadaABMVistaPrincipal = new CursadaABMVistaPrincipal();
 			cursadaABMVistaPrincipalControlador = new CursadaABMVistaPrincipalControlador(modelo, cursadaABMVistaPrincipal, administracionDeCursosVista, instructorAdministracionVista);
 			administracionDeCursosVista.getMainPanel().removeAll();
@@ -308,6 +325,7 @@ public class NotificacionControlador implements ActionListener {
 			administracionDeCursosVista.getFrame().revalidate();
 		}
 		else if (e.getSource() == this.vista.getBtnIrATareas()) {
+			marcarComoLeido();
 			tareaABMVistaPrincipal = new TareaABMVistaPrincipal();
 			tareaABMVistaPrincipalControlador = new TareaABMVistaPrincipalControlador(modelo, tareaABMVistaPrincipal, administracionDeCursosVista, supervisorAdministracionVista, instructorAdministracionVista);
 			administracionDeCursosVista.getMainPanel().removeAll();
@@ -318,6 +336,7 @@ public class NotificacionControlador implements ActionListener {
 			administracionDeCursosVista.getFrame().revalidate();
 		}
 		else if (e.getSource() == this.vista.getBtnIrARecados()) {
+			marcarComoLeido();
 			recadoABMVistaPrincipal = new RecadoABMVistaPrincipal();
 			recadoABMVistaPrincipalControlador = new RecadoABMVistaPrincipalControlador(modelo, recadoABMVistaPrincipal, administracionDeCursosVista, supervisorAdministracionVista, instructorAdministracionVista);
 			try {
