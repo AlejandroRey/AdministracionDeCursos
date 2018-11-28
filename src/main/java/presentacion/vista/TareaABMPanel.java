@@ -102,6 +102,7 @@ public class TareaABMPanel extends JPanel {
 		this.add(spDetalleContacto);
 		
 		txtDetalleContactoOrigen = new JTextArea();
+		txtDetalleContactoOrigen.setEditable(false);
 		spDetalleContacto.setViewportView(txtDetalleContactoOrigen);
 	}
 

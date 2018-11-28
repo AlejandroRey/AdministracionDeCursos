@@ -76,6 +76,7 @@ public class AlumnoTareaPanel extends JPanel{
 		panel.add(scrollPaneDetalle, BorderLayout.CENTER);
 		
 		textDetalle = new JTextPane();
+		textDetalle.setEditable(false);
 		scrollPaneDetalle.setViewportView(textDetalle);
 	}
  	private void inicializarTablaTareas() {
