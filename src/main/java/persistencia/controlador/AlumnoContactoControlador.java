@@ -141,6 +141,28 @@ import dto.UsuarioDTO;
 			}
 		});
 	}
+ 	
+//	private void mostrarDetalleContacto() {
+//		List<ContactoCompletoDTO> contactos = this.modelo.obtenerContactosCompletos();
+//		contactos
+//		.stream()
+//		.filter(contacto -> contacto.getContacto().getIdTarea() == this.currentTarea.getIdTarea())
+//		.collect(Collectors.toList());
+//		ContactoCompletoDTO contacto = contactos.get(0); 
+//		String detalle = getDetalle(contacto);
+//		this.vista.getTextDetalle().setText(detalle);
+//	}
+
+//	private String getDetalle(ContactoCompletoDTO contacto) {
+//		String administrativo = "Administrativo: " + contacto.getNombreAdministrativo() + " " + contacto.getApellidoAdministrativo();
+//		String alumno = "Alumno: " + contacto.getAlumno().getNombre() + " " + contacto.getAlumno().getApellido();
+//		String fecha = "Fecha del contacto: " + StringToLocalDateFormatter(contacto.getContacto().getFechaCreacion(), "dd/MM/yyyy");
+//		String proximoContacto = "Fecha del proximo contacto: " + StringToLocalDateFormatter(contacto.getContacto().getFechaContactar(), "dd/MM/yyyy");
+//		String descripcion = contacto.getContacto().getDescripcion();
+//		String detalle = fecha + "\n\n" + administrativo + "\n\n" + alumno + "\n\n" + descripcion + "\n\n" + proximoContacto;  
+//		return detalle;
+//	}
+	
  	public void setCurrentContacto(ContactoDTO contacto) {
 		this.currentContacto = null;
 		this.currentContacto = contacto;
