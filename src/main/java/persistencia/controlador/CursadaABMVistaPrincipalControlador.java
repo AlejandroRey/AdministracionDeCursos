@@ -122,7 +122,6 @@ public class CursadaABMVistaPrincipalControlador {
 			}
 		});	
 	}	
-	
 
 	public void inicialiar() {
 		setSeleccionarCursadaVistaInicial();

@@ -33,20 +33,20 @@ public class BaseDeDatosVistaControlador {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					BaseDeDatosVistaControlador window = new BaseDeDatosVistaControlador(accion);
-					window.frame.setVisible(true);
-					window.frame.setLocationRelativeTo(null);
-					window.frame.getContentPane().setLayout(null);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					BaseDeDatosVistaControlador window = new BaseDeDatosVistaControlador(accion);
+//					window.frame.setVisible(true);
+//					window.frame.setLocationRelativeTo(null);
+//					window.frame.getContentPane().setLayout(null);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the application.
@@ -62,12 +62,12 @@ public class BaseDeDatosVistaControlador {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 458, 266);
+		frame.setBounds(100, 100, 429, 248);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		frame.getContentPane().setLayout(null);
 
-		frame.setBounds(new Rectangle(0, 0, 418, 240));
+//		frame.setBounds(new Rectangle(0, 0, 418, 240));
 		jPanel1 = new javax.swing.JPanel();
 		jPanel1.setBounds(0, 0, 418, 211);
 		jLabel1 = new javax.swing.JLabel();
@@ -88,7 +88,7 @@ public class BaseDeDatosVistaControlador {
 		txtdatabase.setText("gestiondecursos");
 		txtpassword = new javax.swing.JTextField();
 		txtpassword.setBounds(125, 59, 160, 26);
-		txtpassword.setText("root");
+		txtpassword.setText("Accenture");
 		btnchoose = new javax.swing.JButton();
 		btnchoose.setBounds(300, 132, 73, 29);
 		btnbackup = new javax.swing.JButton();

@@ -83,9 +83,10 @@ public class AdministracionDeCursosControlador implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		resetVistas();
+//		resetVistas();
 		
 		if (e.getSource() == this.vista.getMenuItemAlumnoVer()) {
+			resetVistas();
 			if (alumnoABM == null) {
 				alumnoABM = new AlumnoABMVistaPrincipal();
 				alumnoABMControlador = new AlumnoABMVistaPrincipalControlador(modelo, alumnoABM, vista);
@@ -95,6 +96,7 @@ public class AdministracionDeCursosControlador implements ActionListener {
 			}
 		}
 		if (e.getSource() == this.vista.getMenuItemContactoVer()) {
+			resetVistas();
 			if (contactoABM == null) {
 				contactoABM = new ContactoVistaPrincipal();
 				contactoABMControlador = new ContactoABMVistaPrincipalControlador(modelo, contactoABM, vista);
@@ -102,6 +104,7 @@ public class AdministracionDeCursosControlador implements ActionListener {
 				this.vista.getMainPanel().add(contactoABM);
 			}	
 		} else if (e.getSource()== this.vista.getMenuItemUsuarioVer()) {
+			resetVistas();
 			if (usuarioABM == null) {
 				usuarioABM = new UsuarionABMVistaPrincipal();
 				usuarioABMControlador = new UsuarioABMVistaPrincipalControlador(modelo, usuarioABM, vista);
@@ -109,6 +112,7 @@ public class AdministracionDeCursosControlador implements ActionListener {
 				this.vista.getMainPanel().add(usuarioABM);
 			}
 		} else if (e.getSource()== this.vista.getMenuItemCursoVer()) {
+			resetVistas();
 			if (cursoABM == null) {
 				cursoABM = new CursoABMVistaPrincipal();
 				cursoABMControlador = new CursoABMVistaPrincipalControlador(modelo , cursoABM, vista);
@@ -116,6 +120,7 @@ public class AdministracionDeCursosControlador implements ActionListener {
 				this.vista.getMainPanel().add(cursoABM);
 			}			
 		} else if (e.getSource()== this.vista.getMenuItemCursadaVer()) {
+			resetVistas();
 			if (cursadaABM == null) {
 				cursadaABM = new CursadaABMVistaPrincipal();
 				cursadaABMControlador = new CursadaABMVistaPrincipalControlador(modelo, cursadaABM, vista, null);
@@ -124,12 +129,14 @@ public class AdministracionDeCursosControlador implements ActionListener {
 				this.vista.getMainPanel().add(cursadaABM);
 			}
 		} else if (e.getSource()== this.vista.getMenuItemTareaVer()) {
+			resetVistas();
 			if (tareaABM == null) {
 				tareaABM = new TareaABMVistaPrincipal();
 				tareaABMControlador = new TareaABMVistaPrincipalControlador(modelo, tareaABM, vista,null,null);
 				this.vista.getMainPanel().add(tareaABM);
 			}
 		} else if (e.getSource()== this.vista.getMenuItemSalaVer()) {
+			resetVistas();
 			if (salaABM == null) {
 				salaABM = new SalaABMVistaPrincipal();
 				salaABMControlador = new SalaABMVistaPrincipalControlador(modelo, salaABM, vista);
@@ -143,7 +150,12 @@ public class AdministracionDeCursosControlador implements ActionListener {
 		    if (respuesta == JOptionPane.YES_OPTION)
 		    {
 		    	this.vista.getFrame().dispose();
+		    } 
+		    
+		    if (respuesta == JOptionPane.CANCEL_OPTION) {
+		    	
 		    }
+		    	
 			}
 		else if (e.getSource()==this.vista.getMenuItemLogin()) {
 			System.out.println("Cambiar de usuario");
@@ -154,19 +166,21 @@ public class AdministracionDeCursosControlador implements ActionListener {
 			controlador.inicializar();
 		}
 		else if (e.getSource()==this.vista.getMenuItemRecadosVer()) {
+			    resetVistas();
 				recadoABM = new RecadoABMVistaPrincipal();
 				recadoABMControlador = new RecadoABMVistaPrincipalControlador(modelo, recadoABM, vista, null, null);
 				
 				this.vista.getMainPanel().add(recadoABM);
 		}
 		else if (e.getSource()==this.vista.getMenuItemNotificacionesVer()) {
-				notificacionABM = new NotificacionABMVistaPrincipal();
-				notificacionABMControlador = new NotificacionABMVistaPrincipalControlador(modelo, notificacionABM, vista, null, null);
-				notificacionPanel = new NotificacionPanel();
-				notificacionPanelControlador = new NotificacionControlador(modelo, notificacionPanel, vista, null, null);
-				notificacionPanelControlador.inicializar();
-				this.vista.getMainPanel().add(notificacionABM);
-				notificacionABM.getMainPanel().add(notificacionPanel);
+			resetVistas();
+			notificacionABM = new NotificacionABMVistaPrincipal();
+			notificacionABMControlador = new NotificacionABMVistaPrincipalControlador(modelo, notificacionABM, vista, null, null);
+			notificacionPanel = new NotificacionPanel();
+			notificacionPanelControlador = new NotificacionControlador(modelo, notificacionPanel, vista, null, null);
+			notificacionPanelControlador.inicializar();
+			this.vista.getMainPanel().add(notificacionABM);
+			notificacionABM.getMainPanel().add(notificacionPanel);
 		}
 		this.vista.getFrame().repaint();		
 	}
@@ -204,5 +218,7 @@ public class AdministracionDeCursosControlador implements ActionListener {
 		this.vista.getMainPanel().removeAll();
 		this.vista.getMainPanel().repaint();
 		this.vista.getFrame().repaint();
+		this.vista.getMainPanel().revalidate();
+
 	}
 }

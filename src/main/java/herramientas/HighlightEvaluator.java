@@ -26,8 +26,9 @@ public class HighlightEvaluator implements IDateEvaluator{
 		getDates().add(date);
 	}
 	
-	public Date createDate(int day,int month, int hour,int minute,int second) {
+	public Date createDate(int day,int month, int year, int hour,int minute,int second) {
         Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.DAY_OF_MONTH, day);
         calendar.set(Calendar.MONTH,month);
         calendar.set(Calendar.HOUR_OF_DAY, hour);

@@ -30,7 +30,7 @@ public class Conexion {
 		try {
 			Class.forName("com.mysql.jdbc.Driver"); // quitar si no es necesario
 			this.connection = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/gestiondecursos?autoReconnect=true&useSSL=false", "root", "root");
+					"jdbc:mysql://localhost:3306/gestiondecursos?autoReconnect=true&useSSL=false", "root", "Accenture");
 			log.info("Conexión exitosa");
 		} catch (Exception e) {
 			log.error("Conexión fallida", e);
@@ -150,7 +150,7 @@ public class Conexion {
 			/* NOTE: Creating Database Constraints */
 			String dbName = "gestiondecursos";
 			String dbUser = "root";
-			String dbPass = "root";
+			String dbPass = "Accenture";
 
 			/* NOTE: Creating Path Constraints for restoring */
 			String restorePath = jarDir + "\\backup" + "\\" + s;

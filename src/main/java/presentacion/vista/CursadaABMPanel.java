@@ -17,6 +17,8 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import dto.CursoDTO;
 import dto.EmpresaDTO;
@@ -31,10 +33,8 @@ public class CursadaABMPanel extends JPanel {
 	private DefaultTableModel modelCursadas;
 	private JTable tblCursadas;
 	private String[] nombreColumnas = {"idCursada", "idEmpresa", "idCurso", "idEstadoCurso", "idAdministrativo","Curso", "Empresa", "Ini Inscrip", "Fin Inscrip", "EstadoCurso", "Vacantes", "Ini Cursada", "DiasDeClase"};
-	
-	private JScrollPane spAsignaciones;
+	private TableRowSorter<TableModel> modeloOrdenado;
 	private DefaultTableModel modelAsignaciones;
-	private JTable tblAsignaciones;
 	private String[] nombreColumnasAsignaciones = {"Nombre", "Tema", "Estado", "Fecha de inicio"};
 	
 	private JPanel panel;	
@@ -83,7 +83,7 @@ public class CursadaABMPanel extends JPanel {
 	private void inicializarTabla() {
 		
 		spCursadas = new JScrollPane();
-		spCursadas.setBounds(10, 11, 681, 364);
+		spCursadas.setBounds(216, 11, 681, 364);
 		this.add(spCursadas);
 		
 		modelCursadas = new DefaultTableModel(null, nombreColumnas);
@@ -101,30 +101,24 @@ public class CursadaABMPanel extends JPanel {
 		//tblusuarios.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);		
 		spCursadas.setViewportView(tblCursadas);
 		
-		spAsignaciones = new JScrollPane();
-		spAsignaciones.setBounds(701, 37, 414, 338);
-		this.add(spAsignaciones);
+		modeloOrdenado = new TableRowSorter<TableModel>(modelCursadas);
+		tblCursadas.setRowSorter(modeloOrdenado);
 		
 		modelAsignaciones = new DefaultTableModel(null, nombreColumnasAsignaciones);
-		tblAsignaciones = new JTable(modelAsignaciones){
-		    @Override
-		       public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
-		           Component component = super.prepareRenderer(renderer, row, column);
-		           int rendererWidth = component.getPreferredSize().width;
-		           TableColumn tableColumn = getColumnModel().getColumn(column);
-		           tableColumn.setPreferredWidth(Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
-		           return component;
-		        }
-		    };
-		tblAsignaciones.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
-		//tblusuarios.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);		
-		spAsignaciones.setViewportView(tblAsignaciones);
+	}
+
+	public TableRowSorter<TableModel> getModeloOrdenado() {
+		return modeloOrdenado;
+	}
+
+	public void setModeloOrdenado(TableRowSorter<TableModel> modeloOrdenado) {
+		this.modeloOrdenado = modeloOrdenado;
 	}
 
 	private void inicializarEditor() {	
 		
 		panel = new JPanel();
-		panel.setBounds(10, 386, 681, 239);
+		panel.setBounds(216, 386, 681, 239);
 		panel.setBorder(new TitledBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Cursada", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), "Cursada:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel.setLayout(null);
 		this.add(panel);
@@ -281,10 +275,6 @@ public class CursadaABMPanel extends JPanel {
 		btnCancelarCursada = new JButton("Cancelar cursada");
 		btnCancelarCursada.setBounds(497, 197, 150, 23);
 		panel.add(btnCancelarCursada);
-		
-		JLabel lblTusAsignaciones = new JLabel("Tus asignaciones");
-		lblTusAsignaciones.setBounds(864, 12, 114, 14);
-		add(lblTusAsignaciones);
 	}
 	
 	private void inicializarBotones() {
@@ -627,13 +617,13 @@ public class CursadaABMPanel extends JPanel {
 		this.textIdIntructor = textIdIntructor;
 	}
 
-	public JScrollPane getSpAsignaciones() {
-		return spAsignaciones;
-	}
-
-	public void setSpAsignaciones(JScrollPane spAsignaciones) {
-		this.spAsignaciones = spAsignaciones;
-	}
+//	public JScrollPane getSpAsignaciones() {
+//		return spAsignaciones;
+//	}
+//
+//	public void setSpAsignaciones(JScrollPane spAsignaciones) {
+//		this.spAsignaciones = spAsignaciones;
+//	}
 
 	public DefaultTableModel getModelAsignaciones() {
 		return modelAsignaciones;
@@ -643,13 +633,13 @@ public class CursadaABMPanel extends JPanel {
 		this.modelAsignaciones = modelAsignaciones;
 	}
 
-	public JTable getTblAsignaciones() {
-		return tblAsignaciones;
-	}
-
-	public void setTblAsignaciones(JTable tblAsignaciones) {
-		this.tblAsignaciones = tblAsignaciones;
-	}
+//	public JTable getTblAsignaciones() {
+//		return tblAsignaciones;
+//	}
+//
+//	public void setTblAsignaciones(JTable tblAsignaciones) {
+//		this.tblAsignaciones = tblAsignaciones;
+//	}
 
 	public String[] getNombreColumnasAsignaciones() {
 		return nombreColumnasAsignaciones;
