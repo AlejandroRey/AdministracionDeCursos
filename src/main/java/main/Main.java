@@ -47,7 +47,7 @@ public class Main {
 	            			JOptionPane.showMessageDialog(null, "Tienes nuevas notificaciones, revisa la sección.", "Alerta!", JOptionPane.INFORMATION_MESSAGE);
 	            		}
 	                    try {
-	                        Thread.sleep(60000);
+	                        Thread.sleep(300000);
 	                    } catch (InterruptedException e) {
 	                        e.printStackTrace();
 	                    }

@@ -25,8 +25,8 @@ public class AlumnoContactoPanel extends JPanel{
 			"Descripcion", "Telefono", "Email", "Fecha de contacto", "horaComtacto", "Próximo contacto", "horaProximoContacto",
 			"apellidoAdministrativo","nombreAdministrativo","estado", "idTarea"};
 	private JPanel panel;
-	private JScrollPane scrollPane;
-	private JTextPane textPane;
+	private JScrollPane scrollPaneDetalle;
+	private JTextPane textDetalle;
 	
 	public AlumnoContactoPanel() {
 		super();
@@ -74,11 +74,11 @@ public class AlumnoContactoPanel extends JPanel{
 		add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 		
-		scrollPane = new JScrollPane();
-		panel.add(scrollPane, BorderLayout.CENTER);
+		scrollPaneDetalle = new JScrollPane();
+		panel.add(scrollPaneDetalle, BorderLayout.CENTER);
 		
-		textPane = new JTextPane();
-		scrollPane.setViewportView(textPane);
+		textDetalle = new JTextPane();
+		scrollPaneDetalle.setViewportView(textDetalle);
 	}
  	/**
 	 * @return the spContactos
@@ -127,5 +127,21 @@ public class AlumnoContactoPanel extends JPanel{
 	 */
 	public void setNombreColumnas(String[] nombreColumnas) {
 		this.nombreColumnas = nombreColumnas;
+	}
+	
+	public JScrollPane getScrollPaneDetalle() {
+		return scrollPaneDetalle;
+	}
+	
+	public void setScrollPaneDetalle(JScrollPane scrollPaneDetalle) {
+		this.scrollPaneDetalle = scrollPaneDetalle;
+	}
+	
+	public JTextPane getTextDetalle() {
+		return textDetalle;
+	}
+	
+	public void setTextDetalle(JTextPane textDetalle) {
+		this.textDetalle = textDetalle;
 	}
 }

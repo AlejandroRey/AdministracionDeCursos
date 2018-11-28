@@ -36,7 +36,8 @@ public class AlumnoTareaPanel extends JPanel{
  	private JComboBox<String> cboxTareas;
 	private JComboBox<String> cboxEstado;
 	private JPanel panel;
-	private JScrollPane scrollPane;
+	private JScrollPane scrollPaneDetalle;
+	private JTextPane textDetalle;
  	
 	public AlumnoTareaPanel() {
 		super();
@@ -71,11 +72,11 @@ public class AlumnoTareaPanel extends JPanel{
 		add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 		
-		scrollPane = new JScrollPane();
-		panel.add(scrollPane, BorderLayout.CENTER);
+		scrollPaneDetalle = new JScrollPane();
+		panel.add(scrollPaneDetalle, BorderLayout.CENTER);
 		
-		JTextPane textPane = new JTextPane();
-		scrollPane.setViewportView(textPane);
+		textDetalle = new JTextPane();
+		scrollPaneDetalle.setViewportView(textDetalle);
 	}
  	private void inicializarTablaTareas() {
 		spTareas = new JScrollPane();
@@ -190,5 +191,13 @@ public class AlumnoTareaPanel extends JPanel{
 	 */
 	public void setCboxEstado(JComboBox<String> cboxEstado) {
 		this.cboxEstado = cboxEstado;
+	}
+	
+	public JTextPane getTextDetalle() {
+		return textDetalle;
+	}
+	
+	public void setTextDetalle(JTextPane textDetalle) {
+		this.textDetalle = textDetalle;
 	}
 }

@@ -60,6 +60,7 @@ public class TareaABMPanel extends JPanel {
 	private JComboBox<String> cboxEstado;
 	private JTextField txtIDAlumno;
 	private JButton btnAsignarALista;
+	private JTextArea txtDetalleContactoOrigen;
 	
 	public TareaABMPanel() {
 		super();
@@ -96,11 +97,11 @@ public class TareaABMPanel extends JPanel {
 	private void inicializarPanelAdministrativos() {
 		spDetalleContacto = new JScrollPane();
 		spDetalleContacto.getViewport().setBackground(UIManager.getColor("Panel.background"));
-		spDetalleContacto.setBounds(758, 27, 396, 302);
+		spDetalleContacto.setBounds(758, 27, 396, 626);
 		spDetalleContacto.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Detalle del Contacto:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		this.add(spDetalleContacto);
 		
-		JTextArea txtDetalleContactoOrigen = new JTextArea();
+		txtDetalleContactoOrigen = new JTextArea();
 		spDetalleContacto.setViewportView(txtDetalleContactoOrigen);
 	}
 
@@ -515,4 +516,13 @@ public class TareaABMPanel extends JPanel {
 	public void setBtnAsignarALista(JButton btnAsignarALista) {
 		this.btnAsignarALista = btnAsignarALista;
 	}
+	
+	public JTextArea getTxtDetalleContactoOrigen() {
+		return txtDetalleContactoOrigen;
+	}
+
+	public void setTxtDetalleContactoOrigen(JTextArea txtDetalleContactoOrigen) {
+		this.txtDetalleContactoOrigen = txtDetalleContactoOrigen;
+	}
+
 }
