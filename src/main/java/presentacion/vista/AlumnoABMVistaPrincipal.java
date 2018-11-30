@@ -103,7 +103,7 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		panelHistorial.add(btnHomeII);
 		
 		lblHomeII = new JLabel("");
-		lblHomeII.setIcon(new ImageIcon("imagenes/home.png"));
+		lblHomeII.setIcon(new ImageIcon(AlumnoABMVistaPrincipal.class.getResource("/presentacion/imagenes/home.png")));
 		lblHomeII.setBounds(78, 7, 48, 48);
 		btnHomeII.add(lblHomeII);		
 		
@@ -134,7 +134,7 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		panelBtnHistorialAlumno.add(btnNotas);
 		
 		lblTitleBtn5 = new JLabel("New label");
-		lblTitleBtn5.setIcon(new ImageIcon("imagenes/history_32.png"));
+		lblTitleBtn5.setIcon(new ImageIcon(AlumnoABMVistaPrincipal.class.getResource("/presentacion/imagenes/history_32.png")));
 		lblTitleBtn5.setBounds(10, 11, 32, 32);
 		btnNotas.add(lblTitleBtn5);
 		
@@ -153,7 +153,7 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		panelBtnHistorialAlumno.add(btnAsistencias);
 		
 		lblTitleBtn6 = new JLabel("New label");
-		lblTitleBtn6.setIcon(new ImageIcon("imagenes/history_32.png"));
+		lblTitleBtn6.setIcon(new ImageIcon(AlumnoABMVistaPrincipal.class.getResource("/presentacion/imagenes/history_32.png")));
 		lblTitleBtn6.setBounds(10, 11, 32, 32);
 		btnAsistencias.add(lblTitleBtn6);
 		
@@ -172,7 +172,7 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		panelBtnHistorialAlumno.add(btnPagos);
 		
 		lblTitleBtn7 = new JLabel("New label");
-		lblTitleBtn7.setIcon(new ImageIcon("imagenes/history_32.png"));
+		lblTitleBtn7.setIcon(new ImageIcon(AlumnoABMVistaPrincipal.class.getResource("/presentacion/imagenes/history_32.png")));
 		lblTitleBtn7.setBounds(10, 11, 32, 32);
 		btnPagos.add(lblTitleBtn7);
 		
@@ -191,7 +191,7 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		panelBtnHistorialAlumno.add(btnContactos);
 		
 		lblTitleBtn8 = new JLabel("New label");
-		lblTitleBtn8.setIcon(new ImageIcon("imagenes/history_32.png"));
+		lblTitleBtn8.setIcon(new ImageIcon(AlumnoABMVistaPrincipal.class.getResource("/presentacion/imagenes/history_32.png")));
 		lblTitleBtn8.setBounds(10, 11, 32, 32);
 		btnContactos.add(lblTitleBtn8);
 		
@@ -210,7 +210,7 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		panelBtnHistorialAlumno.add(btnTareas);
 		
 		lblTitleBtn9 = new JLabel("New label");
-		lblTitleBtn9.setIcon(new ImageIcon("imagenes/history_32.png"));
+		lblTitleBtn9.setIcon(new ImageIcon(AlumnoABMVistaPrincipal.class.getResource("/presentacion/imagenes/history_32.png")));
 		lblTitleBtn9.setBounds(10, 11, 32, 32);
 		btnTareas.add(lblTitleBtn9);
 		
@@ -246,7 +246,7 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		lblHomeI = new JLabel("");
 		lblHomeI.setBounds(78, 7, 48, 48);
 		btnHomeI.add(lblHomeI);
-		lblHomeI.setIcon(new ImageIcon("imagenes/home.png"));
+		lblHomeI.setIcon(new ImageIcon(AlumnoABMVistaPrincipal.class.getResource("/presentacion/imagenes/home.png")));
 
 		lblTitulo = new JLabel("Alumno");
 		lblTitulo.setForeground(Color.WHITE);
@@ -255,7 +255,7 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		panelAbm.add(lblTitulo);
 
 		lblIconoPrincipal = new JLabel("New label");
-		lblIconoPrincipal.setIcon(new ImageIcon("imagenes/alumno.png"));
+		lblIconoPrincipal.setIcon(new ImageIcon(AlumnoABMVistaPrincipal.class.getResource("/presentacion/imagenes/alumno.png")));
 		lblIconoPrincipal.setBounds(50, 111, 100, 100);
 		panelAbm.add(lblIconoPrincipal);
 		
@@ -286,7 +286,7 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		btnVer.setLayout(null);
 
 		lblIconBtn1 = new JLabel("New label");
-		lblIconBtn1.setIcon(new ImageIcon("imagenes/read.png"));
+		lblIconBtn1.setIcon(new ImageIcon(AlumnoABMVistaPrincipal.class.getResource("/presentacion/imagenes/read.png")));
 		lblIconBtn1.setBounds(10, 11, 32, 32);
 		btnVer.add(lblIconBtn1);
 
@@ -309,7 +309,7 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		btnAgregar.setLayout(null);
 
 		lblIconBtn2 = new JLabel("New label");
-		lblIconBtn2.setIcon(new ImageIcon("imagenes/create.png"));
+		lblIconBtn2.setIcon(new ImageIcon(AlumnoABMVistaPrincipal.class.getResource("/presentacion/imagenes/create.png")));
 		lblIconBtn2.setBounds(10, 11, 32, 32);
 		btnAgregar.add(lblIconBtn2);
 
@@ -332,7 +332,7 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		btnActualizar.setLayout(null);
 
 		lblIconBtn3 = new JLabel("New label");
-		lblIconBtn3.setIcon(new ImageIcon("imagenes/update.png"));
+		lblIconBtn3.setIcon(new ImageIcon(AlumnoABMVistaPrincipal.class.getResource("/presentacion/imagenes/update.png")));
 		lblIconBtn3.setBounds(10, 11, 32, 32);
 		btnActualizar.add(lblIconBtn3);
 
@@ -355,7 +355,7 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		btnEliminar.setLayout(null);
 
 		lblIconBtn4 = new JLabel("New label");
-		lblIconBtn4.setIcon(new ImageIcon("imagenes/delete.png"));
+		lblIconBtn4.setIcon(new ImageIcon(AlumnoABMVistaPrincipal.class.getResource("/presentacion/imagenes/delete.png")));
 		lblIconBtn4.setBounds(10, 11, 32, 32);
 		btnEliminar.add(lblIconBtn4);
 

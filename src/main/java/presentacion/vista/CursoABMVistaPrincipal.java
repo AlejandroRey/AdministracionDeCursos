@@ -86,7 +86,7 @@ public class CursoABMVistaPrincipal extends JPanel {
 		btnSeleccionar.setLayout(null);
 		
 		lblIconBtn1 = new JLabel("New label");
-		lblIconBtn1.setIcon(new ImageIcon("imagenes/read.png"));
+		lblIconBtn1.setIcon(new ImageIcon(CursoABMVistaPrincipal.class.getResource("/presentacion/imagenes/read.png")));
 		lblIconBtn1.setBounds(10, 11, 32, 32);
 		btnSeleccionar.add(lblIconBtn1);
 		
@@ -109,7 +109,7 @@ public class CursoABMVistaPrincipal extends JPanel {
 		btnAgregar.setLayout(null);
 		
 		lblIconBtn2 = new JLabel("New label");
-		lblIconBtn2.setIcon(new ImageIcon("imagenes/create.png"));
+		lblIconBtn2.setIcon(new ImageIcon(CursoABMVistaPrincipal.class.getResource("/presentacion/imagenes/create.png")));
 		lblIconBtn2.setBounds(10, 11, 32, 32);
 		btnAgregar.add(lblIconBtn2);
 
@@ -132,7 +132,7 @@ public class CursoABMVistaPrincipal extends JPanel {
 		btnActualizar.setLayout(null);
 		
 		lblIconBtn3 = new JLabel("New label");
-		lblIconBtn3.setIcon(new ImageIcon("imagenes/update.png"));
+		lblIconBtn3.setIcon(new ImageIcon(CursoABMVistaPrincipal.class.getResource("/presentacion/imagenes/update.png")));
 		lblIconBtn3.setBounds(10, 11, 32, 32);
 		btnActualizar.add(lblIconBtn3);
 		
@@ -155,7 +155,7 @@ public class CursoABMVistaPrincipal extends JPanel {
 		btnEliminar.setLayout(null);
 		
 		lblIconBtn4 = new JLabel("New label");
-		lblIconBtn4.setIcon(new ImageIcon("imagenes/delete.png"));
+		lblIconBtn4.setIcon(new ImageIcon(CursoABMVistaPrincipal.class.getResource("/presentacion/imagenes/delete.png")));
 		lblIconBtn4.setBounds(10, 11, 32, 32);
 		btnEliminar.add(lblIconBtn4);
 		
@@ -167,7 +167,7 @@ public class CursoABMVistaPrincipal extends JPanel {
 		btnEliminar.add(lblTitleBtn4);
 		
 		lblHome = new JLabel("New label");
-		lblHome.setIcon(new ImageIcon("imagenes/home.png"));
+		lblHome.setIcon(new ImageIcon(CursoABMVistaPrincipal.class.getResource("/presentacion/imagenes/home.png")));
 		lblHome.setBounds(82, 5, 48, 48);
 		lblHome.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lblHome.setLayout(null);
@@ -180,7 +180,7 @@ public class CursoABMVistaPrincipal extends JPanel {
 		buttonPanel.add(lblCurso);
 		
 		lblIconoPrincipal = new JLabel("New label");
-		lblIconoPrincipal.setIcon(new ImageIcon("imagenes/curso.png"));
+		lblIconoPrincipal.setIcon(new ImageIcon(CursoABMVistaPrincipal.class.getResource("/presentacion/imagenes/curso.png")));
 		lblIconoPrincipal.setBounds(49, 94, 100, 100);
 		buttonPanel.add(lblIconoPrincipal);
 	}

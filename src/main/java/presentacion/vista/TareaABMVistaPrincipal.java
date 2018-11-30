@@ -78,7 +78,7 @@ public class TareaABMVistaPrincipal extends JPanel {
 		btnAgregar.setLayout(null);
 		
 		lblIconBtn2 = new JLabel("");
-		lblIconBtn2.setIcon(new ImageIcon("imagenes/create.png"));
+		lblIconBtn2.setIcon(new ImageIcon(TareaABMVistaPrincipal.class.getResource("/presentacion/imagenes/create.png")));
 		lblIconBtn2.setBounds(10, 11, 32, 32);
 		btnAgregar.add(lblIconBtn2);
 
@@ -101,7 +101,7 @@ public class TareaABMVistaPrincipal extends JPanel {
 		btnActualizar.setLayout(null);
 		
 		lblIconBtn3 = new JLabel("");
-		lblIconBtn3.setIcon(new ImageIcon("imagenes/update.png"));
+		lblIconBtn3.setIcon(new ImageIcon(TareaABMVistaPrincipal.class.getResource("/presentacion/imagenes/update.png")));
 		lblIconBtn3.setBounds(10, 11, 32, 32);
 		btnActualizar.add(lblIconBtn3);
 		
@@ -124,7 +124,7 @@ public class TareaABMVistaPrincipal extends JPanel {
 		btnEliminar.setLayout(null);
 		
 		lblIconBtn4 = new JLabel("");
-		lblIconBtn4.setIcon(new ImageIcon("imagenes/delete.png"));
+		lblIconBtn4.setIcon(new ImageIcon(TareaABMVistaPrincipal.class.getResource("/presentacion/imagenes/delete.png")));
 		lblIconBtn4.setBounds(10, 11, 32, 32);
 		btnEliminar.add(lblIconBtn4);
 		
@@ -136,7 +136,7 @@ public class TareaABMVistaPrincipal extends JPanel {
 		btnEliminar.add(lblTitleBtn4);
 		
 		lblHome = new JLabel("");
-		lblHome.setIcon(new ImageIcon("imagenes/home.png"));
+		lblHome.setIcon(new ImageIcon(TareaABMVistaPrincipal.class.getResource("/presentacion/imagenes/home.png")));
 		lblHome.setBounds(82, 5, 48, 48);
 		lblHome.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lblHome.setLayout(null);
@@ -149,7 +149,7 @@ public class TareaABMVistaPrincipal extends JPanel {
 		buttonPanel.add(lblCurso);
 		
 		lblIconoPrincipal = new JLabel("");
-		lblIconoPrincipal.setIcon(new ImageIcon("imagenes/curso.png"));
+		lblIconoPrincipal.setIcon(new ImageIcon(TareaABMVistaPrincipal.class.getResource("/presentacion/imagenes/curso.png")));
 		lblIconoPrincipal.setBounds(49, 94, 100, 100);
 		buttonPanel.add(lblIconoPrincipal);
 	}

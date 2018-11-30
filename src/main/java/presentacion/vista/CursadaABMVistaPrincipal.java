@@ -100,7 +100,7 @@ public class CursadaABMVistaPrincipal extends JPanel {
 		btnSeleccionar.setLayout(null);
 		
 		lblIconBtn1 = new JLabel("New label");
-		lblIconBtn1.setIcon(new ImageIcon("imagenes/read.png"));
+		lblIconBtn1.setIcon(new ImageIcon(CursadaABMVistaPrincipal.class.getResource("/presentacion/imagenes/read.png")));
 		lblIconBtn1.setBounds(10, 11, 32, 32);
 		btnSeleccionar.add(lblIconBtn1);
 		
@@ -120,7 +120,7 @@ public class CursadaABMVistaPrincipal extends JPanel {
 		btnAgregar.setLayout(null);
 		
 		lblIconBtn2 = new JLabel("New label");
-		lblIconBtn2.setIcon(new ImageIcon("imagenes/create.png"));
+		lblIconBtn2.setIcon(new ImageIcon(CursadaABMVistaPrincipal.class.getResource("/presentacion/imagenes/create.png")));
 		lblIconBtn2.setBounds(10, 11, 32, 32);
 		btnAgregar.add(lblIconBtn2);
 		
@@ -140,7 +140,7 @@ public class CursadaABMVistaPrincipal extends JPanel {
 		btnActualizar.setLayout(null);
 		
 		lblIconBtn3 = new JLabel("New label");
-		lblIconBtn3.setIcon(new ImageIcon("imagenes/update.png"));
+		lblIconBtn3.setIcon(new ImageIcon(CursadaABMVistaPrincipal.class.getResource("/presentacion/imagenes/update.png")));
 		lblIconBtn3.setBounds(10, 11, 32, 32);
 		btnActualizar.add(lblIconBtn3);
 		
@@ -160,7 +160,7 @@ public class CursadaABMVistaPrincipal extends JPanel {
 		btnEliminar.setLayout(null);
 		
 		lblIconBtn4 = new JLabel("New label");
-		lblIconBtn4.setIcon(new ImageIcon("imagenes/delete.png"));
+		lblIconBtn4.setIcon(new ImageIcon(CursadaABMVistaPrincipal.class.getResource("/presentacion/imagenes/delete.png")));
 		lblIconBtn4.setBounds(10, 11, 32, 32);
 		btnEliminar.add(lblIconBtn4);
 		
@@ -178,7 +178,7 @@ public class CursadaABMVistaPrincipal extends JPanel {
 		buttonPanel.add(lblCursada);
 		
 		lblIconoPrincipal = new JLabel("New label");
-		lblIconoPrincipal.setIcon(new ImageIcon("imagenes/cursada.png"));
+		lblIconoPrincipal.setIcon(new ImageIcon(CursadaABMVistaPrincipal.class.getResource("/presentacion/imagenes/cursada.png")));
 		lblIconoPrincipal.setBounds(49, 94, 100, 100);
 		buttonPanel.add(lblIconoPrincipal);		
 		
@@ -190,7 +190,7 @@ public class CursadaABMVistaPrincipal extends JPanel {
 		btnHome.setLayout(null);		
 		
 		lblHome = new JLabel("New label");
-		lblHome.setIcon(new ImageIcon("imagenes/home.png"));
+		lblHome.setIcon(new ImageIcon(CursadaABMVistaPrincipal.class.getResource("/presentacion/imagenes/home.png")));
 		lblHome.setBounds(82, 5, 48, 48);
 		btnHome.add(lblHome);
 	}
@@ -211,7 +211,7 @@ public class CursadaABMVistaPrincipal extends JPanel {
 		btnCalendario.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
 		lblIconBtn5 = new JLabel("New label");
-		lblIconBtn5.setIcon(new ImageIcon("imagenes/update.png"));
+		lblIconBtn5.setIcon(new ImageIcon(CursadaABMVistaPrincipal.class.getResource("/presentacion/imagenes/update.png")));
 		lblIconBtn5.setBounds(10, 11, 32, 32);
 		btnCalendario.add(lblIconBtn5);
 		
@@ -230,7 +230,7 @@ public class CursadaABMVistaPrincipal extends JPanel {
 		btnInscriptos.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
 		lblIconBtn6 = new JLabel("New label");
-		lblIconBtn6.setIcon(new ImageIcon("imagenes/update.png"));
+		lblIconBtn6.setIcon(new ImageIcon(CursadaABMVistaPrincipal.class.getResource("/presentacion/imagenes/update.png")));
 		lblIconBtn6.setBounds(10, 11, 32, 32);
 		btnInscriptos.add(lblIconBtn6);
 		
@@ -249,7 +249,7 @@ public class CursadaABMVistaPrincipal extends JPanel {
 		btnPagos.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
 		lblIconBtn7 = new JLabel("New label");
-		lblIconBtn7.setIcon(new ImageIcon("imagenes/update.png"));
+		lblIconBtn7.setIcon(new ImageIcon(CursadaABMVistaPrincipal.class.getResource("/presentacion/imagenes/update.png")));
 		lblIconBtn7.setBounds(10, 11, 32, 32);
 		btnPagos.add(lblIconBtn7);
 		
@@ -268,7 +268,7 @@ public class CursadaABMVistaPrincipal extends JPanel {
 		btnAsistencias.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
 		lblIconBtn8 = new JLabel("New label");
-		lblIconBtn8.setIcon(new ImageIcon("imagenes/update.png"));
+		lblIconBtn8.setIcon(new ImageIcon(CursadaABMVistaPrincipal.class.getResource("/presentacion/imagenes/update.png")));
 		lblIconBtn8.setBounds(10, 11, 32, 32);
 		btnAsistencias.add(lblIconBtn8);
 		
@@ -287,7 +287,7 @@ public class CursadaABMVistaPrincipal extends JPanel {
 		btnEvaluaciones.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
 		lblIconBtn9 = new JLabel("New label");
-		lblIconBtn9.setIcon(new ImageIcon("imagenes/update.png"));
+		lblIconBtn9.setIcon(new ImageIcon(CursadaABMVistaPrincipal.class.getResource("/presentacion/imagenes/update.png")));
 		lblIconBtn9.setBounds(10, 11, 32, 32);
 		btnEvaluaciones.add(lblIconBtn9);
 		
@@ -321,7 +321,7 @@ public class CursadaABMVistaPrincipal extends JPanel {
 		btnHomeII.setLayout(null);
 		
 		lblHomeII = new JLabel("New label");
-		lblHomeII.setIcon(new ImageIcon("imagenes/home.png"));
+		lblHomeII.setIcon(new ImageIcon(CursadaABMVistaPrincipal.class.getResource("/presentacion/imagenes/home.png")));
 		lblHomeII.setBounds(82, 5, 48, 48);
 		btnHomeII.add(lblHomeII);
 	}

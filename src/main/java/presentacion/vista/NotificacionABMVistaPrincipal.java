@@ -60,7 +60,7 @@ public class NotificacionABMVistaPrincipal extends JPanel {
 	private void buildButtonEliminados() {
 		
 		lblHome = new JLabel("New label");
-		lblHome.setIcon(new ImageIcon("imagenes/home.png"));
+		lblHome.setIcon(new ImageIcon(NotificacionABMVistaPrincipal.class.getResource("/presentacion/imagenes/home.png")));
 		lblHome.setBounds(74, 16, 48, 48);
 		lblHome.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lblHome.setLayout(null);
@@ -75,7 +75,7 @@ public class NotificacionABMVistaPrincipal extends JPanel {
 		
 		lblIconoPrincipal = new JLabel("New label");
 		lblIconoPrincipal.setHorizontalAlignment(SwingConstants.CENTER);
-		lblIconoPrincipal.setIcon(new ImageIcon("imagenes/notificacion.png"));
+		lblIconoPrincipal.setIcon(new ImageIcon(NotificacionABMVistaPrincipal.class.getResource("/presentacion/imagenes/notificacion.png")));
 		lblIconoPrincipal.setBounds(38, 88, 125, 100);
 		buttonPanel.add(lblIconoPrincipal);
 	}

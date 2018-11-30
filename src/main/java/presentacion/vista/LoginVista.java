@@ -41,7 +41,7 @@ public class LoginVista {
 		lblCompletaTusDatos = new JLabel("Completa tus datos para comenzar");
 		lblCompletaTusDatos.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCompletaTusDatos.setAlignmentX(Component.CENTER_ALIGNMENT);
-		lblCompletaTusDatos.setIcon(new ImageIcon("imagenes/login.png"));
+		lblCompletaTusDatos.setIcon(new ImageIcon(LoginVista.class.getResource("/presentacion/imagenes/login.png")));
 		lblCompletaTusDatos.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblCompletaTusDatos.setBounds(51, 11, 378, 84);
 		loginFrame.getContentPane().add(lblCompletaTusDatos);

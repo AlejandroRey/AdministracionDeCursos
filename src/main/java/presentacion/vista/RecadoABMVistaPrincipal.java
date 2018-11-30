@@ -86,7 +86,7 @@ public class RecadoABMVistaPrincipal extends JPanel {
 		btnEnviados.setLayout(null);
 		
 		lblIconBtn2 = new JLabel("New label");
-		lblIconBtn2.setIcon(new ImageIcon("imagenes/read.png"));
+		lblIconBtn2.setIcon(new ImageIcon(RecadoABMVistaPrincipal.class.getResource("/presentacion/imagenes/read.png")));
 		lblIconBtn2.setBounds(10, 11, 32, 32);
 		btnEnviados.add(lblIconBtn2);
 
@@ -109,7 +109,7 @@ public class RecadoABMVistaPrincipal extends JPanel {
 		btnNuevo.setLayout(null);
 		
 		lblIconBtn3 = new JLabel("New label");
-		lblIconBtn3.setIcon(new ImageIcon("imagenes/create.png"));
+		lblIconBtn3.setIcon(new ImageIcon(RecadoABMVistaPrincipal.class.getResource("/presentacion/imagenes/create.png")));
 		lblIconBtn3.setBounds(10, 11, 32, 32);
 		btnNuevo.add(lblIconBtn3);
 		
@@ -132,7 +132,7 @@ public class RecadoABMVistaPrincipal extends JPanel {
 		btnEliminados.setLayout(null);
 		
 		lblIconBtn4 = new JLabel("New label");
-		lblIconBtn4.setIcon(new ImageIcon("imagenes/delete.png"));
+		lblIconBtn4.setIcon(new ImageIcon(RecadoABMVistaPrincipal.class.getResource("/presentacion/imagenes/delete.png")));
 		lblIconBtn4.setBounds(10, 11, 32, 32);
 		btnEliminados.add(lblIconBtn4);
 		
@@ -144,7 +144,7 @@ public class RecadoABMVistaPrincipal extends JPanel {
 		btnEliminados.add(lblTitleBtn4);
 		
 		lblHome = new JLabel("New label");
-		lblHome.setIcon(new ImageIcon("imagenes/home.png"));
+		lblHome.setIcon(new ImageIcon(RecadoABMVistaPrincipal.class.getResource("/presentacion/imagenes/home.png")));
 		lblHome.setBounds(74, 16, 48, 48);
 		lblHome.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lblHome.setLayout(null);
@@ -159,7 +159,7 @@ public class RecadoABMVistaPrincipal extends JPanel {
 		
 		lblIconoPrincipal = new JLabel("New label");
 		lblIconoPrincipal.setHorizontalAlignment(SwingConstants.CENTER);
-		lblIconoPrincipal.setIcon(new ImageIcon("imagenes/recado2.png"));
+		lblIconoPrincipal.setIcon(new ImageIcon(RecadoABMVistaPrincipal.class.getResource("/presentacion/imagenes/recado2.png")));
 		lblIconoPrincipal.setBounds(49, 88, 125, 100);
 		buttonPanel.add(lblIconoPrincipal);
 		
@@ -172,7 +172,7 @@ public class RecadoABMVistaPrincipal extends JPanel {
 		btnRecibidos.setLayout(null);
 		
 		lblIconBtn1 = new JLabel("New label");
-		lblIconBtn1.setIcon(new ImageIcon("imagenes/read.png"));
+		lblIconBtn1.setIcon(new ImageIcon(RecadoABMVistaPrincipal.class.getResource("/presentacion/imagenes/read.png")));
 		lblIconBtn1.setBounds(10, 11, 32, 32);
 		btnRecibidos.add(lblIconBtn1);
 		
