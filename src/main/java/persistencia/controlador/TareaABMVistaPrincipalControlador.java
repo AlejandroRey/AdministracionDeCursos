@@ -71,33 +71,21 @@ public class TareaABMVistaPrincipalControlador {
 	}
 	
 	private void btnHome_MousePressed(MouseEvent evt) {
-		if(this.modelo.getUsuarioLogueado().getIdCategoria()==1) {
-			this.supervisorAdministracionVista.getFrame().dispose();
-			supervisorVista = new SupervisorVista();
-			supervisorVistaControlador = new SupervisorVistaControlador(supervisorVista, modelo);
-			supervisorVistaControlador.inicializar();
-		}
-		else {
+		if(this.administracionVista != null) {
 			this.administracionVista.getFrame().dispose();
 			administrativoVista = new AdministrativoVista();
 			administrativoVistaControlador = new AdministrativoVistaControlador(administrativoVista, modelo);
 			administrativoVistaControlador.inicializar();
-			if(this.administracionVista != null) {
-				this.administracionVista.getFrame().dispose();
-				administrativoVista = new AdministrativoVista();
-				administrativoVistaControlador = new AdministrativoVistaControlador(administrativoVista, modelo);
-				administrativoVistaControlador.inicializar();
-			} else if (this.supervisorAdministracionVista != null) {
-				this.supervisorAdministracionVista.getFrame().dispose();
-				supervisorVista = new SupervisorVista();
-				supervisorVistaControlador = new SupervisorVistaControlador(supervisorVista, modelo);
-				supervisorVistaControlador.inicializar();
-			} else if (this.instructorAdministracionVista != null) {
-				this.instructorAdministracionVista.getFrame().dispose();
-				instructorVista = new InstructorVista();
-				instructorVistaControlador = new InstructorVistaControlador(instructorVista, modelo);
-				instructorVistaControlador.inicializar();
-			}
+		} else if (this.supervisorAdministracionVista != null) {
+			this.supervisorAdministracionVista.getFrame().dispose();
+			supervisorVista = new SupervisorVista();
+			supervisorVistaControlador = new SupervisorVistaControlador(supervisorVista, modelo);
+			supervisorVistaControlador.inicializar();
+		} else if (this.instructorAdministracionVista != null) {
+			this.instructorAdministracionVista.getFrame().dispose();
+			instructorVista = new InstructorVista();
+			instructorVistaControlador = new InstructorVistaControlador(instructorVista, modelo);
+			instructorVistaControlador.inicializar();
 		}
 	}
 

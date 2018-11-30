@@ -15,7 +15,7 @@ import presentacion.vista.LoginVista;
 public class Main {
 	public static void main(String[] args) {
 		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());//"com.jtattoo.plaf.smart.SmartLookAndFeel"
+			UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (InstantiationException e) {
