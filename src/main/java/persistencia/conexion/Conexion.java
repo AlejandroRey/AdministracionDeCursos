@@ -28,8 +28,8 @@ public class Conexion {
 
 	private Conexion() {
 		try {
-			Class.forName("com.mysql.jdbc.Driver"); // quitar si no es necesario
-			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formar_grupo5?autoReconnect=true&useSSL=false", "root", "root");
+			Class.forName("com.mysql.jdbc.Driver"); // quitar si no es necesario?autoReconnect=true&useSSL=false
+			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/formar_grupo5", "root", "root");
 			log.info("Conexión exitosa");
 		} catch (Exception e) {
 			log.error("Conexión fallida", e);

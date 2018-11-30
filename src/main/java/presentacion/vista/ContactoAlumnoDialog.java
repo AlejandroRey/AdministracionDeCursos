@@ -41,13 +41,6 @@ public class ContactoAlumnoDialog extends JDialog {
 	public void showDialog() {
 		this.setVisible(true);
 	}
-	
-	public static void main(String args[]) {
-		System.out.println("Hola");
-		ContactoAlumnoDialog dialog = new ContactoAlumnoDialog();
-		dialog.showDialog();
-		
-	}
 
 	/**
 	 * @return the contactoAlumnoPanel

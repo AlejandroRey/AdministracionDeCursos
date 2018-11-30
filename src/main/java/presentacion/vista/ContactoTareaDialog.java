@@ -43,14 +43,5 @@ public class ContactoTareaDialog extends JDialog {
 		this.getContentPane().add(this.contactoTareaPanel, BorderLayout.CENTER);
 	}
 	
-	public static void main (String[] args) {
-		AdministracionDeCursos modelo = new AdministracionDeCursos(new DAOSQLFactory());
-		ContactoABMPanel panel = new ContactoABMPanel();
-		ContactoTareaDialog dialog = new ContactoTareaDialog();
-		dialog.setContactoTareaPanel(panel);
-		dialog.setSize(1100, 700);
-		dialog.showDialog();
-//		ContactoTareaControlador crt = new ContactoTareaControlador(dialog, modelo);
-//		crt.inicializar();
-	}
+
 }
