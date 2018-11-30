@@ -46,7 +46,7 @@ public class NotificacionPanel extends JPanel {
 	 */
 	public NotificacionPanel() {
 		super();
-		this.setBounds(0, 0, 510, 528);
+		this.setBounds(0, 0, 1025, 528);
 		this.setLayout(null);
 		inicializar();
 	}
@@ -61,7 +61,7 @@ public class NotificacionPanel extends JPanel {
 	private void inicializarTabla() {
 		
 		spNotificaciones = new JScrollPane();
-		spNotificaciones.setBounds(4, 45, 500, 310);
+		spNotificaciones.setBounds(49, 45, 927, 310);
 		this.add(spNotificaciones);
 		
 		modelNotificaciones = new DefaultTableModel(null, nombreColumnas);
@@ -86,37 +86,37 @@ public class NotificacionPanel extends JPanel {
 	private void inicializarEditor() {		
 		panel = new JPanel();
 		panel.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(153, 180, 209)), "Detalles:", TitledBorder.LEADING, TitledBorder.TOP, null, UIManager.getColor("textText")));
-		panel.setBounds(4, 366, 500, 151);
+		panel.setBounds(49, 366, 927, 151);
 		this.add(panel);
 		panel.setLayout(null);
 		
 		btnIrARecados = new JButton("Ir a Recados");
-		btnIrARecados.setBounds(222, 114, 107, 23);
+		btnIrARecados.setBounds(638, 114, 107, 23);
 		panel.add(btnIrARecados);
 		
 		btnIrATareas = new JButton("Ir a Tareas");
-		btnIrATareas.setBounds(221, 114, 107, 23);
+		btnIrATareas.setBounds(638, 114, 107, 23);
 		panel.add(btnIrATareas);
 		
 		btnIrACursadas = new JButton("Ir a Cursadas");
-		btnIrACursadas.setBounds(221, 114, 107, 23);
+		btnIrACursadas.setBounds(638, 114, 107, 23);
 		panel.add(btnIrACursadas);
 		
 		btnMarcarComoNoLeido = new JButton("Marcar como no leido");
-		btnMarcarComoNoLeido.setBounds(349, 114, 141, 23);
+		btnMarcarComoNoLeido.setBounds(772, 114, 141, 23);
 		panel.add(btnMarcarComoNoLeido);
 		
 		textFechaHora = new JTextField();
-		textFechaHora.setBounds(96, 115, 107, 20);
+		textFechaHora.setBounds(111, 120, 107, 20);
 		panel.add(textFechaHora);
 		textFechaHora.setColumns(10);
 		
 		JLabel lblFechaYHora = new JLabel("Fecha y hora");
-		lblFechaYHora.setBounds(10, 118, 81, 14);
+		lblFechaYHora.setBounds(20, 123, 81, 14);
 		panel.add(lblFechaYHora);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 21, 480, 82);
+		scrollPane.setBounds(10, 21, 903, 82);
 		panel.add(scrollPane);
 		
 		textDetalle = new JTextArea();
@@ -125,15 +125,15 @@ public class NotificacionPanel extends JPanel {
 		JSeparator separator = new JSeparator();
 		separator.setForeground(SystemColor.activeCaption);
 		separator.setBackground(SystemColor.activeCaption);
-		separator.setBounds(14, 365, 490, 1);
+		separator.setBounds(49, 364, 927, 2);
 		this.add(separator);
 		
 		comboBoxFiltro = new JComboBox<>();
-		comboBoxFiltro.setBounds(74, 14, 119, 20);
+		comboBoxFiltro.setBounds(115, 14, 119, 20);
 		add(comboBoxFiltro);
 		
 		lblFiltrar = new JLabel("Filtrar:");
-		lblFiltrar.setBounds(10, 17, 54, 14);
+		lblFiltrar.setBounds(51, 20, 54, 14);
 		add(lblFiltrar);
 	}
 

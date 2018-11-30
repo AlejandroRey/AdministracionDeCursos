@@ -2,6 +2,7 @@ package persistencia.controlador;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
@@ -156,8 +157,8 @@ public class AlumnoABMVistaPrincipalControlador {
 			alumnoABMControlador = new AlumnoABMControlador(alumnoABM, this, modelo);
 			alumnoABMControlador.inicializar();
 			alumnoABMControlador.setVisibleBtnSeleccionar();
-
 			this.vista.getMainPanel().add(alumnoABM);
+			setBounds(alumnoABM,258,100);
 		} else {
 			alumnoABMControlador.setVisibleBtnSeleccionar();
 			alumnoABMControlador.inicializar();
@@ -166,8 +167,6 @@ public class AlumnoABMVistaPrincipalControlador {
 		this.vista.getMainPanel().revalidate();
 		this.vista.getMainPanel().repaint();
 	}
-	
-	
 
 	private void btnAgregar_MousePressed(MouseEvent evt) {
 		setColor(this.vista.getBtnAgregar());
@@ -201,7 +200,7 @@ public class AlumnoABMVistaPrincipalControlador {
 		} else {
 			alumnoABMControlador.setVisibleBtnActualizar();
 		}
-
+		this.vista.getMainPanel().revalidate();
 		this.vista.getMainPanel().repaint();
 	}
 
@@ -238,6 +237,7 @@ public class AlumnoABMVistaPrincipalControlador {
 			alumnoHistorialNotaControlador.inicializar();
 			
 			this.vista.getMainPanel().add(alumnoHistorialNota);
+			setBounds(alumnoHistorialNota,145,50);
 		}
 
 		refreshVistas();
@@ -302,12 +302,12 @@ public class AlumnoABMVistaPrincipalControlador {
 	}
 	
 	private void setColor(JPanel pane) {
-		pane.setBackground(new Color(41, 57, 80));
+		pane.setBackground(new Color(23, 35, 51));
 	}
 	
 	private void resetColor(JPanel[] pane) {
 		for (int i = 0; i < pane.length; i++) {
-			pane[i].setBackground(new Color(23, 35, 51));
+			pane[i].setBackground(new Color(0, 0, 0));
 		}
 	}
 	
@@ -371,4 +371,9 @@ public class AlumnoABMVistaPrincipalControlador {
 		return this.vista.getMainPanel();
 	}
 	
+	private void setBounds(JPanel panel, int x, int y) {
+		Rectangle bounds = panel.getBounds();
+		bounds.translate(x, y);
+		panel.setBounds(bounds);		
+	}
 }

@@ -78,6 +78,7 @@ public class AlumnoContactoPanel extends JPanel{
 		panel.add(scrollPaneDetalle, BorderLayout.CENTER);
 		
 		textDetalle = new JTextPane();
+		textDetalle.setDisabledTextColor(Color.WHITE);
 		textDetalle.setEditable(false);
 		scrollPaneDetalle.setViewportView(textDetalle);
 	}

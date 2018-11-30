@@ -52,7 +52,7 @@ public class NotificacionABMVistaPrincipal extends JPanel {
 		buttonPanel.setBounds(0, 0, 200, 736);
 		add(buttonPanel);
 		buttonPanel.setLayout(null);
-		buttonPanel.setBackground(new Color(47, 79, 79));
+		buttonPanel.setBackground(new Color(0, 0, 0));
 		
 		buildButtonEliminados();
 	}
@@ -75,7 +75,7 @@ public class NotificacionABMVistaPrincipal extends JPanel {
 		
 		lblIconoPrincipal = new JLabel("New label");
 		lblIconoPrincipal.setHorizontalAlignment(SwingConstants.CENTER);
-		lblIconoPrincipal.setIcon(new ImageIcon("imagenes/curso.png"));
+		lblIconoPrincipal.setIcon(new ImageIcon("imagenes/notificacion.png"));
 		lblIconoPrincipal.setBounds(38, 88, 125, 100);
 		buttonPanel.add(lblIconoPrincipal);
 	}

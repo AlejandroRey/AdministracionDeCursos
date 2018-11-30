@@ -40,7 +40,7 @@ public class AlumnoHistorialNotaPanel extends JPanel {
 	public AlumnoHistorialNotaPanel() {
 		super();
 		
-		this.setBounds(0, 0, 960, 550);
+		this.setBounds(0, 0, 873, 550);
 		this.setLayout(null);
 		inicializar();
 	}
@@ -53,7 +53,7 @@ public class AlumnoHistorialNotaPanel extends JPanel {
 	
 	private void inicializarTablaCursadas() {
 		
-		spCursadas = new JScrollPane();
+		spCursadas = new JScrollPane(); //spCursadas.setBounds(10, 10, 500, 529);
 		spCursadas.setBounds(10, 10, 500, 529);
 		add(spCursadas);
 		

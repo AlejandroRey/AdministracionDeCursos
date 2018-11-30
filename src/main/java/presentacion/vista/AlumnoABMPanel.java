@@ -47,7 +47,7 @@ public class AlumnoABMPanel extends JPanel {
 	 */
 	public AlumnoABMPanel() {
 		super();
-		this.setBounds(0, 0, 590, 500);
+		this.setBounds(0, 0, 584, 497);
 		this.setLayout(null);
 		inicializar();
 	}

@@ -1,6 +1,7 @@
 package persistencia.controlador;
 
 import java.awt.Color;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
@@ -174,6 +175,7 @@ public class CursadaABMVistaPrincipalControlador {
 			alumnosAsistenciaControlador.inicializar();
 
 			this.vista.getMainPanel().add(alumnosAsistencia);
+			setBounds(alumnosAsistencia,90,70);
 		}
 	}
 
@@ -192,6 +194,7 @@ public class CursadaABMVistaPrincipalControlador {
 			calendarioControlador.inicializar();
 			
 			this.vista.getMainPanel().add(calendario);
+			setBounds(calendario,40,80);
 		}
 		
 		refreshVistas();
@@ -212,6 +215,7 @@ public class CursadaABMVistaPrincipalControlador {
 			alumnosEvaluacionesControlador.inicializar();
 			
 			this.vista.getMainPanel().add(alumnosEvaluaciones);
+			setBounds(alumnosEvaluaciones,250,50);
 		}
 		refreshVistas();
 	}
@@ -231,6 +235,7 @@ public class CursadaABMVistaPrincipalControlador {
 			alumnosInscriptosControlador.inicializar();
 			
 			this.vista.getMainPanel().add(alumnosInscriptos);
+			setBounds(alumnosInscriptos,258,45);
 		}
 		
 		refreshVistas();
@@ -358,15 +363,21 @@ public class CursadaABMVistaPrincipalControlador {
 	}
 	
 	private void setColor(JPanel pane) {
-		pane.setBackground(new Color(41, 57, 80));
+		pane.setBackground(new Color(23, 35, 51));
 	}
 	
 	private void resetColor(JPanel[] pane) {
 		for (int i = 0; i < pane.length; i++) {
-			pane[i].setBackground(Color.DARK_GRAY);
+			pane[i].setBackground(new Color(0, 0, 0));
 
 		}
 	}	
+	
+	private void setBounds(JPanel panel, int x, int y) {
+		Rectangle bounds = panel.getBounds();
+		bounds.translate(x, y);
+		panel.setBounds(bounds);		
+	}
 
 	private void setSeleccionarCursadaVistaInicial() {
 		setColor(this.vista.getBtnSeleccionar());

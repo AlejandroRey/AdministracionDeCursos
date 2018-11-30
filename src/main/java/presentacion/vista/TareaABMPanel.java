@@ -102,6 +102,7 @@ public class TareaABMPanel extends JPanel {
 		this.add(spDetalleContacto);
 		
 		txtDetalleContactoOrigen = new JTextArea();
+		txtDetalleContactoOrigen.setDisabledTextColor(Color.WHITE);
 		txtDetalleContactoOrigen.setEditable(false);
 		spDetalleContacto.setViewportView(txtDetalleContactoOrigen);
 	}
@@ -211,6 +212,7 @@ public class TareaABMPanel extends JPanel {
 		txtID.setColumns(10);
 		
 		txtIDResponsable = new JTextField();
+		txtIDResponsable.setVisible(false);
 		txtIDResponsable.setEditable(false);
 		txtIDResponsable.setEnabled(false);
 		txtIDResponsable.setBounds(599, 116, 86, 20);

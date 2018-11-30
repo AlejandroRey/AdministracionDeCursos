@@ -95,6 +95,7 @@ public class CalendarBuilderControlador implements ActionListener {
 		if (getFechaDeCursada()) {
 			llenarTablaFechasDeCursada();
 		}
+		this.ocultarColumnasTablaSalasEnConflicto();
 	}
 
 	private boolean getDiasDeCursada() {
@@ -390,6 +391,14 @@ public class CalendarBuilderControlador implements ActionListener {
 		System.out.println(salasDsiponiblesReasignarList.size());
 		}
 		// Oculto los id del Objeto
+		ocultarColumnasTablaSalasEnConflicto();
+
+		DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
+		leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
+		this.vista.getTablaSalasEnConflicto().getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
+	}
+
+	private void ocultarColumnasTablaSalasEnConflicto() {
 		this.vista.getTablaSalasEnConflicto().getColumnModel().getColumn(0).setWidth(0);
 		this.vista.getTablaSalasEnConflicto().getColumnModel().getColumn(0).setMinWidth(0);
 		this.vista.getTablaSalasEnConflicto().getColumnModel().getColumn(0).setMaxWidth(0);
@@ -399,10 +408,6 @@ public class CalendarBuilderControlador implements ActionListener {
 		this.vista.getTablaSalasEnConflicto().getColumnModel().getColumn(5).setWidth(0);
 		this.vista.getTablaSalasEnConflicto().getColumnModel().getColumn(5).setMinWidth(0);
 		this.vista.getTablaSalasEnConflicto().getColumnModel().getColumn(5).setMaxWidth(0);
-
-		DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
-		leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
-		this.vista.getTablaSalasEnConflicto().getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
 	}
 
 	private String getNombreSala(long idSala) {

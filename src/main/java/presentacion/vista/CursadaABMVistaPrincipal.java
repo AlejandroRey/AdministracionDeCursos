@@ -89,11 +89,11 @@ public class CursadaABMVistaPrincipal extends JPanel {
 		buttonPanel.setBounds(0, 0, 200, 736);
 		add(buttonPanel);
 		buttonPanel.setLayout(null);
-		buttonPanel.setBackground(Color.DARK_GRAY);
+		buttonPanel.setBackground(new Color(0, 0, 0));
 		
 		btnSeleccionar = new JPanel();
 		btnSeleccionar.setLayout(null);
-		btnSeleccionar.setBackground(Color.DARK_GRAY);
+		btnSeleccionar.setBackground(new Color(0, 0, 0));
 		btnSeleccionar.setBounds(0, 219, 200, 50);
 		buttonPanel.add(btnSeleccionar);
 		btnSeleccionar.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -113,7 +113,7 @@ public class CursadaABMVistaPrincipal extends JPanel {
 		
 		btnAgregar = new JPanel();
 		btnAgregar.setLayout(null);
-		btnAgregar.setBackground(Color.DARK_GRAY);
+		btnAgregar.setBackground(new Color(0, 0, 0));
 		btnAgregar.setBounds(0, 269, 200, 50);
 		buttonPanel.add(btnAgregar);
 		btnAgregar.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -133,7 +133,7 @@ public class CursadaABMVistaPrincipal extends JPanel {
 		
 		btnActualizar = new JPanel();
 		btnActualizar.setLayout(null);
-		btnActualizar.setBackground(Color.DARK_GRAY);
+		btnActualizar.setBackground(new Color(0, 0, 0));
 		btnActualizar.setBounds(0, 319, 200, 50);
 		buttonPanel.add(btnActualizar);
 		btnActualizar.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -153,7 +153,7 @@ public class CursadaABMVistaPrincipal extends JPanel {
 		
 		btnEliminar = new JPanel();
 		btnEliminar.setLayout(null);
-		btnEliminar.setBackground(Color.DARK_GRAY);
+		btnEliminar.setBackground(new Color(0, 0, 0));
 		btnEliminar.setBounds(0, 368, 200, 50);
 		buttonPanel.add(btnEliminar);
 		btnEliminar.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -183,7 +183,7 @@ public class CursadaABMVistaPrincipal extends JPanel {
 		buttonPanel.add(lblIconoPrincipal);		
 		
 		btnHome = new JPanel();
-		btnHome.setBackground(Color.DARK_GRAY);
+		btnHome.setBackground(new Color(0, 0, 0));
 		btnHome.setBounds(0, 0, 200, 60);
 		buttonPanel.add(btnHome);
 		btnHome.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -199,13 +199,13 @@ public class CursadaABMVistaPrincipal extends JPanel {
 
 		buttonPanelExtends = new JPanel();
 		buttonPanelExtends.setLayout(null);
-		buttonPanelExtends.setBackground(Color.DARK_GRAY);
+		buttonPanelExtends.setBackground(new Color(0, 0, 0));
 		buttonPanelExtends.setBounds(0, 0, 200, 736);
 		add(buttonPanelExtends);
 		
 		btnCalendario = new JPanel();
 		btnCalendario.setLayout(null);
-		btnCalendario.setBackground(Color.DARK_GRAY);
+		btnCalendario.setBackground(new Color(0, 0, 0));
 		btnCalendario.setBounds(0, 219, 200, 50);
 		buttonPanelExtends.add(btnCalendario);
 		btnCalendario.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -224,7 +224,7 @@ public class CursadaABMVistaPrincipal extends JPanel {
 		
 		btnInscriptos = new JPanel();
 		btnInscriptos.setLayout(null);
-		btnInscriptos.setBackground(Color.DARK_GRAY);
+		btnInscriptos.setBackground(new Color(0, 0, 0));
 		btnInscriptos.setBounds(0, 269, 200, 50);
 		buttonPanelExtends.add(btnInscriptos);
 		btnInscriptos.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -243,7 +243,7 @@ public class CursadaABMVistaPrincipal extends JPanel {
 		
 		btnPagos = new JPanel();
 		btnPagos.setLayout(null);
-		btnPagos.setBackground(Color.DARK_GRAY);
+		btnPagos.setBackground(new Color(0, 0, 0));
 		btnPagos.setBounds(0, 319, 200, 50);
 		buttonPanelExtends.add(btnPagos);
 		btnPagos.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -262,7 +262,7 @@ public class CursadaABMVistaPrincipal extends JPanel {
 		
 		btnAsistencias = new JPanel();
 		btnAsistencias.setLayout(null);
-		btnAsistencias.setBackground(Color.DARK_GRAY);
+		btnAsistencias.setBackground(new Color(0, 0, 0));
 		btnAsistencias.setBounds(0, 368, 200, 50);
 		buttonPanelExtends.add(btnAsistencias);
 		btnAsistencias.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -281,7 +281,7 @@ public class CursadaABMVistaPrincipal extends JPanel {
 		
 		btnEvaluaciones = new JPanel();
 		btnEvaluaciones.setLayout(null);
-		btnEvaluaciones.setBackground(Color.DARK_GRAY);
+		btnEvaluaciones.setBackground(new Color(0, 0, 0));
 		btnEvaluaciones.setBounds(0, 417, 200, 50);
 		buttonPanelExtends.add(btnEvaluaciones);
 		btnEvaluaciones.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -307,14 +307,14 @@ public class CursadaABMVistaPrincipal extends JPanel {
 		textAreaCursadaSeleccionada = new JTextArea("Cursada" + System.lineSeparator() + "Seleccionada");
 		textAreaCursadaSeleccionada.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		textAreaCursadaSeleccionada.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-		textAreaCursadaSeleccionada.setBackground(Color.DARK_GRAY);
+		textAreaCursadaSeleccionada.setBackground(new Color(0, 0, 0));
 		textAreaCursadaSeleccionada.setForeground(Color.WHITE);
 		textAreaCursadaSeleccionada.setEditable(false);
 		textAreaCursadaSeleccionada.setBounds(5, 83, 190, 120);
 		buttonPanelExtends.add(textAreaCursadaSeleccionada);		
 		
 		btnHomeII = new JPanel();
-		btnHomeII.setBackground(Color.DARK_GRAY);
+		btnHomeII.setBackground(new Color(0, 0, 0));
 		btnHomeII.setBounds(0, 0, 200, 60);
 		buttonPanelExtends.add(btnHomeII);
 		btnHomeII.setCursor(new Cursor(Cursor.HAND_CURSOR));

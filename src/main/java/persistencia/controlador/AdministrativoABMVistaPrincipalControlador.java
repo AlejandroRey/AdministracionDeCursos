@@ -84,7 +84,7 @@ public class AdministrativoABMVistaPrincipalControlador {
 		} else {
 			administrativoABMControlador.setVisibleBtnSeleccionar();
 		}
-
+		this.vista.getMainPanel().revalidate();
 		this.vista.getMainPanel().repaint();		
 	}	
 
@@ -102,7 +102,7 @@ public class AdministrativoABMVistaPrincipalControlador {
 		} else {
 			administrativoABMControlador.setVisibleBtnAgregar();
 		}
-
+		this.vista.getMainPanel().revalidate();
 		this.vista.getMainPanel().repaint();	
 	}	
 
@@ -120,7 +120,7 @@ public class AdministrativoABMVistaPrincipalControlador {
 		} else {
 			administrativoABMControlador.setVisibleBtnActualizar();
 		}
-
+		this.vista.getMainPanel().revalidate();
 		this.vista.getMainPanel().repaint();	
 	}	
 
@@ -138,7 +138,7 @@ public class AdministrativoABMVistaPrincipalControlador {
 		} else {
 			administrativoABMControlador.setVisibleBtnEliminar();
 		}
-
+		this.vista.getMainPanel().revalidate();
 		this.vista.getMainPanel().repaint();	
 	}
 	

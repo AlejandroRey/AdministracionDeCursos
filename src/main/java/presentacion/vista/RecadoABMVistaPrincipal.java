@@ -68,7 +68,7 @@ public class RecadoABMVistaPrincipal extends JPanel {
 		buttonPanel.setBounds(0, 0, 200, 736);
 		add(buttonPanel);
 		buttonPanel.setLayout(null);
-		buttonPanel.setBackground(new Color(47, 79, 79));
+		buttonPanel.setBackground(new Color(0, 0, 0));
 		
 		buildButtonEnviar();
 		buildButtonRecibidos();
@@ -79,7 +79,7 @@ public class RecadoABMVistaPrincipal extends JPanel {
 
 		btnEnviados = new JPanel();
 		btnEnviados.setLayout(null);
-		btnEnviados.setBackground(new Color(47, 79, 79));
+		btnEnviados.setBackground(new Color(0, 0, 0));
 		btnEnviados.setBounds(0, 319, 200, 50);
 		buttonPanel.add(btnEnviados);
 		btnEnviados.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -102,7 +102,7 @@ public class RecadoABMVistaPrincipal extends JPanel {
 		
 		btnNuevo = new JPanel();
 		btnNuevo.setLayout(null);
-		btnNuevo.setBackground(new Color(47, 79, 79));
+		btnNuevo.setBackground(new Color(0, 0, 0));
 		btnNuevo.setBounds(0, 219, 200, 50);
 		buttonPanel.add(btnNuevo);
 		btnNuevo.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -125,7 +125,7 @@ public class RecadoABMVistaPrincipal extends JPanel {
 		
 		btnEliminados = new JPanel();
 		btnEliminados.setLayout(null);
-		btnEliminados.setBackground(new Color(47, 79, 79));
+		btnEliminados.setBackground(new Color(0, 0, 0));
 		btnEliminados.setBounds(0, 371, 200, 50);
 		buttonPanel.add(btnEliminados);
 		btnEliminados.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -154,20 +154,20 @@ public class RecadoABMVistaPrincipal extends JPanel {
 		lblRecado.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRecado.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblRecado.setForeground(Color.WHITE);
-		lblRecado.setBounds(49, 57, 85, 26);
+		lblRecado.setBounds(59, 57, 85, 26);
 		buttonPanel.add(lblRecado);
 		
 		lblIconoPrincipal = new JLabel("New label");
 		lblIconoPrincipal.setHorizontalAlignment(SwingConstants.CENTER);
-		lblIconoPrincipal.setIcon(new ImageIcon("imagenes/curso.png"));
-		lblIconoPrincipal.setBounds(38, 88, 125, 100);
+		lblIconoPrincipal.setIcon(new ImageIcon("imagenes/recado2.png"));
+		lblIconoPrincipal.setBounds(49, 88, 125, 100);
 		buttonPanel.add(lblIconoPrincipal);
 		
 		btnRecibidos = new JPanel();
 		btnRecibidos.setBounds(0, 268, 200, 50);
 		buttonPanel.add(btnRecibidos);
 		btnRecibidos.setLayout(null);
-		btnRecibidos.setBackground(new Color(47, 79, 79));
+		btnRecibidos.setBackground(new Color(0, 0, 0));
 		btnRecibidos.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnRecibidos.setLayout(null);
 		

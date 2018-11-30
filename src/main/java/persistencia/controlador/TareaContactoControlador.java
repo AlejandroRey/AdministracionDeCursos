@@ -73,7 +73,7 @@ public class TareaContactoControlador implements ActionListener {
             public void windowClosing(java.awt.event.WindowEvent evt) { close();}
 
 			private void close() {
-				if(OptionPanel.confimarcion("¿Desea descartar la tarea?", "") == 0)
+				if(OptionPanel.confimarcion("¿Desea descartar el contacto?", "") == 0)
 					dialog.dispose();
 			}});
 	}

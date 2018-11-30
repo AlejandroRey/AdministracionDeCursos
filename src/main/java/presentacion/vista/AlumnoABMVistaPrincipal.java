@@ -91,14 +91,14 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		
 		panelHistorial = new JPanel();
 		panelHistorial.setLayout(null);
-		panelHistorial.setBackground(new Color(23, 35, 51));
+		panelHistorial.setBackground(new Color(0, 0, 0));
 		panelHistorial.setBounds(0, 0, 200, 736);
 		add(panelHistorial);
 		
 		btnHomeII = new JPanel();
 		btnHomeII.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnHomeII.setLayout(null);
-		btnHomeII.setBackground(new Color(23, 35, 51));
+		btnHomeII.setBackground(new Color(0, 0, 0));
 		btnHomeII.setBounds(0, 0, 200, 64);
 		panelHistorial.add(btnHomeII);
 		
@@ -124,12 +124,12 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		panelBtnHistorialAlumno.setBounds(0, 240, 200, 251);
 		panelHistorial.add(panelBtnHistorialAlumno);
 		panelBtnHistorialAlumno.setLayout(null);
-		panelBtnHistorialAlumno.setBackground(new Color(23, 35, 51));
+		panelBtnHistorialAlumno.setBackground(new Color(0, 0, 0));
 		
 		btnNotas = new JPanel();
 		btnNotas.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnNotas.setLayout(null);
-		btnNotas.setBackground(new Color(23, 35, 51));
+		btnNotas.setBackground(new Color(0, 0, 0));
 		btnNotas.setBounds(0, 0, 200, 50);
 		panelBtnHistorialAlumno.add(btnNotas);
 		
@@ -148,7 +148,7 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		btnAsistencias = new JPanel();
 		btnAsistencias.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnAsistencias.setLayout(null);
-		btnAsistencias.setBackground(new Color(23, 35, 51));
+		btnAsistencias.setBackground(new Color(0, 0, 0));
 		btnAsistencias.setBounds(0, 51, 200, 50);
 		panelBtnHistorialAlumno.add(btnAsistencias);
 		
@@ -167,7 +167,7 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		btnPagos = new JPanel();
 		btnPagos.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnPagos.setLayout(null);
-		btnPagos.setBackground(new Color(23, 35, 51));
+		btnPagos.setBackground(new Color(0, 0, 0));
 		btnPagos.setBounds(0, 102, 200, 50);
 		panelBtnHistorialAlumno.add(btnPagos);
 		
@@ -186,7 +186,7 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		btnContactos = new JPanel();
 		btnContactos.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnContactos.setLayout(null);
-		btnContactos.setBackground(new Color(23, 35, 51));
+		btnContactos.setBackground(new Color(0, 0, 0));
 		btnContactos.setBounds(0, 153, 200, 50);
 		panelBtnHistorialAlumno.add(btnContactos);
 		
@@ -205,7 +205,7 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		btnTareas = new JPanel();
 		btnTareas.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnTareas.setLayout(null);
-		btnTareas.setBackground(new Color(23, 35, 51));
+		btnTareas.setBackground(new Color(0, 0, 0));
 		btnTareas.setBounds(0, 202, 200, 50);
 		panelBtnHistorialAlumno.add(btnTareas);
 		
@@ -234,11 +234,11 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		panelAbm.setBounds(0, 0, 200, 736);
 		add(panelAbm);
 		panelAbm.setLayout(null);
-		panelAbm.setBackground(new Color(23, 35, 51));
+		panelAbm.setBackground(new Color(0, 0, 0));
 		
 		btnHomeI = new JPanel();
 		btnHomeI.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		btnHomeI.setBackground(new Color(23, 35, 51));
+		btnHomeI.setBackground(new Color(0, 0, 0));
 		btnHomeI.setBounds(0, 0, 200, 64);
 		panelAbm.add(btnHomeI);
 		btnHomeI.setLayout(null);
@@ -269,7 +269,7 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 	private void buildPanelBtnAbmAlumno() {
 
 		panelBtnAbmAlumno = new JPanel();
-		panelBtnAbmAlumno.setBackground(new Color(23, 35, 51));
+		panelBtnAbmAlumno.setBackground(new Color(0, 0, 0));
 		panelBtnAbmAlumno.setBounds(0, 240, 200, 203);
 		panelAbm.add(panelBtnAbmAlumno);
 		panelBtnAbmAlumno.setLayout(null);
@@ -281,7 +281,7 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		btnVer.setBounds(0, 0, 200, 50);
 		panelBtnAbmAlumno.add(btnVer);
 		btnVer.setLayout(null);
-		btnVer.setBackground(new Color(23, 35, 51));
+		btnVer.setBackground(new Color( 0, 0, 0));
 		btnVer.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnVer.setLayout(null);
 
@@ -304,7 +304,7 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		btnAgregar.setBounds(0, 51, 200, 50);
 		panelBtnAbmAlumno.add(btnAgregar);
 		btnAgregar.setLayout(null);
-		btnAgregar.setBackground(new Color(23, 35, 51));
+		btnAgregar.setBackground(new Color(0, 0, 0));//new Color(23, 35, 51)
 		btnAgregar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnAgregar.setLayout(null);
 
@@ -327,7 +327,7 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		btnActualizar.setBounds(0, 102, 200, 50);
 		panelBtnAbmAlumno.add(btnActualizar);
 		btnActualizar.setLayout(null);
-		btnActualizar.setBackground(new Color(23, 35, 51));
+		btnActualizar.setBackground(new Color(0, 0, 0));
 		btnActualizar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnActualizar.setLayout(null);
 
@@ -350,7 +350,7 @@ public class AlumnoABMVistaPrincipal extends JPanel {
 		btnEliminar.setBounds(0, 153, 200, 50);
 		panelBtnAbmAlumno.add(btnEliminar);
 		btnEliminar.setLayout(null);
-		btnEliminar.setBackground(new Color(23, 35, 51));
+		btnEliminar.setBackground(new Color(0, 0, 0));
 		btnEliminar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnEliminar.setLayout(null);
 

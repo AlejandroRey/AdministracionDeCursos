@@ -67,7 +67,7 @@ private JPanel mainPanel;
 		buttonPanel.setBounds(0, 0, 201, 736);
 		add(buttonPanel);
 		buttonPanel.setLayout(null);
-		buttonPanel.setBackground(new Color(23, 35, 51));
+		buttonPanel.setBackground(new Color(0, 0, 0));
 		
 		buildButtonVer();
 		buildButtonAgregar();
@@ -79,7 +79,7 @@ private JPanel mainPanel;
 		
 		btnSeleccionar = new JPanel();
 		btnSeleccionar.setLayout(null);
-		btnSeleccionar.setBackground(new Color(23, 35, 51));
+		btnSeleccionar.setBackground(new Color(0, 0, 0));
 		btnSeleccionar.setBounds(0, 209, 200, 50);
 		buttonPanel.add(btnSeleccionar);
 		btnSeleccionar.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -102,7 +102,7 @@ private JPanel mainPanel;
 
 		btnAgregar = new JPanel();
 		btnAgregar.setLayout(null);
-		btnAgregar.setBackground(new Color(23, 35, 51));
+		btnAgregar.setBackground(new Color(0, 0, 0));
 		btnAgregar.setBounds(0, 259, 200, 50);
 		buttonPanel.add(btnAgregar);
 		btnAgregar.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -125,7 +125,7 @@ private JPanel mainPanel;
 		
 		btnActualizar = new JPanel();
 		btnActualizar.setLayout(null);
-		btnActualizar.setBackground(new Color(23, 35, 51));
+		btnActualizar.setBackground(new Color(0, 0, 0));
 		btnActualizar.setBounds(0, 309, 200, 50);
 		buttonPanel.add(btnActualizar);
 		btnActualizar.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -148,7 +148,7 @@ private JPanel mainPanel;
 		
 		btnEliminar = new JPanel();
 		btnEliminar.setLayout(null);
-		btnEliminar.setBackground(new Color(23, 35, 51));
+		btnEliminar.setBackground(new Color(0, 0, 0));
 		btnEliminar.setBounds(0, 358, 200, 50);
 		buttonPanel.add(btnEliminar);
 		btnEliminar.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -173,7 +173,7 @@ private JPanel mainPanel;
 		buttonPanel.add(lblUsuario);
 		
 		lblIconoPrincipal = new JLabel("New label");
-		lblIconoPrincipal.setIcon(new ImageIcon("imagenes/user.png"));
+		lblIconoPrincipal.setIcon(new ImageIcon("imagenes/contacto.png"));
 		lblIconoPrincipal.setBounds(50, 93, 100, 100);
 		buttonPanel.add(lblIconoPrincipal);
 		

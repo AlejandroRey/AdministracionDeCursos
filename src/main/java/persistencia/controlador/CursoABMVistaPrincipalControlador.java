@@ -1,6 +1,7 @@
 package persistencia.controlador;
 
 import java.awt.Color;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
@@ -80,10 +81,11 @@ public class CursoABMVistaPrincipalControlador {
 			cursoABMControlador.setVisibleBtnSeleccionar();
 
 			this.vista.getMainPanel().add(cursoABM);
+			setBounds(cursoABM, 145, 30);
 		} else {
 			cursoABMControlador.setVisibleBtnSeleccionar();
 		}
-
+		this.vista.getMainPanel().revalidate();
 		this.vista.getMainPanel().repaint();
 	}
 
@@ -99,10 +101,11 @@ public class CursoABMVistaPrincipalControlador {
 			cursoABMControlador.setVisibleBtnAgregar();
 
 			this.vista.getMainPanel().add(cursoABM);
+			setBounds(cursoABM, 145, 30);
 		} else {
 			cursoABMControlador.setVisibleBtnAgregar();
 		}
-
+		this.vista.getMainPanel().revalidate();
 		this.vista.getMainPanel().repaint();
 	}
 
@@ -118,10 +121,11 @@ public class CursoABMVistaPrincipalControlador {
 			cursoABMControlador.setVisibleBtnActualizar();
 
 			this.vista.getMainPanel().add(cursoABM);
+			setBounds(cursoABM, 145, 30);
 		} else {
 			cursoABMControlador.setVisibleBtnActualizar();
 		}
-
+		this.vista.getMainPanel().revalidate();
 		this.vista.getMainPanel().repaint();
 	}
 
@@ -137,22 +141,29 @@ public class CursoABMVistaPrincipalControlador {
 			cursoABMControlador.setVisibleBtnEliminar();
 
 			this.vista.getMainPanel().add(cursoABM);
+			
 		} else {
 			cursoABMControlador.setVisibleBtnEliminar();
 		}
-
+		this.vista.getMainPanel().revalidate();
 		this.vista.getMainPanel().repaint();
 	}
 
 	private void setColor(JPanel pane) {
-		pane.setBackground(new Color(41, 57, 80));
+		pane.setBackground(new Color(23, 35, 51));
 	}
 
 	private void resetColor(JPanel[] pane) {
 		for (int i = 0; i < pane.length; i++) {
-			pane[i].setBackground(new Color(47, 79, 79));
+			pane[i].setBackground(new Color(0, 0, 0));
 
 		}
+	}
+	
+	private void setBounds(JPanel panel, int x, int y) {
+		Rectangle bounds = panel.getBounds();
+		bounds.translate(x, y);
+		panel.setBounds(bounds);		
 	}
 
 }

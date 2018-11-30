@@ -1,6 +1,7 @@
 package persistencia.controlador;
 
 import java.awt.Color;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
@@ -80,10 +81,11 @@ public class UsuarioABMVistaPrincipalControlador {
 			usuarioABMControlador.setVisibleBtnSeleccionar();
 
 			this.vista.getMainPanel().add(usuarioABM);
+			setBounds(usuarioABM, 140, 45);
 		} else {
 			usuarioABMControlador.setVisibleBtnSeleccionar();
 		}
-
+		this.vista.getMainPanel().revalidate();
 		this.vista.getMainPanel().repaint();
 	}
 
@@ -99,10 +101,11 @@ public class UsuarioABMVistaPrincipalControlador {
 			usuarioABMControlador.setVisibleBtnAgregar();
 
 			this.vista.getMainPanel().add(usuarioABM);
+			setBounds(usuarioABM, 140, 45);
 		} else {
 			usuarioABMControlador.setVisibleBtnAgregar();
 		}
-
+		this.vista.getMainPanel().revalidate();
 		this.vista.getMainPanel().repaint();
 	}
 
@@ -118,10 +121,11 @@ public class UsuarioABMVistaPrincipalControlador {
 			usuarioABMControlador.setVisibleBtnActualizar();
 
 			this.vista.getMainPanel().add(usuarioABM);
-		} else {
+			setBounds(usuarioABM, 140, 45);
+			} else {
 			usuarioABMControlador.setVisibleBtnActualizar();
 		}
-
+		this.vista.getMainPanel().revalidate();
 		this.vista.getMainPanel().repaint();
 	}
 
@@ -137,15 +141,16 @@ public class UsuarioABMVistaPrincipalControlador {
 			usuarioABMControlador.setVisibleBtnEliminar();
 
 			this.vista.getMainPanel().add(usuarioABM);
+			setBounds(usuarioABM, 140, 45);
 		} else {
 			usuarioABMControlador.setVisibleBtnEliminar();
 		}
-
+		this.vista.getMainPanel().revalidate();
 		this.vista.getMainPanel().repaint();
 	}
 
 	private void setColor(JPanel pane) {
-		pane.setBackground(new Color(41, 57, 80));
+		pane.setBackground(new Color(23, 35, 51));
 	}
 
 	private void resetColor(JPanel[] pane) {
@@ -153,6 +158,11 @@ public class UsuarioABMVistaPrincipalControlador {
 			pane[i].setBackground(new Color(0, 0, 0));
 
 		}
+	}
+	private void setBounds(JPanel panel, int x, int y) {
+		Rectangle bounds = panel.getBounds();
+		bounds.translate(x, y);
+		panel.setBounds(bounds);		
 	}
 
 }

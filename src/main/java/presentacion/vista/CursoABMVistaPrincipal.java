@@ -67,7 +67,7 @@ public class CursoABMVistaPrincipal extends JPanel {
 		buttonPanel.setBounds(0, 0, 200, 736);
 		add(buttonPanel);
 		buttonPanel.setLayout(null);
-		buttonPanel.setBackground(new Color(47, 79, 79));
+		buttonPanel.setBackground(new Color(0, 0, 0));
 		
 		buildButtonVer();
 		buildButtonAgregar();
@@ -79,7 +79,7 @@ public class CursoABMVistaPrincipal extends JPanel {
 		
 		btnSeleccionar = new JPanel();
 		btnSeleccionar.setLayout(null);
-		btnSeleccionar.setBackground(new Color(47, 79, 79));
+		btnSeleccionar.setBackground(new Color(0, 0, 0));
 		btnSeleccionar.setBounds(0, 219, 200, 50);
 		buttonPanel.add(btnSeleccionar);
 		btnSeleccionar.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -102,7 +102,7 @@ public class CursoABMVistaPrincipal extends JPanel {
 
 		btnAgregar = new JPanel();
 		btnAgregar.setLayout(null);
-		btnAgregar.setBackground(new Color(47, 79, 79));
+		btnAgregar.setBackground(new Color(0, 0, 0));
 		btnAgregar.setBounds(0, 269, 200, 50);
 		buttonPanel.add(btnAgregar);
 		btnAgregar.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -125,7 +125,7 @@ public class CursoABMVistaPrincipal extends JPanel {
 		
 		btnActualizar = new JPanel();
 		btnActualizar.setLayout(null);
-		btnActualizar.setBackground(new Color(47, 79, 79));
+		btnActualizar.setBackground(new Color(0, 0, 0));
 		btnActualizar.setBounds(0, 319, 200, 50);
 		buttonPanel.add(btnActualizar);
 		btnActualizar.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -148,7 +148,7 @@ public class CursoABMVistaPrincipal extends JPanel {
 		
 		btnEliminar = new JPanel();
 		btnEliminar.setLayout(null);
-		btnEliminar.setBackground(new Color(47, 79, 79));
+		btnEliminar.setBackground(new Color(0, 0, 0));
 		btnEliminar.setBounds(0, 368, 200, 50);
 		buttonPanel.add(btnEliminar);
 		btnEliminar.setCursor(new Cursor(Cursor.HAND_CURSOR));

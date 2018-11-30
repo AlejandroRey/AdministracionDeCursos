@@ -20,6 +20,7 @@ import modelo.AdministracionDeCursos;
 import presentacion.vista.AlumnoTareaPanel;
 import dto.AlumnoDTO;
 import dto.CategoriaDTO;
+import dto.ContactoCompletoDTO;
 import dto.TareaDTO;
 import dto.UsuarioDTO;
 
@@ -32,6 +33,7 @@ public class AlumnoTareaControlador implements ActionListener {
 	private List<CategoriaDTO> categoriasLista;
 	private UsuarioDTO currentAdministrativo;
 	private AlumnoDTO alumno;
+	private TareaDTO currentTarea;
 	
 	public AlumnoTareaControlador(AdministracionDeCursos modelo,AlumnoTareaPanel vista, AlumnoDTO alumno) {
 		this.administrativosLista = null;
@@ -40,6 +42,7 @@ public class AlumnoTareaControlador implements ActionListener {
 		this.modelo = modelo;
 		this.alumno = alumno;
 		this.currentAdministrativo = null;
+		this.currentTarea = null;
 		this.vista.getCboxEstado().addActionListener(this);
 	}
 	
@@ -85,6 +88,29 @@ public class AlumnoTareaControlador implements ActionListener {
 					tareaDTO.getIdAlumno()};
 			this.vista.getModelTareas().addRow(fila);
 		}
+	}
+ 	
+	private void mostrarDetalleContacto() {
+		List<ContactoCompletoDTO> contactos = this.modelo
+				.obtenerContactosCompletos();
+		contactos = contactos
+				.stream()
+				.filter(contacto -> contacto.getContacto().getIdTarea() == this.currentTarea
+						.getIdTarea()).collect(Collectors.toList());
+		ContactoCompletoDTO contacto = contactos.get(0);
+		String detalle = getDetalle(contacto);
+		this.vista.getTextDetalle().setText("");
+		this.vista.getTextDetalle().setText(detalle);
+	}
+
+	private String getDetalle(ContactoCompletoDTO contacto) {
+		String administrativo = "Administrativo: " + contacto.getNombreAdministrativo() + " " + contacto.getApellidoAdministrativo();
+		String alumno = "Alumno: " + contacto.getAlumno().getNombre() + " " + contacto.getAlumno().getApellido();
+		String fecha = "Fecha del contacto: " + StringToLocalDateFormatter(contacto.getContacto().getFechaCreacion(), "dd/MM/yyyy");
+		String proximoContacto = "Fecha del proximo contacto: " + StringToLocalDateFormatter(contacto.getContacto().getFechaContactar(), "dd/MM/yyyy");
+		String descripcion = contacto.getContacto().getDescripcion();
+		String detalle = fecha + "\n\n" + administrativo + "\n\n" + alumno + "\n\n" + descripcion + "\n\n" + proximoContacto;  
+		return detalle;
 	}
 	
 	private void ocultarColumnasTbTareas() {
@@ -160,9 +186,12 @@ public class AlumnoTareaControlador implements ActionListener {
 	}
 	
 	private LocalDateTime StringToLocalDateTime(String fecha, String hora) {
-		String date = fecha + " " + hora;
-		DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-		LocalDateTime dateTime = LocalDateTime.parse(date, format); 
+		LocalDateTime dateTime= null;
+		if(!estaVacio(fecha)){
+			String date = fecha + " " + hora;
+			DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+			dateTime = LocalDateTime.parse(date, format); 
+		}
 		return dateTime;
 	}
 	
@@ -174,6 +203,10 @@ public class AlumnoTareaControlador implements ActionListener {
 			}
 		}
 		return administrativoNombre;
+	}
+	
+	public boolean estaVacio(String valor) {
+		return valor.trim().equals("");
 	}
  	
 	private void filtrarPorTareas() {
@@ -193,12 +226,36 @@ public class AlumnoTareaControlador implements ActionListener {
 				Object responsable = this.vista.getTableTareas().getValueAt(this.vista.getTableTareas().getSelectedRow(), 4);
 				Object idResponsable = this.vista.getTableTareas().getValueAt(this.vista.getTableTareas().getSelectedRow(), 5);
 				Object fechaCreacion = this.vista.getTableTareas().getValueAt(this.vista.getTableTareas().getSelectedRow(), 6);
-				Object fechaCierre = this.vista.getTableTareas().getValueAt(this.vista.getTableTareas().getSelectedRow(),7);
-				Object idAlumno = this.vista.getTableTareas().getValueAt(this.vista.getTableTareas().getSelectedRow(),8);
-			}
+				Object horaCreacion = this.vista.getTableTareas().getValueAt(this.vista.getTableTareas().getSelectedRow(), 7);
+				Object fechaRealizar = this.vista.getTableTareas().getValueAt(this.vista.getTableTareas().getSelectedRow(),8);
+				Object horaRealizar = this.vista.getTableTareas().getValueAt(this.vista.getTableTareas().getSelectedRow(),9);
+				Object fechaCierre = this.vista.getTableTareas().getValueAt(this.vista.getTableTareas().getSelectedRow(),10);
+				Object horaCierre = this.vista.getTableTareas().getValueAt(this.vista.getTableTareas().getSelectedRow(),11);
+				Object idAlumno = this.vista.getTableTareas().getValueAt(this.vista.getTableTareas().getSelectedRow(),12);
+				
+				System.out.println(horaCreacion + " " + horaRealizar + " " + horaCierre);
+				TareaDTO tarea = new TareaDTO(Long.parseLong(idTarea.toString()), 
+						Long.parseLong(idResponsable.toString()),
+						Long.parseLong(idAlumno.toString()),
+						nombre.toString(),
+						descripcion.toString(),
+						estado.toString(),
+						StringToLocalDateTime(fechaCreacion.toString(), horaCreacion.toString()),
+						StringToLocalDateTime(fechaRealizar.toString(), horaRealizar.toString()),
+						StringToLocalDateTime(fechaCierre.toString(), horaCierre.toString()));
+				System.out.println(tarea.getFechaCreacion());
+				setCurrentTarea(tarea);
+				mostrarDetalleContacto();
+	}
 		} catch (Exception ex) {
 			System.out.println("Error: " + ex.getMessage());
+			this.vista.getTextDetalle().setText("");
 		}
+	}
+	
+	private void setCurrentTarea(TareaDTO tarea) {
+		this.currentTarea = null;
+		this.currentTarea = tarea;
 	}
 	
 	@Override

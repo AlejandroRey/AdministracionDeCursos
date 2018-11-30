@@ -61,6 +61,7 @@ public class AlumnosAsistenciaControlador implements ActionListener {
 			this.vista.setVisible(true);
 			llenarTablaFechasDeCursada();
 		}
+		ocultarTablaAlumnos();
 	}
 
 	private boolean getFechasDeCursada() {
@@ -127,21 +128,7 @@ public class AlumnosAsistenciaControlador implements ActionListener {
 		}
 
 		// Oculto los id del Objeto
-		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(0).setWidth(0);
-		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(0).setMinWidth(0);
-		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(0).setMaxWidth(0);
-		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(1).setWidth(0);
-		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(1).setMinWidth(0);
-		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(1).setMaxWidth(0);
-		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(2).setWidth(0);
-		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(2).setMinWidth(0);
-		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(2).setMaxWidth(0);
-		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(3).setWidth(0);
-		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(3).setMinWidth(0);
-		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(3).setMaxWidth(0);
-		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(4).setWidth(0);
-		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(4).setMinWidth(0);
-		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(4).setMaxWidth(0);
+		ocultarTablaFechasDeCursada();
 
 		// Agrego listener para obtener los valores de la fila seleccionada
 		this.vista.getTblFechasDeCursada().setSelectionModel(new ListSelectionModelCstm());
@@ -205,6 +192,24 @@ public class AlumnosAsistenciaControlador implements ActionListener {
 		}
 	}
 
+	private void ocultarTablaFechasDeCursada() {
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(0).setWidth(0);
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(0).setMinWidth(0);
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(0).setMaxWidth(0);
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(1).setWidth(0);
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(1).setMinWidth(0);
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(1).setMaxWidth(0);
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(2).setWidth(0);
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(2).setMinWidth(0);
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(2).setMaxWidth(0);
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(3).setWidth(0);
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(3).setMinWidth(0);
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(3).setMaxWidth(0);
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(4).setWidth(0);
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(4).setMinWidth(0);
+		this.vista.getTblFechasDeCursada().getColumnModel().getColumn(4).setMaxWidth(0);
+	}
+
 	public void llenarTablaAsistenciaAlumnos() {
 		
 		this.vista.getModelAlumnos().setRowCount(0); // Para vaciar la tabla
@@ -234,21 +239,7 @@ public class AlumnosAsistenciaControlador implements ActionListener {
 		}
 		
 		// Oculto los id del Objeto
-		this.vista.getTblAlumnos().getColumnModel().getColumn(0).setWidth(0);
-		this.vista.getTblAlumnos().getColumnModel().getColumn(0).setMinWidth(0);
-		this.vista.getTblAlumnos().getColumnModel().getColumn(0).setMaxWidth(0);
-		this.vista.getTblAlumnos().getColumnModel().getColumn(1).setWidth(0);
-		this.vista.getTblAlumnos().getColumnModel().getColumn(1).setMinWidth(0);
-		this.vista.getTblAlumnos().getColumnModel().getColumn(1).setMaxWidth(0);		
-		this.vista.getTblAlumnos().getColumnModel().getColumn(4).setWidth(0);
-		this.vista.getTblAlumnos().getColumnModel().getColumn(4).setMinWidth(0);
-		this.vista.getTblAlumnos().getColumnModel().getColumn(4).setMaxWidth(0);		
-		this.vista.getTblAlumnos().getColumnModel().getColumn(5).setWidth(0);
-		this.vista.getTblAlumnos().getColumnModel().getColumn(5).setMinWidth(0);
-		this.vista.getTblAlumnos().getColumnModel().getColumn(5).setMaxWidth(0);
-		this.vista.getTblAlumnos().getColumnModel().getColumn(10).setWidth(0);
-		this.vista.getTblAlumnos().getColumnModel().getColumn(10).setMinWidth(0);
-		this.vista.getTblAlumnos().getColumnModel().getColumn(10).setMaxWidth(0);
+		ocultarTablaAlumnos();
 		
 		// Agrego listener para obtener los valores de la fila seleccionada
 		this.vista.getTblAlumnos().setSelectionModel(new ListSelectionModelCstm());
@@ -321,6 +312,24 @@ public class AlumnosAsistenciaControlador implements ActionListener {
 		DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
 		leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
 		this.vista.getTblAlumnos().getColumnModel().getColumn(0).setCellRenderer(leftRenderer);
+	}
+
+	private void ocultarTablaAlumnos() {
+		this.vista.getTblAlumnos().getColumnModel().getColumn(0).setWidth(0);
+		this.vista.getTblAlumnos().getColumnModel().getColumn(0).setMinWidth(0);
+		this.vista.getTblAlumnos().getColumnModel().getColumn(0).setMaxWidth(0);
+		this.vista.getTblAlumnos().getColumnModel().getColumn(1).setWidth(0);
+		this.vista.getTblAlumnos().getColumnModel().getColumn(1).setMinWidth(0);
+		this.vista.getTblAlumnos().getColumnModel().getColumn(1).setMaxWidth(0);		
+		this.vista.getTblAlumnos().getColumnModel().getColumn(4).setWidth(0);
+		this.vista.getTblAlumnos().getColumnModel().getColumn(4).setMinWidth(0);
+		this.vista.getTblAlumnos().getColumnModel().getColumn(4).setMaxWidth(0);		
+		this.vista.getTblAlumnos().getColumnModel().getColumn(5).setWidth(0);
+		this.vista.getTblAlumnos().getColumnModel().getColumn(5).setMinWidth(0);
+		this.vista.getTblAlumnos().getColumnModel().getColumn(5).setMaxWidth(0);
+		this.vista.getTblAlumnos().getColumnModel().getColumn(10).setWidth(0);
+		this.vista.getTblAlumnos().getColumnModel().getColumn(10).setMinWidth(0);
+		this.vista.getTblAlumnos().getColumnModel().getColumn(10).setMaxWidth(0);
 	}
 	
 	private int getAlumnoAsistenciaAusenteFechaCursada(long idAlumno) {

@@ -2,6 +2,7 @@ package persistencia.controlador;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
@@ -75,6 +76,7 @@ public class SalaABMVistaPrincipalControlador {
 			salaABMControlador.setVisibleBtnAgregar();
 
 			this.vista.getMainPanel().add(salaABM);
+			setBounds(salaABM, 30, 70);
 		} else {
 			salaABMControlador.setVisibleBtnAgregar();
 		}
@@ -93,7 +95,8 @@ public class SalaABMVistaPrincipalControlador {
 			salaABMControlador.inicializar();
 			salaABMControlador.setVisibleBtnActualizar();
 
-			this.vista.getMainPanel().add(salaABM);
+			this.vista.getMainPanel().add(salaABM);			
+			setBounds(salaABM, 30, 70);
 		} else {
 			salaABMControlador.setVisibleBtnActualizar();
 		}
@@ -113,6 +116,7 @@ public class SalaABMVistaPrincipalControlador {
 			salaABMControlador.setVisibleBtnEliminar();
 
 			this.vista.getMainPanel().add(salaABM);
+			setBounds(salaABM, 30, 70);
 		} else {
 			salaABMControlador.setVisibleBtnEliminar();
 		}
@@ -121,12 +125,18 @@ public class SalaABMVistaPrincipalControlador {
 	}
 	
 	private void setColor(JPanel pane) {
-		pane.setBackground(new Color(41, 57, 80));
+		pane.setBackground(new Color(23, 35, 51));
 	}
 	
 	private void resetColor(JPanel[] pane) {
 		for (int i = 0; i < pane.length; i++) {
-			pane[i].setBackground(new Color(23, 35, 51));
+			pane[i].setBackground(new Color(0, 0, 0));
 		}
+	}
+	
+	private void setBounds(JPanel panel, int x, int y) {
+		Rectangle bounds = panel.getBounds();
+		bounds.translate(x, y);
+		panel.setBounds(bounds);		
 	}
 }

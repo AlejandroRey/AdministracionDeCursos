@@ -63,8 +63,9 @@ public class AdministrativoVista {
 	private void initialize() {
 		frmAdministrativo = new JFrame();
 		frmAdministrativo.setTitle("Administrativo");
-		frmAdministrativo.setBounds(100, 100, 525, 372);
+		frmAdministrativo.setBounds(100, 100, 497, 372);
 		frmAdministrativo.setLocationRelativeTo(null);
+		frmAdministrativo.setResizable(false);
 		frmAdministrativo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmAdministrativo.getContentPane().setLayout(null);
 		frmAdministrativo.setVisible(true);
@@ -87,7 +88,7 @@ public class AdministrativoVista {
 		
 		btnRecados = new JButton("Recados");
 		btnRecados.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnRecados.setBounds(407, 11, 89, 23);
+		btnRecados.setBounds(353, 11, 89, 23);
 		frmAdministrativo.getContentPane().add(btnRecados);
 		
 		btnCursos = new JButton("Cursos");
@@ -134,7 +135,7 @@ public class AdministrativoVista {
 		
 		lblMensajePrincipal = new JLabel("Seleccione la opción que desea administrar");
 		lblMensajePrincipal.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblMensajePrincipal.setBounds(106, 45, 337, 19);
+		lblMensajePrincipal.setBounds(75, 45, 337, 19);
 		frmAdministrativo.getContentPane().add(lblMensajePrincipal);
 	}
 

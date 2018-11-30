@@ -55,35 +55,36 @@ public class SupervisorVista {
 	private void initialize() {
 		frmSupervisor = new JFrame();
 		frmSupervisor.setTitle("Supervisor");
-		frmSupervisor.setBounds(100, 100, 451, 278);
+		frmSupervisor.setBounds(100, 100, 497, 372);
 		frmSupervisor.setLocationRelativeTo(null);
+		frmSupervisor.setResizable(false);
 		frmSupervisor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmSupervisor.getContentPane().setLayout(null);
 		frmSupervisor.setVisible(true);
 		
 		btnRecados = new JButton("Recados");
 		btnRecados.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnRecados.setBounds(58, 123, 301, 36);
+		btnRecados.setBounds(91, 164, 301, 36);
 		frmSupervisor.getContentPane().add(btnRecados);
 		
 		lblMensajePrincipal = new JLabel("Seleccione la opción que desea administrar");
 		lblMensajePrincipal.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblMensajePrincipal.setBounds(48, 0, 341, 23);
+		lblMensajePrincipal.setBounds(79, 36, 341, 23);
 		frmSupervisor.getContentPane().add(lblMensajePrincipal);
 		
 		btnAdministrativos = new JButton("Personal administrativo");
 		btnAdministrativos.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnAdministrativos.setBounds(58, 29, 301, 36);
+		btnAdministrativos.setBounds(91, 70, 301, 36);
 		frmSupervisor.getContentPane().add(btnAdministrativos);
 		
 		btnTareas = new JButton("Tareas");
 		btnTareas.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnTareas.setBounds(58, 76, 301, 36);
+		btnTareas.setBounds(91, 117, 301, 36);
 		frmSupervisor.getContentPane().add(btnTareas);
 		
 		btnNotificaciones = new JButton("Notificaciones");
 		btnNotificaciones.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnNotificaciones.setBounds(58, 170, 301, 36);
+		btnNotificaciones.setBounds(91, 211, 301, 36);
 		frmSupervisor.getContentPane().add(btnNotificaciones);
 		
 		menuBar = new JMenuBar();
