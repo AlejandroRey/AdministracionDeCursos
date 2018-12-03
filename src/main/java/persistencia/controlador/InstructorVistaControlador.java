@@ -90,7 +90,7 @@ public class InstructorVistaControlador implements ActionListener {
 			cursadaABM.getBtnActualizar().setVisible(false);
 			cursadaABM.getBtnAgregar().setVisible(false);
 			cursadaABM.getBtnEliminar().setVisible(false);
-			cursadaABM.getBtnPagos().setVisible(false);
+//			cursadaABM.getBtnPagos().setVisible(false);
 			instructorAdministracionVista.getMainPanel().add(cursadaABM);
 		} else if (e.getSource() == this.vista.getButtonCambiarContrasenia()) {
 			UsuarioCambioContraseñaVista vista = new UsuarioCambioContraseñaVista();

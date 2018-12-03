@@ -7,7 +7,7 @@ public class OptionPanel
 {
 	public static void mensaje(String mensaje, String titulo)
 	{
-		JOptionPane.showMessageDialog(null, mensaje, titulo, JOptionPane.INFORMATION_MESSAGE, new ImageIcon("imagenes/information_64.png"));
+		JOptionPane.showMessageDialog(null, mensaje, titulo, JOptionPane.INFORMATION_MESSAGE, new ImageIcon(OptionPanel.class.getResource("/presentacion/imagenes/information_64.png")));
 	}
 
 	public static String input(String referencia, String titulo)
@@ -17,11 +17,11 @@ public class OptionPanel
 
 	public static int confimarcion(String pregunta, String titulo)
 	{
-		return JOptionPane.showConfirmDialog(null, pregunta, titulo, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon("imagenes/information_64.png"));
+		return JOptionPane.showConfirmDialog(null, pregunta, titulo, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon(OptionPanel.class.getResource("/presentacion/imagenes/information_64.png")));
 	}
 
 	public static void error(String mensaje, String titulo)
 	{
-		JOptionPane.showMessageDialog(null, mensaje, titulo, JOptionPane.ERROR_MESSAGE,new ImageIcon("imagenes/error_64.png"));
+		JOptionPane.showMessageDialog(null, mensaje, titulo, JOptionPane.ERROR_MESSAGE,new ImageIcon(OptionPanel.class.getResource("/presentacion/imagenes/error_64.png")));
 	}
 }

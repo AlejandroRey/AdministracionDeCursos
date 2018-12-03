@@ -2,6 +2,8 @@ package persistencia.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JOptionPane;
 
@@ -44,7 +46,6 @@ public class SupervisorAdministracionVistaControlador implements ActionListener 
 		super();
 		this.modelo = modelo;
 		this.vista = vista;
-		
 		this.vista.getMenuItemAdministrativosVer().addActionListener(this);
 		this.vista.getMenuItemSalirDelSistema().addActionListener(this);
 		this.vista.getMenuItemCambiarDeUsuario().addActionListener(this);

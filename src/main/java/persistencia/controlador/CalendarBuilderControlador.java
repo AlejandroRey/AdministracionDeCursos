@@ -95,7 +95,9 @@ public class CalendarBuilderControlador implements ActionListener {
 		if (getFechaDeCursada()) {
 			llenarTablaFechasDeCursada();
 		}
+		this.ocultarColumnasFechasDeCursada();
 		this.ocultarColumnasTablaSalasEnConflicto();
+		this.ocultarTablaDiasDeCursada();
 	}
 
 	private boolean getDiasDeCursada() {
@@ -108,7 +110,7 @@ public class CalendarBuilderControlador implements ActionListener {
 				    "No se encontraron Dias de Clases para la Cursada seleccionada!",
 				    "Dias de Cursadas",
 				    JOptionPane.INFORMATION_MESSAGE,
-				    new ImageIcon("imagenes/warning_64.png"));
+				    new ImageIcon(CalendarBuilderControlador.class.getResource("/presentacion/imagenes/warning_64.png")));
 			return false;
 		}
 	}
@@ -126,7 +128,7 @@ public class CalendarBuilderControlador implements ActionListener {
 				    "No se encontraron Fechas de Clases para la Cursada seleccionada!",
 				    "Fechas de Cursadas",
 				    JOptionPane.INFORMATION_MESSAGE,
-				    new ImageIcon("imagenes/warning_64.png"));
+				    new ImageIcon(CalendarBuilderControlador.class.getResource("/presentacion/imagenes/warning_64.png")));
 			return false;
 		}
 	}
@@ -170,13 +172,7 @@ public class CalendarBuilderControlador implements ActionListener {
 			this.vista.getModelDiasDeCursada().addRow(fila);
 		}
 		
-		// Oculto los id del Objeto
-		this.vista.getTablaDiasDeCursada().getColumnModel().getColumn(0).setWidth(0);
-		this.vista.getTablaDiasDeCursada().getColumnModel().getColumn(0).setMinWidth(0);
-		this.vista.getTablaDiasDeCursada().getColumnModel().getColumn(0).setMaxWidth(0);
-		this.vista.getTablaDiasDeCursada().getColumnModel().getColumn(1).setWidth(0);
-		this.vista.getTablaDiasDeCursada().getColumnModel().getColumn(1).setMinWidth(0);
-		this.vista.getTablaDiasDeCursada().getColumnModel().getColumn(1).setMaxWidth(0);
+		ocultarTablaDiasDeCursada();
 		
 		// Agrego listener para obtener los valores de la fila seleccionada
 		this.vista.getTablaDiasDeCursada().setSelectionModel(new ListSelectionModelCstm());
@@ -211,6 +207,16 @@ public class CalendarBuilderControlador implements ActionListener {
 		DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
 		leftRenderer.setHorizontalAlignment(SwingConstants.LEFT);
 		this.vista.getTablaDiasDeCursada().getColumnModel().getColumn(0).setCellRenderer(leftRenderer);		
+	}
+
+	private void ocultarTablaDiasDeCursada() {
+		// Oculto los id del Objeto
+		this.vista.getTablaDiasDeCursada().getColumnModel().getColumn(0).setWidth(0);
+		this.vista.getTablaDiasDeCursada().getColumnModel().getColumn(0).setMinWidth(0);
+		this.vista.getTablaDiasDeCursada().getColumnModel().getColumn(0).setMaxWidth(0);
+		this.vista.getTablaDiasDeCursada().getColumnModel().getColumn(1).setWidth(0);
+		this.vista.getTablaDiasDeCursada().getColumnModel().getColumn(1).setMinWidth(0);
+		this.vista.getTablaDiasDeCursada().getColumnModel().getColumn(1).setMaxWidth(0);
 	}
 	
 	private SalaDTO getSalaDTO(long idSala) {
@@ -247,21 +253,7 @@ public class CalendarBuilderControlador implements ActionListener {
 		}
 
 		// Oculto los id del Objeto
-		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(0).setWidth(0);
-		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(0).setMinWidth(0);
-		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(0).setMaxWidth(0);
-		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(1).setWidth(0);
-		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(1).setMinWidth(0);
-		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(1).setMaxWidth(0);
-		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(2).setWidth(0);
-		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(2).setMinWidth(0);
-		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(2).setMaxWidth(0);		
-		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(8).setWidth(0);
-		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(8).setMinWidth(0);
-		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(8).setMaxWidth(0);		
-		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(9).setWidth(0);
-		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(9).setMinWidth(0);
-		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(9).setMaxWidth(0);
+		ocultarColumnasFechasDeCursada();
 		
 		// Agrego listener para obtener los valores de la fila seleccionada
 		this.vista.getTablaFechasDeCursada().setSelectionModel(new ListSelectionModelCstm());
@@ -316,6 +308,24 @@ public class CalendarBuilderControlador implements ActionListener {
 
 			tableColumn.setPreferredWidth(preferredWidth);
 		}		
+	}
+
+	private void ocultarColumnasFechasDeCursada() {
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(0).setWidth(0);
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(0).setMinWidth(0);
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(0).setMaxWidth(0);
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(1).setWidth(0);
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(1).setMinWidth(0);
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(1).setMaxWidth(0);
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(2).setWidth(0);
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(2).setMinWidth(0);
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(2).setMaxWidth(0);		
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(8).setWidth(0);
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(8).setMinWidth(0);
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(8).setMaxWidth(0);		
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(9).setWidth(0);
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(9).setMinWidth(0);
+		this.vista.getTablaFechasDeCursada().getColumnModel().getColumn(9).setMaxWidth(0);
 	}
 
 	private void llenarTablaSalasDisponibles() {
@@ -450,7 +460,7 @@ public class CalendarBuilderControlador implements ActionListener {
 					    "No se encontro Dia de Clase para eliminar!",
 					    "Dia de Cursada",
 					    JOptionPane.INFORMATION_MESSAGE,
-					    new ImageIcon("imagenes/warning_64.png"));
+					    new ImageIcon(CalendarBuilderControlador.class.getResource("/presentacion/imagenes/warning_64.png")));
 			}
 		} else if (e.getSource() == this.vista.getBtnGenerarHorario()) {
 			
@@ -488,7 +498,7 @@ public class CalendarBuilderControlador implements ActionListener {
 					    "Se encontraron " + contador + " Salas con el Estado de Curso INICIADO " + System.lineSeparator() + " por lo que no fue posible reasignar la SALA!!!!",
 					    "Dias de Cursadas",
 					    JOptionPane.INFORMATION_MESSAGE,
-					    new ImageIcon("imagenes/warning_64.png"));
+					    new ImageIcon(CalendarBuilderControlador.class.getResource("/presentacion/imagenes/warning_64.png")));
 			}
 			salasDsiponiblesReasignarList.clear();
 			llenarTablasSalasEnConflicto();
@@ -607,10 +617,10 @@ public class CalendarBuilderControlador implements ActionListener {
 			fechasDeCursadaList = modelo.obtenerFechaCursadaClase(cursadaDTO);				
 			llenarTablaFechasDeCursada();
 			
-			JOptionPane.showMessageDialog(null, "Se actualizaron las Fechas de Cursadas  las asignaciones de Salas!", "Fecha de Cursada", JOptionPane.INFORMATION_MESSAGE, new ImageIcon("imagenes/information_64.png"));
+			JOptionPane.showMessageDialog(null, "Se actualizaron las Fechas de Cursadas  las asignaciones de Salas!", "Fecha de Cursada", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(CalendarBuilderControlador.class.getResource("/presentacion/imagenes/information_64.png")));
 			
 		} else {
-			JOptionPane.showMessageDialog(null, "Seleccione Dias de Cursada!", "Dias de Cursada", JOptionPane.INFORMATION_MESSAGE,new ImageIcon("imagenes/warning_64.png"));	
+			JOptionPane.showMessageDialog(null, "Seleccione Dias de Cursada!", "Dias de Cursada", JOptionPane.INFORMATION_MESSAGE,new ImageIcon(CalendarBuilderControlador.class.getResource("/presentacion/imagenes/warning_64.png")));	
 		}
 	}
 

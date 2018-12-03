@@ -70,7 +70,7 @@ public class InstructorAdministracionVista {
 private void buildMenuSistema() {
 		
 		menuSistema = new JMenu("Sistema");
-		menuSistema.setMnemonic(KeyEvent.VK_A);
+		menuSistema.setMnemonic(KeyEvent.VK_S);
 		menuSistema.getAccessibleContext().setAccessibleDescription("");
 		menuBar.add(menuSistema);
 				
@@ -84,7 +84,7 @@ private void buildMenuSistema() {
 	private void buildMenuRecados() {
 
 		menuRecados = new JMenu("Recados");
-		menuRecados.setMnemonic(KeyEvent.VK_A);
+		menuRecados.setMnemonic(KeyEvent.VK_R);
 		menuRecados.getAccessibleContext().setAccessibleDescription("");
 		menuBar.add(menuRecados);
 		
@@ -94,7 +94,7 @@ private void buildMenuSistema() {
 	
 	private void buildMenuCursadas() {
 		menuCursadas = new JMenu("Cursadas");
-		menuCursadas.setMnemonic(KeyEvent.VK_A);
+		menuCursadas.setMnemonic(KeyEvent.VK_C);
 		menuCursadas.getAccessibleContext().setAccessibleDescription("");
 		menuBar.add(menuCursadas);
 		
@@ -104,7 +104,7 @@ private void buildMenuSistema() {
 	
 	private void buildMenuNotificaciones() {
 		menuNotificaciones = new JMenu("Notificaciones");
-		menuNotificaciones.setMnemonic(KeyEvent.VK_A);
+		menuNotificaciones.setMnemonic(KeyEvent.VK_N);
 		menuNotificaciones.getAccessibleContext().setAccessibleDescription("");
 		menuBar.add(menuNotificaciones);
 		

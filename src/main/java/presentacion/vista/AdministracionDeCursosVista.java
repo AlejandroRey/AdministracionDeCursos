@@ -109,7 +109,7 @@ public class AdministracionDeCursosVista {
 	
 	private void buildMenuContacto() {
 		menuContacto = new JMenu("Contacto");
-		menuContacto.setMnemonic(KeyEvent.VK_A);
+		menuContacto.setMnemonic(KeyEvent.VK_C);
 		menuContacto.getAccessibleContext().setAccessibleDescription("");
 		menuBar.add(menuContacto);
 		
@@ -120,7 +120,7 @@ public class AdministracionDeCursosVista {
 	private void buildMenuCurso() {
 
 		menuCurso = new JMenu("Curso");
-		menuCurso.setMnemonic(KeyEvent.VK_A);
+		menuCurso.setMnemonic(KeyEvent.VK_0);
 		menuCurso.getAccessibleContext().setAccessibleDescription("");
 		menuBar.add(menuCurso);
 		
@@ -142,7 +142,7 @@ public class AdministracionDeCursosVista {
 	private void buildMenuLogin() {
 		
 		menuLogin = new JMenu("Login");
-		menuLogin.setMnemonic(KeyEvent.VK_A);
+		menuLogin.setMnemonic(KeyEvent.VK_L);
 		menuLogin.getAccessibleContext().setAccessibleDescription("");
 		menuBar.add(menuLogin);
 		
@@ -156,7 +156,7 @@ public class AdministracionDeCursosVista {
 	private void buildMenuUsuario() {
 		
 		menuUsuario = new JMenu("Instructores");
-		menuUsuario.setMnemonic(KeyEvent.VK_U);
+		menuUsuario.setMnemonic(KeyEvent.VK_I);
 		menuUsuario.getAccessibleContext().setAccessibleDescription("");
 		menuBar.add(menuUsuario);	
 		
@@ -166,7 +166,7 @@ public class AdministracionDeCursosVista {
 	
 	private void buildMenuTarea() {
 		menuTarea = new JMenu("Tarea");
-		menuTarea.setMnemonic(KeyEvent.VK_A);
+		menuTarea.setMnemonic(KeyEvent.VK_T);
 		menuTarea.getAccessibleContext().setAccessibleDescription("");
 		menuBar.add(menuTarea);
 		
@@ -176,7 +176,7 @@ public class AdministracionDeCursosVista {
 
 	private void buildMenuSala() {
 		menuSala = new JMenu("Sala");
-		menuSala.setMnemonic(KeyEvent.VK_A);
+		menuSala.setMnemonic(KeyEvent.VK_S);
 		menuSala.getAccessibleContext().setAccessibleDescription("");
 		menuBar.add(menuSala);
 		
@@ -186,7 +186,7 @@ public class AdministracionDeCursosVista {
 	
 	private void buildMenuRecados() {
 		menuRecados = new JMenu("Recados");
-		menuRecados.setMnemonic(KeyEvent.VK_A);
+		menuRecados.setMnemonic(KeyEvent.VK_R);
 		menuRecados.getAccessibleContext().setAccessibleDescription("");
 		menuBar.add(menuRecados);
 		
@@ -196,7 +196,7 @@ public class AdministracionDeCursosVista {
 	
 	private void buildMenuNotificaciones() {
 		menuNotificaciones = new JMenu("Notificaciones");
-		menuNotificaciones.setMnemonic(KeyEvent.VK_A);
+		menuNotificaciones.setMnemonic(KeyEvent.VK_N);
 		menuNotificaciones.getAccessibleContext().setAccessibleDescription("");
 		menuBar.add(menuNotificaciones);
 		

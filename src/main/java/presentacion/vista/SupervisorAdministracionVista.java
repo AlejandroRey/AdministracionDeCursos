@@ -2,12 +2,15 @@ package presentacion.vista;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class SupervisorAdministracionVista {
@@ -48,7 +51,7 @@ public class SupervisorAdministracionVista {
 		this.frame.setBounds(0, 0, 1366, 768);
 		this.frame.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.frame.setLayout( new FlowLayout() );
+		this.frame.getContentPane().setLayout( new FlowLayout() );
 		this.frame.setVisible( true );
 		
 		buildMenuBar();		
@@ -76,7 +79,7 @@ public class SupervisorAdministracionVista {
 private void buildMenuSistema() {
 		
 		menuSistema = new JMenu("Sistema");
-		menuSistema.setMnemonic(KeyEvent.VK_A);
+		menuSistema.setMnemonic(KeyEvent.VK_S);
 		menuSistema.getAccessibleContext().setAccessibleDescription("");
 		menuBar.add(menuSistema);
 		
@@ -107,7 +110,7 @@ private void buildMenuSistema() {
 	private void buildMenuRecados() {
 
 		menuRecados = new JMenu("Recados");
-		menuRecados.setMnemonic(KeyEvent.VK_A);
+		menuRecados.setMnemonic(KeyEvent.VK_R);
 		menuRecados.getAccessibleContext().setAccessibleDescription("");
 		menuBar.add(menuRecados);
 		
@@ -118,7 +121,7 @@ private void buildMenuSistema() {
 	private void buildMenuTareas() {
 
 		menuTareas = new JMenu("Tareas");
-		menuTareas.setMnemonic(KeyEvent.VK_A);
+		menuTareas.setMnemonic(KeyEvent.VK_T);
 		menuTareas.getAccessibleContext().setAccessibleDescription("");
 		menuBar.add(menuTareas);
 		
@@ -128,7 +131,7 @@ private void buildMenuSistema() {
 	
 	private void buildMenuNotificaciones() {
 		menuNotificaciones = new JMenu("Notificaciones");
-		menuNotificaciones.setMnemonic(KeyEvent.VK_A);
+		menuNotificaciones.setMnemonic(KeyEvent.VK_N);
 		menuNotificaciones.getAccessibleContext().setAccessibleDescription("");
 		menuBar.add(menuNotificaciones);
 		
